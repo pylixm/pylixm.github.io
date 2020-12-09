@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <title>
+        Python中一种轻松实现并发编程的方法 - DeanWu
+      </title>
+        <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    
+    <meta name="theme-color" content="#000000" />
+    
+    <meta http-equiv="window-target" content="_top" />
+    
+    
+    <meta name="description" content="原文地址：https://rednafi.github.io/digressions/python/2020/04/21/python-co" />
+    <meta name="generator" content="Hugo 0.73.0 with theme pure" />
+    <title>Python中一种轻松实现并发编程的方法 - DeanWu</title>
+    
+    
+    <link rel="stylesheet" href="https://pylixm.top/css/style.min.f70e8e0df9ea6aeb37dac252b17ca98082073ff1663b24118baaaa84ee8ae7e8.css">
+    
+    <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.15.10/styles/github.min.css" async>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css" async>
+    <meta property="og:title" content="Python中一种轻松实现并发编程的方法" />
+<meta property="og:description" content="原文地址：https://rednafi.github.io/digressions/python/2020/04/21/python-co" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://pylixm.top/posts/2020-05-18-python-concurrent-feature.html" />
+<meta property="article:published_time" content="2020-05-18T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-05-18T00:00:00+00:00" /><meta property="og:see_also" content="https://pylixm.top/posts/2020-07-14-python-selenium.html" /><meta property="og:see_also" content="https://pylixm.top/posts/2019-12-26-python-trick.html" /><meta property="og:see_also" content="https://pylixm.top/posts/2019-11-06-python-class-attribute.html" /><meta property="og:see_also" content="https://pylixm.top/posts/2019-11-06-python-class-attribute-2.html" /><meta property="og:see_also" content="https://pylixm.top/posts/2019-11-05-up-python-or-not.html" />
+
+<meta itemprop="name" content="Python中一种轻松实现并发编程的方法">
+<meta itemprop="description" content="原文地址：https://rednafi.github.io/digressions/python/2020/04/21/python-co">
+<meta itemprop="datePublished" content="2020-05-18T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2020-05-18T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="5049">
+
+
+
+<meta itemprop="keywords" content="Python,concurrent," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Python中一种轻松实现并发编程的方法"/>
+<meta name="twitter:description" content="原文地址：https://rednafi.github.io/digressions/python/2020/04/21/python-co"/>
+
+    <!--[if lte IE 9]>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+      <![endif]-->
+
+    <!--[if lt IE 9]>
+        <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+      <![endif]-->
+  </head>
+
+  
+  
+
+  <body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage"><header class="header" itemscope itemtype="http://schema.org/WPHeader">
+    <div class="slimContent">
+      <div class="navbar-header">
+        <div class="profile-block text-center">
+          <a id="avatar" href="https://pylixm.top" target="_blank">
+            <img class="img-circle img-rotate" src="https://pylixm.top/static/imgs/avatar.png" width="200" height="200">
+          </a>
+          <h2 id="name" class="hidden-xs hidden-sm">DeanWu</h2>
+          <h3 id="title" class="hidden-xs hidden-sm hidden-md">程序员</h3>
+          <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i>Beijing, China</small>
+        </div><div class="search" id="search-form-wrap">
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i
+                        class="icon icon-search"></i></button>
+            </span>
+        </div>
+        <div class="ins-search">
+            <div class="ins-search-mask"></div>
+            <div class="ins-search-container">
+                <div class="ins-input-wrapper">
+                    <input type="text" class="ins-search-input" placeholder="想要查找什么..."
+                        x-webkit-speech />
+                    <button type="button" class="close ins-close ins-selectable" data-dismiss="modal"
+                        aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="ins-section-wrapper">
+                    <div class="ins-section-container"></div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+        <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+        <ul class="nav navbar-nav main-nav">
+            <li class="menu-item menu-item-home">
+                <a href="/">
+                    <i class="icon icon-home-fill"></i>
+                  <span class="menu-title">首页</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-series">
+                <a href="/series/">
+                    <i class="icon icon-folder"></i>
+                  <span class="menu-title">专题</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-repository">
+                <a href="/project/">
+                    <i class="icon icon-project"></i>
+                  <span class="menu-title">项目</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-archives">
+                <a href="/posts/">
+                    <i class="icon icon-archives-fill"></i>
+                  <span class="menu-title">归档</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-about">
+                <a href="/about/">
+                    <i class="icon icon-cup-fill"></i>
+                  <span class="menu-title">关于</span>
+                </a>
+            </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+<aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content"><div>欢迎关注微信公众号「码农吴先生」：专注python/golang/devops等技术的学习经验及资源分享！</br>回复关键字：go或python 获取我收集的资料，也可回复关键字：小二，加我wx，一块聊技术，聊人生~  </br><img src="/static/imgs/wx/wx_gzh.png" width="140" height="140"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+      
+<div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+        <ul class="recent-post-list list-unstyled no-thumbnail">
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2020-12-08-django-async-views-example.html" class="title">Django 三个异步使用的案例</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-12-08 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-08</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2020-12-05-go-from-python-structure-base.html" class="title">「对比Python学习Go」- 基本数据结构</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-12-05 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-05</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2020-12-03-go-from-python-start.html" class="title">「对比Python学习Go」- 环境篇</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-12-03 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-03</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2020-12-02-go-from-python-intro.html" class="title">「对比Python学习Go」- 开篇</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-12-02 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-02</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2020-12-01-for-range-point.html" class="title">「Go Tips」for range 遍历时变量取值的问题分析</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-12-01 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-01</time>
+                    </p>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+      <div class="widget">
+    <h3 class="widget-title"> 分类</h3>
+    <div class="widget-body">
+        <ul class="category-list">
+            <li class="category-list-item"><a href="https://pylixm.top/categories/ATS/" class="category-list-link">ATS</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/DevOps/" class="category-list-link">DevOps</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Devlopment-Demo/" class="category-list-link">Devlopment-Demo</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Django/" class="category-list-link">Django</a><span class="category-list-count">39</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Docker/" class="category-list-link">Docker</a><span class="category-list-count">4</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Flask/" class="category-list-link">Flask</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Git/" class="category-list-link">Git</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Golang/" class="category-list-link">Golang</a><span class="category-list-count">12</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/HTTPS/" class="category-list-link">HTTPS</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Javascript/" class="category-list-link">Javascript</a><span class="category-list-count">3</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Kubernetes/" class="category-list-link">Kubernetes</a><span class="category-list-count">4</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/LVS/" class="category-list-link">LVS</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Linux/" class="category-list-link">Linux</a><span class="category-list-count">15</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Mongodb/" class="category-list-link">Mongodb</a><span class="category-list-count">3</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Mysql/" class="category-list-link">Mysql</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/NoSQL/" class="category-list-link">NoSQL</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/PostgreSQL/" class="category-list-link">PostgreSQL</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Puppet/" class="category-list-link">Puppet</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Python/" class="category-list-link">Python</a><span class="category-list-count">19</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/QA/" class="category-list-link">QA</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Rabbitmq/" class="category-list-link">Rabbitmq</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Restful/" class="category-list-link">Restful</a><span class="category-list-count">6</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/SaltStack/" class="category-list-link">SaltStack</a><span class="category-list-count">7</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Software_Architect/" class="category-list-link">Software_Architect</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Supervisor/" class="category-list-link">Supervisor</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Tornado/" class="category-list-link">Tornado</a><span class="category-list-count">3</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Vagrant/" class="category-list-link">Vagrant</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Vue/" class="category-list-link">Vue</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/kafka/" class="category-list-link">kafka</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/zookeeper/" class="category-list-link">zookeeper</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E4%B8%AA%E4%BA%BA%E7%AE%A1%E7%90%86/" class="category-list-link">个人管理</a><span class="category-list-count">5</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB/" class="category-list-link">前后端分离</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" class="category-list-link">数据结构与算法</a><span class="category-list-count">13</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E6%9C%9D%E8%8A%B1%E5%A4%95%E6%8B%BE/" class="category-list-link">朝花夕拾</a><span class="category-list-count">10</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" class="category-list-link">机器学习</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" class="category-list-link">环境搭建</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E7%A8%8B%E5%BA%8F%E5%91%98%E8%87%AA%E6%88%91%E4%BF%AE%E5%85%BB/" class="category-list-link">程序员自我修养</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E8%B5%84%E6%BA%90%E5%88%86%E4%BA%AB%E8%AE%A1%E5%88%92/" class="category-list-link">资源分享计划</a><span class="category-list-count">10</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E8%BF%90%E7%BB%B4%E7%9F%A5%E8%AF%86%E5%BA%93/" class="category-list-link">运维知识库</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86/" class="category-list-link">项目管理</a><span class="category-list-count">1</span></li>
+        </ul>
+    </div>
+</div>
+  </div>
+</aside>
+
+    
+    
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <h4 class="toc-title">文章目录</h4>
+    <nav id="toc" class="js-toc toc">
+
+    </nav>
+  </div>
+</aside>
+<main class="main" role="main"><div class="content">
+  
+  <article id="article-container" class="article article-type-" itemscope
+    itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      <h1 itemprop="name">
+  <a
+    class="article-title"
+    href="/posts/2020-05-18-python-concurrent-feature.html"
+    >Python中一种轻松实现并发编程的方法</a
+  >
+</h1>
+
+      <div class="article-meta">
+        
+<span class="article-date">
+  <i class="icon icon-calendar-check"></i>&nbsp;
+<a href="https://pylixm.top/posts/2020-05-18-python-concurrent-feature.html" class="article-date">
+  <time datetime="2020-05-18 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-05-18</time>
+</a>
+</span>
+<span class="article-category">
+  <i class="icon icon-folder"></i>&nbsp;
+  <a class="article-category-link" href="/categories/Python/"> Python </a>
+</span>  
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>&nbsp;
+    <a class="article-tag-link" href="/tags/Python/"> Python </a>
+    <a class="article-tag-link" href="/tags/concurrent/"> concurrent </a>
+  </span>
+
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+        <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="/posts/2020-05-18-python-concurrent-feature.html#comments"
+            class="article-comment-link">评论</a></span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 5049字</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 11分 </span>
+      </div>
+    </div>
+    <div class="article-entry marked-body js-toc-content" itemprop="articleBody">
+      <blockquote>
+<p>原文地址：https://rednafi.github.io/digressions/python/2020/04/21/python-concurrent-futures.html</p>
+</blockquote>
+<blockquote>
+<p>文章较长，建议收藏后再看。</p>
+</blockquote>
+<p>使用Python编写并发代码时并不流畅，我们需要一些额外的思考，你手中的任务是I/O密集类型还是CPU密集型。此外，由于全局解释锁的存在，进一步增加了编写真正的并发代码的难度。</p>
+<p>在Python中编写并发代码常常这样做：</p>
+<blockquote>
+<p>如果任务是I/O密集的，可以使用标准库的<code>threading</code>模块，如果任务是CPU密集的，则<code>multiprocessing</code>更合适。<code>threading</code>和<code>multiprocessing</code>的API提供了很多功能，但他们都是很低级别的代码，在我们业务核心逻辑上增加了额外的复杂性。</p>
+</blockquote>
+<p>Python标准库还包含一个名为<code>concurrent.futrures</code>的模块。在Python3.2中添加了该模块，为开发人员提供了更高级别的异步任务接口。它是在<code>threading</code>和<code>multiprocessing</code>模块之上的通用抽象层，提供了使用线程池和进程池运行任务的一些接口。当你只需要并发的运行一段完整的代码，而不想使用<code>threading</code>和<code>multiprocessing</code>增加额外的逻辑，破坏代码的完整性时，这个模块是一个好的解决方案。</p>
+<h2 id="concurrentfutures-剖析">concurrent.futures 剖析</h2>
+<p>根据官方文档，</p>
+<blockquote>
+<p>The concurrent.futures module provides a high-level interface for asynchronously executing callables.</p>
+</blockquote>
+<p>这意味着你可以使用更高阶别的接口来使用线程和进程。该模块提供了一个名为<code>Executor</code>的抽象类，你不能直接实例化它，需要使用它提供的两个子类之一来跑任务。</p>
+<pre><code>Executor (Abstract Base Class)
+│
+├── ThreadPoolExecutor
+│   │A concrete subclass of the Executor class to
+│   │manage I/O bound tasks with threading underneath
+│
+├── ProcessPoolExecutor
+│   │A concrete subclass of the Executor class to
+│   │manage CPU bound tasks with multiprocessing underneath
+</code></pre><p>在模块内，这两个类与服务池交互并管理工作单元(workers)。<code>Future</code>类用于管理工作单元的结果。使用工作池时，应用程序会创建适当的<code>Executor</code>类（<code>ThreadPoolExecutor</code>或<code>ProcessPoolExecutor</code>）的实例，然后提交给他们任务运行。提交后，将返回一个<code>Future</code>类的实例。当需要任务结果时，可以使用该<code>Future</code>对象进行阻塞，直到拿到任务结果为止。</p>
+<h2 id="executor-objects">Executor Objects</h2>
+<p>由于<code>ThreadPoolExecutor</code>和<code>ProcessPoolExecutor</code>有相同的API接口，我们主要来看下它们提供的两个方法。</p>
+<h3 id="submitfunc-args-kwargs">submit(func, args, *kwargs)</h3>
+<p><code>func</code> 可调度对象（执行函数），执行参数<code>args</code>, <code>kwargs</code>。返回一个可调用的 <code>Future</code> 对象。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">with</span> ThreadPoolExecutor(max_workers<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>) <span style="color:#66d9ef">as</span> executor:
+    future <span style="color:#f92672">=</span> executor<span style="color:#f92672">.</span>submit(pow, <span style="color:#ae81ff">323</span>, <span style="color:#ae81ff">1235</span>)
+    <span style="color:#66d9ef">print</span>(future<span style="color:#f92672">.</span>result())
+</code></pre></div><h3 id="mapfunc-iterables-timeoutnone-chunksize1">map(func, *iterables, timeout=None, chunksize=1)</h3>
+<p>除了下边部分其他同<code>submit</code>:</p>
+<ul>
+<li>可迭代对象数据是立即生成的，不像其他迭代器是惰性的。</li>
+<li><code>func</code> 是异步执行的，并且可以同时进行对<code>func</code>的多次调用。</li>
+</ul>
+<p>返回的迭代器调用<code>__next__()</code>方法时，将会引发<code>concurrent.futures.TimeoutError</code>。从开始调用到<code>timeout</code>时间后，结果将不获取。<code>timeout</code>可以是<code>int</code>或<code>float</code>，如果未指定或者是None，则等待时间没有限制。</p>
+<p>如果<code>func</code>调用引发异常，则从迭代器中检索其结果时将抛出该异常。</p>
+<p>使用<code>ProcessPoolExecutor</code>时，此方法可将迭代项分为多个块，将其作为单独的任务块提交给池。这些块的大小可以通过<code>chunksize</code>来设置。相比非常长的并发列表，使用<code>chunksize</code>进行分块提交执行可以显著提高性能。</p>
+<p>使用<code>ThreadPoolExecutor</code>时，<code>chunksize</code>无效。</p>
+<h2 id="运行并发任务的通用方法">运行并发任务的通用方法</h2>
+<p>我的许多脚本包含类似这样的代码：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">for</span> task <span style="color:#f92672">in</span> get_tasks():
+    perform(task)
+</code></pre></div><p><code>get_tasks</code>返回一个可迭代对象，该迭代对象包含有特定功能任务的参数相关信息。<code>perform</code>函数依次运行，每次只能运行一个。由于逻辑是顺序执行的，因此很容易理解。当任务数量少或单个任务的执行时间少、复杂度较低时，没有什么大问题。但是当任务数量巨大或单个任务很耗时时，整端代码性能就变得非常低下。</p>
+<p>根据一般经验，<code>ThreadPoolExecutor</code> 在主要受I/O限制的任务时使用，例如发起多个http请求、将大量文件保存到磁盘等。<code>ProcessPoolExecutor</code> 在主要受CPU限制的任务中应用。如大运算量的任务、对大量图片处理应用和一次处理多个文本文件等。</p>
+<h3 id="使用-executorsubmit-运行任务">使用 <code>Executor.submit</code> 运行任务</h3>
+<p>当你有许多任务时，可一次性执行它们，然后等待它们全部完成，再收集结果。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> concurrent.futures
+
+
+<span style="color:#66d9ef">with</span> concurrent<span style="color:#f92672">.</span>futures<span style="color:#f92672">.</span>Executor() <span style="color:#66d9ef">as</span> executor:
+    futures <span style="color:#f92672">=</span> {executor<span style="color:#f92672">.</span>submit(perform, task) <span style="color:#66d9ef">for</span> task <span style="color:#f92672">in</span> get_tasks()}
+
+    <span style="color:#66d9ef">for</span> fut <span style="color:#f92672">in</span> concurrent<span style="color:#f92672">.</span>futures<span style="color:#f92672">.</span>as_completed(futures):
+        <span style="color:#66d9ef">print</span>(f<span style="color:#e6db74">&#34;The outcome is {fut.result()}&#34;</span>)
+</code></pre></div><p>这里你首先创建一个执行器，该执行器在单独的进程或线程中执行所有任务。使用<code>with</code>语句将创建一个上下文管理器，该管理器可确保在完成后通过隐士调用<code>executor.shutdown()</code>函数来清理掉所有线程或进程。</p>
+<p>在真实的代码中，你需要将<code>Executor</code>替换为<code>ThreadPoolExecutor</code>或<code>ProcessPoolExecutor</code>这些可调用的类。然后使用推导式来开始所有的任务，使用<code>executor.submit()</code>来调度每一个任务开始执行。每个任务执行后，会生成一个<code>future</code>对象。一旦所有的任务都完成了，<code>concurrent.futures.as_completed()</code>方法便可获取所有任务的结果。<code>executor.result()</code>返回给你任务执行函数的结果值或抛出任务失败异常。</p>
+<p><code>executor.submit()</code>方法是异步来调用执行任务的，并不包含任务的任何上下文信息。所以如果你想同时获取每个任务的信息，你需要自己处理。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> concurrent.futures
+
+
+<span style="color:#66d9ef">with</span> concurrent<span style="color:#f92672">.</span>futures<span style="color:#f92672">.</span>Executor() <span style="color:#66d9ef">as</span> executor:
+    futures <span style="color:#f92672">=</span> {executor<span style="color:#f92672">.</span>submit(perform, task): task <span style="color:#66d9ef">for</span> task <span style="color:#f92672">in</span> get_tasks()}
+
+    <span style="color:#66d9ef">for</span> fut <span style="color:#f92672">in</span> concurrent<span style="color:#f92672">.</span>futures<span style="color:#f92672">.</span>as_completed(futures):
+        original_task <span style="color:#f92672">=</span> futures[fut]
+        <span style="color:#66d9ef">print</span>(f<span style="color:#e6db74">&#34;The result of {original_task} is {fut.result()}&#34;</span>)
+</code></pre></div><p>注意，<code>futures</code>是一个任务结果对应任务的一个字典结构。</p>
+<h3 id="使用executormap来运行任务">使用<code>Executor.map</code>来运行任务</h3>
+<p>按照预定的顺序收集结果的另一种方式是使用<code>executor.map()</code>方法：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> concurrent.futures
+
+
+<span style="color:#66d9ef">with</span> concurrent<span style="color:#f92672">.</span>futures<span style="color:#f92672">.</span>Executor() <span style="color:#66d9ef">as</span> executor:
+    <span style="color:#66d9ef">for</span> arg, res <span style="color:#f92672">in</span> zip(get_tasks(), executor<span style="color:#f92672">.</span>map(perform, get_tasks())):
+        <span style="color:#66d9ef">print</span>(f<span style="color:#e6db74">&#34;The result of {arg} is {res}&#34;</span>)
+</code></pre></div><p>注意，<code>map</code>方法会一次性执行所有任务，不会像正常迭代器那样有惰性。如果任务在执行的时候有问题，它会立即抛出，不再继续执行。</p>
+<p>在Python3.5+中，<code>executor.map()</code>可以设置一个参数<code>chunksize</code>。当我们使用<code>ProcessPoolExecutor</code>时，会使用该参数设置的值来分批次的执行任务。每次执行<code>chunksize</code>个任务，该参数默认为1。当使用<code>ThreadPoolExecutor</code>时，参数无效。</p>
+<h2 id="真实的例子">真实的例子</h2>
+<p>在开始例子之前，我们先写一个简单的装饰器，来帮助我们更好的查看执行时间。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> time
+<span style="color:#f92672">from</span> functools <span style="color:#f92672">import</span> wraps
+
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">timeit</span>(method):
+    <span style="color:#a6e22e">@wraps</span>(method)
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">wrapper</span>(<span style="color:#f92672">*</span>args, <span style="color:#f92672">**</span>kwargs):
+        start_time <span style="color:#f92672">=</span> time<span style="color:#f92672">.</span>time()
+        result <span style="color:#f92672">=</span> method(<span style="color:#f92672">*</span>args, <span style="color:#f92672">**</span>kwargs)
+        end_time <span style="color:#f92672">=</span> time<span style="color:#f92672">.</span>time()
+        <span style="color:#66d9ef">print</span>(f<span style="color:#e6db74">&#34;{method.__name__} =&gt; {(end_time-start_time)*1000} ms&#34;</span>)
+
+        <span style="color:#66d9ef">return</span> result
+    <span style="color:#66d9ef">return</span> wrapper
+</code></pre></div><p>这个装饰器可以这样用：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#a6e22e">@timeit</span>
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">func</span>(n):
+<span style="color:#66d9ef">return</span> list(range(n))
+</code></pre></div><p>它会打印执行函数的名字和执行时间。</p>
+<h3 id="使用多线程下载和保存文件">使用多线程下载和保存文件</h3>
+<p>首先，让我们从这堆URL中下载一些pdf文件，并将它们保存到我们的磁盘。这是一个I/O类型的任务，我们使用<code>ThreadPoolExecutor</code>类来操作。开始之前我们先看下顺序执行的代码：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> pathlib <span style="color:#f92672">import</span> Path
+<span style="color:#f92672">import</span> urllib.request
+
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">download_one</span>(url):
+    <span style="color:#e6db74">&#34;&#34;&#34;
+</span><span style="color:#e6db74">    Downloads the specified URL and saves it to disk
+</span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
+
+    req <span style="color:#f92672">=</span> urllib<span style="color:#f92672">.</span>request<span style="color:#f92672">.</span>urlopen(url)
+    fullpath <span style="color:#f92672">=</span> Path(url)
+    fname <span style="color:#f92672">=</span> fullpath<span style="color:#f92672">.</span>name
+    ext <span style="color:#f92672">=</span> fullpath<span style="color:#f92672">.</span>suffix
+
+    <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> ext:
+        <span style="color:#66d9ef">raise</span> <span style="color:#a6e22e">RuntimeError</span>(<span style="color:#e6db74">&#34;URL does not contain an extension&#34;</span>)
+
+    <span style="color:#66d9ef">with</span> open(fname, <span style="color:#e6db74">&#34;wb&#34;</span>) <span style="color:#66d9ef">as</span> handle:
+        <span style="color:#66d9ef">while</span> True:
+            chunk <span style="color:#f92672">=</span> req<span style="color:#f92672">.</span>read(<span style="color:#ae81ff">1024</span>)
+            <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> chunk:
+                <span style="color:#66d9ef">break</span>
+            handle<span style="color:#f92672">.</span>write(chunk)
+
+    msg <span style="color:#f92672">=</span> f<span style="color:#e6db74">&#34;Finished downloading {fname}&#34;</span>
+    <span style="color:#66d9ef">return</span> msg
+
+
+<span style="color:#a6e22e">@timeit</span>
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">download_all</span>(urls):
+    <span style="color:#66d9ef">return</span> [download_one(url) <span style="color:#66d9ef">for</span> url <span style="color:#f92672">in</span> urls]
+
+
+<span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;__main__&#34;</span>:
+    urls <span style="color:#f92672">=</span> (
+        <span style="color:#e6db74">&#34;http://www.irs.gov/pub/irs-pdf/f1040.pdf&#34;</span>,
+        <span style="color:#e6db74">&#34;http://www.irs.gov/pub/irs-pdf/f1040a.pdf&#34;</span>,
+        <span style="color:#e6db74">&#34;http://www.irs.gov/pub/irs-pdf/f1040ez.pdf&#34;</span>,
+        <span style="color:#e6db74">&#34;http://www.irs.gov/pub/irs-pdf/f1040es.pdf&#34;</span>,
+        <span style="color:#e6db74">&#34;http://www.irs.gov/pub/irs-pdf/f1040sb.pdf&#34;</span>,
+    )
+
+    results <span style="color:#f92672">=</span> download_all(urls)
+    <span style="color:#66d9ef">for</span> result <span style="color:#f92672">in</span> results:
+        <span style="color:#66d9ef">print</span>(result)
+</code></pre></div><pre><code>&gt;&gt;&gt; download_all =&gt; 22850.6863117218 ms
+... Finished downloading f1040.pdf
+... Finished downloading f1040a.pdf
+... Finished downloading f1040ez.pdf
+... Finished downloading f1040es.pdf
+... Finished downloading f1040sb.pdf
+</code></pre><p>在上边的代码块中，我定义了两个方法。<code>download_one</code>方法负责从url下载pdf文件并保存到磁盘。它会检查url中的文件是否有扩展名，如果没有，它会抛出<code>RunTimeError</code>异常。如果有扩展名，它会下载文件，并保存到磁盘。第二个方法<code>download_all</code>仅仅遍历这些URL并依次对URL应用<code>download_one</code>方法。这个顺序执行的代码大概花费了22.8s的时间。现在让我们来看下多线程版本的代码：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> pathlib <span style="color:#f92672">import</span> Path
+<span style="color:#f92672">import</span> urllib.request
+<span style="color:#f92672">from</span> concurrent.futures <span style="color:#f92672">import</span> ThreadPoolExecutor, as_completed
+
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">download_one</span>(url):
+    <span style="color:#e6db74">&#34;&#34;&#34;
+</span><span style="color:#e6db74">    Downloads the specified URL and saves it to disk
+</span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
+
+    req <span style="color:#f92672">=</span> urllib<span style="color:#f92672">.</span>request<span style="color:#f92672">.</span>urlopen(url)
+    fullpath <span style="color:#f92672">=</span> Path(url)
+    fname <span style="color:#f92672">=</span> fullpath<span style="color:#f92672">.</span>name
+    ext <span style="color:#f92672">=</span> fullpath<span style="color:#f92672">.</span>suffix
+
+    <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> ext:
+        <span style="color:#66d9ef">raise</span> <span style="color:#a6e22e">RuntimeError</span>(<span style="color:#e6db74">&#34;URL does not contain an extension&#34;</span>)
+
+    <span style="color:#66d9ef">with</span> open(fname, <span style="color:#e6db74">&#34;wb&#34;</span>) <span style="color:#66d9ef">as</span> handle:
+        <span style="color:#66d9ef">while</span> True:
+            chunk <span style="color:#f92672">=</span> req<span style="color:#f92672">.</span>read(<span style="color:#ae81ff">1024</span>)
+            <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> chunk:
+                <span style="color:#66d9ef">break</span>
+            handle<span style="color:#f92672">.</span>write(chunk)
+
+    msg <span style="color:#f92672">=</span> f<span style="color:#e6db74">&#34;Finished downloading {fname}&#34;</span>
+    <span style="color:#66d9ef">return</span> msg
+
+
+<span style="color:#a6e22e">@timeit</span>
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">download_all</span>(urls):
+    <span style="color:#e6db74">&#34;&#34;&#34;
+</span><span style="color:#e6db74">    Create a thread pool and download specified urls
+</span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
+
+    <span style="color:#66d9ef">with</span> ThreadPoolExecutor(max_workers<span style="color:#f92672">=</span><span style="color:#ae81ff">13</span>) <span style="color:#66d9ef">as</span> executor:
+        <span style="color:#66d9ef">return</span> executor<span style="color:#f92672">.</span>map(download_one, urls, timeout<span style="color:#f92672">=</span><span style="color:#ae81ff">60</span>)
+
+
+<span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;__main__&#34;</span>:
+    urls <span style="color:#f92672">=</span> (
+        <span style="color:#e6db74">&#34;http://www.irs.gov/pub/irs-pdf/f1040.pdf&#34;</span>,
+        <span style="color:#e6db74">&#34;http://www.irs.gov/pub/irs-pdf/f1040a.pdf&#34;</span>,
+        <span style="color:#e6db74">&#34;http://www.irs.gov/pub/irs-pdf/f1040ez.pdf&#34;</span>,
+        <span style="color:#e6db74">&#34;http://www.irs.gov/pub/irs-pdf/f1040es.pdf&#34;</span>,
+        <span style="color:#e6db74">&#34;http://www.irs.gov/pub/irs-pdf/f1040sb.pdf&#34;</span>,
+    )
+
+    results <span style="color:#f92672">=</span> download_all(urls)
+    <span style="color:#66d9ef">for</span> result <span style="color:#f92672">in</span> results:
+        <span style="color:#66d9ef">print</span>(result)
+</code></pre></div><pre><code>&gt;&gt;&gt; download_all =&gt; 5042.651653289795 ms
+... Finished downloading f1040.pdf
+... Finished downloading f1040a.pdf
+... Finished downloading f1040ez.pdf
+... Finished downloading f1040es.pdf
+... Finished downloading f1040sb.pdf
+</code></pre><p>这个并发版本只花费了顺序版本大约1/4的时间。<code>timeout</code>参数是说在这个时间之后，就不能再获取任务结果。<code>max_works</code>参数是启动多少个工作线程，一般为<code>2*multiprocessing.cpu_count()+1</code>。我的机器是6和12线程的，所以我选择启动13个线程。</p>
+<blockquote>
+<p>你也可以尝试使用<code>ProcessPoolExecutor</code>类相同的接口方法来跑上边的代码。但是因为任务本身的特性，还是使用线程的性能稍好。</p>
+</blockquote>
+<h3 id="使用多进程运行cpu密集型任务">使用多进程运行CPU密集型任务</h3>
+<p>下边的示例，一个CPU密集型哈希函数。核心方法是顺序多次执行CPU密集型的哈希算法，另一个方法是多次执行这个核心方法。让我们来看下代码：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> hashlib
+
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">hash_one</span>(n):
+    <span style="color:#e6db74">&#34;&#34;&#34;A somewhat CPU-intensive task.&#34;&#34;&#34;</span>
+
+    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">1</span>, n):
+        hashlib<span style="color:#f92672">.</span>pbkdf2_hmac(<span style="color:#e6db74">&#34;sha256&#34;</span>, <span style="color:#e6db74">b</span><span style="color:#e6db74">&#34;password&#34;</span>, <span style="color:#e6db74">b</span><span style="color:#e6db74">&#34;salt&#34;</span>, i <span style="color:#f92672">*</span> <span style="color:#ae81ff">10000</span>)
+
+    <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;done&#34;</span>
+
+
+<span style="color:#a6e22e">@timeit</span>
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">hash_all</span>(n):
+    <span style="color:#e6db74">&#34;&#34;&#34;Function that does hashing in serial.&#34;&#34;&#34;</span>
+
+    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(n):
+        hsh <span style="color:#f92672">=</span> hash_one(n)
+
+    <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;done&#34;</span>
+
+
+<span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;__main__&#34;</span>:
+    hash_all(<span style="color:#ae81ff">20</span>)
+</code></pre></div><pre><code>&gt;&gt;&gt; hash_all =&gt; 18317.330598831177 ms
+</code></pre><p>分析<code>hash_one</code>和<code>hash_all</code>方法，会发现一个共同点，他们都有一个CPU密集的for循环代码。它大概执行花费了18s，让我们来看下使用<code>ProcessPoolExecutor</code>版本：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> hashlib
+<span style="color:#f92672">from</span> concurrent.futures <span style="color:#f92672">import</span> ProcessPoolExecutor
+
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">hash_one</span>(n):
+    <span style="color:#e6db74">&#34;&#34;&#34;A somewhat CPU-intensive task.&#34;&#34;&#34;</span>
+
+    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">1</span>, n):
+        hashlib<span style="color:#f92672">.</span>pbkdf2_hmac(<span style="color:#e6db74">&#34;sha256&#34;</span>, <span style="color:#e6db74">b</span><span style="color:#e6db74">&#34;password&#34;</span>, <span style="color:#e6db74">b</span><span style="color:#e6db74">&#34;salt&#34;</span>, i <span style="color:#f92672">*</span> <span style="color:#ae81ff">10000</span>)
+
+    <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;done&#34;</span>
+
+
+<span style="color:#a6e22e">@timeit</span>
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">hash_all</span>(n):
+    <span style="color:#e6db74">&#34;&#34;&#34;Function that does hashing in serial.&#34;&#34;&#34;</span>
+
+    <span style="color:#66d9ef">with</span> ProcessPoolExecutor(max_workers<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>) <span style="color:#66d9ef">as</span> executor:
+        <span style="color:#66d9ef">for</span> arg, res <span style="color:#f92672">in</span> zip(range(n), executor<span style="color:#f92672">.</span>map(hash_one, range(n), chunksize<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>)):
+            <span style="color:#66d9ef">pass</span>
+
+    <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;done&#34;</span>
+
+
+<span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;__main__&#34;</span>:
+    hash_all(<span style="color:#ae81ff">20</span>)
+</code></pre></div><pre><code>&gt;&gt;&gt; hash_all =&gt; 1673.842430114746 ms
+</code></pre><p>仔细查看代码，你会发现在<code>hash_one</code>中for循环的代码，仍然是顺序执行的。但是，在<code>hash_all</code>中的for代码块是多进程执行的。这里我用10个工作进程按每个批次2个任务来并发执行。你可以尝试调整工作进程和并发任务数，已到达最佳的性能。这个并发版本比顺序版本快了近11倍。</p>
+<h2 id="并发中常遇到的坑">并发中常遇到的坑</h2>
+<p><code>ThreadPoolExecutor</code>和<code>ProcessPoolExecutor</code>它适用于简单的并发任务，有循环迭代的情况或仅允许运行子程序的情况。如果你的任务需要排队，或者需要用到多进程和多线程，你任然需要使用<code>threading</code>和<code>multiprocessing</code>模块。</p>
+<p>在使用<code>ThreadPoolExecutor</code>时，可能会出现死锁问题。当与Future相关联的可调用对象等待另一个Future的结果时，它们可能永远不会释放对线程的控制从而导致死锁。让我们来看一个示例：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> time
+<span style="color:#f92672">from</span> concurrent.futures <span style="color:#f92672">import</span> ThreadPoolExecutor
+
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">wait_on_b</span>():
+    time<span style="color:#f92672">.</span>sleep(<span style="color:#ae81ff">5</span>)
+    <span style="color:#66d9ef">print</span>(b<span style="color:#f92672">.</span>result())  <span style="color:#75715e"># b will never complete because it is waiting on a.</span>
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">5</span>
+
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">wait_on_a</span>():
+    time<span style="color:#f92672">.</span>sleep(<span style="color:#ae81ff">5</span>)
+    <span style="color:#66d9ef">print</span>(a<span style="color:#f92672">.</span>result())  <span style="color:#75715e"># a will never complete because it is waiting on b.</span>
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">6</span>
+
+
+<span style="color:#66d9ef">with</span> ThreadPoolExecutor(max_workers<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>) <span style="color:#66d9ef">as</span> executor:
+    <span style="color:#75715e"># here, the future from a depends on the future from b</span>
+    <span style="color:#75715e"># and vice versa</span>
+    <span style="color:#75715e"># so this is never going to be completed</span>
+    a <span style="color:#f92672">=</span> executor<span style="color:#f92672">.</span>submit(wait_on_b)
+    b <span style="color:#f92672">=</span> executor<span style="color:#f92672">.</span>submit(wait_on_a)
+
+    <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;Result from wait_on_b&#34;</span>, a<span style="color:#f92672">.</span>result())
+    <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;Result from wait_on_a&#34;</span>, b<span style="color:#f92672">.</span>result())
+</code></pre></div><p>在这个例子中，<code>wait_on_b</code>函数依赖<code>wait_on_a</code>函数的结果。同时<code>wait_on_a</code>函数又依赖<code>wait_on_b</code>函数的结果，代码由于死锁永远不会结束。让我们看一下另一种死锁情况：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> concurrent.futures <span style="color:#f92672">import</span> ThreadPoolExecutor
+
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">wait_on_future</span>():
+    f <span style="color:#f92672">=</span> executor<span style="color:#f92672">.</span>submit(pow, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">2</span>)
+    <span style="color:#75715e"># This will never complete because there is only one worker thread and</span>
+    <span style="color:#75715e"># it is executing this function.</span>
+    <span style="color:#66d9ef">print</span>(f<span style="color:#f92672">.</span>result())
+
+
+<span style="color:#66d9ef">with</span> ThreadPoolExecutor(max_workers<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>) <span style="color:#66d9ef">as</span> executor:
+    future <span style="color:#f92672">=</span> executor<span style="color:#f92672">.</span>submit(wait_on_future)
+    <span style="color:#66d9ef">print</span>(future<span style="color:#f92672">.</span>result())
+</code></pre></div><p>上边的代码，在一个线程中，提交了一个子执行任务。在子任务结束之前，不会释放线程，但是线程又被主任务使用，便造成死锁。使用多个线程可解决这个问题，但是这种写法本身就非常糟糕的，不提倡的。</p>
+<p>有时候，并发代码的性能可能比顺序执行代码效率低下。发生这种情况的原因有很多：</p>
+<ul>
+<li>1、线程用于执行CPU密集的任务。</li>
+<li>2、使用多进程处理I/O密集的任务。</li>
+<li>3、任务非常繁碎，无法使用多线程或多进程来处理。</li>
+</ul>
+<p>生成和释放线程或进程是需要额外开销的。通常线程的操作比进程快的多，但是错误的使用反而会拖慢你的代码性能。下边是一个繁碎的示例，<code>ThreadPoolExecutor</code>和<code>ProcessPoolExecutor</code>性能均比顺序的性能差。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> math
+
+PRIMES <span style="color:#f92672">=</span> [num <span style="color:#66d9ef">for</span> num <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">19000</span>, <span style="color:#ae81ff">20000</span>)]
+
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">is_prime</span>(n):
+    <span style="color:#66d9ef">if</span> n <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">2</span>:
+        <span style="color:#66d9ef">return</span> False
+    <span style="color:#66d9ef">if</span> n <span style="color:#f92672">==</span> <span style="color:#ae81ff">2</span>:
+        <span style="color:#66d9ef">return</span> True
+    <span style="color:#66d9ef">if</span> n <span style="color:#f92672">%</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>:
+        <span style="color:#66d9ef">return</span> False
+
+    sqrt_n <span style="color:#f92672">=</span> int(math<span style="color:#f92672">.</span>floor(math<span style="color:#f92672">.</span>sqrt(n)))
+    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">3</span>, sqrt_n <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>):
+        <span style="color:#66d9ef">if</span> n <span style="color:#f92672">%</span> i <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>:
+            <span style="color:#66d9ef">return</span> False
+    <span style="color:#66d9ef">return</span> True
+
+
+<span style="color:#a6e22e">@timeit</span>
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">main</span>():
+    <span style="color:#66d9ef">for</span> number <span style="color:#f92672">in</span> PRIMES:
+        <span style="color:#66d9ef">print</span>(f<span style="color:#e6db74">&#34;{number} is prime: {is_prime(number)}&#34;</span>)
+
+
+<span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;__main__&#34;</span>:
+    main()
+</code></pre></div><pre><code>&gt;&gt;&gt; 19088 is prime: False
+... 19089 is prime: False
+... 19090 is prime: False
+... ...
+... main =&gt; 67.65174865722656 ms
+</code></pre><p>上边的示例验证列表中的数是否为质数。顺序版本大约花费了67ms完成。但是并发版本却化了 140ms 才完成。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> concurrent.futures <span style="color:#f92672">import</span> ThreadPoolExecutor
+<span style="color:#f92672">import</span> math
+
+num_list <span style="color:#f92672">=</span> [num <span style="color:#66d9ef">for</span> num <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">19000</span>, <span style="color:#ae81ff">20000</span>)]
+
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">is_prime</span>(n):
+    <span style="color:#66d9ef">if</span> n <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">2</span>:
+        <span style="color:#66d9ef">return</span> False
+    <span style="color:#66d9ef">if</span> n <span style="color:#f92672">==</span> <span style="color:#ae81ff">2</span>:
+        <span style="color:#66d9ef">return</span> True
+    <span style="color:#66d9ef">if</span> n <span style="color:#f92672">%</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>:
+        <span style="color:#66d9ef">return</span> False
+
+    sqrt_n <span style="color:#f92672">=</span> int(math<span style="color:#f92672">.</span>floor(math<span style="color:#f92672">.</span>sqrt(n)))
+    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">3</span>, sqrt_n <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>):
+        <span style="color:#66d9ef">if</span> n <span style="color:#f92672">%</span> i <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>:
+            <span style="color:#66d9ef">return</span> False
+    <span style="color:#66d9ef">return</span> True
+
+
+<span style="color:#a6e22e">@timeit</span>
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">main</span>():
+    <span style="color:#66d9ef">with</span> ThreadPoolExecutor(max_workers<span style="color:#f92672">=</span><span style="color:#ae81ff">13</span>) <span style="color:#66d9ef">as</span> executor:
+        <span style="color:#66d9ef">for</span> number, prime <span style="color:#f92672">in</span> zip(PRIMES, executor<span style="color:#f92672">.</span>map(is_prime, num_list)):
+            <span style="color:#66d9ef">print</span>(f<span style="color:#e6db74">&#34;{number} is prime: {prime}&#34;</span>)
+
+
+<span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;__main__&#34;</span>:
+    main()
+</code></pre></div><pre><code>&gt;&gt;&gt; 19088 is prime: False
+... 19089 is prime: False
+... 19090 is prime: False
+... ...
+... main =&gt; 140.17250061035156 ms
+</code></pre><p>相同的代码，多进程版本：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> concurrent.futures <span style="color:#f92672">import</span> ProcessPoolExecutor
+<span style="color:#f92672">import</span> math
+
+num_list <span style="color:#f92672">=</span> [num <span style="color:#66d9ef">for</span> num <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">19000</span>, <span style="color:#ae81ff">20000</span>)]
+
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">is_prime</span>(n):
+    <span style="color:#66d9ef">if</span> n <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">2</span>:
+        <span style="color:#66d9ef">return</span> False
+    <span style="color:#66d9ef">if</span> n <span style="color:#f92672">==</span> <span style="color:#ae81ff">2</span>:
+        <span style="color:#66d9ef">return</span> True
+    <span style="color:#66d9ef">if</span> n <span style="color:#f92672">%</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>:
+        <span style="color:#66d9ef">return</span> False
+
+    sqrt_n <span style="color:#f92672">=</span> int(math<span style="color:#f92672">.</span>floor(math<span style="color:#f92672">.</span>sqrt(n)))
+    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">3</span>, sqrt_n <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>):
+        <span style="color:#66d9ef">if</span> n <span style="color:#f92672">%</span> i <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>:
+            <span style="color:#66d9ef">return</span> False
+    <span style="color:#66d9ef">return</span> True
+
+
+<span style="color:#a6e22e">@timeit</span>
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">main</span>():
+    <span style="color:#66d9ef">with</span> ProcessPoolExecutor(max_workers<span style="color:#f92672">=</span><span style="color:#ae81ff">13</span>) <span style="color:#66d9ef">as</span> executor:
+        <span style="color:#66d9ef">for</span> number, prime <span style="color:#f92672">in</span> zip(PRIMES, executor<span style="color:#f92672">.</span>map(is_prime, num_list)):
+            <span style="color:#66d9ef">print</span>(f<span style="color:#e6db74">&#34;{number} is prime: {prime}&#34;</span>)
+
+
+<span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;__main__&#34;</span>:
+    main()
+</code></pre></div><pre><code>&gt;&gt;&gt; 19088 is prime: False
+... 19089 is prime: False
+... 19090 is prime: False
+... ...
+... main =&gt; 311.3126754760742 ms
+</code></pre><p>从直观上看，检测质数应该是CPU密集型的操作，最终结果却是顺序执行最快。所以，合理的评估任务计算是否值得使用多线程或多进程也是非常重要的。否则，我们写出的代码性能不一定更高效。</p>
+<h2 id="参考">参考</h2>
+<ul>
+<li><a href="https://docs.python.org/3/library/concurrent.futures.html">concurrent.fututures- the official documentation</a></li>
+<li><a href="http://pljung.de/posts/easy-concurrency-in-python/">Easy Concurrency in Python</a></li>
+<li><a href="https://alexwlchan.net/2019/10/adventures-with-concurrent-futures/">Adventures in Python with concurrent.futures</a></li>
+</ul>
+
+    </div>
+    <div class="article-footer">
+<blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://pylixm.top/posts/2020-05-18-python-concurrent-feature.html" title="Python中一种轻松实现并发编程的方法" target="_blank" rel="external">https://pylixm.top/posts/2020-05-18-python-concurrent-feature.html</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>许可协议：</strong>
+      <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN</a>
+    </li>
+  </ul>
+</blockquote>
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://pylixm.top" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="https://pylixm.top/static/imgs/avatar.png" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://pylixm.top" target="_blank"><span class="text-dark">DeanWu</span><small class="ml-1x">程序员</small></a></h3>
+        <div>努力成为真正的SRE</div>
+      </div>
+    </figure>
+  </div>
+</div>
+    </div>
+  </article>
+<section id="comments">
+    <div id="vcomments"></div>
+</section>
+
+</div><nav class="bar bar-footer clearfix" data-stick-bottom>
+    <div class="bar-inner">
+        <ul class="pager pull-left">
+            <li class="prev">
+                <a href="https://pylixm.top/posts/2020-05-15-zhxs-0515.html" title="「朝花夕拾」- 0515期，总第三期"><i
+                        class="icon icon-angle-left"
+                        aria-hidden="true"></i><span>&nbsp;&nbsp;下一篇</span></a>
+            </li>
+            <li class="next">
+                <a href="https://pylixm.top/posts/2020-05-22-zhxs-0522.html"
+                    title="「朝花夕拾」- 0522期，总第四期"><span>上一篇&nbsp;&nbsp;</span><i
+                        class="icon icon-angle-right" aria-hidden="true"></i></a>
+            </li>
+            
+            <li class="toggle-toc">
+                <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false"
+                    title="文章目录" role="button">
+                    <span>[&nbsp;</span><span>文章目录</span>
+                    <i class="text-collapsed icon icon-anchor"></i>
+                    <i class="text-in icon icon-close"></i>
+                    <span>]</span>
+                </a>
+            </li>
+        </ul>
+        <div class="bar-right">
+        </div>
+    </div>
+</nav>
+
+
+<script src="https://my.openwrite.cn/js/readmore.js" type="text/javascript"></script>
+<script>
+    const btw = new BTWPlugin();
+    btw.init({
+        id: 'article-container',
+        blogId: '24944-1607090547459-485',
+        name: '码农吴先生',
+        qrcode: 'https://gitee.com/pylixm/picture/raw/master/2020-12-4/1607089812769-image.png',
+        keyword: 'vip',
+    });
+</script>
+</main><footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+<ul class="social-links">
+    <li><a href="https://github.com/pylixm" target="_blank" title="github" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-github"></i></a></li>
+    <li><a href="https://pylixm.top/index.xml" target="_blank" title="rss" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-rss"></i></a></li>
+    <li><a href="http://weibo.com/2258086637" target="_blank" title="weibo" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-weibo"></i></a></li>
+</ul>
+  <div class="copyright">
+    &copy;2015  -
+    2020
+    <div class="publishby">
+      hugo驱动，Theme by <a href="https://github.com/xiaoheiAh/hugo-theme-pure" target="_blank"> pure</a>.
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_SVG"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+            showMathMenu: false, //disables context menu
+            tex2jax: {
+            inlineMath: [ ['$','$'], ['\\(','\\)'] ]
+           }
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+<script>
+    window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/highlight.min.js"></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/python.min.js" defer></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/javascript.min.js" defer></script><script>
+    hljs.configure({
+        tabReplace: '    ', 
+        classPrefix: ''     
+        
+    })
+    hljs.initHighlightingOnLoad();
+</script>
+<script src="https://pylixm.top/js/application.min.bdeb64b910570b6c41badc6a05b7afb0c8ad9efd8525de3c7257d59e786326a3.js"></script>
+<script src="https://pylixm.top/js/plugin.min.51ff8c7317566f82259170fa36e09c4493adc9b9378b427a01ad3f017ebac7dd.js"></script>
+
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(未命名)',
+            },
+            ROOT_URL: 'https:\/\/pylixm.top',
+            CONTENT_URL: 'https:\/\/pylixm.top\/searchindex.json ',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script type="text/javascript" src="https://pylixm.top/js/insight.min.a343cd9a5a7698336b28ef3a7c16a3a1b1d2d5fb17dc8ed04022bbe08cc5459073a15bdafa3a8a58cdd56080784bdd69fa70b1ae8597565c799c57ed00f0e120.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script>
+<script>
+    tocbot.init({
+        
+        tocSelector: '.js-toc',
+        
+        contentSelector: '.js-toc-content',
+        
+        headingSelector: 'h1, h2, h3',
+        
+        hasInnerContainers: true,
+    });
+</script>
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="https://cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine"></script>
+<script type="text/javascript">
+    var GUEST = ['nick', 'mail', 'link'];
+    var meta = 'nick,mail';
+    meta = meta.split(',').filter(function (item) {
+        return GUEST.indexOf(item) > -1;
+    });
+    new Valine({
+        el: '#vcomments',
+        verify: null ,
+        notify: null ,
+        appId: 'OBJcj4PU8JI0zDfu0HJSrG6W-gzGzoHsz',
+        appKey: 'tBtFzC72xIlgo2UFbA33nqmU',
+        placeholder: '来做第一个发言人吧',
+        avatar: 'mm',
+        meta: meta,
+        pageSize: '10' || 10,
+        visitor: false 
+});
+</script>
+
+  </body>
+</html>

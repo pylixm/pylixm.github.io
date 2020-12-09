@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <title>
+        高可用的MongoDB集群 - DeanWu
+      </title>
+        <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    
+    <meta name="theme-color" content="#000000" />
+    
+    <meta http-equiv="window-target" content="_top" />
+    
+    
+    <meta name="description" content=" 原文链接：http://www.jianshu.com/p/2825a66d6aed
+ 刚接触MongoDB，就要用到它的集群，只能硬着头皮短时间去看文档和尝试自行搭建。迁移历史数据更是让人恼火，近100G的数据文件，导入、清理垃圾数据执行的速度蜗牛一样的慢。趁着这个时间，把这几天关于Mongod集群相关的内容整理一下。大概介绍一下MongoDB集群的几种方式：Master-Slave、Relica Set、Sharding，并做简单的演示。
+使用集群的目的就是提高可用性。高可用性H.A.（High Availability）指的是通过尽量缩短因日常维护操作（计划）和突发的系统崩溃（非计划）所导致的停机时间，以提高系统和应用的可用性。它与被认为是不间断操作的容错技术有所不同。HA系统是目前企业防止核心计算机系统因故障停机的最有效手段。
+HA的三种工作方式：
+ 主从方式 （非对称方式）  工作原理：主机工作，备机处于监控准备状况；当主机宕机时，备机接管主机的一切工作，待主机恢复正常后，按使用者的设定以自动或手动方式将服务切换到主机上运行，数据的一致性通过共享存储系统解决。
+ 双机双工方式（互备互援）  工作原理：两台主机同时运行各自的服务工作且相互监测情况，当任一台主机宕机时，另一台主机立即接管它的一切工作，保证工作实时，应用服务系统的关键数据存放在共享存储系统中。
+ 集群工作方式（多服务器互备方式）  工作原理：多台主机一起工作，各自运行一个或几个服务，各为服务定义一个或多个备用主机，当某个主机故障时，运行在其上的服务就可以被其它主机接管
+" />
+    <meta name="generator" content="Hugo 0.73.0 with theme pure" />
+    <title>高可用的MongoDB集群 - DeanWu</title>
+    
+    
+    <link rel="stylesheet" href="https://pylixm.top/css/style.min.f70e8e0df9ea6aeb37dac252b17ca98082073ff1663b24118baaaa84ee8ae7e8.css">
+    
+    <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.15.10/styles/github.min.css" async>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css" async>
+    <meta property="og:title" content="高可用的MongoDB集群" />
+<meta property="og:description" content="
+原文链接：http://www.jianshu.com/p/2825a66d6aed
+
+刚接触MongoDB，就要用到它的集群，只能硬着头皮短时间去看文档和尝试自行搭建。迁移历史数据更是让人恼火，近100G的数据文件，导入、清理垃圾数据执行的速度蜗牛一样的慢。趁着这个时间，把这几天关于Mongod集群相关的内容整理一下。大概介绍一下MongoDB集群的几种方式：Master-Slave、Relica Set、Sharding，并做简单的演示。
+使用集群的目的就是提高可用性。高可用性H.A.（High Availability）指的是通过尽量缩短因日常维护操作（计划）和突发的系统崩溃（非计划）所导致的停机时间，以提高系统和应用的可用性。它与被认为是不间断操作的容错技术有所不同。HA系统是目前企业防止核心计算机系统因故障停机的最有效手段。
+
+HA的三种工作方式：
+
+主从方式 （非对称方式）
+
+工作原理：主机工作，备机处于监控准备状况；当主机宕机时，备机接管主机的一切工作，待主机恢复正常后，按使用者的设定以自动或手动方式将服务切换到主机上运行，数据的一致性通过共享存储系统解决。
+
+双机双工方式（互备互援）
+
+工作原理：两台主机同时运行各自的服务工作且相互监测情况，当任一台主机宕机时，另一台主机立即接管它的一切工作，保证工作实时，应用服务系统的关键数据存放在共享存储系统中。
+
+集群工作方式（多服务器互备方式）
+
+工作原理：多台主机一起工作，各自运行一个或几个服务，各为服务定义一个或多个备用主机，当某个主机故障时，运行在其上的服务就可以被其它主机接管" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://pylixm.top/posts/2016-04-06-Mongodb-relica.html" />
+<meta property="article:published_time" content="2016-04-06T00:00:00+00:00" />
+<meta property="article:modified_time" content="2016-04-06T00:00:00+00:00" />
+<meta itemprop="name" content="高可用的MongoDB集群">
+<meta itemprop="description" content="
+原文链接：http://www.jianshu.com/p/2825a66d6aed
+
+刚接触MongoDB，就要用到它的集群，只能硬着头皮短时间去看文档和尝试自行搭建。迁移历史数据更是让人恼火，近100G的数据文件，导入、清理垃圾数据执行的速度蜗牛一样的慢。趁着这个时间，把这几天关于Mongod集群相关的内容整理一下。大概介绍一下MongoDB集群的几种方式：Master-Slave、Relica Set、Sharding，并做简单的演示。
+使用集群的目的就是提高可用性。高可用性H.A.（High Availability）指的是通过尽量缩短因日常维护操作（计划）和突发的系统崩溃（非计划）所导致的停机时间，以提高系统和应用的可用性。它与被认为是不间断操作的容错技术有所不同。HA系统是目前企业防止核心计算机系统因故障停机的最有效手段。
+
+HA的三种工作方式：
+
+主从方式 （非对称方式）
+
+工作原理：主机工作，备机处于监控准备状况；当主机宕机时，备机接管主机的一切工作，待主机恢复正常后，按使用者的设定以自动或手动方式将服务切换到主机上运行，数据的一致性通过共享存储系统解决。
+
+双机双工方式（互备互援）
+
+工作原理：两台主机同时运行各自的服务工作且相互监测情况，当任一台主机宕机时，另一台主机立即接管它的一切工作，保证工作实时，应用服务系统的关键数据存放在共享存储系统中。
+
+集群工作方式（多服务器互备方式）
+
+工作原理：多台主机一起工作，各自运行一个或几个服务，各为服务定义一个或多个备用主机，当某个主机故障时，运行在其上的服务就可以被其它主机接管">
+<meta itemprop="datePublished" content="2016-04-06T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2016-04-06T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="3572">
+
+
+
+<meta itemprop="keywords" content="Mongodb,集群," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="高可用的MongoDB集群"/>
+<meta name="twitter:description" content="
+原文链接：http://www.jianshu.com/p/2825a66d6aed
+
+刚接触MongoDB，就要用到它的集群，只能硬着头皮短时间去看文档和尝试自行搭建。迁移历史数据更是让人恼火，近100G的数据文件，导入、清理垃圾数据执行的速度蜗牛一样的慢。趁着这个时间，把这几天关于Mongod集群相关的内容整理一下。大概介绍一下MongoDB集群的几种方式：Master-Slave、Relica Set、Sharding，并做简单的演示。
+使用集群的目的就是提高可用性。高可用性H.A.（High Availability）指的是通过尽量缩短因日常维护操作（计划）和突发的系统崩溃（非计划）所导致的停机时间，以提高系统和应用的可用性。它与被认为是不间断操作的容错技术有所不同。HA系统是目前企业防止核心计算机系统因故障停机的最有效手段。
+
+HA的三种工作方式：
+
+主从方式 （非对称方式）
+
+工作原理：主机工作，备机处于监控准备状况；当主机宕机时，备机接管主机的一切工作，待主机恢复正常后，按使用者的设定以自动或手动方式将服务切换到主机上运行，数据的一致性通过共享存储系统解决。
+
+双机双工方式（互备互援）
+
+工作原理：两台主机同时运行各自的服务工作且相互监测情况，当任一台主机宕机时，另一台主机立即接管它的一切工作，保证工作实时，应用服务系统的关键数据存放在共享存储系统中。
+
+集群工作方式（多服务器互备方式）
+
+工作原理：多台主机一起工作，各自运行一个或几个服务，各为服务定义一个或多个备用主机，当某个主机故障时，运行在其上的服务就可以被其它主机接管"/>
+
+    <!--[if lte IE 9]>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+      <![endif]-->
+
+    <!--[if lt IE 9]>
+        <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+      <![endif]-->
+  </head>
+
+  
+  
+
+  <body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage"><header class="header" itemscope itemtype="http://schema.org/WPHeader">
+    <div class="slimContent">
+      <div class="navbar-header">
+        <div class="profile-block text-center">
+          <a id="avatar" href="https://pylixm.top" target="_blank">
+            <img class="img-circle img-rotate" src="https://pylixm.top/static/imgs/avatar.png" width="200" height="200">
+          </a>
+          <h2 id="name" class="hidden-xs hidden-sm">DeanWu</h2>
+          <h3 id="title" class="hidden-xs hidden-sm hidden-md">程序员</h3>
+          <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i>Beijing, China</small>
+        </div><div class="search" id="search-form-wrap">
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i
+                        class="icon icon-search"></i></button>
+            </span>
+        </div>
+        <div class="ins-search">
+            <div class="ins-search-mask"></div>
+            <div class="ins-search-container">
+                <div class="ins-input-wrapper">
+                    <input type="text" class="ins-search-input" placeholder="想要查找什么..."
+                        x-webkit-speech />
+                    <button type="button" class="close ins-close ins-selectable" data-dismiss="modal"
+                        aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="ins-section-wrapper">
+                    <div class="ins-section-container"></div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+        <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+        <ul class="nav navbar-nav main-nav">
+            <li class="menu-item menu-item-home">
+                <a href="/">
+                    <i class="icon icon-home-fill"></i>
+                  <span class="menu-title">首页</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-series">
+                <a href="/series/">
+                    <i class="icon icon-folder"></i>
+                  <span class="menu-title">专题</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-repository">
+                <a href="/project/">
+                    <i class="icon icon-project"></i>
+                  <span class="menu-title">项目</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-archives">
+                <a href="/posts/">
+                    <i class="icon icon-archives-fill"></i>
+                  <span class="menu-title">归档</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-about">
+                <a href="/about/">
+                    <i class="icon icon-cup-fill"></i>
+                  <span class="menu-title">关于</span>
+                </a>
+            </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+<aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content"><div>欢迎关注微信公众号「码农吴先生」：专注python/golang/devops等技术的学习经验及资源分享！</br>回复关键字：go或python 获取我收集的资料，也可回复关键字：小二，加我wx，一块聊技术，聊人生~  </br><img src="/static/imgs/wx/wx_gzh.png" width="140" height="140"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+      
+<div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+        <ul class="recent-post-list list-unstyled no-thumbnail">
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2020-12-08-django-async-views-example.html" class="title">Django 三个异步使用的案例</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-12-08 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-08</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2020-12-05-go-from-python-structure-base.html" class="title">「对比Python学习Go」- 基本数据结构</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-12-05 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-05</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2020-12-03-go-from-python-start.html" class="title">「对比Python学习Go」- 环境篇</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-12-03 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-03</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2020-12-02-go-from-python-intro.html" class="title">「对比Python学习Go」- 开篇</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-12-02 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-02</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2020-12-01-for-range-point.html" class="title">「Go Tips」for range 遍历时变量取值的问题分析</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-12-01 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-01</time>
+                    </p>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+      <div class="widget">
+    <h3 class="widget-title"> 分类</h3>
+    <div class="widget-body">
+        <ul class="category-list">
+            <li class="category-list-item"><a href="https://pylixm.top/categories/ATS/" class="category-list-link">ATS</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/DevOps/" class="category-list-link">DevOps</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Devlopment-Demo/" class="category-list-link">Devlopment-Demo</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Django/" class="category-list-link">Django</a><span class="category-list-count">39</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Docker/" class="category-list-link">Docker</a><span class="category-list-count">4</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Flask/" class="category-list-link">Flask</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Git/" class="category-list-link">Git</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Golang/" class="category-list-link">Golang</a><span class="category-list-count">12</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/HTTPS/" class="category-list-link">HTTPS</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Javascript/" class="category-list-link">Javascript</a><span class="category-list-count">3</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Kubernetes/" class="category-list-link">Kubernetes</a><span class="category-list-count">4</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/LVS/" class="category-list-link">LVS</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Linux/" class="category-list-link">Linux</a><span class="category-list-count">15</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Mongodb/" class="category-list-link">Mongodb</a><span class="category-list-count">3</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Mysql/" class="category-list-link">Mysql</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/NoSQL/" class="category-list-link">NoSQL</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/PostgreSQL/" class="category-list-link">PostgreSQL</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Puppet/" class="category-list-link">Puppet</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Python/" class="category-list-link">Python</a><span class="category-list-count">19</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/QA/" class="category-list-link">QA</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Rabbitmq/" class="category-list-link">Rabbitmq</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Restful/" class="category-list-link">Restful</a><span class="category-list-count">6</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/SaltStack/" class="category-list-link">SaltStack</a><span class="category-list-count">7</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Software_Architect/" class="category-list-link">Software_Architect</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Supervisor/" class="category-list-link">Supervisor</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Tornado/" class="category-list-link">Tornado</a><span class="category-list-count">3</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Vagrant/" class="category-list-link">Vagrant</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Vue/" class="category-list-link">Vue</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/kafka/" class="category-list-link">kafka</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/zookeeper/" class="category-list-link">zookeeper</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E4%B8%AA%E4%BA%BA%E7%AE%A1%E7%90%86/" class="category-list-link">个人管理</a><span class="category-list-count">5</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB/" class="category-list-link">前后端分离</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" class="category-list-link">数据结构与算法</a><span class="category-list-count">13</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E6%9C%9D%E8%8A%B1%E5%A4%95%E6%8B%BE/" class="category-list-link">朝花夕拾</a><span class="category-list-count">10</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" class="category-list-link">机器学习</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" class="category-list-link">环境搭建</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E7%A8%8B%E5%BA%8F%E5%91%98%E8%87%AA%E6%88%91%E4%BF%AE%E5%85%BB/" class="category-list-link">程序员自我修养</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E8%B5%84%E6%BA%90%E5%88%86%E4%BA%AB%E8%AE%A1%E5%88%92/" class="category-list-link">资源分享计划</a><span class="category-list-count">10</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E8%BF%90%E7%BB%B4%E7%9F%A5%E8%AF%86%E5%BA%93/" class="category-list-link">运维知识库</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86/" class="category-list-link">项目管理</a><span class="category-list-count">1</span></li>
+        </ul>
+    </div>
+</div>
+  </div>
+</aside>
+
+    
+    
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <h4 class="toc-title">文章目录</h4>
+    <nav id="toc" class="js-toc toc">
+
+    </nav>
+  </div>
+</aside>
+<main class="main" role="main"><div class="content">
+  
+  <article id="article-container" class="article article-type-" itemscope
+    itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      <h1 itemprop="name">
+  <a
+    class="article-title"
+    href="/posts/2016-04-06-Mongodb-relica.html"
+    >高可用的MongoDB集群</a
+  >
+</h1>
+
+      <div class="article-meta">
+        
+<span class="article-date">
+  <i class="icon icon-calendar-check"></i>&nbsp;
+<a href="https://pylixm.top/posts/2016-04-06-Mongodb-relica.html" class="article-date">
+  <time datetime="2016-04-06 00:00:00 &#43;0000 UTC" itemprop="datePublished">2016-04-06</time>
+</a>
+</span>
+<span class="article-category">
+  <i class="icon icon-folder"></i>&nbsp;
+  <a class="article-category-link" href="/categories/Mongodb/"> Mongodb </a>
+</span>  
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>&nbsp;
+    <a class="article-tag-link" href="/tags/Mongodb/"> Mongodb </a>
+    <a class="article-tag-link" href="/tags/%E9%9B%86%E7%BE%A4/"> 集群 </a>
+  </span>
+
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+        <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="/posts/2016-04-06-Mongodb-relica.html#comments"
+            class="article-comment-link">评论</a></span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 3572字</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 8分 </span>
+      </div>
+    </div>
+    <div class="article-entry marked-body js-toc-content" itemprop="articleBody">
+      <blockquote>
+<p>原文链接：http://www.jianshu.com/p/2825a66d6aed</p>
+</blockquote>
+<p>刚接触MongoDB，就要用到它的集群，只能硬着头皮短时间去看文档和尝试自行搭建。迁移历史数据更是让人恼火，近100G的数据文件，导入、清理垃圾数据执行的速度蜗牛一样的慢。趁着这个时间，把这几天关于Mongod集群相关的内容整理一下。大概介绍一下MongoDB集群的几种方式：Master-Slave、Relica Set、Sharding，并做简单的演示。</p>
+<p>使用集群的目的就是提高可用性。高可用性H.A.（High Availability）指的是通过尽量缩短因日常维护操作（计划）和突发的系统崩溃（非计划）所导致的停机时间，以提高系统和应用的可用性。它与被认为是不间断操作的容错技术有所不同。HA系统是目前企业防止核心计算机系统因故障停机的最有效手段。</p>
+<!-- raw HTML omitted -->
+<p>HA的三种工作方式：</p>
+<ul>
+<li>主从方式 （非对称方式）</li>
+</ul>
+<p>工作原理：主机工作，备机处于监控准备状况；当主机宕机时，备机接管主机的一切工作，待主机恢复正常后，按使用者的设定以自动或手动方式将服务切换到主机上运行，数据的一致性通过共享存储系统解决。</p>
+<ul>
+<li>双机双工方式（互备互援）</li>
+</ul>
+<p>工作原理：两台主机同时运行各自的服务工作且相互监测情况，当任一台主机宕机时，另一台主机立即接管它的一切工作，保证工作实时，应用服务系统的关键数据存放在共享存储系统中。</p>
+<ul>
+<li>集群工作方式（多服务器互备方式）</li>
+</ul>
+<p>工作原理：多台主机一起工作，各自运行一个或几个服务，各为服务定义一个或多个备用主机，当某个主机故障时，运行在其上的服务就可以被其它主机接管</p>
+<h3 id="0x01-主从架构master-slave">0x01 主从架构（Master-Slave）</h3>
+<p><img src="/static/imgs/mongo-1.png" alt="">
+Mater-Slaves</p>
+<p>主从架构一般用于备份或者做读写分离。由两种角色构成：</p>
+<ul>
+<li>主(Master)</li>
+</ul>
+<p>可读可写，当数据有修改的时候，会将oplog同步到所有连接的salve上去。</p>
+<ul>
+<li>从(Slave)</li>
+</ul>
+<p>只读不可写，自动从Master同步数据。</p>
+<p>特别的，对于Mongodb来说，并不推荐使用Master-Slave架构，因为Master-Slave其中Master宕机后不能自动恢复，推荐使用Replica Set，后面会有介绍，除非Replica的节点数超过50，才需要使用Master-Slave架构，正常情况是不可能用那么多节点的。</p>
+<p>还有一点，Master-Slave不支持链式结构，Slave只能直接连接Master。Redis的Master-Slave支持链式结构，Slave可以连接Slave，成为Slave的Slave。</p>
+<p>下面演示一下搭建过程：</p>
+<p>1&gt;. 启动Master</p>
+<pre><code>mongod --port 2000 --master --dbpath masterdb/
+</code></pre>
+<p>2&gt;. 启动Slave</p>
+<pre><code>mongod --port 2001 --slave --source 127.0.0.1:2000 --dbpath slavedb/
+</code></pre>
+<p>3&gt;. 给Master里面导入数据，查看Master和Slave的数据。你会发现导入Master的数据同时也会在Slave中出现。</p>
+<pre><code>mongoimport --port 2000 -d test -c dataset dataset.json
+mongo --port 2000 test
+db.dataset.count()
+
+&gt; 25359
+mongo --port 2001 test
+db.dataset.count()
+
+&gt; 25359
+</code></pre>
+<p>4&gt;. 试一下Master和Slave的写操作。你会发现，只有Master才可以对数据进行修改，Slave修改时候会报错。</p>
+<pre><code>mongo --port 2001 test
+db.dataset.drop()
+
+&gt;  Error: drop failed: { &quot;note&quot; : &quot;from execCommand&quot;, &quot;ok&quot; : 0, &quot;errmsg&quot; : &quot;not master&quot; }
+
+mongoimport --port 2001 -d test -c dataset dataset.json
+
+&gt; Failed: error checking connected node type: no reachable servers
+</code></pre>
+<h3 id="0x02-副本集架构replica-set">0x02 副本集架构（Replica Set）</h3>
+<p>为了防止单点故障就需要引副本（Replication），当发生硬件故障或者其它原因造成的宕机时，可以使用副本进行恢复，最好能够自动的故障转移（failover）。有时引入副本是为了读写分离，将读的请求分流到副本上，减轻主（Primary）的读压力。而Mongodb的Replica Set都能满足这些要求。</p>
+<h4 id="0x0201-副本集角色">0x0201 副本集角色</h4>
+<p>Replica Set的一堆mongod的实例集合，它们有着同样的数据内容。包含三类角色：</p>
+<ul>
+<li>主节点（Primary）</li>
+</ul>
+<p>接收所有的写请求，然后把修改同步到所有Secondary。一个Replica Set只能有一个Primary节点，当Primar挂掉后，其他Secondary或者Arbiter节点会重新选举出来一个主节点。默认读请求也是发到Primary节点处理的，需要转发到Secondary需要客户端修改一下连接配置。</p>
+<ul>
+<li>副本节点（Secondary）</li>
+</ul>
+<p>与主节点保持同样的数据集。当主节点挂掉的时候，参与选主。</p>
+<ul>
+<li>仲裁者（Arbiter）</li>
+</ul>
+<p>不保有数据，不参与选主，只进行选主投票。使用Arbiter可以减轻数据存储的硬件需求，Arbiter跑起来几乎没什么大的硬件资源需求，但重要的一点是，在生产环境下它和其他数据节点不要部署在同一台机器上。</p>
+<p><strong>注意，一个自动failover的Replica Set节点数必须为奇数，目的是选主投票的时候要有一个大多数才能进行选主决策。</strong></p>
+<h4 id="0x0202-应用客户端">0x0202 应用客户端</h4>
+<p>客户端连接单个mongod和副本集的操作是相同，只需要配置好连接选项即可，比如下面是node.js连接Replica Set的方式：</p>
+<pre><code>mongoose.connect('mongodb://[username:password@]host1[:port1][,host2[:port2],...[,hostN[:portN]]][/[database][?options]]' [, options]);
+</code></pre>
+<h4 id="0x0203-primary和secondary搭建的replica-set">0x0203 Primary和Secondary搭建的Replica Set</h4>
+<p><img src="/static/imgs/mongo-2.png" alt="">
+Primary和Secondary搭建的Replica Set</p>
+<p>奇数个数据节点构成的Replica Set，下面演示精典的3个数据节点的搭建过程。</p>
+<p>1&gt; 启动3个数据节点，&ndash;relSet指定同一个副本集的名字</p>
+<pre><code>mongod --port 2001 --dbpath rs0-1 --replSet rs0
+mongod --port 2002 --dbpath rs0-2 --replSet rs0
+mongod --port 2003 --dbpath rs0-3 --replSet rs0
+</code></pre>
+<p>2&gt; 连接到其中一个，配置Replica Set，同时正在执行rs.add的节点被选为Primary。开发环境中<!-- raw HTML omitted -->指的是机器名，生产环境下就是机器的IP。</p>
+<pre><code>mongo --port 2001
+
+rs.initiate()
+rs.add(&quot;&lt;hostname&gt;:2002&quot;)
+rs.add(&quot;&lt;hostname&gt;:2003&quot;)
+rs.conf()
+</code></pre>
+<p>3&gt; 连接Primary节点，导入数据成功。</p>
+<pre><code>mongoimport --port 2001 -d test -c dataset dataset.json
+mongo --port 2001 test
+db.dataset.count()
+
+&gt; 25359
+</code></pre>
+<p>4&gt; 默认情况下，Secondary不能读和写。</p>
+<pre><code>mongo --port 2003 test
+db.dataset.count()
+
+&gt; Error: count failed: { &quot;note&quot; : &quot;from execCommand&quot;, &quot;ok&quot; : 0, &quot;errmsg&quot; : &quot;not master&quot; }
+</code></pre>
+<p>注意，其中Secondary宕机，不受影响，若Primary宕机，会进行重新选主：</p>
+<p><img src="/static/imgs/mongo-3.png" alt="">
+自动Failover</p>
+<h4 id="02x0204-使用arbiter搭建replica-set">02x0204 使用Arbiter搭建Replica Set</h4>
+<p>偶数个数据节点，加一个Arbiter构成的Replica Set，下面演示精典的2个数据节点加一个仲裁者的搭建过程。</p>
+<p>特别的，生产环境中的Arbiter节点，需要修改一下配置：</p>
+<pre><code>journal.enabled = false
+smallFiles = true
+</code></pre>
+<p><img src="/static/imgs/mongo-4.png" alt="">
+使用Arbiter搭建Replica Set</p>
+<p>1&gt; 启动两个数据节点和一个Arbiter节点</p>
+<pre><code>mongod --port 2001 --dbpath rs0-1 --replSet rs0
+mongod --port 2002 --dbpath rs0-2 --replSet rs0
+
+mongod --port 2003 --dbpath arb --replSet rs0
+</code></pre>
+<p>2&gt; 连接到其中一个，添加Secondary和Arbiter。当仅需要添加Aribiter的时候，只需连接当前Replica Set的Primary，然后执行rs.addArb。</p>
+<pre><code>mongo --port 2001
+
+rs.initiate()
+rs.add(&quot;&lt;hostname&gt;:2002&quot;)
+rs.addArb(&quot;&lt;hostname&gt;:2003&quot;)
+rs.conf()
+</code></pre>
+<h3 id="0x03-数据分片架构sharding">0x03 数据分片架构（Sharding）</h3>
+<p>当数据量比较大的时候，我们需要把数据分片运行在不同的机器中，以降低CPU、内存和IO的压力，Sharding就是这样的技术。数据库主要由两种方式做Sharding：纵向，横向，纵向的方式就是添加更多的CPU，内存，磁盘空间等。横向就是上面说的方式，如图所示：</p>
+<p><img src="/static/imgs/mongo-5.png" alt="">
+<img src="/static/imgs/mongo-6.png" alt="">
+MongoDB的Sharding架构：</p>
+<h4 id="0x0301-mongodb的sharding架构">0x0301 MongoDB的Sharding架构</h4>
+<p>MongoDB分片架构中的角色：</p>
+<ul>
+<li>数据分片（Shards）</li>
+</ul>
+<p>保存数据，保证数据的高可用性和一致性。可以是一个单独的mongod实例，也可以是一个副本集。在生产环境下Shard是一个Replica Set，以防止该数据片的单点故障。所有Shard中有一个PrimaryShard，里面包含未进行划分的数据集合：</p>
+<p><img src="/static/imgs/mongo-7.png" alt=""></p>
+<ul>
+<li>查询路由（Query Routers）</li>
+</ul>
+<p><code>mongos</code>的实例，客户端直接连接<code>mongos</code>，由<code>mongos</code>把读写请求路由到指定的<code>Shard</code>上去。一个<code>Sharding</code>集群，可以有一个<code>mongos</code>，也可以有多<code>mongos</code>以减轻客户端请求的压力。</p>
+<ul>
+<li>配置服务器（Config servers）</li>
+</ul>
+<p>保存集群的元数据（metadata），包含各个Shard的路由规则。</p>
+<h4 id="0x0302-搭建一个有2个shard的集群">0x0302 搭建一个有2个shard的集群</h4>
+<p>1&gt; 启动两个数据分片节点。在此仅演示单个mongod的方式，Replica Set类似。</p>
+<pre><code>mongod --port 2001 --shardsvr --dbpath shard1/
+mongod --port 2002 --shardsvr --dbpath shard2/
+</code></pre>
+<p>2&gt; 启动配置服务器</p>
+<pre><code>mongod --port 3001 --dbpath cfg1/
+mongod --port 3002 --dbpath cfg2/
+mongod --port 3003 --dbpath cfg3/
+</code></pre>
+<p>3&gt; 启动查询路由mongos服务器</p>
+<pre><code>mongos --port 5000 --configdb 127.0.0.1:3001,127.0.0.1:3002,127.0.0.1:3003
+</code></pre>
+<p>4&gt; 连接mongos，为集群添加数据分片节点。</p>
+<pre><code>mongo --port 5000 amdmin
+
+sh.addShard(&quot;127.0.0.1:2001&quot;)
+sh.addShard(&quot;127.0.0.1:2002&quot;)
+</code></pre>
+<p>如果Shard是Replica Set，添加Shard的命令：</p>
+<pre><code>sh.addShard(&quot;rsname/host1:port,host2:port,...&quot;)
+
+rsname - 副本集的名字
+</code></pre>
+<p>5&gt; 可以连接mongos进行数据操作了。</p>
+<pre><code>mongo --port 5000 test
+
+mongoimport.exe --port 5000 -d test dataset.json
+&gt; 25359
+</code></pre>
+<h3 id="0x04-数据的备份和恢复">0x04 数据的备份和恢复</h3>
+<p>MongodDB的备份有多种方式，这里只简单介绍一下mongodump和mongorestore的用法。</p>
+<p>1&gt; 备份和恢复所有db</p>
+<pre><code>mongodump -h IP --port PORT -o BACKUPPATH
+
+mongorestore -h IP --port PORT BACKUPPATH
+</code></pre>
+<p>2&gt; 备份和恢复指定db</p>
+<pre><code>mongodump -h IP --port PORT -d DBNAME -o BACKUPPATH
+
+mongorestore -h IP --port PORT  -d DBNAME BACKUPPATH
+mongorestore -h IP --port PORT --drop -d DBNAME BACKUPPATH
+</code></pre>
+<p>3&gt; 备份和恢复指定collection</p>
+<pre><code>mongodump -h IP --port PORT -d DBNAME -c COLLECTION -o xxx.bson
+
+mongorestore -h IP --port PORT  -d DBNAME -c COLLECTION xxx.bson
+mongorestore -h IP --port PORT --drop -d DBNAME -c COLLECTION xxx.bson
+</code></pre>
+<h3 id="0x05-小结">0x05 小结</h3>
+<p>MongoDB的集群能力还是很强的，搭建还算是简单。最关键的是要明白上面提到的3种架构的原理，才能用的得心应手。当然不限于MongoDB，或许其他数据库也多多少少支持类似的架构。</p>
+<h3 id="0x06-参考资料">0x06 参考资料</h3>
+<p>百度百科： <a href="http://baike.baidu.com/view/2850255.htm">http://baike.baidu.com/view/2850255.htm</a></p>
+<p>MongodDB官网文档：<a href="http://docs.mongodb.org/">http://docs.mongodb.org/</a></p>
+    </div>
+    <div class="article-footer">
+<blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://pylixm.top/posts/2016-04-06-Mongodb-relica.html" title="高可用的MongoDB集群" target="_blank" rel="external">https://pylixm.top/posts/2016-04-06-Mongodb-relica.html</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>许可协议：</strong>
+      <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN</a>
+    </li>
+  </ul>
+</blockquote>
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://pylixm.top" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="https://pylixm.top/static/imgs/avatar.png" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://pylixm.top" target="_blank"><span class="text-dark">DeanWu</span><small class="ml-1x">程序员</small></a></h3>
+        <div>努力成为真正的SRE</div>
+      </div>
+    </figure>
+  </div>
+</div>
+    </div>
+  </article>
+<section id="comments">
+    <div id="vcomments"></div>
+</section>
+
+</div><nav class="bar bar-footer clearfix" data-stick-bottom>
+    <div class="bar-inner">
+        <ul class="pager pull-left">
+            <li class="prev">
+                <a href="https://pylixm.top/posts/2016-03-24-django-class-views.html" title="Django学习笔记- Class View"><i
+                        class="icon icon-angle-left"
+                        aria-hidden="true"></i><span>&nbsp;&nbsp;下一篇</span></a>
+            </li>
+            <li class="next">
+                <a href="https://pylixm.top/posts/2016-04-06-Mongodb-start.html"
+                    title="mongodb 启动报错"><span>上一篇&nbsp;&nbsp;</span><i
+                        class="icon icon-angle-right" aria-hidden="true"></i></a>
+            </li>
+            
+            <li class="toggle-toc">
+                <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false"
+                    title="文章目录" role="button">
+                    <span>[&nbsp;</span><span>文章目录</span>
+                    <i class="text-collapsed icon icon-anchor"></i>
+                    <i class="text-in icon icon-close"></i>
+                    <span>]</span>
+                </a>
+            </li>
+        </ul>
+        <div class="bar-right">
+        </div>
+    </div>
+</nav>
+
+
+<script src="https://my.openwrite.cn/js/readmore.js" type="text/javascript"></script>
+<script>
+    const btw = new BTWPlugin();
+    btw.init({
+        id: 'article-container',
+        blogId: '24944-1607090547459-485',
+        name: '码农吴先生',
+        qrcode: 'https://gitee.com/pylixm/picture/raw/master/2020-12-4/1607089812769-image.png',
+        keyword: 'vip',
+    });
+</script>
+</main><footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+<ul class="social-links">
+    <li><a href="https://github.com/pylixm" target="_blank" title="github" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-github"></i></a></li>
+    <li><a href="https://pylixm.top/index.xml" target="_blank" title="rss" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-rss"></i></a></li>
+    <li><a href="http://weibo.com/2258086637" target="_blank" title="weibo" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-weibo"></i></a></li>
+</ul>
+  <div class="copyright">
+    &copy;2015  -
+    2020
+    <div class="publishby">
+      hugo驱动，Theme by <a href="https://github.com/xiaoheiAh/hugo-theme-pure" target="_blank"> pure</a>.
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_SVG"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+            showMathMenu: false, //disables context menu
+            tex2jax: {
+            inlineMath: [ ['$','$'], ['\\(','\\)'] ]
+           }
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+<script>
+    window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/highlight.min.js"></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/python.min.js" defer></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/javascript.min.js" defer></script><script>
+    hljs.configure({
+        tabReplace: '    ', 
+        classPrefix: ''     
+        
+    })
+    hljs.initHighlightingOnLoad();
+</script>
+<script src="https://pylixm.top/js/application.min.bdeb64b910570b6c41badc6a05b7afb0c8ad9efd8525de3c7257d59e786326a3.js"></script>
+<script src="https://pylixm.top/js/plugin.min.51ff8c7317566f82259170fa36e09c4493adc9b9378b427a01ad3f017ebac7dd.js"></script>
+
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(未命名)',
+            },
+            ROOT_URL: 'https:\/\/pylixm.top',
+            CONTENT_URL: 'https:\/\/pylixm.top\/searchindex.json ',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script type="text/javascript" src="https://pylixm.top/js/insight.min.a343cd9a5a7698336b28ef3a7c16a3a1b1d2d5fb17dc8ed04022bbe08cc5459073a15bdafa3a8a58cdd56080784bdd69fa70b1ae8597565c799c57ed00f0e120.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script>
+<script>
+    tocbot.init({
+        
+        tocSelector: '.js-toc',
+        
+        contentSelector: '.js-toc-content',
+        
+        headingSelector: 'h1, h2, h3',
+        
+        hasInnerContainers: true,
+    });
+</script>
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="https://cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine"></script>
+<script type="text/javascript">
+    var GUEST = ['nick', 'mail', 'link'];
+    var meta = 'nick,mail';
+    meta = meta.split(',').filter(function (item) {
+        return GUEST.indexOf(item) > -1;
+    });
+    new Valine({
+        el: '#vcomments',
+        verify: null ,
+        notify: null ,
+        appId: 'OBJcj4PU8JI0zDfu0HJSrG6W-gzGzoHsz',
+        appKey: 'tBtFzC72xIlgo2UFbA33nqmU',
+        placeholder: '来做第一个发言人吧',
+        avatar: 'mm',
+        meta: meta,
+        pageSize: '10' || 10,
+        visitor: false 
+});
+</script>
+
+  </body>
+</html>

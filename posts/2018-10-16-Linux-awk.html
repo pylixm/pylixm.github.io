@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <title>
+        Linux基础系列 - 三剑客之 awk 命令使用总结 - DeanWu
+      </title>
+        <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    
+    <meta name="theme-color" content="#000000" />
+    
+    <meta http-equiv="window-target" content="_top" />
+    
+    
+    <meta name="description" content="简介 awk 是在linux环境下，分析文本的一个利器，与grep、sed被称为linux三剑客。awk功能强大，可以进行正则表达式的匹配，样式装入" />
+    <meta name="generator" content="Hugo 0.73.0 with theme pure" />
+    <title>Linux基础系列 - 三剑客之 awk 命令使用总结 - DeanWu</title>
+    
+    
+    <link rel="stylesheet" href="https://pylixm.top/css/style.min.f70e8e0df9ea6aeb37dac252b17ca98082073ff1663b24118baaaa84ee8ae7e8.css">
+    
+    <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.15.10/styles/github.min.css" async>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css" async>
+    <meta property="og:title" content="Linux基础系列 - 三剑客之 awk 命令使用总结" />
+<meta property="og:description" content="简介 awk 是在linux环境下，分析文本的一个利器，与grep、sed被称为linux三剑客。awk功能强大，可以进行正则表达式的匹配，样式装入" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://pylixm.top/posts/2018-10-16-Linux-awk.html" />
+<meta property="article:published_time" content="2018-10-16T00:00:00+00:00" />
+<meta property="article:modified_time" content="2018-10-16T00:00:00+00:00" /><meta property="og:see_also" content="https://pylixm.top/posts/2019-09-19-Linux-mtr.html" /><meta property="og:see_also" content="https://pylixm.top/posts/2019-06-03-Linux-rsync.html" /><meta property="og:see_also" content="https://pylixm.top/posts/2019-04-24-flock.html" /><meta property="og:see_also" content="https://pylixm.top/posts/2019-04-01-Linux-disk-raid.html" /><meta property="og:see_also" content="https://pylixm.top/posts/2018-10-23-Linux-grep.html" />
+
+<meta itemprop="name" content="Linux基础系列 - 三剑客之 awk 命令使用总结">
+<meta itemprop="description" content="简介 awk 是在linux环境下，分析文本的一个利器，与grep、sed被称为linux三剑客。awk功能强大，可以进行正则表达式的匹配，样式装入">
+<meta itemprop="datePublished" content="2018-10-16T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2018-10-16T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="2577">
+
+
+
+<meta itemprop="keywords" content="Linux,Linux基础系列,运维知识库," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Linux基础系列 - 三剑客之 awk 命令使用总结"/>
+<meta name="twitter:description" content="简介 awk 是在linux环境下，分析文本的一个利器，与grep、sed被称为linux三剑客。awk功能强大，可以进行正则表达式的匹配，样式装入"/>
+
+    <!--[if lte IE 9]>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+      <![endif]-->
+
+    <!--[if lt IE 9]>
+        <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+      <![endif]-->
+  </head>
+
+  
+  
+
+  <body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage"><header class="header" itemscope itemtype="http://schema.org/WPHeader">
+    <div class="slimContent">
+      <div class="navbar-header">
+        <div class="profile-block text-center">
+          <a id="avatar" href="https://pylixm.top" target="_blank">
+            <img class="img-circle img-rotate" src="https://pylixm.top/static/imgs/avatar.png" width="200" height="200">
+          </a>
+          <h2 id="name" class="hidden-xs hidden-sm">DeanWu</h2>
+          <h3 id="title" class="hidden-xs hidden-sm hidden-md">程序员</h3>
+          <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i>Beijing, China</small>
+        </div><div class="search" id="search-form-wrap">
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i
+                        class="icon icon-search"></i></button>
+            </span>
+        </div>
+        <div class="ins-search">
+            <div class="ins-search-mask"></div>
+            <div class="ins-search-container">
+                <div class="ins-input-wrapper">
+                    <input type="text" class="ins-search-input" placeholder="想要查找什么..."
+                        x-webkit-speech />
+                    <button type="button" class="close ins-close ins-selectable" data-dismiss="modal"
+                        aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="ins-section-wrapper">
+                    <div class="ins-section-container"></div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+        <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+        <ul class="nav navbar-nav main-nav">
+            <li class="menu-item menu-item-home">
+                <a href="/">
+                    <i class="icon icon-home-fill"></i>
+                  <span class="menu-title">首页</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-series">
+                <a href="/series/">
+                    <i class="icon icon-folder"></i>
+                  <span class="menu-title">专题</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-repository">
+                <a href="/project/">
+                    <i class="icon icon-project"></i>
+                  <span class="menu-title">项目</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-archives">
+                <a href="/posts/">
+                    <i class="icon icon-archives-fill"></i>
+                  <span class="menu-title">归档</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-about">
+                <a href="/about/">
+                    <i class="icon icon-cup-fill"></i>
+                  <span class="menu-title">关于</span>
+                </a>
+            </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+<aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content"><div>欢迎关注微信公众号「码农吴先生」：专注python/golang/devops等技术的学习经验及资源分享！</br>回复关键字：go或python 获取我收集的资料，也可回复关键字：小二，加我wx，一块聊技术，聊人生~  </br><img src="/static/imgs/wx/wx_gzh.png" width="140" height="140"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+      
+<div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+        <ul class="recent-post-list list-unstyled no-thumbnail">
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2020-12-08-django-async-views-example.html" class="title">Django 三个异步使用的案例</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-12-08 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-08</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2020-12-05-go-from-python-structure-base.html" class="title">「对比Python学习Go」- 基本数据结构</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-12-05 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-05</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2020-12-03-go-from-python-start.html" class="title">「对比Python学习Go」- 环境篇</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-12-03 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-03</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2020-12-02-go-from-python-intro.html" class="title">「对比Python学习Go」- 开篇</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-12-02 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-02</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2020-12-01-for-range-point.html" class="title">「Go Tips」for range 遍历时变量取值的问题分析</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-12-01 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-01</time>
+                    </p>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+      <div class="widget">
+    <h3 class="widget-title"> 分类</h3>
+    <div class="widget-body">
+        <ul class="category-list">
+            <li class="category-list-item"><a href="https://pylixm.top/categories/ATS/" class="category-list-link">ATS</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/DevOps/" class="category-list-link">DevOps</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Devlopment-Demo/" class="category-list-link">Devlopment-Demo</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Django/" class="category-list-link">Django</a><span class="category-list-count">39</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Docker/" class="category-list-link">Docker</a><span class="category-list-count">4</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Flask/" class="category-list-link">Flask</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Git/" class="category-list-link">Git</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Golang/" class="category-list-link">Golang</a><span class="category-list-count">12</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/HTTPS/" class="category-list-link">HTTPS</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Javascript/" class="category-list-link">Javascript</a><span class="category-list-count">3</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Kubernetes/" class="category-list-link">Kubernetes</a><span class="category-list-count">4</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/LVS/" class="category-list-link">LVS</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Linux/" class="category-list-link">Linux</a><span class="category-list-count">15</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Mongodb/" class="category-list-link">Mongodb</a><span class="category-list-count">3</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Mysql/" class="category-list-link">Mysql</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/NoSQL/" class="category-list-link">NoSQL</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/PostgreSQL/" class="category-list-link">PostgreSQL</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Puppet/" class="category-list-link">Puppet</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Python/" class="category-list-link">Python</a><span class="category-list-count">19</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/QA/" class="category-list-link">QA</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Rabbitmq/" class="category-list-link">Rabbitmq</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Restful/" class="category-list-link">Restful</a><span class="category-list-count">6</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/SaltStack/" class="category-list-link">SaltStack</a><span class="category-list-count">7</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Software_Architect/" class="category-list-link">Software_Architect</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Supervisor/" class="category-list-link">Supervisor</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Tornado/" class="category-list-link">Tornado</a><span class="category-list-count">3</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Vagrant/" class="category-list-link">Vagrant</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Vue/" class="category-list-link">Vue</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/kafka/" class="category-list-link">kafka</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/zookeeper/" class="category-list-link">zookeeper</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E4%B8%AA%E4%BA%BA%E7%AE%A1%E7%90%86/" class="category-list-link">个人管理</a><span class="category-list-count">5</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB/" class="category-list-link">前后端分离</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" class="category-list-link">数据结构与算法</a><span class="category-list-count">13</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E6%9C%9D%E8%8A%B1%E5%A4%95%E6%8B%BE/" class="category-list-link">朝花夕拾</a><span class="category-list-count">10</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" class="category-list-link">机器学习</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" class="category-list-link">环境搭建</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E7%A8%8B%E5%BA%8F%E5%91%98%E8%87%AA%E6%88%91%E4%BF%AE%E5%85%BB/" class="category-list-link">程序员自我修养</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E8%B5%84%E6%BA%90%E5%88%86%E4%BA%AB%E8%AE%A1%E5%88%92/" class="category-list-link">资源分享计划</a><span class="category-list-count">10</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E8%BF%90%E7%BB%B4%E7%9F%A5%E8%AF%86%E5%BA%93/" class="category-list-link">运维知识库</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86/" class="category-list-link">项目管理</a><span class="category-list-count">1</span></li>
+        </ul>
+    </div>
+</div>
+  </div>
+</aside>
+
+    
+    
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <h4 class="toc-title">文章目录</h4>
+    <nav id="toc" class="js-toc toc">
+
+    </nav>
+  </div>
+</aside>
+<main class="main" role="main"><div class="content">
+  
+  <article id="article-container" class="article article-type-" itemscope
+    itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      <h1 itemprop="name">
+  <a
+    class="article-title"
+    href="/posts/2018-10-16-Linux-awk.html"
+    >Linux基础系列 - 三剑客之 awk 命令使用总结</a
+  >
+</h1>
+
+      <div class="article-meta">
+        
+<span class="article-date">
+  <i class="icon icon-calendar-check"></i>&nbsp;
+<a href="https://pylixm.top/posts/2018-10-16-Linux-awk.html" class="article-date">
+  <time datetime="2018-10-16 00:00:00 &#43;0000 UTC" itemprop="datePublished">2018-10-16</time>
+</a>
+</span>
+<span class="article-category">
+  <i class="icon icon-folder"></i>&nbsp;
+  <a class="article-category-link" href="/categories/Linux/"> Linux </a>
+</span>  
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>&nbsp;
+    <a class="article-tag-link" href="/tags/Linux/"> Linux </a>
+    <a class="article-tag-link" href="/tags/Linux%E5%9F%BA%E7%A1%80%E7%B3%BB%E5%88%97/"> Linux基础系列 </a>
+    <a class="article-tag-link" href="/tags/%E8%BF%90%E7%BB%B4%E7%9F%A5%E8%AF%86%E5%BA%93/"> 运维知识库 </a>
+  </span>
+
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+        <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="/posts/2018-10-16-Linux-awk.html#comments"
+            class="article-comment-link">评论</a></span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 2577字</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 6分 </span>
+      </div>
+    </div>
+    <div class="article-entry marked-body js-toc-content" itemprop="articleBody">
+      <h2 id="简介">简介</h2>
+<p><code>awk</code> 是在linux环境下，分析文本的一个利器，与<code>grep</code>、<code>sed</code>被称为linux三剑客。<code>awk</code>功能强大，可以进行正则表达式的匹配，样式装入、流控制、数学运算符、进程控制语句甚至于内置的变量和函数。它具备了一个完整的语言所应具有的几乎所有精美特性。<code>awk</code>其名称得自于它的创始人 Alfred Aho 、Peter Weinberger 和 Brian Kernighan 姓氏的首个字母。实际上 AWK 的确拥有自己的语言： AWK 程序设计语言 ， 三位创建者已将它正式定义为“样式扫描和处理语言”。</p>
+<!-- raw HTML omitted -->
+<h2 id="使用方发">使用方发</h2>
+<h3 id="基本语法结构">基本语法结构</h3>
+<pre><code>语法：
+awk [options] 'script' var=value file(s)
+awk [options] -f scriptfile var=value file(s)
+</code></pre><p>常用参数：</p>
+<ul>
+<li>-F fs   fs指定输入分隔符，fs可以是字符串或正则表达式，如-F:</li>
+<li>-v var=value   赋值一个用户定义变量，将外部变量传递给awk</li>
+<li>-f scripfile  从脚本文件中读取awk命令</li>
+</ul>
+<p>awk 的基本结构如下：</p>
+<pre><code># awk 'BEGIN{ commands } pattern{ commands } END{ commands }'
+awk 'BEGIN{ print 'Start&gt;&gt;&gt;' } ~/mysql/{ print $0 } END{ print &quot;End&quot; }' test.txt
+awk '{print $0}' test.txt 
+</code></pre><p>说明：</p>
+<ul>
+<li>BEGIN语句块在awk开始从输入流中读取行之前被执行，这是一个可选的语句块，比如变量初始化、打印输出表格的表头等语句通常可以写在BEGIN语句块中。</li>
+<li>END语句块在awk从输入流中读取完所有的行之后即被执行，比如打印所有行的分析结果这类信息汇总都是在END语句块中完成，它也是一个可选语句块。</li>
+<li>pattern语句块中的通用命令是最重要的部分，它也是可选的。如果没有提供pattern语句块，则默认执行{ print }，即打印每一个读取到的行，awk读取的每一行都会执行该语句块。</li>
+<li>$0 为一个内置变量。</li>
+<li>/mysql/ 为正则表达式。</li>
+<li>~ 表示模式开启。</li>
+</ul>
+<p>执行过程如下：</p>
+<ul>
+<li>第一步：执行BEGIN{ commands }语句块中的语句；</li>
+<li>第二步：从文件或标准输入(stdin)读取一行，然后执行pattern{ commands }语句块，它逐行扫描文件，从第一行到最后一行重复这个过程，直到文件全部被读取完毕。</li>
+<li>第三步：当读至输入流末尾时，执行END{ commands }语句块。</li>
+</ul>
+<h3 id="内置变量">内置变量</h3>
+<p>awk 有些内置的变量，我们可以直接调用来使用：</p>
+<pre><code>说明：[A][N][P][G]表示第一个支持变量的工具，[A]=awk、[N]=nawk、[P]=POSIXawk、[G]=gawk，nawk/POSIXawk/gawk均为awk的扩展版本。
+$n 当前记录的第n个字段，比如n为1表示第一个字段，n为2表示第二个字段。 
+$0 这个变量包含执行过程中当前行的文本内容。
+[N] ARGC 命令行参数的数目。
+[G] ARGIND 命令行中当前文件的位置（从0开始算）。
+[N] ARGV 包含命令行参数的数组。
+[G] CONVFMT 数字转换格式（默认值为%.6g）。
+[P] ENVIRON 环境变量关联数组。
+[N] ERRNO 最后一个系统错误的描述。
+[G] FIELDWIDTHS 字段宽度列表（用空格键分隔）。
+[A] FILENAME 当前输入文件的名。
+[P] FNR 同NR，但相对于当前文件。
+[A] FS Begin中定义字段分隔符（默认是任何空格）。
+[G] IGNORECASE 如果为真，则进行忽略大小写的匹配。
+[A] NF 表示字段数，在执行过程中对应于当前的字段数。
+[A] NR 表示记录数，在执行过程中对应于当前的行号。
+[A] OFMT 数字的输出格式（默认值是%.6g）。
+[A] OFS 输出字段分隔符（默认值是一个空格）。
+[A] ORS 输出记录分隔符（默认值是一个换行符）。
+[A] RS 记录分隔符（默认是一个换行符）。
+[N] RSTART 由match函数所匹配的字符串的第一个位置。
+[N] RLENGTH 由match函数所匹配的字符串的长度。
+[N] SUBSEP 数组下标分隔符（默认值是34）。
+</code></pre><p>这些变量我们再处理文本是可直接使用。例如，我要获取每行文本的最后一个字段，我就可以这样写：</p>
+<pre><code>awk '{print $NF}'
+</code></pre><h3 id="参数">参数</h3>
+<p><strong>-F</strong></p>
+<p>默认awk会将每行文本字符按空格来分成若干字段再来进一步处理，可以使用此参数来自定义awk的行分割符号。</p>
+<p>实例，</p>
+<pre><code>awk -F &quot;.&quot; test.txt 
+</code></pre><p><strong>-v</strong></p>
+<p>可以将外部值（并非来自stdin）传递给awk。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">VAR<span style="color:#f92672">=</span><span style="color:#ae81ff">10000</span>
+echo | awk -v VARIABLE<span style="color:#f92672">=</span>$VAR <span style="color:#e6db74">&#39;{ print VARIABLE }&#39;</span>
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 其他赋值</span>
+var1<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;aaa&#34;</span>
+var2<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;bbb&#34;</span>
+echo | awk <span style="color:#e6db74">&#39;{ print v1,v2 }&#39;</span> v1<span style="color:#f92672">=</span>$var1 v2<span style="color:#f92672">=</span>$var2
+
+<span style="color:#75715e"># 从文件中获取变量</span>
+awk <span style="color:#e6db74">&#39;{ print v1,v2 }&#39;</span> v1<span style="color:#f92672">=</span>$var1 v2<span style="color:#f92672">=</span>$var2 filename
+</code></pre></div><p><strong>-f</strong></p>
+<p>awk 命令可写入文件，通过此参数调用。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># cal.awk</span> 
+<span style="color:#f92672">{</span>print $0<span style="color:#f92672">}</span>
+
+<span style="color:#75715e"># 通过文件调用</span>
+awk -f cal.awk test.txt
+</code></pre></div><h3 id="运算">运算</h3>
+<p><strong>条件表达式</strong>
+==   !=   &gt;   &gt;=<br>
+awk -F&rdquo;:&rdquo; &lsquo;$1==&quot;mysql&rdquo;{print $3}&rsquo; /etc/passwd<br>
+awk -F&rdquo;:&rdquo; &lsquo;{if($1==&quot;mysql&rdquo;) print $3}&rsquo; /etc/passwd          //与上面相同
+awk -F&rdquo;:&rdquo; &lsquo;$1!=&quot;mysql&rdquo;{print $3}&rsquo; /etc/passwd                 //不等于
+awk -F&rdquo;:&rdquo; &lsquo;$3&gt;1000{print $3}&rsquo; /etc/passwd                      //大于
+awk -F&rdquo;:&rdquo; &lsquo;$3&gt;=100{print $3}&rsquo; /etc/passwd                     //大于等于
+awk -F&rdquo;:&rdquo; &lsquo;$3&lt;1{print $3}&rsquo; /etc/passwd                            //小于
+awk -F&rdquo;:&rdquo; &lsquo;$3&lt;=1{print $3}&rsquo; /etc/passwd                         //小于等于</p>
+<p><strong>逻辑运算符</strong>
+&amp;&amp;　||
+awk -F: &lsquo;$1~/mail/ &amp;&amp; $3&gt;8 {print }&rsquo; /etc/passwd         //逻辑与，$1匹配mail，并且$3&gt;8
+awk -F: &lsquo;{if($1~/mail/ &amp;&amp; $3&gt;8) print }&rsquo; /etc/passwd
+awk -F: &lsquo;$1~/mail/ || $3&gt;1000 {print }&rsquo; /etc/passwd       //逻辑或
+awk -F: &lsquo;{if($1~/mail/ || $3&gt;1000) print }&rsquo; /etc/passwd</p>
+<p><strong>数值运算</strong>
+awk -F: &lsquo;$3 &gt; 100&rsquo; /etc/passwd <br>
+awk -F: &lsquo;$3 &gt; 100 || $3 &lt; 5&rsquo; /etc/passwd<br>
+awk -F: &lsquo;$3+$4 &gt; 200&rsquo; /etc/passwd
+awk -F: &lsquo;/mysql|mail/{print $3+10}&rsquo; /etc/passwd                    //第三个字段加10打印
+awk -F: &lsquo;/mysql/{print $3-$4}&rsquo; /etc/passwd                             //减法
+awk -F: &lsquo;/mysql/{print $3*$4}&rsquo; /etc/passwd                             //求乘积
+awk &lsquo;/MemFree/{print $2/1024}&rsquo; /proc/meminfo                  //除法
+awk &lsquo;/MemFree/{print int($2/1024)}&rsquo; /proc/meminfo           //取整</p>
+<h3 id="控制语句">控制语句</h3>
+<p><strong>IF语句</strong>
+必须用在{}中，且比较内容用()扩起来
+awk -F: &lsquo;{if($1~/mail/) print $1}&rsquo; /etc/passwd                                       //简写
+awk -F: &lsquo;{if($1~/mail/) {print $1}}&rsquo;  /etc/passwd                                   //全写
+awk -F: &lsquo;{if($1~/mail/) {print $1} else {print $2}}&rsquo; /etc/passwd            //if&hellip;else&hellip;</p>
+<p><strong>while语句</strong>
+awk -F: &lsquo;BEGIN{i=1} {while(i&lt;NF) print NF,$i,i++}&rsquo; /etc/passwd</p>
+<p><strong>for语句</strong></p>
+<p>seq 9 | sed &lsquo;H;g&rsquo; | awk -v RS=&rsquo;&rsquo; &lsquo;{for(i=1;i&lt;=NF;i++)printf(&quot;%dx%d=%d%s&rdquo;, i, NR, i*NR, i==NR?&quot;\n&rdquo;:&quot;\t&rdquo;)}&rsquo;</p>
+<h2 id="常用总结">常用总结</h2>
+<h3 id="ip相关统计">IP相关统计</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e">#统计IP访问量（独立ip访问数量）</span>
+awk <span style="color:#e6db74">&#39;{print $1}&#39;</span> access.log | sort -n | uniq | wc -l
+
+<span style="color:#75715e"># 查看某一时间段的IP访问量(4-5点)</span>
+grep <span style="color:#e6db74">&#34;07/Apr/2017:0[4-5]&#34;</span> access.log | awk <span style="color:#e6db74">&#39;{print $1}&#39;</span> | sort | uniq -c| sort -nr | wc -l  
+
+<span style="color:#75715e"># 查看访问最频繁的前100个IP</span>
+awk <span style="color:#e6db74">&#39;{print $1}&#39;</span> access.log | sort -n |uniq -c | sort -rn | head -n <span style="color:#ae81ff">100</span>
+
+<span style="color:#75715e"># 查看访问100次以上的IP</span>
+awk <span style="color:#e6db74">&#39;{print $1}&#39;</span> access.log | sort -n |uniq -c |awk <span style="color:#e6db74">&#39;{if($1 &gt;100) print $0}&#39;</span>|sort -rn
+<span style="color:#75715e"># 查询某个IP的详细访问情况,按访问频率排序</span>
+grep <span style="color:#e6db74">&#39;127.0.01&#39;</span> access.log |awk <span style="color:#e6db74">&#39;{print $7}&#39;</span>|sort |uniq -c |sort -rn |head -n <span style="color:#ae81ff">100</span>
+</code></pre></div><h3 id="页面访问统计">页面访问统计</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">
+<span style="color:#75715e"># 查看访问最频的页面(TOP100)</span>
+awk <span style="color:#e6db74">&#39;{print $7}&#39;</span> access.log | sort |uniq -c | sort -rn | head -n <span style="color:#ae81ff">100</span>
+
+<span style="color:#75715e"># 查看访问最频的页面([排除php页面】(TOP100)</span>
+grep -v <span style="color:#e6db74">&#34;.php&#34;</span>  access.log | awk <span style="color:#e6db74">&#39;{print $7}&#39;</span> | sort |uniq -c | sort -rn | head -n <span style="color:#ae81ff">100</span> 
+
+<span style="color:#75715e"># 查看页面访问次数超过100次的页面</span>
+cat access.log | cut -d <span style="color:#e6db74">&#39; &#39;</span> -f <span style="color:#ae81ff">7</span> | sort |uniq -c | awk <span style="color:#e6db74">&#39;{if ($1 &gt; 100) print $0}&#39;</span> | less
+
+<span style="color:#75715e"># 查看最近1000条记录，访问量最高的页面</span>
+tail -1000 access.log |awk <span style="color:#e6db74">&#39;{print $7}&#39;</span>|sort|uniq -c|sort -nr|less
+</code></pre></div><h3 id="请求量统计">请求量统计</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 统计每秒的请求数,top100的时间点(精确到秒)</span>
+awk <span style="color:#e6db74">&#39;{print $4}&#39;</span> access.log |cut -c 14-21|sort|uniq -c|sort -nr|head -n <span style="color:#ae81ff">100</span>
+
+<span style="color:#75715e"># 统计每分钟的请求数,top100的时间点(精确到分钟)</span>
+awk <span style="color:#e6db74">&#39;{print $4}&#39;</span> access.log |cut -c 14-18|sort|uniq -c|sort -nr|head -n <span style="color:#ae81ff">100</span>
+
+<span style="color:#75715e"># 统计每小时的请求数,top100的时间点(精确到小时)</span>
+awk <span style="color:#e6db74">&#39;{print $4}&#39;</span> access.log |cut -c 14-15|sort|uniq -c|sort -nr|head -n <span style="color:#ae81ff">100</span>
+</code></pre></div><h3 id="性能分析">性能分析</h3>
+<p>在nginx log中最后一个字段加入$request_time</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 列出传输时间超过 3 秒的页面，显示前20条</span>
+cat access.log|awk <span style="color:#e6db74">&#39;($NF &gt; 3){print $7}&#39;</span>|sort -n|uniq -c|sort -nr|head -20
+
+<span style="color:#75715e"># 列出php页面请求时间超过3秒的页面，并统计其出现的次数，显示前100条</span>
+cat access.log|awk <span style="color:#e6db74">&#39;($NF &gt; 1 &amp;&amp;  $7~/\.php/){print $7}&#39;</span>|sort -n|uniq -c|sort -nr|head -100
+</code></pre></div><h3 id="蜘蛛抓取统计">蜘蛛抓取统计</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 统计蜘蛛抓取次数</span>
+grep <span style="color:#e6db74">&#39;Baiduspider&#39;</span> access.log |wc -l
+
+<span style="color:#75715e"># 统计蜘蛛抓取404的次数</span>
+grep <span style="color:#e6db74">&#39;Baiduspider&#39;</span> access.log |grep <span style="color:#e6db74">&#39;404&#39;</span> | wc -l
+</code></pre></div><h3 id="tcp连接统计">TCP连接统计</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 查看当前TCP连接数</span>
+netstat -tan | grep <span style="color:#e6db74">&#34;ESTABLISHED&#34;</span> | grep <span style="color:#e6db74">&#34;:80&#34;</span> | wc -l
+
+<span style="color:#75715e"># 用tcpdump嗅探80端口的访问看看谁最高</span>
+tcpdump -i eth0 -tnn dst port <span style="color:#ae81ff">80</span> -c <span style="color:#ae81ff">1000</span> | awk -F<span style="color:#e6db74">&#34;.&#34;</span> <span style="color:#e6db74">&#39;{print $1&#34;.&#34;$2&#34;.&#34;$3&#34;.&#34;$4}&#39;</span> | sort | uniq -c | sort -nr
+</code></pre></div><h3 id="运算-1">运算</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 1、求和</span>
+cat data|awk <span style="color:#e6db74">&#39;{sum+=$1} END {print &#34;Sum = &#34;, sum}&#39;</span>
+
+<span style="color:#75715e"># 2、求平均</span>
+cat data|awk <span style="color:#e6db74">&#39;{sum+=$1} END {print &#34;Average = &#34;, sum/NR}&#39;</span>
+
+<span style="color:#75715e"># 3、求最大值</span>
+cat data|awk <span style="color:#e6db74">&#39;BEGIN {max = 0} {if ($1&gt;max) max=$1 } END {print &#34;Max=&#34;, max}&#39;</span>
+
+<span style="color:#75715e"># 4、求最小值（min的初始值设置一个超大数即可）</span>
+awk <span style="color:#e6db74">&#39;BEGIN {min = 1999999} {if ($1&lt;min) min=$1} END {print &#34;Min=&#34;, min}&#39;</span>
+</code></pre></div><h2 id="参考">参考</h2>
+<ul>
+<li><a href="http://man.linuxde.net/awk#%E8%B5%8B%E5%80%BC%E8%BF%90%E7%AE%97%E7%AC%A6">http://man.linuxde.net/awk#%E8%B5%8B%E5%80%BC%E8%BF%90%E7%AE%97%E7%AC%A6</a></li>
+<li><a href="http://blog.chinaunix.net/uid-23302288-id-3785105.html">http://blog.chinaunix.net/uid-23302288-id-3785105.html</a></li>
+</ul>
+
+    </div>
+    <div class="article-footer">
+<blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://pylixm.top/posts/2018-10-16-Linux-awk.html" title="Linux基础系列 - 三剑客之 awk 命令使用总结" target="_blank" rel="external">https://pylixm.top/posts/2018-10-16-Linux-awk.html</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>许可协议：</strong>
+      <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN</a>
+    </li>
+  </ul>
+</blockquote>
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://pylixm.top" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="https://pylixm.top/static/imgs/avatar.png" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://pylixm.top" target="_blank"><span class="text-dark">DeanWu</span><small class="ml-1x">程序员</small></a></h3>
+        <div>努力成为真正的SRE</div>
+      </div>
+    </figure>
+  </div>
+</div>
+    </div>
+  </article>
+<section id="comments">
+    <div id="vcomments"></div>
+</section>
+
+</div><nav class="bar bar-footer clearfix" data-stick-bottom>
+    <div class="bar-inner">
+        <ul class="pager pull-left">
+            <li class="prev">
+                <a href="https://pylixm.top/posts/2018-09-30-Linux-disk.html" title="Linux基础系列 - 磁盘相关知识及操作命令总结"><i
+                        class="icon icon-angle-left"
+                        aria-hidden="true"></i><span>&nbsp;&nbsp;下一篇</span></a>
+            </li>
+            <li class="next">
+                <a href="https://pylixm.top/2018/10/Go-start-1/"
+                    title="「Go语言学习笔记三」- Golang 语法入门【重排版】"><span>上一篇&nbsp;&nbsp;</span><i
+                        class="icon icon-angle-right" aria-hidden="true"></i></a>
+            </li>
+            
+            <li class="toggle-toc">
+                <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false"
+                    title="文章目录" role="button">
+                    <span>[&nbsp;</span><span>文章目录</span>
+                    <i class="text-collapsed icon icon-anchor"></i>
+                    <i class="text-in icon icon-close"></i>
+                    <span>]</span>
+                </a>
+            </li>
+        </ul>
+        <div class="bar-right">
+        </div>
+    </div>
+</nav>
+
+
+<script src="https://my.openwrite.cn/js/readmore.js" type="text/javascript"></script>
+<script>
+    const btw = new BTWPlugin();
+    btw.init({
+        id: 'article-container',
+        blogId: '24944-1607090547459-485',
+        name: '码农吴先生',
+        qrcode: 'https://gitee.com/pylixm/picture/raw/master/2020-12-4/1607089812769-image.png',
+        keyword: 'vip',
+    });
+</script>
+</main><footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+<ul class="social-links">
+    <li><a href="https://github.com/pylixm" target="_blank" title="github" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-github"></i></a></li>
+    <li><a href="https://pylixm.top/index.xml" target="_blank" title="rss" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-rss"></i></a></li>
+    <li><a href="http://weibo.com/2258086637" target="_blank" title="weibo" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-weibo"></i></a></li>
+</ul>
+  <div class="copyright">
+    &copy;2015  -
+    2020
+    <div class="publishby">
+      hugo驱动，Theme by <a href="https://github.com/xiaoheiAh/hugo-theme-pure" target="_blank"> pure</a>.
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_SVG"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+            showMathMenu: false, //disables context menu
+            tex2jax: {
+            inlineMath: [ ['$','$'], ['\\(','\\)'] ]
+           }
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+<script>
+    window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/highlight.min.js"></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/python.min.js" defer></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/javascript.min.js" defer></script><script>
+    hljs.configure({
+        tabReplace: '    ', 
+        classPrefix: ''     
+        
+    })
+    hljs.initHighlightingOnLoad();
+</script>
+<script src="https://pylixm.top/js/application.min.bdeb64b910570b6c41badc6a05b7afb0c8ad9efd8525de3c7257d59e786326a3.js"></script>
+<script src="https://pylixm.top/js/plugin.min.51ff8c7317566f82259170fa36e09c4493adc9b9378b427a01ad3f017ebac7dd.js"></script>
+
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(未命名)',
+            },
+            ROOT_URL: 'https:\/\/pylixm.top',
+            CONTENT_URL: 'https:\/\/pylixm.top\/searchindex.json ',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script type="text/javascript" src="https://pylixm.top/js/insight.min.a343cd9a5a7698336b28ef3a7c16a3a1b1d2d5fb17dc8ed04022bbe08cc5459073a15bdafa3a8a58cdd56080784bdd69fa70b1ae8597565c799c57ed00f0e120.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script>
+<script>
+    tocbot.init({
+        
+        tocSelector: '.js-toc',
+        
+        contentSelector: '.js-toc-content',
+        
+        headingSelector: 'h1, h2, h3',
+        
+        hasInnerContainers: true,
+    });
+</script>
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="https://cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine"></script>
+<script type="text/javascript">
+    var GUEST = ['nick', 'mail', 'link'];
+    var meta = 'nick,mail';
+    meta = meta.split(',').filter(function (item) {
+        return GUEST.indexOf(item) > -1;
+    });
+    new Valine({
+        el: '#vcomments',
+        verify: null ,
+        notify: null ,
+        appId: 'OBJcj4PU8JI0zDfu0HJSrG6W-gzGzoHsz',
+        appKey: 'tBtFzC72xIlgo2UFbA33nqmU',
+        placeholder: '来做第一个发言人吧',
+        avatar: 'mm',
+        meta: meta,
+        pageSize: '10' || 10,
+        visitor: false 
+});
+</script>
+
+  </body>
+</html>

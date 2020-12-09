@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Django on DeanWu</title>
+    <link>https://pylixm.top/categories/Django/</link>
+    <description>Recent content in Django on DeanWu</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Tue, 08 Dec 2020 00:00:00 +0000</lastBuildDate>
+    
+        <atom:link href="https://pylixm.top/categories/Django/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>「Python Tips」 - 卸载通过pkg安装的python</title>
+      <link>https://pylixm.top/posts/2020-07-02-python-uninstall-for-mac.html</link>
+      <pubDate>Thu, 02 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2020-07-02-python-uninstall-for-mac.html</guid>
+      <description>使用Python开发时，大都是安装一个自己的Python, 很少使用系统自带的。一是版本老旧，另一个是怕安装开发包时和系统依赖包冲突，对系统造</description>
+    </item>
+    
+    <item>
+      <title>「朝花夕拾」- 0626期，总第九期</title>
+      <link>https://pylixm.top/posts/2020-06-26-zhxs-0626.html</link>
+      <pubDate>Fri, 26 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2020-06-26-zhxs-0626.html</guid>
+      <description>「朝花夕拾」周刊总目录: https://pylixm.cc/posts/2020-04-30-zhxs-index.html 资讯 6月17日，DjangoCon US 2020 因疫情取消 https://www.djangoproject.com/weblog/2020/jun/17/update-djangocon-us-2020/ 6月27日，NumPy 1.19.0 Release Notes https://numpy.org/devdocs/release/1.19.0-notes.html 文章 JSON.stringify() 的一些有用的额外功能。 https://juejin.im/post/5eee33d6e51d45742615751a 《从</description>
+    </item>
+    
+    <item>
+      <title>「朝花夕拾」- 0612/0619期，总第七/八期</title>
+      <link>https://pylixm.top/posts/2020-06-19-zhxs-0619.html</link>
+      <pubDate>Fri, 19 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2020-06-19-zhxs-0619.html</guid>
+      <description>「朝花夕拾」周刊总目录: https://pylixm.cc/posts/2020-04-30-zhxs-index.html 资讯 6月15日 ，Django 3.1 beta 1 released 文章 一行css 代码，实现暗黑模式。 https://francoisbest.com/posts/2020/dark-mode-for-excalidraw 文章介绍了一个排查Python程序内存溢出</description>
+    </item>
+    
+    <item>
+      <title>「朝花夕拾」- 0605期，总第六期</title>
+      <link>https://pylixm.top/posts/2020-06-05-zhxs-0605.html</link>
+      <pubDate>Fri, 05 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2020-06-05-zhxs-0605.html</guid>
+      <description>「朝花夕拾」周刊总目录: https://pylixm.cc/posts/2020-04-30-zhxs-index.html 文章 前后端分离架构中，JWT 被使用的最多。但是我们真的需要吗？传统的 cookie-session 机制不好吗？这篇文章将告诉我们 JWT 是为什么不适</description>
+    </item>
+    
+    <item>
+      <title>谈谈前后端分离及认证选择</title>
+      <link>https://pylixm.top/posts/2020-06-04-jwt-auth-session.html</link>
+      <pubDate>Thu, 04 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2020-06-04-jwt-auth-session.html</guid>
+      <description>前几年，web开发领域中「前后端分离」比较火，现如今已逐渐成为事实标准。但是究竟什么是前后端分离？又为什么要前后端分离呢？ 什么是前后端分离？</description>
+    </item>
+    
+    <item>
+      <title>「朝花夕拾」- 0530期，总第五期</title>
+      <link>https://pylixm.top/posts/2020-05-30-zhxs-0530.html</link>
+      <pubDate>Sat, 30 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2020-05-30-zhxs-0530.html</guid>
+      <description>「朝花夕拾」总目录 资讯 第一届 FlaskCon将在6月7日举行，喜欢Flask的朋友可以关注 文章 缓存使用的五种应用模式，文章列举了现在流行的缓</description>
+    </item>
+    
+    <item>
+      <title>「朝花夕拾」- 0522期，总第四期</title>
+      <link>https://pylixm.top/posts/2020-05-22-zhxs-0522.html</link>
+      <pubDate>Fri, 22 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2020-05-22-zhxs-0522.html</guid>
+      <description>「朝花夕拾」总目录 资讯 5月19日，Python 3.9.0b1 开放下载测试。 文章 通过构建互动游戏来教孩子们学习Python。文中介绍了一款Python的游</description>
+    </item>
+    
+    <item>
+      <title>Python中一种轻松实现并发编程的方法</title>
+      <link>https://pylixm.top/posts/2020-05-18-python-concurrent-feature.html</link>
+      <pubDate>Mon, 18 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2020-05-18-python-concurrent-feature.html</guid>
+      <description>原文地址：https://rednafi.github.io/digressions/python/2020/04/21/python-co</description>
+    </item>
+    
+    <item>
+      <title>「朝花夕拾」- 0515期，总第三期</title>
+      <link>https://pylixm.top/posts/2020-05-15-zhxs-0515.html</link>
+      <pubDate>Fri, 15 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2020-05-15-zhxs-0515.html</guid>
+      <description>「朝花夕拾」总目录 资讯 5月13日，Python3.8.3 发布 文章 Victor Stinner （python指导委员会，cpython核心维护之一）和 Julien Danjou（</description>
+    </item>
+    
+    <item>
+      <title>「朝花夕拾」- 0508期，总第二期</title>
+      <link>https://pylixm.top/posts/2020-05-08-zhxs-0508.html</link>
+      <pubDate>Fri, 08 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2020-05-08-zhxs-0508.html</guid>
+      <description>「朝花夕拾」总目录 资讯 5月4日，Python的issue追踪准备迁移到Github，正在招聘项目经理 5月5日，2019年Python开发者报</description>
+    </item>
+    
+    <item>
+      <title>「朝花夕拾」- 0501期，总第一期</title>
+      <link>https://pylixm.top/posts/2020-04-30-zhxs-0501.html</link>
+      <pubDate>Thu, 30 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2020-04-30-zhxs-0501.html</guid>
+      <description>「朝花夕拾」总目录 Python 资讯 4月20日，Python2 的最后一个版本2.7.18发布。 4月28日，Python 3.9.0a6发布。 文章 数值类型在</description>
+    </item>
+    
+    <item>
+      <title>「朝花夕拾」- 总目录</title>
+      <link>https://pylixm.top/posts/2020-04-30-zhxs-index.html</link>
+      <pubDate>Thu, 30 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2020-04-30-zhxs-index.html</guid>
+      <description>我把过去一周看到的文章、资源等优秀的信息收集起来备查，希望形成有一定参考价值的资料库。同时分享给大家，希望有帮助，每「周五」发布。因为是个人</description>
+    </item>
+    
+    <item>
+      <title>Kafka 使用总结</title>
+      <link>https://pylixm.top/posts/2020-04-14-kafka.html</link>
+      <pubDate>Tue, 14 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2020-04-14-kafka.html</guid>
+      <description>Kafka 简介 历史 消息代理，狭义的讲它是一种按照某专递协议进行消息传递的架构模式。常用来解决系统之间的耦合、异步任务调用和瞬时流量的应对问题。随着互</description>
+    </item>
+    
+    <item>
+      <title>数据结构与算法 - 算法 - 二分查找</title>
+      <link>https://pylixm.top/posts/2020-01-02-binary-search.html</link>
+      <pubDate>Thu, 02 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2020-01-02-binary-search.html</guid>
+      <description>《数据结构与算法-王争》学习笔记，记录备查 二分查找 二分查找针对的是一个有序的数据集合，查找思想有点类似分治思想。每次都通过跟区间的中间元素对</description>
+    </item>
+    
+    <item>
+      <title>数据结构与算法 - 算法 - 排序优化</title>
+      <link>https://pylixm.top/posts/2020-01-01-sort-optimization.html</link>
+      <pubDate>Wed, 01 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2020-01-01-sort-optimization.html</guid>
+      <description>《数据结构与算法-王争》学习笔记，记录备查 各排序算法情况： 快速排序的优化 快速排序，时间复杂度在 O(nlogn) 和 O(n^2)之间。在极坏的情况的，时间复杂</description>
+    </item>
+    
+    <item>
+      <title>Zookeeper 入门</title>
+      <link>https://pylixm.top/posts/2019-12-31-zookeeper.html</link>
+      <pubDate>Tue, 31 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2019-12-31-zookeeper.html</guid>
+      <description>Zookeeper 是Apache开源组织的一款分布式服务框架，常在分布式集群中扮演状态同步、集群管理、配置项管理等重要角色。业内比较流行的竞品软件有 etcd</description>
+    </item>
+    
+    <item>
+      <title>数据结构与算法 - 算法 - 线性排序</title>
+      <link>https://pylixm.top/posts/2019-12-29-linear-sort.html</link>
+      <pubDate>Sun, 29 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2019-12-29-linear-sort.html</guid>
+      <description>《数据结构与算法-王争》学习笔记，记录备查 线性排序，桶排序、计数排序、基数排序。 因为他们的时间复杂度都为O(n)，所以叫做线性排序。 桶排序（</description>
+    </item>
+    
+    <item>
+      <title>数据结构与算法 - 算法 - 经典排序</title>
+      <link>https://pylixm.top/posts/2019-12-27-sort.html</link>
+      <pubDate>Fri, 27 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2019-12-27-sort.html</guid>
+      <description>《数据结构与算法-王争》学习笔记，记录备查 排序是我们最常用接触最早的算法，经典常用的排序算法有： O(n^2): 冒泡排序、插入排序、选择排序 O(nlogn): 快速排序、归</description>
+    </item>
+    
+    <item>
+      <title>Python 段错误（Segmentation fault）排查</title>
+      <link>https://pylixm.top/posts/2019-12-26-python-trick.html</link>
+      <pubDate>Thu, 26 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2019-12-26-python-trick.html</guid>
+      <description>现象 今天在升级一个Python虚拟环境的时候，出现了这种错误 OSError - setuptools pip wheel failed with error code -11。我的操作步骤是这样的，先删除虚拟环境rm -rf env，再创</description>
+    </item>
+    
+    <item>
+      <title>数据结构与算法 - 算法 - 递归</title>
+      <link>https://pylixm.top/posts/2019-12-26-recursion.html</link>
+      <pubDate>Thu, 26 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2019-12-26-recursion.html</guid>
+      <description>《数据结构与算法-王争》学习笔记，记录备查 可用递归解决的问题的三个条件 一个问题的解可以分解为几个子问题的解 这个问题和子问题之后的子问题，除了</description>
+    </item>
+    
+  </channel>
+</rss>

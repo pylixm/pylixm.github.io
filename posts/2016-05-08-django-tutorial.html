@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <title>
+        Django 简单入门及最佳实践 - DeanWu
+      </title>
+        <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    
+    <meta name="theme-color" content="#000000" />
+    
+    <meta http-equiv="window-target" content="_top" />
+    
+    
+    <meta name="description" content="自己使用纯django 开发项目，也有1年多了。在使用django的过程中，也抱怨过django的各种问题。比如，各种模块的约定过于死板，不够" />
+    <meta name="generator" content="Hugo 0.73.0 with theme pure" />
+    <title>Django 简单入门及最佳实践 - DeanWu</title>
+    
+    
+    <link rel="stylesheet" href="https://pylixm.top/css/style.min.f70e8e0df9ea6aeb37dac252b17ca98082073ff1663b24118baaaa84ee8ae7e8.css">
+    
+    <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.15.10/styles/github.min.css" async>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css" async>
+    <meta property="og:title" content="Django 简单入门及最佳实践" />
+<meta property="og:description" content="自己使用纯django 开发项目，也有1年多了。在使用django的过程中，也抱怨过django的各种问题。比如，各种模块的约定过于死板，不够" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://pylixm.top/posts/2016-05-08-django-tutorial.html" />
+<meta property="article:published_time" content="2016-05-08T18:00:00+00:00" />
+<meta property="article:modified_time" content="2016-05-08T18:00:00+00:00" />
+<meta itemprop="name" content="Django 简单入门及最佳实践">
+<meta itemprop="description" content="自己使用纯django 开发项目，也有1年多了。在使用django的过程中，也抱怨过django的各种问题。比如，各种模块的约定过于死板，不够">
+<meta itemprop="datePublished" content="2016-05-08T18:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2016-05-08T18:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="3953">
+
+
+
+<meta itemprop="keywords" content="Django,Django-tutorial," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Django 简单入门及最佳实践"/>
+<meta name="twitter:description" content="自己使用纯django 开发项目，也有1年多了。在使用django的过程中，也抱怨过django的各种问题。比如，各种模块的约定过于死板，不够"/>
+
+    <!--[if lte IE 9]>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+      <![endif]-->
+
+    <!--[if lt IE 9]>
+        <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+      <![endif]-->
+  </head>
+
+  
+  
+
+  <body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage"><header class="header" itemscope itemtype="http://schema.org/WPHeader">
+    <div class="slimContent">
+      <div class="navbar-header">
+        <div class="profile-block text-center">
+          <a id="avatar" href="https://pylixm.top" target="_blank">
+            <img class="img-circle img-rotate" src="https://pylixm.top/static/imgs/avatar.png" width="200" height="200">
+          </a>
+          <h2 id="name" class="hidden-xs hidden-sm">DeanWu</h2>
+          <h3 id="title" class="hidden-xs hidden-sm hidden-md">程序员</h3>
+          <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i>Beijing, China</small>
+        </div><div class="search" id="search-form-wrap">
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i
+                        class="icon icon-search"></i></button>
+            </span>
+        </div>
+        <div class="ins-search">
+            <div class="ins-search-mask"></div>
+            <div class="ins-search-container">
+                <div class="ins-input-wrapper">
+                    <input type="text" class="ins-search-input" placeholder="想要查找什么..."
+                        x-webkit-speech />
+                    <button type="button" class="close ins-close ins-selectable" data-dismiss="modal"
+                        aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="ins-section-wrapper">
+                    <div class="ins-section-container"></div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+        <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+        <ul class="nav navbar-nav main-nav">
+            <li class="menu-item menu-item-home">
+                <a href="/">
+                    <i class="icon icon-home-fill"></i>
+                  <span class="menu-title">首页</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-series">
+                <a href="/series/">
+                    <i class="icon icon-folder"></i>
+                  <span class="menu-title">专题</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-repository">
+                <a href="/project/">
+                    <i class="icon icon-project"></i>
+                  <span class="menu-title">项目</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-archives">
+                <a href="/posts/">
+                    <i class="icon icon-archives-fill"></i>
+                  <span class="menu-title">归档</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-about">
+                <a href="/about/">
+                    <i class="icon icon-cup-fill"></i>
+                  <span class="menu-title">关于</span>
+                </a>
+            </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+<aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content"><div>欢迎关注微信公众号「码农吴先生」：专注python/golang/devops等技术的学习经验及资源分享！</br>回复关键字：go或python 获取我收集的资料，也可回复关键字：小二，加我wx，一块聊技术，聊人生~  </br><img src="/static/imgs/wx/wx_gzh.png" width="140" height="140"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+      
+<div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+        <ul class="recent-post-list list-unstyled no-thumbnail">
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2020-12-08-django-async-views-example.html" class="title">Django 三个异步使用的案例</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-12-08 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-08</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2020-12-05-go-from-python-structure-base.html" class="title">「对比Python学习Go」- 基本数据结构</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-12-05 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-05</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2020-12-03-go-from-python-start.html" class="title">「对比Python学习Go」- 环境篇</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-12-03 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-03</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2020-12-02-go-from-python-intro.html" class="title">「对比Python学习Go」- 开篇</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-12-02 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-02</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2020-12-01-for-range-point.html" class="title">「Go Tips」for range 遍历时变量取值的问题分析</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-12-01 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-01</time>
+                    </p>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+      <div class="widget">
+    <h3 class="widget-title"> 分类</h3>
+    <div class="widget-body">
+        <ul class="category-list">
+            <li class="category-list-item"><a href="https://pylixm.top/categories/ATS/" class="category-list-link">ATS</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/DevOps/" class="category-list-link">DevOps</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Devlopment-Demo/" class="category-list-link">Devlopment-Demo</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Django/" class="category-list-link">Django</a><span class="category-list-count">39</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Docker/" class="category-list-link">Docker</a><span class="category-list-count">4</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Flask/" class="category-list-link">Flask</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Git/" class="category-list-link">Git</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Golang/" class="category-list-link">Golang</a><span class="category-list-count">12</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/HTTPS/" class="category-list-link">HTTPS</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Javascript/" class="category-list-link">Javascript</a><span class="category-list-count">3</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Kubernetes/" class="category-list-link">Kubernetes</a><span class="category-list-count">4</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/LVS/" class="category-list-link">LVS</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Linux/" class="category-list-link">Linux</a><span class="category-list-count">15</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Mongodb/" class="category-list-link">Mongodb</a><span class="category-list-count">3</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Mysql/" class="category-list-link">Mysql</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/NoSQL/" class="category-list-link">NoSQL</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/PostgreSQL/" class="category-list-link">PostgreSQL</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Puppet/" class="category-list-link">Puppet</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Python/" class="category-list-link">Python</a><span class="category-list-count">19</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/QA/" class="category-list-link">QA</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Rabbitmq/" class="category-list-link">Rabbitmq</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Restful/" class="category-list-link">Restful</a><span class="category-list-count">6</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/SaltStack/" class="category-list-link">SaltStack</a><span class="category-list-count">7</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Software_Architect/" class="category-list-link">Software_Architect</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Supervisor/" class="category-list-link">Supervisor</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Tornado/" class="category-list-link">Tornado</a><span class="category-list-count">3</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Vagrant/" class="category-list-link">Vagrant</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Vue/" class="category-list-link">Vue</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/kafka/" class="category-list-link">kafka</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/zookeeper/" class="category-list-link">zookeeper</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E4%B8%AA%E4%BA%BA%E7%AE%A1%E7%90%86/" class="category-list-link">个人管理</a><span class="category-list-count">5</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB/" class="category-list-link">前后端分离</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" class="category-list-link">数据结构与算法</a><span class="category-list-count">13</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E6%9C%9D%E8%8A%B1%E5%A4%95%E6%8B%BE/" class="category-list-link">朝花夕拾</a><span class="category-list-count">10</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" class="category-list-link">机器学习</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" class="category-list-link">环境搭建</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E7%A8%8B%E5%BA%8F%E5%91%98%E8%87%AA%E6%88%91%E4%BF%AE%E5%85%BB/" class="category-list-link">程序员自我修养</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E8%B5%84%E6%BA%90%E5%88%86%E4%BA%AB%E8%AE%A1%E5%88%92/" class="category-list-link">资源分享计划</a><span class="category-list-count">10</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E8%BF%90%E7%BB%B4%E7%9F%A5%E8%AF%86%E5%BA%93/" class="category-list-link">运维知识库</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86/" class="category-list-link">项目管理</a><span class="category-list-count">1</span></li>
+        </ul>
+    </div>
+</div>
+  </div>
+</aside>
+
+    
+    
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <h4 class="toc-title">文章目录</h4>
+    <nav id="toc" class="js-toc toc">
+
+    </nav>
+  </div>
+</aside>
+<main class="main" role="main"><div class="content">
+  
+  <article id="article-container" class="article article-type-post" itemscope
+    itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      <h1 itemprop="name">
+  <a
+    class="article-title"
+    href="/posts/2016-05-08-django-tutorial.html"
+    >Django 简单入门及最佳实践</a
+  >
+</h1>
+
+      <div class="article-meta">
+        
+<span class="article-date">
+  <i class="icon icon-calendar-check"></i>&nbsp;
+<a href="https://pylixm.top/posts/2016-05-08-django-tutorial.html" class="article-date">
+  <time datetime="2016-05-08 18:00:00 &#43;0000 UTC" itemprop="datePublished">2016-05-08</time>
+</a>
+</span>
+<span class="article-category">
+  <i class="icon icon-folder"></i>&nbsp;
+  <a class="article-category-link" href="/categories/Django/"> Django </a>
+</span>  
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>&nbsp;
+    <a class="article-tag-link" href="/tags/Django/"> Django </a>
+    <a class="article-tag-link" href="/tags/Django-tutorial/"> Django-tutorial </a>
+  </span>
+
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+        <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="/posts/2016-05-08-django-tutorial.html#comments"
+            class="article-comment-link">评论</a></span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 3953字</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 8分 </span>
+      </div>
+    </div>
+    <div class="article-entry marked-body js-toc-content" itemprop="articleBody">
+      <p>自己使用纯django 开发项目，也有1年多了。在使用django的过程中，也抱怨过django的各种问题。比如，各种模块的约定过于死板，不够灵活。</p>
+<p>这恰恰是它的优点，突然想起一句以前看到过的话“这就是约定的力量”。正是这种约定，省去了我们好多的工作，简化的使用。</p>
+<p>最近有运维同事向我请教 <code>django</code> 如何使用，干脆写个最简单的入门吧。</p>
+<!-- raw HTML omitted -->
+<p>预备知识：</p>
+<ul>
+<li>
+<p>python 基础语法</p>
+</li>
+<li>
+<p>html 基本语法</p>
+</li>
+<li>
+<p>数据库基本CRUD知识</p>
+</li>
+<li>
+<p>JavaScript</p>
+</li>
+<li>
+<p>CSS</p>
+</li>
+</ul>
+<h1 id="django-简单入门">django 简单入门</h1>
+<h2 id="django-简介">django 简介</h2>
+<p>在python 系的web框架中，不乏精品。像以非阻塞、异步著称的tornado，短小的 flask 等等。而django 则以大而全著称，</p>
+<p>自身包含了从前端模板（Template）到后端逻辑（View）再到数据库端的ORM（Model）的所有功能模块。意在，你只需要关心业务逻辑就好了，无需关心框架自身的结构。</p>
+<p>官网这样介绍：Django makes it easier to build better Web apps more quickly and with less code.</p>
+<p>所以说，使用django 可以快速的开发一个完整的网站系统。</p>
+<p>如果，在时间紧，任务重的项目中，而我们又恰好有python背景，那么使用 django 绝对是无二的选择。</p>
+<h3 id="特点">特点</h3>
+<p>django 官网给出了3个特点：</p>
+<ul>
+<li>
+<p>开发速度快：django 的宗旨意在帮助开发者迅速的将概念构建成完整的应用。</p>
+</li>
+<li>
+<p>安全 ： django帮助开发者避免了许多常见的安全问题。（例如：django自带了防止跨域请求的中间件；可以再中间件中做安全过滤；）</p>
+</li>
+<li>
+<p>丰富的插件扩展：有丰富的第三方插件模块（ django 的app 理论上来说是可以重用的。比如一个用户管理的app，开发一次，可以使用多次。）。</p>
+</li>
+</ul>
+<p>在开发中使用 django ，不免被别人问及，为什么使用django，django有什么好处或优势？根据自己的使用体验，总结了下，个人拙见，各位可以拿去参考，如下：</p>
+<ul>
+<li>
+<p>继承 python 语言所有的优势</p>
+</li>
+<li>
+<p>强大的数据库功能，编写好数据模块后，数据表就已经有了。</p>
+</li>
+<li>
+<p>app 的设计思想，功能模块化开发，可快速“拆卸”。</p>
+</li>
+<li>
+<p>django 自带 admin 后台管理，对于无需复杂的后台管理功能的系统完全可以满足需求，节省了开发时间。</p>
+</li>
+<li>
+<p>整体的架构设计，从orm数据层到页面渲染。形成了一个自己的生态，让你专心投入到系统的业务逻辑中而无需关心架构问题。（此点可能也是缺点）</p>
+</li>
+<li>
+<p>社区活跃，所有主流技术都能找到 django 的第三方插件。</p>
+</li>
+</ul>
+<p>没有最好的框架，只有最适合的框架。任何框架被设计来，都不是用来解决所有问题的，所以，只有针对需求问题，来选择合适的框架，才是正确的选择。</p>
+<h3 id="django-的工作流程">django 的工作流程</h3>
+<p><img src="/static/imgs/django-jg.png" alt=""></p>
+<p>从图中，我们可以看到 django 框架的主要模块： URLconf、Views、Model、Template。</p>
+<h3 id="django-安装及目录结构">django 安装及目录结构</h3>
+<p>Django的应用称做project。一个项目由多个应用或者apps组成。应用是一组拥有特定功能的Python包。</p>
+<p>理论上说，每个app都必须是可以重复使用的。你可以按照自己的需要创建尽可能多的app。</p>
+<p>django 可通过 python 的包管理工具pip 来安装。执行如下命令：</p>
+<pre><code>pip install django 
+</code></pre>
+<p>安装完成后，生成django项目代码：</p>
+<pre><code>django-admin.py startproject django_demo
+</code></pre>
+<p>生成app01：</p>
+<pre><code>django_demo# python manage.py startapp app01    
+</code></pre>
+<p>项目目录结构如下：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">    django_demo
+    ├── manage.py
+    └── django_demo
+        ├── __init__.py
+        ├── settings.py
+        ├── urls.py
+        └── wsgi.py
+     └── app01
+        ├── __init__.py
+        ├── admin.py
+        ├── migrations
+        ├── models.py
+        ├── tests.py
+        └── views.py
+</code></pre></div><p>django_demo 为项目配置目录，其中有settings配置文件，url配置文件，及wsgi部署文件。</p>
+<p>app01 为默认app 的目录结构。</p>
+<p><code>admin</code> : 为django自带后台接口文件，可在其中注册model，用来在admin后台管理。</p>
+<p><code>migrations</code>: 数据同步临时文件目录。</p>
+<p><code>models</code> : 模板存放文件。</p>
+<p><code>test</code> ： 单元测试文件django 集成了python的 unit test 。</p>
+<p><code>views</code>： 视图文件。</p>
+<p><strong>更多</strong></p>
+<p>详细介绍：http://djangobook.py3k.cn/2.0/chapter01/</p>
+<p>学习文档：http://www.ziqiangxuetang.com/django/django-tutorial.html</p>
+<p>django1.8 中文文档：http://python.usyiyi.cn/django/index.html</p>
+<p>django 命令总结： <a href="http://www.pylixm.cc/posts/2016-01-29-Django-cmd.html">http://www.pylixm.cc/posts/2016-01-29-Django-cmd.html</a></p>
+<h2 id="django-快速入门">django 快速入门</h2>
+<p>以一个博客展示列表页面为例，说下django项目的开发流程：</p>
+<h3 id="第一步模型设计">第一步，模型设计</h3>
+<ul>
+<li>编写models</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># app01/models.py</span>
+<span style="color:#f92672">from</span> django.db <span style="color:#f92672">import</span> models
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Blogs</span>(models<span style="color:#f92672">.</span>Model):
+    title <span style="color:#f92672">=</span> models<span style="color:#f92672">.</span>CharField(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;标题&#39;</span>,max_length<span style="color:#f92672">=</span><span style="color:#ae81ff">50</span>)
+    author <span style="color:#f92672">=</span> models<span style="color:#f92672">.</span>CharField(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;作者&#39;</span>,max_length<span style="color:#f92672">=</span><span style="color:#ae81ff">20</span>)
+    create_time <span style="color:#f92672">=</span> models<span style="color:#f92672">.</span>DateTimeField(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;发表时间&#39;</span>)
+
+</code></pre></div><ul>
+<li>配置数据库，创建数据表：</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">    <span style="color:#75715e"># django_demo/settings.py</span>
+    <span style="color:#960050;background-color:#1e0010">······</span>
+    INSTALLED_APPS <span style="color:#f92672">=</span> (
+        <span style="color:#e6db74">&#39;django.contrib.admin&#39;</span>,
+        <span style="color:#e6db74">&#39;django.contrib.auth&#39;</span>,
+        <span style="color:#e6db74">&#39;django.contrib.contenttypes&#39;</span>,
+        <span style="color:#e6db74">&#39;django.contrib.sessions&#39;</span>,
+        <span style="color:#e6db74">&#39;django.contrib.messages&#39;</span>,
+        <span style="color:#e6db74">&#39;django.contrib.staticfiles&#39;</span>,
+        <span style="color:#e6db74">&#39;app01&#39;</span>,
+    )
+    <span style="color:#960050;background-color:#1e0010">······</span>
+    <span style="color:#e6db74">&#39;default&#39;</span>: {
+        <span style="color:#e6db74">&#39;ENGINE&#39;</span>: <span style="color:#e6db74">&#39;django.db.backends.mysql&#39;</span>, <span style="color:#75715e"># Add &#39;postgresql_psycopg2&#39;, &#39;mysql&#39;, &#39;sqlite3&#39; or &#39;oracle&#39;.</span>
+        <span style="color:#e6db74">&#39;NAME&#39;</span>: <span style="color:#e6db74">&#39;django_demo&#39;</span>,                      <span style="color:#75715e"># Or path to database file if using sqlite3.</span>
+        <span style="color:#e6db74">&#39;USER&#39;</span>: <span style="color:#e6db74">&#39;root&#39;</span>,                      <span style="color:#75715e"># Not used with sqlite3.</span>
+        <span style="color:#e6db74">&#39;PASSWORD&#39;</span>: <span style="color:#e6db74">&#39;root&#39;</span>,                  <span style="color:#75715e"># Not used with sqlite3.</span>
+        <span style="color:#e6db74">&#39;HOST&#39;</span>: <span style="color:#e6db74">&#39;192.168.33.1&#39;</span>,                      <span style="color:#75715e"># Set to empty string for localhost. Not used with sqlite3.</span>
+        <span style="color:#e6db74">&#39;PORT&#39;</span>: <span style="color:#e6db74">&#39;&#39;</span>,                      <span style="color:#75715e"># Set to empty string for default. Not used with sqlite3.</span>
+        <span style="color:#e6db74">&#39;CHARSET&#39;</span>: <span style="color:#e6db74">&#39;utf8&#39;</span>
+    }
+</code></pre></div><p>django 会根据INSTALLED_APPS 中配置的app ，来找到app包，从而加载其下的static 、template 等文件。</p>
+<ul>
+<li>生成数据表：</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#django1.7+</span>
+python manage.py makemigrations 
+python manage.py migrate
+
+<span style="color:#75715e">#django1.7-</span>
+python manag.py syncdb
+</code></pre></div><p>小于1.7 版本django 数据同步使用 syncdb ，是能实现创建数据表，而不能修改更新字段。可使用第三方插件实现；</p>
+<p>从 1.7 版本开始 django 优化了数据同步，实现了数据表的字段同步。</p>
+<h3 id="第二步设计url">第二步，设计URL</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e">#django_demo/urls.py</span>
+<span style="color:#f92672">from</span> django.conf.urls <span style="color:#f92672">import</span> include, url
+<span style="color:#f92672">from</span> django.contrib <span style="color:#f92672">import</span> admin
+<span style="color:#f92672">from</span> app01 <span style="color:#f92672">import</span> views <span style="color:#66d9ef">as</span> app01_views 
+
+urlpatterns <span style="color:#f92672">=</span> [
+    url(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;^$&#39;</span>, app01_views<span style="color:#f92672">.</span>index , name<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;home&#39;</span> ),
+    <span style="color:#75715e">#url(r&#39;^add/(\d+)/(\d+)/$&#39;, app01_views.index, name=&#39;index&#39;),</span>
+    url(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;^admin/&#39;</span>, include(admin<span style="color:#f92672">.</span>site<span style="color:#f92672">.</span>urls)),
+]
+
+</code></pre></div><p>建议为 url 的 name 赋值，在使用url的地方使用其名词。避免在url修改后的维护问题。</p>
+<h3 id="第三步编写views">第三步，编写views</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e">#app01/views.py </span>
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">index</span>(request):
+    blog_list <span style="color:#f92672">=</span> Blogs<span style="color:#f92672">.</span>objects<span style="color:#f92672">.</span>order_by(<span style="color:#e6db74">&#39;-create_time&#39;</span>)[:<span style="color:#ae81ff">5</span>]
+    context <span style="color:#f92672">=</span> {<span style="color:#e6db74">&#39;blog_list&#39;</span>: blog_list}
+    <span style="color:#75715e">#return render_to_response(&#39;index.html&#39;, context) # 无 request</span>
+    <span style="color:#66d9ef">return</span> render(request, <span style="color:#e6db74">&#39;index.html&#39;</span>, context) <span style="color:#75715e"># 带 request</span>
+
+</code></pre></div><p>当模板中需要使用request 变量时，建议使用render 快捷方法。</p>
+<p>当模板中不使用request 时， 可使用render_to_response 来避免转入不必要的request 参数。</p>
+<h3 id="第四步编写template">第四步，编写template</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">    # base.html
+    &lt;<span style="color:#f92672">html</span>&gt;
+        &lt;<span style="color:#f92672">head</span>&gt;
+            &lt;<span style="color:#f92672">title</span>&gt;{% block title%}{% endblock%}&lt;/<span style="color:#f92672">title</span>&gt;
+            {% block css%}{% endblock %}
+        &lt;/<span style="color:#f92672">head</span>&gt;
+        &lt;<span style="color:#f92672">body</span>&gt;
+            {%block content%}{% endblock%}
+            {% block js%}{% endblock %}
+        &lt;/<span style="color:#f92672">body</span>&gt;
+    &lt;/<span style="color:#f92672">html</span>&gt;
+
+    #index.html 
+    {% extends &#39;base.html&#39; %}
+    {% block title%}首页{% endblock%}
+
+    {% block content %}
+    &lt;<span style="color:#f92672">ul</span>&gt;
+    {% for blog in blog_list %}
+        &lt;<span style="color:#f92672">li</span>&gt;&lt;<span style="color:#f92672">h2</span>&gt;{{ blog.title }}&lt;/<span style="color:#f92672">h2</span>&gt;&lt;<span style="color:#f92672">small</span>&gt;{{ blog.create_time|date:&#39;Y-m-d H:i:s&#39;}}&lt;/<span style="color:#f92672">small</span>&gt;&lt;/<span style="color:#f92672">li</span>&gt;
+    {% endfor %}
+    &lt;/<span style="color:#f92672">ul</span>&gt;
+    {% endblock%}
+
+</code></pre></div><h4 id="标签tags">标签（tags）</h4>
+<p><code>extends</code> 标签为模块继承，当页面有公共部分需要提取出来时，可使用继承。</p>
+<p><code>include</code> 标签为模板包含，提取部分公共页面。</p>
+<p>区别：</p>
+<p><code>extends</code> 一般用来做页面布局使用。在系统整体或较多页面的公共元素，放到base.html中，来extends 。继承其他父模板。</p>
+<p><code>include</code> 在较少或几个页面需要的公共元素，放到单独的页面，来include 。引入其他页面与元素到本页面。</p>
+<p>其他内建的标签：</p>
+<p><a href="https://docs.djangoproject.com/en/1.9/ref/templates/builtins/#ref-templates-builtins-tags">https://docs.djangoproject.com/en/1.9/ref/templates/builtins/#ref-templates-builtins-tags</a></p>
+<h4 id="过滤器filters">过滤器（filters）</h4>
+<p>date 内建时间过滤器</p>
+<p>其他内建过滤器：</p>
+<p><a href="https://docs.djangoproject.com/en/1.9/ref/templates/builtins/#ref-templates-builtins-filters">https://docs.djangoproject.com/en/1.9/ref/templates/builtins/#ref-templates-builtins-filters</a></p>
+<h1 id="django-项目最佳实践">django 项目最佳实践</h1>
+<h2 id="django-开发环境篇">django 开发环境篇</h2>
+<h3 id="建议使用-virtualenv-来搭建开发环境">建议使用 virtualenv 来搭建开发环境：</h3>
+<pre><code>pip install virtualenv virtualenvwrapper
+</code></pre>
+<p>Linux/Mac OSX 下：</p>
+<pre><code>export WORKON_HOME=$HOME/.virtualenvs
+export PROJECT_HOME=$HOME/workspace
+source /usr/local/bin/virtualenvwrapper.sh
+source ~/.bash_profile
+</code></pre>
+<p>Windows 下：</p>
+<pre><code>pip install virtualenvwrapper-win
+</code></pre>
+<p>之后在此环境下，安装django 等开发包即可</p>
+<pre><code>pip install django 
+</code></pre>
+<p>环境管理相关命令：</p>
+<p>mkvirtualenv zqxt：创建运行环境zqxt</p>
+<p>workon zqxt: 工作在 zqxt 环境 或 从其它环境切换到 zqxt 环境</p>
+<p>deactivate: 退出终端环境</p>
+<p>rmvirtualenv ENV：删除运行环境ENV</p>
+<p>mkproject mic：创建mic项目和运行环境mic</p>
+<p>mktmpenv：创建临时运行环境</p>
+<p>lsvirtualenv: 列出可用的运行环境</p>
+<p>lssitepackages: 列出当前环境安装了的包</p>
+<h3 id="使用-requirement-来管理环境中的包">使用 requirement 来管理环境中的包</h3>
+<h2 id="django配置文件管理篇">django配置文件管理篇</h2>
+<p>django 的配置项都在 settings 文件中，但是生成、测试和开发中的配置是不同的。这就使得我们不得不手工的修改各环境中的配置。</p>
+<p>在使用版本管理工具时，不能够很好的发挥其功能。特从网上看了好几种方法解决此类问题，比较常用和推荐的方法如下：</p>
+<h3 id="第一种本地设置">第一种：本地设置</h3>
+<p>这个方法有一个 settings.py 文件，一些公共设置和一个特殊环境使用的 local_settings 文件。</p>
+<p>demo：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">    <span style="color:#75715e">### settings.py </span>
+    <span style="color:#66d9ef">try</span>:
+        <span style="color:#f92672">from</span> proj.local_settings <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
+    <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">ImportError</span>:
+        <span style="color:#66d9ef">pass</span>
+    <span style="color:#75715e">### local_settings.py</span>
+    DEBUG <span style="color:#f92672">=</span> True
+    DATABASES <span style="color:#f92672">=</span> {
+        <span style="color:#e6db74">&#39;default&#39;</span>: {
+        <span style="color:#e6db74">&#39;ENGINE&#39;</span>: <span style="color:#e6db74">&#39;django.db.backends.mysql&#39;</span>,
+        <span style="color:#e6db74">&#39;NAME&#39;</span>: <span style="color:#e6db74">&#39;django&#39;</span>,
+        <span style="color:#e6db74">&#39;USER&#39;</span>: <span style="color:#e6db74">&#39;django&#39;</span>,
+        <span style="color:#e6db74">&#39;PASSWORD&#39;</span>: <span style="color:#e6db74">&#39;1234&#39;</span>,
+        <span style="color:#e6db74">&#39;HOST&#39;</span>: <span style="color:#e6db74">&#39;&#39;</span>,
+        <span style="color:#e6db74">&#39;PORT&#39;</span>: <span style="color:#e6db74">&#39;&#39;</span>,
+    }
+</code></pre></div><p>优点：如果你只需要一个生产环境和开发环境的话这样很简单 —— local_settings.py 应该在源码管理的范围以外，你需要一个独立的文件来应对生产和开发环境。</p>
+<p>缺点：这个方法限制了你对设置的权限，比如说修改 local_settings 的公共设置。但是这种方法在大多数简单的情况下都有用。</p>
+<h3 id="第二种基于环境的管理">第二种：基于环境的管理</h3>
+<p>将各环境的配置项分模块管理，一种环境对应一个模块文件。将原来的settings.py 换成 settings 目录，结构如下</p>
+<pre><code>settings
+|-- __init__.py：这个文件将让当前文件夹成为一个Python包
+|-- base.py：包含所有环境共有的设置。其他的配置文件将继承自它。
+|-- development.py：用于本地开发
+|-- testing.py：用于测试
+|-- production.py：将用于生产环境
+</code></pre>
+<p>通过virtualenvwrapper，我们可以配置不同的钩子，这些钩子将在激活虚拟环境前后，退出虚拟环境前后被刷新。这意味着我们可以定义一些将在虚拟环境工作周期的不同阶段运行的命令。</p>
+<p>这些钩子保存在各虚拟环境主目录的bin文件夹下，即preactivate，postactivate，predeactivate，postdeactivate。</p>
+<p>编辑postactivate文件，加上：</p>
+<pre><code>export DJANGO_SETTINGS_MODULE=&quot;taskbuster.settings.development&quot;
+</code></pre>
+<p>编辑predeactivate文件，加上：</p>
+<pre><code>unset DJANGO_SETTINGS_MODULE
+</code></pre>
+<p>除了环境变量，一些秘钥可以放到虚拟环境变量中，使其只能在此环境中生效：</p>
+<pre><code>#postactivate file
+export SECRET_KEY=&quot;your_secret_django_key&quot;
+
+#predeactivate file
+unset SECRET_KEY
+</code></pre>
+<h2 id="django-开发篇">django 开发篇</h2>
+<h3 id="models">models</h3>
+<p>关于models的开发建议：</p>
+<ul>
+<li>
+<p>保证模型远离任何不必要的依赖，或者导入任何的其他Django组件，比如视图。</p>
+</li>
+<li>
+<p>不直接地引用User，而是使用更加普通的settings.AUTH_USER_MODEL来替代。</p>
+</li>
+<li>
+<p>富模型，瘦视图。模型太大之后，也不好维护，此时可以将一组model的操作提取出来，放到service对象中。</p>
+</li>
+<li>
+<p>property cached_property 使模型的方法，可以当做属性来调用。</p>
+</li>
+<li>
+<p>尽量延长QuerySets不求值的时间。</p>
+</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">    <span style="color:#960050;background-color:#1e0010">例</span>: <span style="color:#960050;background-color:#1e0010">合并结果集</span>
+    <span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#f92672">from</span> itertools <span style="color:#f92672">import</span> chain
+    <span style="color:#f92672">&gt;&gt;&gt;</span> recent <span style="color:#f92672">=</span> chain(posts, comments)
+    <span style="color:#f92672">&gt;&gt;&gt;</span> sorted(recent, key<span style="color:#f92672">=</span><span style="color:#66d9ef">lambda</span> e: e<span style="color:#f92672">.</span>modified, reverse<span style="color:#f92672">=</span>True)[:<span style="color:#ae81ff">3</span>]
+</code></pre></div><h3 id="views和urls">views和urls</h3>
+<p>关于views和urls开发建议：</p>
+<ul>
+<li>
+<p>将视图中公共部分提取出来，做到最大限度的重用。</p>
+</li>
+<li>
+<p>将views拆分模块，放到多个views文件中，再共同放到views目录下，以方便views的维护。</p>
+</li>
+<li>
+<p>urls的读取是自上而下的，把具有特殊性质的url放到前面，把广泛性的url放到后边。</p>
+</li>
+</ul>
+<h3 id="template">template</h3>
+<p>关于模板开发建议：</p>
+<ul>
+<li>
+<p>善于使用filters，内建的filters 。</p>
+</li>
+<li>
+<p>善于使用 tags，内建的tags 。</p>
+</li>
+<li>
+<p>最佳实践 保证业务逻辑远离模板。</p>
+</li>
+<li>
+<p>根据情况不同，通过设置上下文变量或者请求路径来改变活动链接的外观。</p>
+</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">    例：导航栏
+    {% include &#34;_navbar.html&#34; with active_link=&#39;link2&#39; %}
+    
+</code></pre></div><h2 id="参考">参考</h2>
+<ul>
+<li>
+<p><a href="http://blog.zedbez.com/2015/10/12/settings-different-environments-version-control/">http://blog.zedbez.com/2015/10/12/settings-different-environments-version-control/</a></p>
+</li>
+<li>
+<p><a href="http://pycoders-weekly-chinese.readthedocs.io/en/latest/issue4/django-settings-for-production-and-development-best-practices.html">http://pycoders-weekly-chinese.readthedocs.io/en/latest/issue4/django-settings-for-production-and-development-best-practices.html</a></p>
+</li>
+<li>
+<p><a href="https://www.gitbook.com/book/wizardforcel/django-design-patterns-and-best-practices/details">https://www.gitbook.com/book/wizardforcel/django-design-patterns-and-best-practices/details</a></p>
+</li>
+</ul>
+
+    </div>
+    <div class="article-footer">
+<blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://pylixm.top/posts/2016-05-08-django-tutorial.html" title="Django 简单入门及最佳实践" target="_blank" rel="external">https://pylixm.top/posts/2016-05-08-django-tutorial.html</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>许可协议：</strong>
+      <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN</a>
+    </li>
+  </ul>
+</blockquote>
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://pylixm.top" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="https://pylixm.top/static/imgs/avatar.png" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://pylixm.top" target="_blank"><span class="text-dark">DeanWu</span><small class="ml-1x">程序员</small></a></h3>
+        <div>努力成为真正的SRE</div>
+      </div>
+    </figure>
+  </div>
+</div>
+    </div>
+  </article>
+<section id="comments">
+    <div id="vcomments"></div>
+</section>
+
+</div><nav class="bar bar-footer clearfix" data-stick-bottom>
+    <div class="bar-inner">
+        <ul class="pager pull-left">
+            <li class="prev">
+                <a href="https://pylixm.top/posts/2016-04-20-django-model-qt.html" title="Django自定义管理器（objects）后遇到的问题"><i
+                        class="icon icon-angle-left"
+                        aria-hidden="true"></i><span>&nbsp;&nbsp;下一篇</span></a>
+            </li>
+            <li class="next">
+                <a href="https://pylixm.top/posts/2016-05-16-django-lean-map.html"
+                    title="Django 文章整理- 学习路径总结"><span>上一篇&nbsp;&nbsp;</span><i
+                        class="icon icon-angle-right" aria-hidden="true"></i></a>
+            </li>
+            
+            <li class="toggle-toc">
+                <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false"
+                    title="文章目录" role="button">
+                    <span>[&nbsp;</span><span>文章目录</span>
+                    <i class="text-collapsed icon icon-anchor"></i>
+                    <i class="text-in icon icon-close"></i>
+                    <span>]</span>
+                </a>
+            </li>
+        </ul>
+        <div class="bar-right">
+        </div>
+    </div>
+</nav>
+
+
+<script src="https://my.openwrite.cn/js/readmore.js" type="text/javascript"></script>
+<script>
+    const btw = new BTWPlugin();
+    btw.init({
+        id: 'article-container',
+        blogId: '24944-1607090547459-485',
+        name: '码农吴先生',
+        qrcode: 'https://gitee.com/pylixm/picture/raw/master/2020-12-4/1607089812769-image.png',
+        keyword: 'vip',
+    });
+</script>
+</main><footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+<ul class="social-links">
+    <li><a href="https://github.com/pylixm" target="_blank" title="github" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-github"></i></a></li>
+    <li><a href="https://pylixm.top/index.xml" target="_blank" title="rss" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-rss"></i></a></li>
+    <li><a href="http://weibo.com/2258086637" target="_blank" title="weibo" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-weibo"></i></a></li>
+</ul>
+  <div class="copyright">
+    &copy;2015  -
+    2020
+    <div class="publishby">
+      hugo驱动，Theme by <a href="https://github.com/xiaoheiAh/hugo-theme-pure" target="_blank"> pure</a>.
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_SVG"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+            showMathMenu: false, //disables context menu
+            tex2jax: {
+            inlineMath: [ ['$','$'], ['\\(','\\)'] ]
+           }
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+<script>
+    window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/highlight.min.js"></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/python.min.js" defer></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/javascript.min.js" defer></script><script>
+    hljs.configure({
+        tabReplace: '    ', 
+        classPrefix: ''     
+        
+    })
+    hljs.initHighlightingOnLoad();
+</script>
+<script src="https://pylixm.top/js/application.min.bdeb64b910570b6c41badc6a05b7afb0c8ad9efd8525de3c7257d59e786326a3.js"></script>
+<script src="https://pylixm.top/js/plugin.min.51ff8c7317566f82259170fa36e09c4493adc9b9378b427a01ad3f017ebac7dd.js"></script>
+
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(未命名)',
+            },
+            ROOT_URL: 'https:\/\/pylixm.top',
+            CONTENT_URL: 'https:\/\/pylixm.top\/searchindex.json ',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script type="text/javascript" src="https://pylixm.top/js/insight.min.a343cd9a5a7698336b28ef3a7c16a3a1b1d2d5fb17dc8ed04022bbe08cc5459073a15bdafa3a8a58cdd56080784bdd69fa70b1ae8597565c799c57ed00f0e120.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script>
+<script>
+    tocbot.init({
+        
+        tocSelector: '.js-toc',
+        
+        contentSelector: '.js-toc-content',
+        
+        headingSelector: 'h1, h2, h3',
+        
+        hasInnerContainers: true,
+    });
+</script>
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="https://cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine"></script>
+<script type="text/javascript">
+    var GUEST = ['nick', 'mail', 'link'];
+    var meta = 'nick,mail';
+    meta = meta.split(',').filter(function (item) {
+        return GUEST.indexOf(item) > -1;
+    });
+    new Valine({
+        el: '#vcomments',
+        verify: null ,
+        notify: null ,
+        appId: 'OBJcj4PU8JI0zDfu0HJSrG6W-gzGzoHsz',
+        appKey: 'tBtFzC72xIlgo2UFbA33nqmU',
+        placeholder: '来做第一个发言人吧',
+        avatar: 'mm',
+        meta: meta,
+        pageSize: '10' || 10,
+        visitor: false 
+});
+</script>
+
+  </body>
+</html>

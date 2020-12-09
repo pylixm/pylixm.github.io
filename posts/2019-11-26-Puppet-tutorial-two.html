@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <title>
+        Puppet 简单入门 - 安装篇 - DeanWu
+      </title>
+        <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    
+    <meta name="theme-color" content="#000000" />
+    
+    <meta http-equiv="window-target" content="_top" />
+    
+    
+    <meta name="description" content="上一篇「译」Puppet 简单入门 - 理论篇文章我们分享了 Puppet的基本工作原理和基本概念，这篇文章我们来看下如何具体的安装。 Puppet有" />
+    <meta name="generator" content="Hugo 0.73.0 with theme pure" />
+    <title>Puppet 简单入门 - 安装篇 - DeanWu</title>
+    
+    
+    <link rel="stylesheet" href="https://pylixm.top/css/style.min.f70e8e0df9ea6aeb37dac252b17ca98082073ff1663b24118baaaa84ee8ae7e8.css">
+    
+    <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.15.10/styles/github.min.css" async>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css" async>
+    <meta property="og:title" content="Puppet 简单入门 - 安装篇" />
+<meta property="og:description" content="上一篇「译」Puppet 简单入门 - 理论篇文章我们分享了 Puppet的基本工作原理和基本概念，这篇文章我们来看下如何具体的安装。 Puppet有" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://pylixm.top/posts/2019-11-26-Puppet-tutorial-two.html" />
+<meta property="article:published_time" content="2019-11-26T00:00:00+00:00" />
+<meta property="article:modified_time" content="2019-11-26T00:00:00+00:00" />
+<meta itemprop="name" content="Puppet 简单入门 - 安装篇">
+<meta itemprop="description" content="上一篇「译」Puppet 简单入门 - 理论篇文章我们分享了 Puppet的基本工作原理和基本概念，这篇文章我们来看下如何具体的安装。 Puppet有">
+<meta itemprop="datePublished" content="2019-11-26T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2019-11-26T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="2105">
+
+
+
+<meta itemprop="keywords" content="Puppet,运维知识库," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Puppet 简单入门 - 安装篇"/>
+<meta name="twitter:description" content="上一篇「译」Puppet 简单入门 - 理论篇文章我们分享了 Puppet的基本工作原理和基本概念，这篇文章我们来看下如何具体的安装。 Puppet有"/>
+
+    <!--[if lte IE 9]>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+      <![endif]-->
+
+    <!--[if lt IE 9]>
+        <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+      <![endif]-->
+  </head>
+
+  
+  
+
+  <body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage"><header class="header" itemscope itemtype="http://schema.org/WPHeader">
+    <div class="slimContent">
+      <div class="navbar-header">
+        <div class="profile-block text-center">
+          <a id="avatar" href="https://pylixm.top" target="_blank">
+            <img class="img-circle img-rotate" src="https://pylixm.top/static/imgs/avatar.png" width="200" height="200">
+          </a>
+          <h2 id="name" class="hidden-xs hidden-sm">DeanWu</h2>
+          <h3 id="title" class="hidden-xs hidden-sm hidden-md">程序员</h3>
+          <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i>Beijing, China</small>
+        </div><div class="search" id="search-form-wrap">
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i
+                        class="icon icon-search"></i></button>
+            </span>
+        </div>
+        <div class="ins-search">
+            <div class="ins-search-mask"></div>
+            <div class="ins-search-container">
+                <div class="ins-input-wrapper">
+                    <input type="text" class="ins-search-input" placeholder="想要查找什么..."
+                        x-webkit-speech />
+                    <button type="button" class="close ins-close ins-selectable" data-dismiss="modal"
+                        aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="ins-section-wrapper">
+                    <div class="ins-section-container"></div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+        <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+        <ul class="nav navbar-nav main-nav">
+            <li class="menu-item menu-item-home">
+                <a href="/">
+                    <i class="icon icon-home-fill"></i>
+                  <span class="menu-title">首页</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-series">
+                <a href="/series/">
+                    <i class="icon icon-folder"></i>
+                  <span class="menu-title">专题</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-repository">
+                <a href="/project/">
+                    <i class="icon icon-project"></i>
+                  <span class="menu-title">项目</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-archives">
+                <a href="/posts/">
+                    <i class="icon icon-archives-fill"></i>
+                  <span class="menu-title">归档</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-about">
+                <a href="/about/">
+                    <i class="icon icon-cup-fill"></i>
+                  <span class="menu-title">关于</span>
+                </a>
+            </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+<aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content"><div>欢迎关注微信公众号「码农吴先生」：专注python/golang/devops等技术的学习经验及资源分享！</br>回复关键字：go或python 获取我收集的资料，也可回复关键字：小二，加我wx，一块聊技术，聊人生~  </br><img src="/static/imgs/wx/wx_gzh.png" width="140" height="140"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+      
+<div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+        <ul class="recent-post-list list-unstyled no-thumbnail">
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2020-12-08-django-async-views-example.html" class="title">Django 三个异步使用的案例</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-12-08 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-08</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2020-12-05-go-from-python-structure-base.html" class="title">「对比Python学习Go」- 基本数据结构</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-12-05 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-05</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2020-12-03-go-from-python-start.html" class="title">「对比Python学习Go」- 环境篇</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-12-03 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-03</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2020-12-02-go-from-python-intro.html" class="title">「对比Python学习Go」- 开篇</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-12-02 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-02</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2020-12-01-for-range-point.html" class="title">「Go Tips」for range 遍历时变量取值的问题分析</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-12-01 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-01</time>
+                    </p>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+      <div class="widget">
+    <h3 class="widget-title"> 分类</h3>
+    <div class="widget-body">
+        <ul class="category-list">
+            <li class="category-list-item"><a href="https://pylixm.top/categories/ATS/" class="category-list-link">ATS</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/DevOps/" class="category-list-link">DevOps</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Devlopment-Demo/" class="category-list-link">Devlopment-Demo</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Django/" class="category-list-link">Django</a><span class="category-list-count">39</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Docker/" class="category-list-link">Docker</a><span class="category-list-count">4</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Flask/" class="category-list-link">Flask</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Git/" class="category-list-link">Git</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Golang/" class="category-list-link">Golang</a><span class="category-list-count">12</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/HTTPS/" class="category-list-link">HTTPS</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Javascript/" class="category-list-link">Javascript</a><span class="category-list-count">3</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Kubernetes/" class="category-list-link">Kubernetes</a><span class="category-list-count">4</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/LVS/" class="category-list-link">LVS</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Linux/" class="category-list-link">Linux</a><span class="category-list-count">15</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Mongodb/" class="category-list-link">Mongodb</a><span class="category-list-count">3</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Mysql/" class="category-list-link">Mysql</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/NoSQL/" class="category-list-link">NoSQL</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/PostgreSQL/" class="category-list-link">PostgreSQL</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Puppet/" class="category-list-link">Puppet</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Python/" class="category-list-link">Python</a><span class="category-list-count">19</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/QA/" class="category-list-link">QA</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Rabbitmq/" class="category-list-link">Rabbitmq</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Restful/" class="category-list-link">Restful</a><span class="category-list-count">6</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/SaltStack/" class="category-list-link">SaltStack</a><span class="category-list-count">7</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Software_Architect/" class="category-list-link">Software_Architect</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Supervisor/" class="category-list-link">Supervisor</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Tornado/" class="category-list-link">Tornado</a><span class="category-list-count">3</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Vagrant/" class="category-list-link">Vagrant</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Vue/" class="category-list-link">Vue</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/kafka/" class="category-list-link">kafka</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/zookeeper/" class="category-list-link">zookeeper</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E4%B8%AA%E4%BA%BA%E7%AE%A1%E7%90%86/" class="category-list-link">个人管理</a><span class="category-list-count">5</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB/" class="category-list-link">前后端分离</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" class="category-list-link">数据结构与算法</a><span class="category-list-count">13</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E6%9C%9D%E8%8A%B1%E5%A4%95%E6%8B%BE/" class="category-list-link">朝花夕拾</a><span class="category-list-count">10</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" class="category-list-link">机器学习</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" class="category-list-link">环境搭建</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E7%A8%8B%E5%BA%8F%E5%91%98%E8%87%AA%E6%88%91%E4%BF%AE%E5%85%BB/" class="category-list-link">程序员自我修养</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E8%B5%84%E6%BA%90%E5%88%86%E4%BA%AB%E8%AE%A1%E5%88%92/" class="category-list-link">资源分享计划</a><span class="category-list-count">10</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E8%BF%90%E7%BB%B4%E7%9F%A5%E8%AF%86%E5%BA%93/" class="category-list-link">运维知识库</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86/" class="category-list-link">项目管理</a><span class="category-list-count">1</span></li>
+        </ul>
+    </div>
+</div>
+  </div>
+</aside>
+
+    
+    
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <h4 class="toc-title">文章目录</h4>
+    <nav id="toc" class="js-toc toc">
+
+    </nav>
+  </div>
+</aside>
+<main class="main" role="main"><div class="content">
+  
+  <article id="article-container" class="article article-type-" itemscope
+    itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      <h1 itemprop="name">
+  <a
+    class="article-title"
+    href="/posts/2019-11-26-Puppet-tutorial-two.html"
+    >Puppet 简单入门 - 安装篇</a
+  >
+</h1>
+
+      <div class="article-meta">
+        
+<span class="article-date">
+  <i class="icon icon-calendar-check"></i>&nbsp;
+<a href="https://pylixm.top/posts/2019-11-26-Puppet-tutorial-two.html" class="article-date">
+  <time datetime="2019-11-26 00:00:00 &#43;0000 UTC" itemprop="datePublished">2019-11-26</time>
+</a>
+</span>
+<span class="article-category">
+  <i class="icon icon-folder"></i>&nbsp;
+  <a class="article-category-link" href="/categories/Puppet/"> Puppet </a>
+</span>  
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>&nbsp;
+    <a class="article-tag-link" href="/tags/Puppet/"> Puppet </a>
+    <a class="article-tag-link" href="/tags/%E8%BF%90%E7%BB%B4%E7%9F%A5%E8%AF%86%E5%BA%93/"> 运维知识库 </a>
+  </span>
+
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+        <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="/posts/2019-11-26-Puppet-tutorial-two.html#comments"
+            class="article-comment-link">评论</a></span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 2105字</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 5分 </span>
+      </div>
+    </div>
+    <div class="article-entry marked-body js-toc-content" itemprop="articleBody">
+      <p>上一篇<a href="https://pylixm.cc/posts/2019-07-23-Puppet-tutorial.html">「译」Puppet 简单入门 - 理论篇</a>文章我们分享了 Puppet的基本工作原理和基本概念，这篇文章我们来看下如何具体的安装。</p>
+<p>Puppet有两种部署模式，如下：</p>
+<ul>
+<li>
+<p>Master/Agent 模式，官方推荐的模式，该模式下Master和Agent部署在不同的机器，通过HTTPS通信。Master节点部署puppet server服务用来签发管理证书和控制agent的配置信息，agent通过请求mater的catalog来变更自身服务状态。</p>
+</li>
+<li>
+<p>无Master模式, 该模式下只有Agent节点，无需通讯。通过执行 <code>puppet apply</code> 自己根据本地的配置信息生成catalog来变更服务状态。官方已不推荐该模式，应为配置文件分散在agent机器上，管理和安全无法保障。</p>
+</li>
+</ul>
+<p>注：puppet server 的安装只支持Linux系统，agent 支持Linux/Windows/Mac。</p>
+<p>这里咱们来体验下第一种方式，部署的环境如下：</p>
+<ul>
+<li>2台 centos7.3</li>
+<li>puppet6</li>
+</ul>
+<h3 id="准备工作">准备工作</h3>
+<p><strong>确保服务器之间的时间相同</strong></p>
+<p>因为puppet agent 与master 通讯使用https ，若时间不一致，可能会导致证书过期问题。</p>
+<p>可通过安装 NTP 服务来保持各服务器时间的一致性。如下操作：</p>
+<pre><code>yum -y install ntpdate
+ntpdate 0.centos.pool.ntp.org
+</code></pre><p><strong>DNS解析</strong></p>
+<p>因为puppet各节点之间的同学是通过hostname，需要我们配置合理的DNS服务，确保各节点之间可以通过hostname 可以通信。我们测试期间，可以简单的配置<code>hosts</code>文件来解析。</p>
+<h3 id="puppet-server-安装">puppet server 安装</h3>
+<ol>
+<li>安装yum源，具体地址可根据自己的系统和要安装的puppet版本来选择，可参考<a href="https://puppet.com/docs/puppetserver/6.5/install_from_packages.html">这里</a></li>
+</ol>
+<pre><code>sudo rpm -Uvh https://yum.puppet.com/puppet6-release-el-7.noarch.rpm
+</code></pre><ol start="2">
+<li>安装puppet server 组件</li>
+</ol>
+<pre><code>yum install -y puppetserver 
+</code></pre><p>如果你有对Puppet管理的机器的信息和catalog的查阅需求，你可以安装<code>PuppetDB</code>。步骤可参考<a href="https://puppet.com/docs/puppetdb/latest/install_via_module.html">这里</a>，本文暂不展开。</p>
+<h3 id="puppet-server-配置">puppet server 配置</h3>
+<p><strong>内存优化</strong></p>
+<p>puppetserver 默认内存分配为2G, 可通过修改初始化文件中如下参数来修改：</p>
+<pre><code># /etc/sysconfig/puppetserver
+
+......
+# Modify this if you'd like to change the memory allocation, enable JMX, etc
+JAVA_ARGS=&quot;-Xms2g -Xmx2g&quot;
+......
+</code></pre><p><strong>内嵌webserver配置</strong></p>
+<p>puppet server 内嵌了一个机遇JVM的服务，用来颁发证书。配置在 <code>/etc/puppetlabs/puppetserver/conf.d/webserver.conf</code>，默认情况下我们无需改动，若你使用外部的ca服务器，那可以修改它。可参考<a href="https://puppet.com/docs/puppetserver/6.5/config_file_webserver.html">这里</a>。</p>
+<p><strong>修改puppetserver配置</strong></p>
+<p>默认情况下，puppet server直接启动即可运行，直接采用默认配置接口。他默认的server通信地址为 <code>puppet</code>, 因此只需在agent 上添加 <code>server = puppet</code> 即可。</p>
+<p>我们也可以自定义一些配置，可通过修改 <code>/etc/puppetlabs/puppet/puppet.conf</code> 配置文件实现，如下：</p>
+<pre><code>[master]
+dns_alt_names = 55-01.local
+
+[main]
+certname = 55-01.local
+server = 55-01.local
+environment = production
+runinterval = 1h
+</code></pre><h3 id="puppet-server-启动">puppet server 启动</h3>
+<p><strong>为保证puppet server和agent的同学，我们需要生成证书</strong></p>
+<p>生成puppetserver证书：</p>
+<pre><code>puppetserver ca setup 
+</code></pre><p>生成agent证书：</p>
+<pre><code>puppetserver ca sign &lt;NAME&gt;
+
+# or
+sudo puppetserver ca sign (&lt;HOSTNAME&gt; or --all) --allow-dns-alt-names
+</code></pre><p>更多证书命令，可参考<a href="https://puppet.com/docs/puppet/6.10/puppet_server_ca_cli.html">这里</a></p>
+<p><strong>启动服务</strong></p>
+<pre><code>systemctl start puppetserver
+</code></pre><p>我们可以通过 ps 来查看puppetserver 进程，确保已启动。</p>
+<p>注：puppet server 监听8140端口（可在webserver.conf中配置），确保机器的防火墙打开。</p>
+<h3 id="puppet-agent-安装">puppet agent 安装</h3>
+<ol>
+<li>同样现安装yum源。</li>
+<li>yum安装 agent；</li>
+</ol>
+<pre><code> yum install puppet-agent
+</code></pre><h3 id="puppet-agent-配置">puppet agent 配置</h3>
+<p><strong>agent 配置</strong></p>
+<p>agent的配置文件和master相同，都是<code>/etc/puppetlabs/puppet/puppet.conf</code>，可配置如下：</p>
+<pre><code>[main]
+certname = 55-02.local
+server = 55-01.local
+environment = production
+runinterval = 1h  
+</code></pre><p>此处需要与server通信，确保<code>55-01.local</code>可以解析。</p>
+<h3 id="puppet-agnet-启动">puppet agnet 启动</h3>
+<p>通过如下命令启动并使agent自动运行：</p>
+<pre><code>/opt/puppetlabs/bin/puppet resource service puppet ensure=running enable=true
+</code></pre><h3 id="证书签署">证书签署</h3>
+<p>在agent 第一次连接到server 时，会请求证书。我们可以在server上，运行如下命令查看：</p>
+<pre><code>puppetserver ca list 
+</code></pre><p>agent和server之间通信必须获取到server签署的证书。可通过如下命令签署：</p>
+<pre><code>puppetserver ca sign --certname 55-02.local
+# or 
+puppetserver ca sign --all   # 所有请求都签署
+</code></pre><p>可通过如下命令撤销签署：</p>
+<pre><code>puppetserver ca revoke --certname &lt;AGENT_NAME&gt;
+</code></pre><p>通过如下命令查看当前签署和为签署情况：</p>
+<pre><code>puppetserver ca list --all
+</code></pre><p>证书签署后，我们可以在agent运行<code>puppet agent -t </code>来测试agent的连通性。我们看到如下信息，说明server和agent配置正确，可以正常通信。</p>
+<pre><code>Info: Using configured environment 'production'
+Info: Retrieving pluginfacts
+Info: Retrieving plugin
+Info: Retrieving locales
+Info: Caching catalog for 55-2.local
+Info: Applying configuration version '1558878523'
+Notice: Applied catalog in 0.03 seconds
+</code></pre><h3 id="编写我们的配置文件测试puppet">编写我们的配置文件，测试puppet</h3>
+<p>上篇文章介绍到，puppet是通过配置文件也就是有资源和类组成的<code>manifest</code> 配置文件来控制agent的配置资源和包的。那么让我们来编写一个manifest，来测试下puppet 的基本功能。</p>
+<p>puppet 的主配置文件在 <code>vi /etc/puppetlabs/code/environments/production/manifests/</code>。</p>
+<p>在该目录中创建文件 <code>site.pp</code>，添加内容如下：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-pp" data-lang="pp"><span style="color:#66d9ef">node</span> <span style="color:#e6db74">&#39;client.itzgeek.local&#39;</span> {<span style="color:#75715e"> # Applies only to mentioned node; if nothing mentioned, applies to all.</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">file</span> { <span style="color:#e6db74">&#39;/tmp/puppetesttdir&#39;</span>:<span style="color:#75715e"> # Resource type file</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span> <span style="color:#a6e22e">ensure</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#39;directory&#39;</span>,<span style="color:#75715e"> # Create as a diectory</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span> <span style="color:#a6e22e">owner</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#39;root&#39;</span>,<span style="color:#75715e"> # Ownership</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span> <span style="color:#a6e22e">group</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#39;root&#39;</span>,<span style="color:#75715e"> # Group Name</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span> <span style="color:#a6e22e">mode</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#39;0755&#39;</span>,<span style="color:#75715e"> # Directory permissions</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>}<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>}<span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><p>在agent 上运行 <code>puppet agent -t</code>, 输出如下内容：</p>
+<pre><code>Info: Using configured environment 'production'
+Info: Retrieving pluginfacts
+Info: Retrieving plugin
+Info: Retrieving locales
+Info: Loading facts
+Info: Caching catalog for 31-1-158-shx-core.jpool.sinaimg.cn
+Info: Applying configuration version '1574997520'
+Notice: /Stage[main]/Main/Node[31-1-158-shx-core.jpool.sinaimg.cn]/File[/tmp/puppetesttdir]/ensure: created
+Notice: Applied catalog in 0.05 seconds
+</code></pre><p>可以看到 tmp 目录下创建了一个 <code>puppettestdir</code>目录，如下：</p>
+<pre><code># /tmp 
+drwxr-xr-x   2 root root    4096 Nov 29 11:18 puppetesttdir
+</code></pre><p>至此，我们的puppet Master/Agent 架构变安装好了，我们也进行了文件下发的体验。</p>
+<h3 id="重要的topic-文档">重要的Topic 文档</h3>
+<p>其他重要的Topic，大家可参考对应文档。</p>
+<ul>
+<li><a href="https://puppet.com/docs/puppet/6.10/dirs_important_directories.html">重要的目录和文件说明</a></li>
+<li><a href="https://puppet.com/docs/puppet/6.10/env_environments.html">puppet environments相关</a></li>
+<li><a href="https://puppet.com/docs/puppet/6.10/modules.html">puppet modules使用</a></li>
+<li><a href="https://puppet.com/docs/puppet/6.10/puppet_language.html">puppet 配置文件语法</a></li>
+<li><a href="https://puppet.com/docs/puppet/6.10/nodes_external.html">puppet server http api</a></li>
+<li><a href="https://puppet.com/docs/puppet/6.10/facter.html">puppet facter</a></li>
+<li><a href="https://forge.puppet.com/">puppet 模块仓库</a></li>
+</ul>
+
+    </div>
+    <div class="article-footer">
+<blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://pylixm.top/posts/2019-11-26-Puppet-tutorial-two.html" title="Puppet 简单入门 - 安装篇" target="_blank" rel="external">https://pylixm.top/posts/2019-11-26-Puppet-tutorial-two.html</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>许可协议：</strong>
+      <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN</a>
+    </li>
+  </ul>
+</blockquote>
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://pylixm.top" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="https://pylixm.top/static/imgs/avatar.png" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://pylixm.top" target="_blank"><span class="text-dark">DeanWu</span><small class="ml-1x">程序员</small></a></h3>
+        <div>努力成为真正的SRE</div>
+      </div>
+    </figure>
+  </div>
+</div>
+    </div>
+  </article>
+<section id="comments">
+    <div id="vcomments"></div>
+</section>
+
+</div><nav class="bar bar-footer clearfix" data-stick-bottom>
+    <div class="bar-inner">
+        <ul class="pager pull-left">
+            <li class="prev">
+                <a href="https://pylixm.top/posts/2019-11-21-ats-admin-docs.html" title="译-Apache Traffic server 管理员手册(未完待续)"><i
+                        class="icon icon-angle-left"
+                        aria-hidden="true"></i><span>&nbsp;&nbsp;下一篇</span></a>
+            </li>
+            <li class="next">
+                <a href="https://pylixm.top/posts/2019-12-12-django-3.0.html"
+                    title="Django 3.0 异步试用分享"><span>上一篇&nbsp;&nbsp;</span><i
+                        class="icon icon-angle-right" aria-hidden="true"></i></a>
+            </li>
+            
+            <li class="toggle-toc">
+                <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false"
+                    title="文章目录" role="button">
+                    <span>[&nbsp;</span><span>文章目录</span>
+                    <i class="text-collapsed icon icon-anchor"></i>
+                    <i class="text-in icon icon-close"></i>
+                    <span>]</span>
+                </a>
+            </li>
+        </ul>
+        <div class="bar-right">
+        </div>
+    </div>
+</nav>
+
+
+<script src="https://my.openwrite.cn/js/readmore.js" type="text/javascript"></script>
+<script>
+    const btw = new BTWPlugin();
+    btw.init({
+        id: 'article-container',
+        blogId: '24944-1607090547459-485',
+        name: '码农吴先生',
+        qrcode: 'https://gitee.com/pylixm/picture/raw/master/2020-12-4/1607089812769-image.png',
+        keyword: 'vip',
+    });
+</script>
+</main><footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+<ul class="social-links">
+    <li><a href="https://github.com/pylixm" target="_blank" title="github" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-github"></i></a></li>
+    <li><a href="https://pylixm.top/index.xml" target="_blank" title="rss" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-rss"></i></a></li>
+    <li><a href="http://weibo.com/2258086637" target="_blank" title="weibo" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-weibo"></i></a></li>
+</ul>
+  <div class="copyright">
+    &copy;2015  -
+    2020
+    <div class="publishby">
+      hugo驱动，Theme by <a href="https://github.com/xiaoheiAh/hugo-theme-pure" target="_blank"> pure</a>.
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_SVG"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+            showMathMenu: false, //disables context menu
+            tex2jax: {
+            inlineMath: [ ['$','$'], ['\\(','\\)'] ]
+           }
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+<script>
+    window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/highlight.min.js"></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/python.min.js" defer></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/javascript.min.js" defer></script><script>
+    hljs.configure({
+        tabReplace: '    ', 
+        classPrefix: ''     
+        
+    })
+    hljs.initHighlightingOnLoad();
+</script>
+<script src="https://pylixm.top/js/application.min.bdeb64b910570b6c41badc6a05b7afb0c8ad9efd8525de3c7257d59e786326a3.js"></script>
+<script src="https://pylixm.top/js/plugin.min.51ff8c7317566f82259170fa36e09c4493adc9b9378b427a01ad3f017ebac7dd.js"></script>
+
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(未命名)',
+            },
+            ROOT_URL: 'https:\/\/pylixm.top',
+            CONTENT_URL: 'https:\/\/pylixm.top\/searchindex.json ',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script type="text/javascript" src="https://pylixm.top/js/insight.min.a343cd9a5a7698336b28ef3a7c16a3a1b1d2d5fb17dc8ed04022bbe08cc5459073a15bdafa3a8a58cdd56080784bdd69fa70b1ae8597565c799c57ed00f0e120.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script>
+<script>
+    tocbot.init({
+        
+        tocSelector: '.js-toc',
+        
+        contentSelector: '.js-toc-content',
+        
+        headingSelector: 'h1, h2, h3',
+        
+        hasInnerContainers: true,
+    });
+</script>
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="https://cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine"></script>
+<script type="text/javascript">
+    var GUEST = ['nick', 'mail', 'link'];
+    var meta = 'nick,mail';
+    meta = meta.split(',').filter(function (item) {
+        return GUEST.indexOf(item) > -1;
+    });
+    new Valine({
+        el: '#vcomments',
+        verify: null ,
+        notify: null ,
+        appId: 'OBJcj4PU8JI0zDfu0HJSrG6W-gzGzoHsz',
+        appKey: 'tBtFzC72xIlgo2UFbA33nqmU',
+        placeholder: '来做第一个发言人吧',
+        avatar: 'mm',
+        meta: meta,
+        pageSize: '10' || 10,
+        visitor: false 
+});
+</script>
+
+  </body>
+</html>

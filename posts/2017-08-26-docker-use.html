@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <title>
+        Docker学习笔记（二）--简单使用,搭建python开发环境 - DeanWu
+      </title>
+        <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    
+    <meta name="theme-color" content="#000000" />
+    
+    <meta http-equiv="window-target" content="_top" />
+    
+    
+    <meta name="description" content="安装 docker 安装现在已非常简单，具体可参考官方文档. 安装成功后可以使用以下命令检测： $ docker --version Docker version 17.06.2-ce, build cec0b72 更换镜像源 因 Docker 官方仓库地址在国外，速度比较慢。" />
+    <meta name="generator" content="Hugo 0.73.0 with theme pure" />
+    <title>Docker学习笔记（二）--简单使用,搭建python开发环境 - DeanWu</title>
+    
+    
+    <link rel="stylesheet" href="https://pylixm.top/css/style.min.f70e8e0df9ea6aeb37dac252b17ca98082073ff1663b24118baaaa84ee8ae7e8.css">
+    
+    <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.15.10/styles/github.min.css" async>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css" async>
+    <meta property="og:title" content="Docker学习笔记（二）--简单使用,搭建python开发环境" />
+<meta property="og:description" content="安装 docker 安装现在已非常简单，具体可参考官方文档. 安装成功后可以使用以下命令检测： $ docker --version Docker version 17.06.2-ce, build cec0b72 更换镜像源 因 Docker 官方仓库地址在国外，速度比较慢。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://pylixm.top/posts/2017-08-26-docker-use.html" />
+<meta property="article:published_time" content="2017-08-26T00:00:00+00:00" />
+<meta property="article:modified_time" content="2017-08-26T00:00:00+00:00" />
+<meta itemprop="name" content="Docker学习笔记（二）--简单使用,搭建python开发环境">
+<meta itemprop="description" content="安装 docker 安装现在已非常简单，具体可参考官方文档. 安装成功后可以使用以下命令检测： $ docker --version Docker version 17.06.2-ce, build cec0b72 更换镜像源 因 Docker 官方仓库地址在国外，速度比较慢。">
+<meta itemprop="datePublished" content="2017-08-26T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2017-08-26T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="2404">
+
+
+
+<meta itemprop="keywords" content="自动化运维,Docker," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Docker学习笔记（二）--简单使用,搭建python开发环境"/>
+<meta name="twitter:description" content="安装 docker 安装现在已非常简单，具体可参考官方文档. 安装成功后可以使用以下命令检测： $ docker --version Docker version 17.06.2-ce, build cec0b72 更换镜像源 因 Docker 官方仓库地址在国外，速度比较慢。"/>
+
+    <!--[if lte IE 9]>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+      <![endif]-->
+
+    <!--[if lt IE 9]>
+        <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+      <![endif]-->
+  </head>
+
+  
+  
+
+  <body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage"><header class="header" itemscope itemtype="http://schema.org/WPHeader">
+    <div class="slimContent">
+      <div class="navbar-header">
+        <div class="profile-block text-center">
+          <a id="avatar" href="https://pylixm.top" target="_blank">
+            <img class="img-circle img-rotate" src="https://pylixm.top/static/imgs/avatar.png" width="200" height="200">
+          </a>
+          <h2 id="name" class="hidden-xs hidden-sm">DeanWu</h2>
+          <h3 id="title" class="hidden-xs hidden-sm hidden-md">程序员</h3>
+          <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i>Beijing, China</small>
+        </div><div class="search" id="search-form-wrap">
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i
+                        class="icon icon-search"></i></button>
+            </span>
+        </div>
+        <div class="ins-search">
+            <div class="ins-search-mask"></div>
+            <div class="ins-search-container">
+                <div class="ins-input-wrapper">
+                    <input type="text" class="ins-search-input" placeholder="想要查找什么..."
+                        x-webkit-speech />
+                    <button type="button" class="close ins-close ins-selectable" data-dismiss="modal"
+                        aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="ins-section-wrapper">
+                    <div class="ins-section-container"></div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+        <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+        <ul class="nav navbar-nav main-nav">
+            <li class="menu-item menu-item-home">
+                <a href="/">
+                    <i class="icon icon-home-fill"></i>
+                  <span class="menu-title">首页</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-series">
+                <a href="/series/">
+                    <i class="icon icon-folder"></i>
+                  <span class="menu-title">专题</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-repository">
+                <a href="/project/">
+                    <i class="icon icon-project"></i>
+                  <span class="menu-title">项目</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-archives">
+                <a href="/posts/">
+                    <i class="icon icon-archives-fill"></i>
+                  <span class="menu-title">归档</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-about">
+                <a href="/about/">
+                    <i class="icon icon-cup-fill"></i>
+                  <span class="menu-title">关于</span>
+                </a>
+            </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+<aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content"><div>欢迎关注微信公众号「码农吴先生」：专注python/golang/devops等技术的学习经验及资源分享！</br>回复关键字：go或python 获取我收集的资料，也可回复关键字：小二，加我wx，一块聊技术，聊人生~  </br><img src="/static/imgs/wx/wx_gzh.png" width="140" height="140"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+      
+<div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+        <ul class="recent-post-list list-unstyled no-thumbnail">
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2020-12-08-django-async-views-example.html" class="title">Django 三个异步使用的案例</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-12-08 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-08</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2020-12-05-go-from-python-structure-base.html" class="title">「对比Python学习Go」- 基本数据结构</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-12-05 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-05</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2020-12-03-go-from-python-start.html" class="title">「对比Python学习Go」- 环境篇</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-12-03 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-03</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2020-12-02-go-from-python-intro.html" class="title">「对比Python学习Go」- 开篇</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-12-02 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-02</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2020-12-01-for-range-point.html" class="title">「Go Tips」for range 遍历时变量取值的问题分析</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-12-01 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-01</time>
+                    </p>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+      <div class="widget">
+    <h3 class="widget-title"> 分类</h3>
+    <div class="widget-body">
+        <ul class="category-list">
+            <li class="category-list-item"><a href="https://pylixm.top/categories/ATS/" class="category-list-link">ATS</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/DevOps/" class="category-list-link">DevOps</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Devlopment-Demo/" class="category-list-link">Devlopment-Demo</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Django/" class="category-list-link">Django</a><span class="category-list-count">39</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Docker/" class="category-list-link">Docker</a><span class="category-list-count">4</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Flask/" class="category-list-link">Flask</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Git/" class="category-list-link">Git</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Golang/" class="category-list-link">Golang</a><span class="category-list-count">12</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/HTTPS/" class="category-list-link">HTTPS</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Javascript/" class="category-list-link">Javascript</a><span class="category-list-count">3</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Kubernetes/" class="category-list-link">Kubernetes</a><span class="category-list-count">4</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/LVS/" class="category-list-link">LVS</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Linux/" class="category-list-link">Linux</a><span class="category-list-count">15</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Mongodb/" class="category-list-link">Mongodb</a><span class="category-list-count">3</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Mysql/" class="category-list-link">Mysql</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/NoSQL/" class="category-list-link">NoSQL</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/PostgreSQL/" class="category-list-link">PostgreSQL</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Puppet/" class="category-list-link">Puppet</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Python/" class="category-list-link">Python</a><span class="category-list-count">19</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/QA/" class="category-list-link">QA</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Rabbitmq/" class="category-list-link">Rabbitmq</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Restful/" class="category-list-link">Restful</a><span class="category-list-count">6</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/SaltStack/" class="category-list-link">SaltStack</a><span class="category-list-count">7</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Software_Architect/" class="category-list-link">Software_Architect</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Supervisor/" class="category-list-link">Supervisor</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Tornado/" class="category-list-link">Tornado</a><span class="category-list-count">3</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Vagrant/" class="category-list-link">Vagrant</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Vue/" class="category-list-link">Vue</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/kafka/" class="category-list-link">kafka</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/zookeeper/" class="category-list-link">zookeeper</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E4%B8%AA%E4%BA%BA%E7%AE%A1%E7%90%86/" class="category-list-link">个人管理</a><span class="category-list-count">5</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB/" class="category-list-link">前后端分离</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" class="category-list-link">数据结构与算法</a><span class="category-list-count">13</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E6%9C%9D%E8%8A%B1%E5%A4%95%E6%8B%BE/" class="category-list-link">朝花夕拾</a><span class="category-list-count">10</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" class="category-list-link">机器学习</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" class="category-list-link">环境搭建</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E7%A8%8B%E5%BA%8F%E5%91%98%E8%87%AA%E6%88%91%E4%BF%AE%E5%85%BB/" class="category-list-link">程序员自我修养</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E8%B5%84%E6%BA%90%E5%88%86%E4%BA%AB%E8%AE%A1%E5%88%92/" class="category-list-link">资源分享计划</a><span class="category-list-count">10</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E8%BF%90%E7%BB%B4%E7%9F%A5%E8%AF%86%E5%BA%93/" class="category-list-link">运维知识库</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86/" class="category-list-link">项目管理</a><span class="category-list-count">1</span></li>
+        </ul>
+    </div>
+</div>
+  </div>
+</aside>
+
+    
+    
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <h4 class="toc-title">文章目录</h4>
+    <nav id="toc" class="js-toc toc">
+
+    </nav>
+  </div>
+</aside>
+<main class="main" role="main"><div class="content">
+  
+  <article id="article-container" class="article article-type-" itemscope
+    itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      <h1 itemprop="name">
+  <a
+    class="article-title"
+    href="/posts/2017-08-26-docker-use.html"
+    >Docker学习笔记（二）--简单使用,搭建python开发环境</a
+  >
+</h1>
+
+      <div class="article-meta">
+        
+<span class="article-date">
+  <i class="icon icon-calendar-check"></i>&nbsp;
+<a href="https://pylixm.top/posts/2017-08-26-docker-use.html" class="article-date">
+  <time datetime="2017-08-26 00:00:00 &#43;0000 UTC" itemprop="datePublished">2017-08-26</time>
+</a>
+</span>
+<span class="article-category">
+  <i class="icon icon-folder"></i>&nbsp;
+  <a class="article-category-link" href="/categories/Docker/"> Docker </a>
+</span>  
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>&nbsp;
+    <a class="article-tag-link" href="/tags/%E8%87%AA%E5%8A%A8%E5%8C%96%E8%BF%90%E7%BB%B4/"> 自动化运维 </a>
+    <a class="article-tag-link" href="/tags/Docker/"> Docker </a>
+  </span>
+
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+        <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="/posts/2017-08-26-docker-use.html#comments"
+            class="article-comment-link">评论</a></span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 2404字</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 5分 </span>
+      </div>
+    </div>
+    <div class="article-entry marked-body js-toc-content" itemprop="articleBody">
+      <h2 id="安装">安装</h2>
+<p>docker 安装现在已非常简单，具体可参考<a href="https://docs.docker.com/engine/installation/">官方文档</a>.</p>
+<p>安装成功后可以使用以下命令检测：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ docker --version
+Docker version 17.06.2-ce, build cec0b72
+</code></pre></div><!-- raw HTML omitted -->
+<h2 id="更换镜像源">更换镜像源</h2>
+<p>因 Docker 官方仓库地址在国外，速度比较慢。可使用国内的几家大厂放出的 Docker 仓库镜像源。</p>
+<ul>
+<li>
+<p><a href="https://www.daocloud.io/mirror#accelerator-doc">DaoCloud 加速器</a>。注册登录后可看到如下配置说明文档，按教程配置即可。
+<img src="https://ws1.sinaimg.cn/large/8697aaedly1frtgfawecfj21mo0emq63.jpg" alt=""></p>
+</li>
+<li>
+<p><a href="https://cr.console.aliyun.com/#/accelerator">阿里云镜像加速器</a></p>
+</li>
+</ul>
+<h2 id="docker-使用案例使用docker-来搭建python开发环境">Docker 使用案例：使用docker 来搭建python开发环境</h2>
+<p>下面我们以构建python的开发环境为例来看下Docker 在开发中的应用。</p>
+<p>docker 容器的运行是基于docker镜像的，所以我们需要先获取镜像。镜像的获取有几种方法：</p>
+<ul>
+<li>1、从docker hub (国内有仓库的镜像资源站，如Daocloud、阿里云等)上拉取所需要的镜像，修改打包使用。</li>
+<li>2、自己编写Dockerfile, 基于现有镜像或官方镜像，自己构建新镜像。</li>
+</ul>
+<p>最早的镜像只有官方推出的<a href="https://docs.docker.com/docker-hub/official_repos/#how-do-i-create-a-new-official-repository">官方镜像</a>，随着Docker的发展Docker hub上已有数不清的非官方镜像为使用者提供服务。我们也可以将我们构建的镜像上传到Docker hub 上供其他人使用。</p>
+<h3 id="第一步镜像获取">第一步，镜像获取</h3>
+<p>我们这里通过编写Dockerfile来定制镜像。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dockerfile" data-lang="dockerfile"><span style="color:#66d9ef">FROM</span><span style="color:#e6db74"> python:2.7  </span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">ENV</span> PYTHONUNBUFFERED <span style="color:#ae81ff">1</span>  <span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> mkdir /code    <span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">WORKDIR</span><span style="color:#e6db74"> /code  </span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">ADD</span> ./requirements.txt /code/  <span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> pip install -r requirements.txt  <span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><blockquote>
+<p>说明：</p>
+<ul>
+<li>1、依据python:2.7 镜像构建</li>
+<li>2、这是python环境变量</li>
+<li>3、在docker容器内创建代码目录</li>
+<li>4、设置工作目录为 code</li>
+<li>5、复制文件到code 目录下</li>
+<li>6、执行命令安装python依赖包</li>
+</ul>
+</blockquote>
+<p>注：
+1、如何编写Dockerfile, <a href="https://docs.docker.com/engine/reference/builder/">官方文档</a>
+2、copy vs add <a href="https://docs.docker.com/engine/reference/builder/#copy">官方文档</a></p>
+<blockquote>
+<p>ADD 功能更多：</p>
+<ul>
+<li>ADD指令可以让你使用URL作为<!-- raw HTML omitted -->参数。当遇到URL时候，可以通过URL下载文件并且复制到<!-- raw HTML omitted -->。</li>
+<li>ADD的另外一个特性是有能力自动解压文件。如果<!-- raw HTML omitted -->参数是一个可识别的压缩格式（tar, gzip, bzip2, etc）的本地文件（所以实现不了同时下载并解压），就会被解压到指定容器文件系统的路径<!-- raw HTML omitted -->。</li>
+<li>URL下载和解压特性不能一起使用。任何压缩文件通过URL拷贝，都不会自动解压。</li>
+</ul>
+<p>Copy :</p>
+<ul>
+<li>只复制文件</li>
+</ul>
+<p>Dockerfile 里添加文件建议使用 Copy, 除非明确需要使用ADD.</p>
+</blockquote>
+<p>运行 <code>docker build -t docker-ssh:v1 -f Dockerfile .</code> 构建镜像。</p>
+<p>注意：
+<code>Forbidden path outside of the build context</code>错误，解决方案<a href="http://blog.csdn.net/zssureqh/article/details/52009043">参考</a></p>
+<p>这样，基于python2.7的python开发镜像便做好了，自己需要什么python依赖直接写到requirements文件里即可。</p>
+<h3 id="第二步启动容器开发项目django-项目为例">第二步，启动容器，开发项目：django 项目为例</h3>
+<p>在目录<code>/Users/pylixm/docker.dev/django-demo/</code>下，运行<code>django-admin startproject mysite</code>在本地目录创建django项目, 目录如下：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ tree
+.
+├── Dockerfile
+├── manage.py
+├── mysite
+│   ├── __init__.py
+│   ├── settings.py
+│   ├── urls.py
+│   └── wsgi.py
+└── requirements.txt
+</code></pre></div><p>运行以下命令以bash模式启动容器：</p>
+<pre><code>docker run -it --rm -p 80:80 -v /Users/pylixm/docker.dev/django-demo/mysite:/code/mysite docker-ssh:v1 bash
+</code></pre><blockquote>
+<p>说明：</p>
+<ul>
+<li>-it：这是两个参数，一个是 -i：交互式操作，一个是 -t 终端。我们这里打算进入 bash 执行一些命令并查看返回结果，因此我们需要交互式终端。</li>
+<li>&ndash;rm：这个参数是说容器退出后随之将其删除。默认情况下，为了排障需求，退出的容器并不会立即删除，除非手动 docker rm。我们这里只是随便执&gt;行个命令，看看结果，不需要排障和保留结果，因此使用 &ndash;rm 可以避免浪费空间。</li>
+<li>-p hostPort:containerPort : 映射容器端口到主机端口，前面是主机端口，后边是容器端口；</li>
+<li>-v 主机目录:容器内目录 ：挂载主机目录作为容器的持久化数据卷。主机目录必须是<code>绝对路径</code>；</li>
+<li>bash：放在镜像名后的是命令，这里我们希望有个交互式 Shell，因此用的是 bash。</li>
+</ul>
+</blockquote>
+<p>此处利用容器的数据卷，将我们的开发项目映射到容器中，当我们的项目文件发生电话时会立即体现在容器中。容器关闭后，项目的变动任然存在。这样便可以愉快的使用docker来封装我们的开发环境了。</p>
+<p>可进入容器，运行<code>python manage.py runserver 0.0.0.0:80</code>启动django项目。在我们主机的浏览器访问<code>0.0.0.0:80</code>, 便可看到项目页面了。</p>
+<p>我们也可改造Dockerfile，设置暴露端口，和执行的命令,重新编译镜像。设置好后，我们便不用再进入容器启动运行django项目启动命令。</p>
+<pre><code>## 暴露docker容器的端口
+EXPOSE 8000
+CMD [&quot;python&quot;, &quot;manage.py&quot;, &quot;runserver&quot;, &quot;0.0.0.0:8000&quot;]
+</code></pre><p>或者直接在<code>docker run </code> 命令后加启动命令:</p>
+<pre><code>docker run -it --rm -p 80:8000 -v /Users/pylixm/docker.dev/django-demo/mysite:/code/mysite docker-ssh:v1 python ./mysite/manage.py runserver 0.0.0.0:8000
+</code></pre><h3 id="第三步在pycharm中配置使用">第三步，在pycharm中配置使用</h3>
+<p>第二步的时候，我们构建了我们的python开发镜像。我们只需要在pycharm中配置<code>Project Interpreter </code>为Docker镜像即可。</p>
+<p><strong>检查</strong>
+在Mac上开发，需要保证<code>Docker for Mac</code>启动，并配置好<code>Docker API</code>(Preferences | Build, Execution, Deployment | Docker)，如下图：
+<img src="/static/imgs/docker-connect.png" alt=""></p>
+<p><strong>配置</strong></p>
+<pre><code>- 1、到`Preferences -&gt; Project Interpreter -&gt; Add Romete `，选择本地的可用Docker 镜像,如图：
+![](/static/imgs/docker-config-1.png)
+
+- 2、配置`Edite configrations`, 将host设置为`0.0.0.0`, 选择刚才添加的项目解释器，并配置容器运行参数`Docker container settings`，如图：
+![](/static/imgs/docker-config-2.png)
+
+&gt;说明：
+&gt;    - 容器端口：8000 映射到主机端口 80
+&gt;    - 挂载项目目录的数据卷： ` /Users/pylixm/docker.dev/django-demo/mysite:/code/mysite`
+
+- 3、正常启动项目，访问`http://0.0.0.0:80`,即可看到亲切的欢迎界面。
+
+</code></pre><p><strong>update:2018年05月31日</strong></p>
+<p>以上配置是基于<code>pycharm2017.3</code>, 截止到目前为止最新pycharm版本为<code>2018.1</code>。</p>
+<p><em>Docker 管理窗口</em></p>
+<p>此版本增加了对Docker镜像及容器的管理窗口，可以在此创建和启动容器。
+<img src="https://ws1.sinaimg.cn/large/8697aaedly1frubrj8jiij21340o0mzo.jpg" alt=""></p>
+<p>并且配置和Django等服务的配置在一个地方，注意区分，不要把Docker的配置和Django运行的<code>python interpreter</code>混淆。
+<img src="https://ws1.sinaimg.cn/large/8697aaedly1frubtqk4trj21k20wedlk.jpg" alt=""></p>
+<p><em>Python Interpreter的配置</em></p>
+<ul>
+<li>
+<p>1、到<code>Preferences -&gt; Project Interpreter -&gt; Add </code>，选择 <code>Docker</code>, 随后在右侧窗口选择使用的镜像。 如图：
+<img src="https://ws1.sinaimg.cn/large/8697aaedly1fruby7dhxaj21lk0tadmf.jpg" alt=""></p>
+</li>
+<li>
+<p>2、配置<code>Edite configrations</code>, 将host设置为<code>0.0.0.0</code>, 选择刚才添加的项目解释器，并配置容器运行参数<code>Docker container settings</code>，如图：
+<img src="/static/imgs/docker-config-2.png" alt=""></p>
+</li>
+</ul>
+<blockquote>
+<p>说明：</p>
+<ul>
+<li>容器端口：8000 映射到主机端口 80</li>
+<li>挂载项目目录的数据卷： <code> /Users/pylixm/docker.dev/django-demo/mysite:/code/mysite</code></li>
+</ul>
+</blockquote>
+<ul>
+<li>3、正常启动项目，访问<code>http://0.0.0.0:80</code>,即可看到亲切的欢迎界面。</li>
+</ul>
+<p>更加详细配置说明参见<a href="https://www.jetbrains.com/help/pycharm/docker.html">Pycharm官方Docker使用文档</a>。</p>
+<h2 id="参考">参考</h2>
+<ul>
+<li><a href="http://blog.csdn.net/yhcvb/article/details/45696961">http://blog.csdn.net/yhcvb/article/details/45696961</a></li>
+<li><a href="http://blog.csdn.net/wind_602/article/details/77988395">http://blog.csdn.net/wind_602/article/details/77988395</a></li>
+</ul>
+
+    </div>
+    <div class="article-footer">
+<blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://pylixm.top/posts/2017-08-26-docker-use.html" title="Docker学习笔记（二）--简单使用,搭建python开发环境" target="_blank" rel="external">https://pylixm.top/posts/2017-08-26-docker-use.html</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>许可协议：</strong>
+      <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN</a>
+    </li>
+  </ul>
+</blockquote>
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://pylixm.top" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="https://pylixm.top/static/imgs/avatar.png" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://pylixm.top" target="_blank"><span class="text-dark">DeanWu</span><small class="ml-1x">程序员</small></a></h3>
+        <div>努力成为真正的SRE</div>
+      </div>
+    </figure>
+  </div>
+</div>
+    </div>
+  </article>
+<section id="comments">
+    <div id="vcomments"></div>
+</section>
+
+</div><nav class="bar bar-footer clearfix" data-stick-bottom>
+    <div class="bar-inner">
+        <ul class="pager pull-left">
+            <li class="prev">
+                <a href="https://pylixm.top/posts/2017-08-25-docker-basis.html" title="Docker学习笔记（一）--基础知识"><i
+                        class="icon icon-angle-left"
+                        aria-hidden="true"></i><span>&nbsp;&nbsp;下一篇</span></a>
+            </li>
+            <li class="next">
+                <a href="https://pylixm.top/posts/2017-08-26-Restfull-Api-Best-Practice.html"
+                    title="10 Best Practices for Better RESTful API"><span>上一篇&nbsp;&nbsp;</span><i
+                        class="icon icon-angle-right" aria-hidden="true"></i></a>
+            </li>
+            
+            <li class="toggle-toc">
+                <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false"
+                    title="文章目录" role="button">
+                    <span>[&nbsp;</span><span>文章目录</span>
+                    <i class="text-collapsed icon icon-anchor"></i>
+                    <i class="text-in icon icon-close"></i>
+                    <span>]</span>
+                </a>
+            </li>
+        </ul>
+        <div class="bar-right">
+        </div>
+    </div>
+</nav>
+
+
+<script src="https://my.openwrite.cn/js/readmore.js" type="text/javascript"></script>
+<script>
+    const btw = new BTWPlugin();
+    btw.init({
+        id: 'article-container',
+        blogId: '24944-1607090547459-485',
+        name: '码农吴先生',
+        qrcode: 'https://gitee.com/pylixm/picture/raw/master/2020-12-4/1607089812769-image.png',
+        keyword: 'vip',
+    });
+</script>
+</main><footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+<ul class="social-links">
+    <li><a href="https://github.com/pylixm" target="_blank" title="github" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-github"></i></a></li>
+    <li><a href="https://pylixm.top/index.xml" target="_blank" title="rss" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-rss"></i></a></li>
+    <li><a href="http://weibo.com/2258086637" target="_blank" title="weibo" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-weibo"></i></a></li>
+</ul>
+  <div class="copyright">
+    &copy;2015  -
+    2020
+    <div class="publishby">
+      hugo驱动，Theme by <a href="https://github.com/xiaoheiAh/hugo-theme-pure" target="_blank"> pure</a>.
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_SVG"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+            showMathMenu: false, //disables context menu
+            tex2jax: {
+            inlineMath: [ ['$','$'], ['\\(','\\)'] ]
+           }
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+<script>
+    window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/highlight.min.js"></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/python.min.js" defer></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/javascript.min.js" defer></script><script>
+    hljs.configure({
+        tabReplace: '    ', 
+        classPrefix: ''     
+        
+    })
+    hljs.initHighlightingOnLoad();
+</script>
+<script src="https://pylixm.top/js/application.min.bdeb64b910570b6c41badc6a05b7afb0c8ad9efd8525de3c7257d59e786326a3.js"></script>
+<script src="https://pylixm.top/js/plugin.min.51ff8c7317566f82259170fa36e09c4493adc9b9378b427a01ad3f017ebac7dd.js"></script>
+
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(未命名)',
+            },
+            ROOT_URL: 'https:\/\/pylixm.top',
+            CONTENT_URL: 'https:\/\/pylixm.top\/searchindex.json ',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script type="text/javascript" src="https://pylixm.top/js/insight.min.a343cd9a5a7698336b28ef3a7c16a3a1b1d2d5fb17dc8ed04022bbe08cc5459073a15bdafa3a8a58cdd56080784bdd69fa70b1ae8597565c799c57ed00f0e120.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script>
+<script>
+    tocbot.init({
+        
+        tocSelector: '.js-toc',
+        
+        contentSelector: '.js-toc-content',
+        
+        headingSelector: 'h1, h2, h3',
+        
+        hasInnerContainers: true,
+    });
+</script>
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="https://cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine"></script>
+<script type="text/javascript">
+    var GUEST = ['nick', 'mail', 'link'];
+    var meta = 'nick,mail';
+    meta = meta.split(',').filter(function (item) {
+        return GUEST.indexOf(item) > -1;
+    });
+    new Valine({
+        el: '#vcomments',
+        verify: null ,
+        notify: null ,
+        appId: 'OBJcj4PU8JI0zDfu0HJSrG6W-gzGzoHsz',
+        appKey: 'tBtFzC72xIlgo2UFbA33nqmU',
+        placeholder: '来做第一个发言人吧',
+        avatar: 'mm',
+        meta: meta,
+        pageSize: '10' || 10,
+        visitor: false 
+});
+</script>
+
+  </body>
+</html>

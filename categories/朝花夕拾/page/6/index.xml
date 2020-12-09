@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>朝花夕拾 on DeanWu</title>
+    <link>https://pylixm.top/categories/%E6%9C%9D%E8%8A%B1%E5%A4%95%E6%8B%BE/</link>
+    <description>Recent content in 朝花夕拾 on DeanWu</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Fri, 03 Jul 2020 00:00:00 +0000</lastBuildDate>
+    
+        <atom:link href="https://pylixm.top/categories/%E6%9C%9D%E8%8A%B1%E5%A4%95%E6%8B%BE/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>「Go语言学习笔记二」- Golang 环境搭建及相关概念</title>
+      <link>https://pylixm.top/posts/2018-01-25-Go-install.html</link>
+      <pubDate>Thu, 25 Jan 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2018-01-25-Go-install.html</guid>
+      <description>环境搭建 在环境搭建之前，先来了解几个常用的 Golang 环境变量： $GOROOT 表示 Go 在你的电脑上的安装位置，它的值一般都是 $HOME/go，当然，你也可以安装在别</description>
+    </item>
+    
+    <item>
+      <title>「Go语言学习笔记一」- Golang 初步了解</title>
+      <link>https://pylixm.top/posts/2018-01-24-Go-introduction.html</link>
+      <pubDate>Wed, 24 Jan 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2018-01-24-Go-introduction.html</guid>
+      <description>前言 第一次听说 Golang 语言是通过小米开源的 Open-Falcon ，它是用 Go 开发的，速度上是python的好几倍，天生适合并发程序的开发。后来得知大名鼎鼎的 Dorker 也是用 Golang 开</description>
+    </item>
+    
+    <item>
+      <title>「Python Tips」 - python 单元测试 unittest 工具使用</title>
+      <link>https://pylixm.top/posts/2018-01-18-python-unittest.html</link>
+      <pubDate>Thu, 18 Jan 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2018-01-18-python-unittest.html</guid>
+      <description>python 的单元测试有许多工具，如unittest、pytest、nosetest 等等，这里主要介绍下unittest 的使用。 以下文字为转载，原文链</description>
+    </item>
+    
+    <item>
+      <title>「Python Tips」 - pipenv 试用过程分享</title>
+      <link>https://pylixm.top/posts/2018-01-13-python-pipenv.html</link>
+      <pubDate>Sat, 13 Jan 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2018-01-13-python-pipenv.html</guid>
+      <description>最近常看到pipenv这个管理工具，今天有时间查了下，是 Kennethreitz 大神的作品，看了下github的仓库，是2017年1月份创建的，仅仅一年的时间变获</description>
+    </item>
+    
+    <item>
+      <title>2017 年总结，2018 年计划</title>
+      <link>https://pylixm.top/posts/2018-01-04-summary_2018.html</link>
+      <pubDate>Thu, 04 Jan 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2018-01-04-summary_2018.html</guid>
+      <description>2017 ，一年下来做了不少事情，遇到了很多挑战，现在看来最算是把它们都克服了。这充分说明了当时我想到的那句话“不管多大的困难，咬咬牙总会过去的“。</description>
+    </item>
+    
+    <item>
+      <title>centos 7 下 postgreSQL 10 安装记录</title>
+      <link>https://pylixm.top/posts/2017-11-05-postgresql-install.html</link>
+      <pubDate>Sun, 05 Nov 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2017-11-05-postgresql-install.html</guid>
+      <description>最近工作中与数据库打交道越来越多，操作数据频繁，感觉到了许多mysql操作的不便利性。想起了几年前使用的 postgreSQL, 重新整理安装下，记录备查。 关于my</description>
+    </item>
+    
+    <item>
+      <title>postgreSQL vs MySQL 命令行对比</title>
+      <link>https://pylixm.top/posts/2017-11-05-postgresql-cmd.html</link>
+      <pubDate>Sun, 05 Nov 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2017-11-05-postgresql-cmd.html</guid>
+      <description>原文：http://www.cnblogs.com/qiyebao/p/4749146.html 服务启动 PostgreSQL 1)#service postgresql start 2)#/etc/init.d/postgresql start 3)#su – postgresql $pg_ctl start MySQL 1)#service mysqld start 2)#/etc/init.d/mysqld start 3)#safe_mysqld&amp;amp;</description>
+    </item>
+    
+    <item>
+      <title>译 - 在pycharm中使用docker</title>
+      <link>https://pylixm.top/posts/2017-10-29-docker-use_in_pycharm.html</link>
+      <pubDate>Sun, 29 Oct 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2017-10-29-docker-use_in_pycharm.html</guid>
+      <description>update：2018-05-31 本文针对 Pycharm2017.3。 最近在学习docker，作为一个pycharm重度使用者，很想知道怎么</description>
+    </item>
+    
+    <item>
+      <title>转-【SaltStack源码分析任】务处理机制</title>
+      <link>https://pylixm.top/posts/2017-09-01-salt-pub-sub.html</link>
+      <pubDate>Fri, 01 Sep 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2017-09-01-salt-pub-sub.html</guid>
+      <description>原文地址：http://jackywu.github.io/articles/saltstack%E6%BA%90%E7%A0%81%E5%</description>
+    </item>
+    
+    <item>
+      <title>SQLAlchemy 数据库链接池问题排查记录</title>
+      <link>https://pylixm.top/posts/2017-08-29-tornado-sqlalchemy.html</link>
+      <pubDate>Tue, 29 Aug 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2017-08-29-tornado-sqlalchemy.html</guid>
+      <description>环境 web框架：tornado 4.4.2 ORM： SQLAlchemy 1.2.0b1 DB: MySQL 5.7 问题描述 我们的项目为tornado 开发的API服务，使用SQLALchemy 作为ORM与数</description>
+    </item>
+    
+    <item>
+      <title>10 Best Practices for Better RESTful API</title>
+      <link>https://pylixm.top/posts/2017-08-26-Restfull-Api-Best-Practice.html</link>
+      <pubDate>Sat, 26 Aug 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2017-08-26-Restfull-Api-Best-Practice.html</guid>
+      <description>Web APIs has become an very important topic in the last year. We at M-Way Solutions are working every day with different backend systems and therefore we know about the importance of a clean API design. Typically we use a RESTful design for our web APIs. The concept of REST is to separate the API structure into logical resources. There are used the HTTP methods GET, DELETE, POST and PUT</description>
+    </item>
+    
+    <item>
+      <title>Docker学习笔记（二）--简单使用,搭建python开发环境</title>
+      <link>https://pylixm.top/posts/2017-08-26-docker-use.html</link>
+      <pubDate>Sat, 26 Aug 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2017-08-26-docker-use.html</guid>
+      <description>安装 docker 安装现在已非常简单，具体可参考官方文档. 安装成功后可以使用以下命令检测： $ docker --version Docker version 17.06.2-ce, build cec0b72 更换镜像源 因 Docker 官方仓库地址在国外，速度比较慢。</description>
+    </item>
+    
+    <item>
+      <title>Docker学习笔记（一）--基础知识</title>
+      <link>https://pylixm.top/posts/2017-08-25-docker-basis.html</link>
+      <pubDate>Fri, 25 Aug 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2017-08-25-docker-basis.html</guid>
+      <description>最近几年Docker容器技术已经渗透到各技术领域，在自动化运维领域更胜，因为它对于代码的部署上可以说是革命性的。下面是我学习Docker，记</description>
+    </item>
+    
+    <item>
+      <title>自动化运维系列-前言</title>
+      <link>https://pylixm.top/posts/2017-07-08-devops-index.html</link>
+      <pubDate>Sat, 08 Jul 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2017-07-08-devops-index.html</guid>
+      <description>自动化运维系列之前言 此系列的由来 笔者在自动化运维这个领域工作已2年有余，多参与这个领域的某些环节系统的开发，并没有完整的参与过自动化运维每个</description>
+    </item>
+    
+    <item>
+      <title>自动化运维系列-资产管理系统CMDB</title>
+      <link>https://pylixm.top/posts/2017-07-08-devops-cmdb.html</link>
+      <pubDate>Sat, 08 Jul 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2017-07-08-devops-cmdb.html</guid>
+      <description>自动化运维系列之CMDB CMDB 系统介绍 cmdb 翻译过来是 Configuration Management Database, 即配置管理数据库。从字面意思理解，大家很容易理解即为系统或软件的配置文件或参数的管理。其</description>
+    </item>
+    
+    <item>
+      <title>Vue 新手使用总结</title>
+      <link>https://pylixm.top/posts/2017-05-11-vue-npm-webpack.html</link>
+      <pubDate>Thu, 11 May 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2017-05-11-vue-npm-webpack.html</guid>
+      <description>使用 Vue.js 的前端基础知识 如何学习 vue ？最有权威的回答莫过于vue作者的这篇文章了 《新手向：Vue 2.0 的建议学习顺序》。 按照作者建议的思路，先了解vu</description>
+    </item>
+    
+    <item>
+      <title>「译」Django restful framework 中API版本的管理</title>
+      <link>https://pylixm.top/posts/2017-04-24-django-restfull-framework-version.html</link>
+      <pubDate>Mon, 24 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2017-04-24-django-restfull-framework-version.html</guid>
+      <description>原文：https://gearheart.io/blog/api-versioning-with-django-rest-framework</description>
+    </item>
+    
+    <item>
+      <title>记一次tornado QPS 优化</title>
+      <link>https://pylixm.top/posts/2017-04-04-tornado-qps-optimization.html</link>
+      <pubDate>Tue, 04 Apr 2017 20:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2017-04-04-tornado-qps-optimization.html</guid>
+      <description>应项目的需求，我们使用tornado开发了一个api系统，系统开发完后，在8核16G的虚机上经过压测qps只有200+。与我们当初定的QPS</description>
+    </item>
+    
+    <item>
+      <title>我心中的 tornado 最佳实践</title>
+      <link>https://pylixm.top/posts/2017-03-10-tornado-best-practices.html</link>
+      <pubDate>Fri, 10 Mar 2017 20:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2017-03-10-tornado-best-practices.html</guid>
+      <description>最新开发新项目一直在学习tornado的知识，在前人的基础上找了些最佳实践，记录如下，备查。 tornado 新人一枚，欢迎大神拍砖~ 项目目录结构 import tornado.ioloop import tornado.web ##</description>
+    </item>
+    
+    <item>
+      <title>《尽管去做》读书笔记</title>
+      <link>https://pylixm.top/posts/2017-03-07-get-things-done.html</link>
+      <pubDate>Tue, 07 Mar 2017 21:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2017-03-07-get-things-done.html</guid>
+      <description>通过践行这本书中方法，可以慢慢进入一种心如止水的状态，工作、学习、生活、身体各方面达到相对的平衡Balance GTD到底是什么？用一句话来说</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Vue on DeanWu</title>
+    <link>https://pylixm.top/tags/Vue/</link>
+    <description>Recent content in Vue on DeanWu</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Thu, 11 May 2017 00:00:00 +0000</lastBuildDate>
+    
+        <atom:link href="https://pylixm.top/tags/Vue/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Django 三个异步使用的案例</title>
+      <link>https://pylixm.top/posts/2020-12-08-django-async-views-example.html</link>
+      <pubDate>Tue, 08 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2020-12-08-django-async-views-example.html</guid>
+      <description>Django3.0 发布的时候，我尝试着用了下它的异步功能。当时它仅仅添加了对ASGI的支持（可见之前的文章 Django 3.0 异步试用分享，直到Django3.1的发布，才</description>
+    </item>
+    
+    <item>
+      <title>「对比Python学习Go」- 基本数据结构</title>
+      <link>https://pylixm.top/posts/2020-12-05-go-from-python-structure-base.html</link>
+      <pubDate>Sat, 05 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2020-12-05-go-from-python-structure-base.html</guid>
+      <description>本篇是「对比Python学习Go」 系列的第三篇，本篇文章我们来看下Go的基本数据结构。Go的环境搭建，可参考之前的文章「对比Python学习</description>
+    </item>
+    
+    <item>
+      <title>「对比Python学习Go」- 环境篇</title>
+      <link>https://pylixm.top/posts/2020-12-03-go-from-python-start.html</link>
+      <pubDate>Thu, 03 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2020-12-03-go-from-python-start.html</guid>
+      <description>环境搭建 Go 的安装 Go 的官方网址 https://golang.org， 国内用户可访问国内官网 https://golang.google.cn/。</description>
+    </item>
+    
+    <item>
+      <title>「对比Python学习Go」- 开篇</title>
+      <link>https://pylixm.top/posts/2020-12-02-go-from-python-intro.html</link>
+      <pubDate>Wed, 02 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2020-12-02-go-from-python-intro.html</guid>
+      <description>前言 当前Go语言已然成为很多后端项目的主力语言，在互联官网企业开发中甚至有和Java一较高下的趋势。Go 语言也属于静态语言，与Java类似，</description>
+    </item>
+    
+    <item>
+      <title>「Go Tips」for range 遍历时变量取值的问题分析</title>
+      <link>https://pylixm.top/posts/2020-12-01-for-range-point.html</link>
+      <pubDate>Tue, 01 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2020-12-01-for-range-point.html</guid>
+      <description>for range 遍历是go语言中常用的循环结构之一，在使用循环赋值时有时候需要注意指针的引用问题。在探讨之前，先让我们来回顾下Go的指针。 Go 指针回顾 Go 语</description>
+    </item>
+    
+    <item>
+      <title>单文件 Django 服务构建</title>
+      <link>https://pylixm.top/posts/2020-11-13-django-single-file.html</link>
+      <pubDate>Fri, 13 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2020-11-13-django-single-file.html</guid>
+      <description>今天在使用vue框架开发系统的时候，需要用到后端接口，但是接口还没有开发。便想使用最简单的方式构建一个极简的API服务，由于本人偏爱Djan</description>
+    </item>
+    
+    <item>
+      <title>软件工程师自我提醒的清单</title>
+      <link>https://pylixm.top/posts/2020-11-03-software-enginer-list.html</link>
+      <pubDate>Tue, 03 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2020-11-03-software-enginer-list.html</guid>
+      <description>最近特别喜欢看传记经验类的文章，因为可以从中找到一些自己正在经历或即将经历的问题的答案。以史为鉴，就是这个意思。下边是一个程序员自我提醒的清</description>
+    </item>
+    
+    <item>
+      <title>「Python Tips」- 40中常用Python string用法</title>
+      <link>https://pylixm.top/posts/2020-10-21-python-string.html</link>
+      <pubDate>Wed, 21 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2020-10-21-python-string.html</guid>
+      <description>文章首发公众号：CoderMrWu ，每周分享优质技术文章和经验，欢迎大家关注，共同交流。 今天看了篇文章总结了 40 种Python String 类型的常用语法</description>
+    </item>
+    
+    <item>
+      <title>「Python Tips」- 命名元祖（namedtuple）使用指南</title>
+      <link>https://pylixm.top/posts/2020-10-18-namedtuple.html</link>
+      <pubDate>Sun, 18 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2020-10-18-namedtuple.html</guid>
+      <description>原文地址：https://miguendes.me/everything-you-need-to-know-about-pythons-na</description>
+    </item>
+    
+    <item>
+      <title>谈谈前后端分离中的跨域问题</title>
+      <link>https://pylixm.top/posts/2020-10-13-cross-origin.html</link>
+      <pubDate>Tue, 13 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2020-10-13-cross-origin.html</guid>
+      <description>在前后端分离开发过程中常常出现下面这样的错误提示： Access to XMLHttpRequest at &#39;http://127.0.0.1:8000/apis/users/login/&#39; from origin &#39;http://127.0.0.1:8080&#39; has been blocked by CORS policy: Response to preflight request doesn&#39;t pass access control check: No &#39;Access-Control-Allow-Origin&#39; header is present on the requested resource. HelloWorld.vue?18db:50 err Error: Network Error at createError (createError.js?16d0:16) at XMLHttpRequest.handleError (xhr.js?ec6c:91) 看到</description>
+    </item>
+    
+    <item>
+      <title>「编程实例」各语言Hmac-SHA256的base64编码的实现方式</title>
+      <link>https://pylixm.top/posts/2020-09-17-hmac-sha256-base64.html</link>
+      <pubDate>Thu, 17 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2020-09-17-hmac-sha256-base64.html</guid>
+      <description>实例来源网络，语言版本可能略有差异，请验证后使用。 Javascript HMAC SHA256 &amp;lt;script src=&amp;#34;http://crypto-js.googlecode.com/svn/tags/3.0.2/build/rollups/hmac-sha256.js&amp;#34;&amp;gt;&amp;lt;/script&amp;gt; &amp;lt;script src=&amp;#34;http://crypto-js.googlecode.com/svn/tags/3.0.2/build/components/enc-base64-min.js&amp;#34;&amp;gt;&amp;lt;/script&amp;gt; &amp;lt;script&amp;gt; var hash = CryptoJS.HmacSHA256(&amp;#34;Message&amp;#34;, &amp;#34;secret&amp;#34;); var hashInBase64 = CryptoJS.enc.Base64.stringify(hash); document.write(hashInBase64); &amp;lt;/script&amp;gt; PHP HMAC SHA256 $s = hash_hmac(&amp;#39;sha256&amp;#39;, &amp;#39;Message&amp;#39;, &amp;#39;secret&amp;#39;, true); echo base64_encode($s); Java HMAC SHA256 Dependent on Apache Commons Codec to encode in base64. import javax.crypto.Mac; import</description>
+    </item>
+    
+    <item>
+      <title>Kubernetes 学习笔记 - 问题记录</title>
+      <link>https://pylixm.top/posts/2020-09-03-k8s-issu.html</link>
+      <pubDate>Thu, 03 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2020-09-03-k8s-issu.html</guid>
+      <description>本篇为k8s学习笔记问题记录。基础概念和搭建可参考之前文章 Kubernetes 学习笔记-基础篇 和 Kubernetes 学习笔记-集群搭建篇(二进制方式)。 问题汇总 上文记录了我搭建</description>
+    </item>
+    
+    <item>
+      <title>Kubernetes 学习笔记-集群搭建篇(二进制方式)</title>
+      <link>https://pylixm.top/posts/2020-09-01-k8s-build.html</link>
+      <pubDate>Tue, 01 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2020-09-01-k8s-build.html</guid>
+      <description>本篇记录我集群搭建的过程和问题，目标是可以根据本篇文章搭建自己生产可用的K8S集群。对于K8S的一些概念理解，可参考我之前的笔记Kubern</description>
+    </item>
+    
+    <item>
+      <title>Kubernetes 学习笔记-基础篇</title>
+      <link>https://pylixm.top/posts/2020-08-20-k8s-base.html</link>
+      <pubDate>Thu, 20 Aug 2020 22:26:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2020-08-20-k8s-base.html</guid>
+      <description>Kubernetes 学习笔记，是个人学习记录文章，主要内容为摘录、总结和自己实践的记录，希望能帮助到和我一样正在学习的朋友。作为学习笔记，难免有理解不到位的地</description>
+    </item>
+    
+    <item>
+      <title>「Go模块」- time</title>
+      <link>https://pylixm.top/posts/2020-08-17-go-basic-time.html</link>
+      <pubDate>Mon, 17 Aug 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2020-08-17-go-basic-time.html</guid>
+      <description>time 当前时间 time.Now() 把时间格式化成字符串(time-&amp;gt;string) : time.Now().Format(&amp;ldquo;2006-01-02 15:04:05&amp;rdquo;) 把日期字符串转化为时间(string -&amp;gt; time) : time.Parse(&amp;ldquo;01-02-2006&amp;rdquo;, &amp;ldquo;06-17-2013&amp;rdquo;) 把纳秒转化为时间字符串</description>
+    </item>
+    
+    <item>
+      <title>「译」Kubernetes新手入门指南</title>
+      <link>https://pylixm.top/posts/2020-08-11-k8s-start.html</link>
+      <pubDate>Tue, 11 Aug 2020 22:26:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2020-08-11-k8s-start.html</guid>
+      <description>原文地址：https://dzone.com/articles/a-beginners-guide-to-kubernetes Kuberne</description>
+    </item>
+    
+    <item>
+      <title>「Python Tips」 - 10个一行代码的Python小技巧</title>
+      <link>https://pylixm.top/posts/2020-08-05-10-One-liners.html</link>
+      <pubDate>Wed, 05 Aug 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2020-08-05-10-One-liners.html</guid>
+      <description>作者：Andreas Dev.to: https://dev.to/devmount Twitter: https://twitter.com/devmount 原文地址：https://dev.to/devmount/10-awesome-pythonic-one-lin</description>
+    </item>
+    
+    <item>
+      <title>项目和教程</title>
+      <link>https://pylixm.top/project/</link>
+      <pubDate>Thu, 23 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/project/</guid>
+      <description>项目 1/ Django-mdeditor Django-mdeditor 是基于 Editor.md 的一个 django Markdown 文本编辑插件应用。 2/ liBlog 一个基于Django1.11TLS版本的博客系统。自己的练手周边项目，会随时尝试新技术。 教</description>
+    </item>
+    
+    <item>
+      <title>CentOS 7 部署Selenium相关脚本</title>
+      <link>https://pylixm.top/posts/2020-07-14-python-selenium.html</link>
+      <pubDate>Tue, 14 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2020-07-14-python-selenium.html</guid>
+      <description>Selenium 库不必多说，是Python 生态中的神器，在动态网页爬取和自动化测试中有广泛的应用。之前公司前辈，用它搞了个抢会议室的脚本，今天加了点功能，</description>
+    </item>
+    
+    <item>
+      <title>「朝花夕拾」- 0703期，总第十期</title>
+      <link>https://pylixm.top/posts/2020-07-03-zhxs-0703.html</link>
+      <pubDate>Fri, 03 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2020-07-03-zhxs-0703.html</guid>
+      <description>「朝花夕拾」周刊总目录: https://pylixm.cc/posts/2020-04-30-zhxs-index.html 资讯 7月1日，Redis 项目的创始人@antirez 宣布退出代码的日常开发，以后只充当该项目的顾问。理由是“我写代</description>
+    </item>
+    
+  </channel>
+</rss>

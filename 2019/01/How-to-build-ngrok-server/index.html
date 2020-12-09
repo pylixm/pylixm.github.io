@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <title>
+        Ngrok 服务搭建完全手册 - DeanWu
+      </title>
+        <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    
+    <meta name="theme-color" content="#000000" />
+    
+    <meta http-equiv="window-target" content="_top" />
+    
+    
+    <meta name="description" content="最近需要开发个微信公众号后台，需要内网穿透工具，之前使用过sunny-ngrok，这个现在也变成付费的了。这次决定自己搭建一个，顺便学习下。" />
+    <meta name="generator" content="Hugo 0.73.0 with theme pure" />
+    <title>Ngrok 服务搭建完全手册 - DeanWu</title>
+    
+    
+    <link rel="stylesheet" href="https://pylixm.top/css/style.min.f70e8e0df9ea6aeb37dac252b17ca98082073ff1663b24118baaaa84ee8ae7e8.css">
+    
+    <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.15.10/styles/github.min.css" async>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css" async>
+    <meta property="og:title" content="Ngrok 服务搭建完全手册" />
+<meta property="og:description" content="最近需要开发个微信公众号后台，需要内网穿透工具，之前使用过sunny-ngrok，这个现在也变成付费的了。这次决定自己搭建一个，顺便学习下。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://pylixm.top/2019/01/How-to-build-ngrok-server/" />
+<meta property="article:published_time" content="2019-01-09T16:04:08+08:00" />
+<meta property="article:modified_time" content="2019-01-09T16:04:08+08:00" />
+<meta itemprop="name" content="Ngrok 服务搭建完全手册">
+<meta itemprop="description" content="最近需要开发个微信公众号后台，需要内网穿透工具，之前使用过sunny-ngrok，这个现在也变成付费的了。这次决定自己搭建一个，顺便学习下。">
+<meta itemprop="datePublished" content="2019-01-09T16:04:08&#43;08:00" />
+<meta itemprop="dateModified" content="2019-01-09T16:04:08&#43;08:00" />
+<meta itemprop="wordCount" content="2221">
+
+
+
+<meta itemprop="keywords" content="环境搭建,Ngrok,内网穿透," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Ngrok 服务搭建完全手册"/>
+<meta name="twitter:description" content="最近需要开发个微信公众号后台，需要内网穿透工具，之前使用过sunny-ngrok，这个现在也变成付费的了。这次决定自己搭建一个，顺便学习下。"/>
+
+    <!--[if lte IE 9]>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+      <![endif]-->
+
+    <!--[if lt IE 9]>
+        <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+      <![endif]-->
+  </head>
+
+  
+  
+
+  <body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage"><header class="header" itemscope itemtype="http://schema.org/WPHeader">
+    <div class="slimContent">
+      <div class="navbar-header">
+        <div class="profile-block text-center">
+          <a id="avatar" href="https://pylixm.top" target="_blank">
+            <img class="img-circle img-rotate" src="https://pylixm.top/static/imgs/avatar.png" width="200" height="200">
+          </a>
+          <h2 id="name" class="hidden-xs hidden-sm">DeanWu</h2>
+          <h3 id="title" class="hidden-xs hidden-sm hidden-md">程序员</h3>
+          <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i>Beijing, China</small>
+        </div><div class="search" id="search-form-wrap">
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i
+                        class="icon icon-search"></i></button>
+            </span>
+        </div>
+        <div class="ins-search">
+            <div class="ins-search-mask"></div>
+            <div class="ins-search-container">
+                <div class="ins-input-wrapper">
+                    <input type="text" class="ins-search-input" placeholder="想要查找什么..."
+                        x-webkit-speech />
+                    <button type="button" class="close ins-close ins-selectable" data-dismiss="modal"
+                        aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="ins-section-wrapper">
+                    <div class="ins-section-container"></div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+        <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+        <ul class="nav navbar-nav main-nav">
+            <li class="menu-item menu-item-home">
+                <a href="/">
+                    <i class="icon icon-home-fill"></i>
+                  <span class="menu-title">首页</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-series">
+                <a href="/series/">
+                    <i class="icon icon-folder"></i>
+                  <span class="menu-title">专题</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-repository">
+                <a href="/project/">
+                    <i class="icon icon-project"></i>
+                  <span class="menu-title">项目</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-archives">
+                <a href="/posts/">
+                    <i class="icon icon-archives-fill"></i>
+                  <span class="menu-title">归档</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-about">
+                <a href="/about/">
+                    <i class="icon icon-cup-fill"></i>
+                  <span class="menu-title">关于</span>
+                </a>
+            </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+<aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content"><div>欢迎关注微信公众号「码农吴先生」：专注python/golang/devops等技术的学习经验及资源分享！</br>回复关键字：go或python 获取我收集的资料，也可回复关键字：小二，加我wx，一块聊技术，聊人生~  </br><img src="/static/imgs/wx/wx_gzh.png" width="140" height="140"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+      
+<div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+        <ul class="recent-post-list list-unstyled no-thumbnail">
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2020-12-08-django-async-views-example.html" class="title">Django 三个异步使用的案例</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-12-08 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-08</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2020-12-05-go-from-python-structure-base.html" class="title">「对比Python学习Go」- 基本数据结构</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-12-05 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-05</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2020-12-03-go-from-python-start.html" class="title">「对比Python学习Go」- 环境篇</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-12-03 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-03</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2020-12-02-go-from-python-intro.html" class="title">「对比Python学习Go」- 开篇</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-12-02 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-02</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2020-12-01-for-range-point.html" class="title">「Go Tips」for range 遍历时变量取值的问题分析</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-12-01 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-01</time>
+                    </p>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+      <div class="widget">
+    <h3 class="widget-title"> 分类</h3>
+    <div class="widget-body">
+        <ul class="category-list">
+            <li class="category-list-item"><a href="https://pylixm.top/categories/ATS/" class="category-list-link">ATS</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/DevOps/" class="category-list-link">DevOps</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Devlopment-Demo/" class="category-list-link">Devlopment-Demo</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Django/" class="category-list-link">Django</a><span class="category-list-count">39</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Docker/" class="category-list-link">Docker</a><span class="category-list-count">4</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Flask/" class="category-list-link">Flask</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Git/" class="category-list-link">Git</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Golang/" class="category-list-link">Golang</a><span class="category-list-count">12</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/HTTPS/" class="category-list-link">HTTPS</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Javascript/" class="category-list-link">Javascript</a><span class="category-list-count">3</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Kubernetes/" class="category-list-link">Kubernetes</a><span class="category-list-count">4</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/LVS/" class="category-list-link">LVS</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Linux/" class="category-list-link">Linux</a><span class="category-list-count">15</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Mongodb/" class="category-list-link">Mongodb</a><span class="category-list-count">3</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Mysql/" class="category-list-link">Mysql</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/NoSQL/" class="category-list-link">NoSQL</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/PostgreSQL/" class="category-list-link">PostgreSQL</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Puppet/" class="category-list-link">Puppet</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Python/" class="category-list-link">Python</a><span class="category-list-count">19</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/QA/" class="category-list-link">QA</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Rabbitmq/" class="category-list-link">Rabbitmq</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Restful/" class="category-list-link">Restful</a><span class="category-list-count">6</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/SaltStack/" class="category-list-link">SaltStack</a><span class="category-list-count">7</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Software_Architect/" class="category-list-link">Software_Architect</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Supervisor/" class="category-list-link">Supervisor</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Tornado/" class="category-list-link">Tornado</a><span class="category-list-count">3</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Vagrant/" class="category-list-link">Vagrant</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Vue/" class="category-list-link">Vue</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/kafka/" class="category-list-link">kafka</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/zookeeper/" class="category-list-link">zookeeper</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E4%B8%AA%E4%BA%BA%E7%AE%A1%E7%90%86/" class="category-list-link">个人管理</a><span class="category-list-count">5</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB/" class="category-list-link">前后端分离</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" class="category-list-link">数据结构与算法</a><span class="category-list-count">13</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E6%9C%9D%E8%8A%B1%E5%A4%95%E6%8B%BE/" class="category-list-link">朝花夕拾</a><span class="category-list-count">10</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" class="category-list-link">机器学习</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" class="category-list-link">环境搭建</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E7%A8%8B%E5%BA%8F%E5%91%98%E8%87%AA%E6%88%91%E4%BF%AE%E5%85%BB/" class="category-list-link">程序员自我修养</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E8%B5%84%E6%BA%90%E5%88%86%E4%BA%AB%E8%AE%A1%E5%88%92/" class="category-list-link">资源分享计划</a><span class="category-list-count">10</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E8%BF%90%E7%BB%B4%E7%9F%A5%E8%AF%86%E5%BA%93/" class="category-list-link">运维知识库</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86/" class="category-list-link">项目管理</a><span class="category-list-count">1</span></li>
+        </ul>
+    </div>
+</div>
+  </div>
+</aside>
+
+    
+    
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <h4 class="toc-title">文章目录</h4>
+    <nav id="toc" class="js-toc toc">
+
+    </nav>
+  </div>
+</aside>
+<main class="main" role="main"><div class="content">
+  
+  <article id="article-container" class="article article-type-" itemscope
+    itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      <h1 itemprop="name">
+  <a
+    class="article-title"
+    href="/2019/01/How-to-build-ngrok-server/"
+    >Ngrok 服务搭建完全手册</a
+  >
+</h1>
+
+      <div class="article-meta">
+        
+<span class="article-date">
+  <i class="icon icon-calendar-check"></i>&nbsp;
+<a href="https://pylixm.top/2019/01/How-to-build-ngrok-server/" class="article-date">
+  <time datetime="2019-01-09 16:04:08 &#43;0800 CST" itemprop="datePublished">2019-01-09</time>
+</a>
+</span>
+<span class="article-category">
+  <i class="icon icon-folder"></i>&nbsp;
+  <a class="article-category-link" href="/categories/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/"> 环境搭建 </a>
+</span>  
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>&nbsp;
+    <a class="article-tag-link" href="/tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/"> 环境搭建 </a>
+    <a class="article-tag-link" href="/tags/Ngrok/"> Ngrok </a>
+    <a class="article-tag-link" href="/tags/%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/"> 内网穿透 </a>
+  </span>
+
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+        <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="/2019/01/How-to-build-ngrok-server/#comments"
+            class="article-comment-link">评论</a></span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 2221字</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 5分 </span>
+      </div>
+    </div>
+    <div class="article-entry marked-body js-toc-content" itemprop="articleBody">
+      <p>最近需要开发个微信公众号后台，需要内网穿透工具，之前使用过sunny-ngrok，这个现在也变成付费的了。这次决定自己搭建一个，顺便学习下。以下博文，是搭建过程，已在整理思路备查，也希望能给自己动手搭建的同学一些提示。</p>
+<h2 id="ngrok-简介">Ngrok 简介</h2>
+<p>在说Ngrok之前，先来说下「内网穿透」。内网穿透是一种网络术语，是指局域网内部的服务，穿透内网的限制将服务暴露在公网供外部调用的技术。随着微信公众号开发的流行，改技术术语逐渐走向我们普通开发。</p>
+<p>Ngrok 就是一种实现内网穿透的开源软件。Ngrok 借用在公网的服务端和局域网内部的服务端构建了一个代理通道。当有服务请求时，会先将请求达到公网服务端，再有公网服务端转发给内网服务端，以达到内网暴露公网的目的。</p>
+<p><a href="https://ngrok.com">https://ngrok.com</a>，这是ngrok的官网，它提供一个免费的账户，我们可直接使用它提供的客户端来链接它们的代理服务器，以实现暴露服务的目的，不想折腾的同学可以尝试。</p>
+<p>它官网提供的是2.0版本的软件，已不再开源，可见github描述<a href="https://github.com/inconshreveable/ngrok#ngrok-2x">这里</a>。搭建我们自己的ngrok服务，我们只能使用1.0，命令和2.0稍有区别。</p>
+<p>1.0的功能有：</p>
+<ul>
+<li>http/tcp 协议的转发</li>
+<li>检查通过隧道传输的所有http请求/响应</li>
+<li>重播通过隧道传输的任何请求</li>
+</ul>
+<p>这些功能，足够我们开发微信使用了。下面这批是一些其他基于ngrok 二次开发的开源软件，大家可以参考。</p>
+<ul>
+<li><a href="https://my.oschina.net/ZL520/blog/2086061">可以实现内网穿透的几款工具</a></li>
+</ul>
+<h2 id="搭建过程">搭建过程</h2>
+<h3 id="ngrok-服务搭建及客户端的编译">Ngrok 服务搭建及客户端的编译</h3>
+<p>根据Ngrok的原理，首先你需要有一台带有公网ip的服务器，还需要有一个域名用来做证书和认证key的生成。搭建的大体思路是这样的：</p>
+<ul>
+<li>搭建编译ngrok需要的golang环境</li>
+<li>生成客户端与服务端通讯的证书</li>
+<li>编译服务端和客户端</li>
+<li>启动使用</li>
+</ul>
+<p>这里以阿里云的Ecs的centos7.4为例，来详细记录了安装过程，其他系统和环境大家可类推。</p>
+<h4 id="第一步-安装-golang-环境">第一步 安装 golang 环境</h4>
+<p>因为ngrok是使用golang开发的，所以在编译时是需要golang环境的。对于Centos的系统环境可直接使用yum安装，如下：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">yum install golang 
+</code></pre></div><p>运行 <code>go env</code> 查看是否安装成功。也可参考我之前的博文 <a href="https://pylixm.cc/posts/2018-01-25-Go-install.html">Golang 环境搭建及相关概念</a>。</p>
+<h4 id="第二步-编译ngrok客户端和服务端">第二步 编译Ngrok客户端和服务端</h4>
+<p>首先，我们从github下载ngrok的源码：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git clone https://github.com/inconshreveable/ngrok.git ngrok
+</code></pre></div><p>开始编译服务端：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cd ngrok 
+make release-server 
+</code></pre></div><p>这样编译出来的服务端就可以在我们的服务器跑了，针对于其他类型的服务器，则需要配置golang的一些环境变量，如下：</p>
+<pre><code># 编译64位windows客户端
+GOOS=windows GOARCH=amd64 make release-server
+</code></pre><p>这样编译出来的服务端才能拿到别的服务器使用。更简单的方式是，直接在用的服务器系统上编译，这样golang的默认环境变量就是你系统对应的。</p>
+<p>编译客户端，同服务端类似。因为我客户端是在我自己本地电脑上使用，所以需要指定相关golang的环境变量，如下：</p>
+<pre><code># windows 
+GOOS=windows GOARCH=amd64 make release-client  
+
+# mac 
+GOOS=darwin GOARCH=amd64 make release-client
+</code></pre><p>这样，我们的服务端和客户端都编译好了。</p>
+<h4 id="第三步-生成证书">第三步 生成证书</h4>
+<p>可使用如下命令生成证书和通讯的key：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">export NGROK_DOMAIN<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;ngrok.pylixm.top&#34;</span>
+
+openssl genrsa -out rootCA.key <span style="color:#ae81ff">2048</span>
+openssl req -x509 -new -nodes -key rootCA.key -subj <span style="color:#e6db74">&#34;/CN=</span>$NGROK_DOMAIN<span style="color:#e6db74">&#34;</span> -days <span style="color:#ae81ff">5000</span> -out rootCA.pem
+openssl genrsa -out device.key <span style="color:#ae81ff">2048</span>
+openssl req -new -key device.key -subj <span style="color:#e6db74">&#34;/CN=</span>$NGROK_DOMAIN<span style="color:#e6db74">&#34;</span> -out device.csr
+openssl x509 -req -in device.csr -CA rootCA.pem -CAkey rootCA.key -CAcreateserial -out device.crt -days <span style="color:#ae81ff">5000</span>
+</code></pre></div><p>会生成如下的6个文件备用：</p>
+<pre><code>rootCA.key 
+rootCA.pem
+device.key
+device.csr
+device.crt 
+rootCA.srl
+</code></pre><h4 id="第四步-启动服务端和客户端">第四步 启动服务端和客户端</h4>
+<p>在启动服务端之前，需要将我们上一步生成的证书替换ngrok默认的证书，在通讯时使用。
+<code>ngrok/assets/client/tls/</code> 是ngrok证书默认地址，启动时会从这个目录获取证书和相关key。</p>
+<pre><code>cp rootCA.pem ngrok/assets/client/tls/ngrokroot.crt
+cp device.crt ngrok/assets/server/tls/snakeoil.crt
+cp device.key ngrok/ssets/server/tls/snakeoil.key
+</code></pre><p>启动服务端：</p>
+<pre><code>./bin/ngrokd -domain=&quot;ngrok.pylixm.top&quot; -httpAddr=&quot;:80&quot; -httpsAddr=&quot;:443&quot; -tunnelAddr=&quot;:4443&quot;
+</code></pre><ul>
+<li><code>domain</code> 是生成证书时的域名。</li>
+<li><code>httpAddr</code> 是http转发的端口，默认80。</li>
+<li><code>httpsAddr</code> 是https转发的端口，默认443。</li>
+<li><code>tunnelAddr</code> 是服务端和客户端通讯的端口，默认4443。</li>
+</ul>
+<p>另外，还需要将域名 <code>ngrok.pylixm.top</code> 解析到服务端的ip。建议大家为了能支持子域名，大家可做泛解析。</p>
+<pre><code>A   *  xx.xx.xx.xx 
+</code></pre><p>接下来是客户端，我们在服务器上编译好了客户端，怎么下载下来呢。有个小技巧，大多数linux系统都自带python，可使用python再带的<code>SimpleHTTPServer</code>模块来临时起一个web服务，在本地直接访问即可看到起服务时的目录下的所有文件。有点类似ftp服务，但这个更简单，无需额外安装其他工具。</p>
+<p>将我们的客户端下载下来后，编写一个配置文件，如下：</p>
+<pre><code>server_addr: ngrok.pylixm.top:4443
+trust_host_root_certs: false
+</code></pre><p>使用如下命令启动：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">ngrok -config<span style="color:#f92672">=</span>ngrok.cfg -log<span style="color:#f92672">=</span>ngrok.log -subdomain<span style="color:#f92672">=</span>test <span style="color:#ae81ff">8000</span>
+</code></pre></div><ul>
+<li><code>config</code> 指定配置文件</li>
+<li><code>log</code> 指定日志文件</li>
+<li><code>subdomain</code> 可指定一个子域名前缀</li>
+<li><code>port</code> 本地服务的端口</li>
+</ul>
+<p>看到如下日志，说明链接配置成功了。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">ngrok                                                                                                                                                                                                                                                         <span style="color:#f92672">(</span>Ctrl+C to quit<span style="color:#f92672">)</span>
+
+Tunnel Status                 online
+Version                       1.7/1.7
+Forwarding                    https://test.ngrok.pylixm.top:4443 -&gt; 127.0.0.1:8000
+Forwarding                    http://test.ngrok.pylixm.top:4443 -&gt; 127.0.0.1:8000
+Web Interface                 127.0.0.1:4040
+<span style="color:#75715e"># Conn                        0</span>
+Avg Conn Time                 0.00ms
+</code></pre></div><p>到此，我们就可以使用域名<code>test.ngrok.pylixm.top</code> 来访问本的8000的服务了。</p>
+<p>这里有几个注意的点：</p>
+<ul>
+<li>在使用ECS时，注意是否在安全组中配置了相关端口。例如上边服务端和客户端使用的4443。</li>
+<li>这里有些一键安装脚本，大家可参考，有些配置和版本已经过时：
+<ul>
+<li><a href="https://gist.github.com/popucui/18c342baefefed2ba66f87a9420efae5">https://gist.github.com/popucui/18c342baefefed2ba66f87a9420efae5</a></li>
+<li><a href="https://github.com/sunnyos/ngrok/blob/master/ngrok.sh">https://github.com/sunnyos/ngrok/blob/master/ngrok.sh</a></li>
+</ul>
+</li>
+</ul>
+<h3 id="nginx-代理共享80出口">Nginx 代理共享80出口</h3>
+<p>微信公众号开发时，要求后端服务没有端口。那么我们ngrok服务的http端口就需要设置为80。问题来了，我们服务器上还可能跑着其他应用，比如我的ECS上还跑了我的博客实例。这怎么办呢？解决方案是使用nginx的反向代理。</p>
+<p>nginx 的安装配置，大家可自行百度，这里不做过多描述。</p>
+<p>大家只需在nginx的配置中增加一段server配置，如下：</p>
+<pre><code>server {
+        server_name *.ngrok.pylixm.top 
+        listen 80;
+        keepalive_timeout 70;
+        proxy_set_header &quot;Host&quot; $host:8081;  # 必须, 8081 为ngrok http转发端口
+        location / {
+                proxy_pass_header Server;
+                proxy_redirect off;
+                proxy_pass http://127.0.0.1:8081;  # 必须, 8081 为ngrok http转发端口
+        }
+        access_log off;
+        log_not_found off;
+}
+</code></pre><p>这样我们可以直接使用<code>*.ngrok.pylixm.top</code> 这个子域名访问ngrok代理的我们本地的服务了，同时还又不影响其他的80端口服务。</p>
+<h2 id="参考">参考</h2>
+<ul>
+<li><a href="https://blog.csdn.net/yjc_1111/article/details/79353718">10分钟教你搭建自己的ngrok服务器</a></li>
+<li><a href="https://www.lylinux.org/ubuntu%E5%AE%89%E8%A3%85ngrok%E5%B9%B6%E4%BD%BF%E7%94%A8nginx%E4%BB%A3%E7%90%86.html">ubuntu安装ngrok并使用nginx代理</a></li>
+</ul>
+
+    </div>
+    <div class="article-footer">
+<blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://pylixm.top/2019/01/How-to-build-ngrok-server/" title="Ngrok 服务搭建完全手册" target="_blank" rel="external">https://pylixm.top/2019/01/How-to-build-ngrok-server/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>许可协议：</strong>
+      <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN</a>
+    </li>
+  </ul>
+</blockquote>
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://pylixm.top" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="https://pylixm.top/static/imgs/avatar.png" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://pylixm.top" target="_blank"><span class="text-dark">DeanWu</span><small class="ml-1x">程序员</small></a></h3>
+        <div>努力成为真正的SRE</div>
+      </div>
+    </figure>
+  </div>
+</div>
+    </div>
+  </article>
+<section id="comments">
+    <div id="vcomments"></div>
+</section>
+
+</div><nav class="bar bar-footer clearfix" data-stick-bottom>
+    <div class="bar-inner">
+        <ul class="pager pull-left">
+            <li class="prev">
+                <a href="https://pylixm.top/posts/2018-11-28-Linux-oom-killer.html" title="记一次 Linux OOM-killer 分析过程"><i
+                        class="icon icon-angle-left"
+                        aria-hidden="true"></i><span>&nbsp;&nbsp;下一篇</span></a>
+            </li>
+            <li class="next">
+                <a href="https://pylixm.top/2019/01/Linux-crontab-q/"
+                    title="无法添加crontab 解决 No space left on device"><span>上一篇&nbsp;&nbsp;</span><i
+                        class="icon icon-angle-right" aria-hidden="true"></i></a>
+            </li>
+            
+            <li class="toggle-toc">
+                <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false"
+                    title="文章目录" role="button">
+                    <span>[&nbsp;</span><span>文章目录</span>
+                    <i class="text-collapsed icon icon-anchor"></i>
+                    <i class="text-in icon icon-close"></i>
+                    <span>]</span>
+                </a>
+            </li>
+        </ul>
+        <div class="bar-right">
+        </div>
+    </div>
+</nav>
+
+
+<script src="https://my.openwrite.cn/js/readmore.js" type="text/javascript"></script>
+<script>
+    const btw = new BTWPlugin();
+    btw.init({
+        id: 'article-container',
+        blogId: '24944-1607090547459-485',
+        name: '码农吴先生',
+        qrcode: 'https://gitee.com/pylixm/picture/raw/master/2020-12-4/1607089812769-image.png',
+        keyword: 'vip',
+    });
+</script>
+</main><footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+<ul class="social-links">
+    <li><a href="https://github.com/pylixm" target="_blank" title="github" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-github"></i></a></li>
+    <li><a href="https://pylixm.top/index.xml" target="_blank" title="rss" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-rss"></i></a></li>
+    <li><a href="http://weibo.com/2258086637" target="_blank" title="weibo" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-weibo"></i></a></li>
+</ul>
+  <div class="copyright">
+    &copy;2015  -
+    2020
+    <div class="publishby">
+      hugo驱动，Theme by <a href="https://github.com/xiaoheiAh/hugo-theme-pure" target="_blank"> pure</a>.
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_SVG"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+            showMathMenu: false, //disables context menu
+            tex2jax: {
+            inlineMath: [ ['$','$'], ['\\(','\\)'] ]
+           }
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+<script>
+    window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/highlight.min.js"></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/python.min.js" defer></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/javascript.min.js" defer></script><script>
+    hljs.configure({
+        tabReplace: '    ', 
+        classPrefix: ''     
+        
+    })
+    hljs.initHighlightingOnLoad();
+</script>
+<script src="https://pylixm.top/js/application.min.bdeb64b910570b6c41badc6a05b7afb0c8ad9efd8525de3c7257d59e786326a3.js"></script>
+<script src="https://pylixm.top/js/plugin.min.51ff8c7317566f82259170fa36e09c4493adc9b9378b427a01ad3f017ebac7dd.js"></script>
+
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(未命名)',
+            },
+            ROOT_URL: 'https:\/\/pylixm.top',
+            CONTENT_URL: 'https:\/\/pylixm.top\/searchindex.json ',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script type="text/javascript" src="https://pylixm.top/js/insight.min.a343cd9a5a7698336b28ef3a7c16a3a1b1d2d5fb17dc8ed04022bbe08cc5459073a15bdafa3a8a58cdd56080784bdd69fa70b1ae8597565c799c57ed00f0e120.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script>
+<script>
+    tocbot.init({
+        
+        tocSelector: '.js-toc',
+        
+        contentSelector: '.js-toc-content',
+        
+        headingSelector: 'h1, h2, h3',
+        
+        hasInnerContainers: true,
+    });
+</script>
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="https://cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine"></script>
+<script type="text/javascript">
+    var GUEST = ['nick', 'mail', 'link'];
+    var meta = 'nick,mail';
+    meta = meta.split(',').filter(function (item) {
+        return GUEST.indexOf(item) > -1;
+    });
+    new Valine({
+        el: '#vcomments',
+        verify: null ,
+        notify: null ,
+        appId: 'OBJcj4PU8JI0zDfu0HJSrG6W-gzGzoHsz',
+        appKey: 'tBtFzC72xIlgo2UFbA33nqmU',
+        placeholder: '来做第一个发言人吧',
+        avatar: 'mm',
+        meta: meta,
+        pageSize: '10' || 10,
+        visitor: false 
+});
+</script>
+
+  </body>
+</html>

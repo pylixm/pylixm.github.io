@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <title>
+        DNS 相关知识记录 - DeanWu
+      </title>
+        <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    
+    <meta name="theme-color" content="#000000" />
+    
+    <meta http-equiv="window-target" content="_top" />
+    
+    
+    <meta name="description" content="最近在处理问题时，看到 dnsmasq 这个工具，经查阅资料知道它是一款轻量级的网络相关的软件，可以配置作为DNS缓存服务器和DHCP服务器使用。 结合之前了" />
+    <meta name="generator" content="Hugo 0.73.0 with theme pure" />
+    <title>DNS 相关知识记录 - DeanWu</title>
+    
+    
+    <link rel="stylesheet" href="https://pylixm.top/css/style.min.f70e8e0df9ea6aeb37dac252b17ca98082073ff1663b24118baaaa84ee8ae7e8.css">
+    
+    <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.15.10/styles/github.min.css" async>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css" async>
+    <meta property="og:title" content="DNS 相关知识记录" />
+<meta property="og:description" content="最近在处理问题时，看到 dnsmasq 这个工具，经查阅资料知道它是一款轻量级的网络相关的软件，可以配置作为DNS缓存服务器和DHCP服务器使用。 结合之前了" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://pylixm.top/posts/2018-11-13-dnsmasq-start.html" />
+<meta property="article:published_time" content="2018-11-13T00:00:00+00:00" />
+<meta property="article:modified_time" content="2018-11-13T00:00:00+00:00" />
+<meta itemprop="name" content="DNS 相关知识记录">
+<meta itemprop="description" content="最近在处理问题时，看到 dnsmasq 这个工具，经查阅资料知道它是一款轻量级的网络相关的软件，可以配置作为DNS缓存服务器和DHCP服务器使用。 结合之前了">
+<meta itemprop="datePublished" content="2018-11-13T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2018-11-13T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="3654">
+
+
+
+<meta itemprop="keywords" content="运维知识库,DNS," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="DNS 相关知识记录"/>
+<meta name="twitter:description" content="最近在处理问题时，看到 dnsmasq 这个工具，经查阅资料知道它是一款轻量级的网络相关的软件，可以配置作为DNS缓存服务器和DHCP服务器使用。 结合之前了"/>
+
+    <!--[if lte IE 9]>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+      <![endif]-->
+
+    <!--[if lt IE 9]>
+        <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+      <![endif]-->
+  </head>
+
+  
+  
+
+  <body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage"><header class="header" itemscope itemtype="http://schema.org/WPHeader">
+    <div class="slimContent">
+      <div class="navbar-header">
+        <div class="profile-block text-center">
+          <a id="avatar" href="https://pylixm.top" target="_blank">
+            <img class="img-circle img-rotate" src="https://pylixm.top/static/imgs/avatar.png" width="200" height="200">
+          </a>
+          <h2 id="name" class="hidden-xs hidden-sm">DeanWu</h2>
+          <h3 id="title" class="hidden-xs hidden-sm hidden-md">程序员</h3>
+          <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i>Beijing, China</small>
+        </div><div class="search" id="search-form-wrap">
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i
+                        class="icon icon-search"></i></button>
+            </span>
+        </div>
+        <div class="ins-search">
+            <div class="ins-search-mask"></div>
+            <div class="ins-search-container">
+                <div class="ins-input-wrapper">
+                    <input type="text" class="ins-search-input" placeholder="想要查找什么..."
+                        x-webkit-speech />
+                    <button type="button" class="close ins-close ins-selectable" data-dismiss="modal"
+                        aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="ins-section-wrapper">
+                    <div class="ins-section-container"></div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+        <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+        <ul class="nav navbar-nav main-nav">
+            <li class="menu-item menu-item-home">
+                <a href="/">
+                    <i class="icon icon-home-fill"></i>
+                  <span class="menu-title">首页</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-series">
+                <a href="/series/">
+                    <i class="icon icon-folder"></i>
+                  <span class="menu-title">专题</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-repository">
+                <a href="/project/">
+                    <i class="icon icon-project"></i>
+                  <span class="menu-title">项目</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-archives">
+                <a href="/posts/">
+                    <i class="icon icon-archives-fill"></i>
+                  <span class="menu-title">归档</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-about">
+                <a href="/about/">
+                    <i class="icon icon-cup-fill"></i>
+                  <span class="menu-title">关于</span>
+                </a>
+            </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+<aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content"><div>欢迎关注微信公众号「码农吴先生」：专注python/golang/devops等技术的学习经验及资源分享！</br>回复关键字：go或python 获取我收集的资料，也可回复关键字：小二，加我wx，一块聊技术，聊人生~  </br><img src="/static/imgs/wx/wx_gzh.png" width="140" height="140"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+      
+<div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+        <ul class="recent-post-list list-unstyled no-thumbnail">
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2020-12-08-django-async-views-example.html" class="title">Django 三个异步使用的案例</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-12-08 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-08</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2020-12-05-go-from-python-structure-base.html" class="title">「对比Python学习Go」- 基本数据结构</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-12-05 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-05</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2020-12-03-go-from-python-start.html" class="title">「对比Python学习Go」- 环境篇</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-12-03 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-03</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2020-12-02-go-from-python-intro.html" class="title">「对比Python学习Go」- 开篇</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-12-02 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-02</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2020-12-01-for-range-point.html" class="title">「Go Tips」for range 遍历时变量取值的问题分析</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-12-01 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-01</time>
+                    </p>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+      <div class="widget">
+    <h3 class="widget-title"> 分类</h3>
+    <div class="widget-body">
+        <ul class="category-list">
+            <li class="category-list-item"><a href="https://pylixm.top/categories/ATS/" class="category-list-link">ATS</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/DevOps/" class="category-list-link">DevOps</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Devlopment-Demo/" class="category-list-link">Devlopment-Demo</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Django/" class="category-list-link">Django</a><span class="category-list-count">39</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Docker/" class="category-list-link">Docker</a><span class="category-list-count">4</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Flask/" class="category-list-link">Flask</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Git/" class="category-list-link">Git</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Golang/" class="category-list-link">Golang</a><span class="category-list-count">12</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/HTTPS/" class="category-list-link">HTTPS</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Javascript/" class="category-list-link">Javascript</a><span class="category-list-count">3</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Kubernetes/" class="category-list-link">Kubernetes</a><span class="category-list-count">4</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/LVS/" class="category-list-link">LVS</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Linux/" class="category-list-link">Linux</a><span class="category-list-count">15</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Mongodb/" class="category-list-link">Mongodb</a><span class="category-list-count">3</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Mysql/" class="category-list-link">Mysql</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/NoSQL/" class="category-list-link">NoSQL</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/PostgreSQL/" class="category-list-link">PostgreSQL</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Puppet/" class="category-list-link">Puppet</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Python/" class="category-list-link">Python</a><span class="category-list-count">19</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/QA/" class="category-list-link">QA</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Rabbitmq/" class="category-list-link">Rabbitmq</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Restful/" class="category-list-link">Restful</a><span class="category-list-count">6</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/SaltStack/" class="category-list-link">SaltStack</a><span class="category-list-count">7</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Software_Architect/" class="category-list-link">Software_Architect</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Supervisor/" class="category-list-link">Supervisor</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Tornado/" class="category-list-link">Tornado</a><span class="category-list-count">3</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Vagrant/" class="category-list-link">Vagrant</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Vue/" class="category-list-link">Vue</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/kafka/" class="category-list-link">kafka</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/zookeeper/" class="category-list-link">zookeeper</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E4%B8%AA%E4%BA%BA%E7%AE%A1%E7%90%86/" class="category-list-link">个人管理</a><span class="category-list-count">5</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB/" class="category-list-link">前后端分离</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" class="category-list-link">数据结构与算法</a><span class="category-list-count">13</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E6%9C%9D%E8%8A%B1%E5%A4%95%E6%8B%BE/" class="category-list-link">朝花夕拾</a><span class="category-list-count">10</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" class="category-list-link">机器学习</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" class="category-list-link">环境搭建</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E7%A8%8B%E5%BA%8F%E5%91%98%E8%87%AA%E6%88%91%E4%BF%AE%E5%85%BB/" class="category-list-link">程序员自我修养</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E8%B5%84%E6%BA%90%E5%88%86%E4%BA%AB%E8%AE%A1%E5%88%92/" class="category-list-link">资源分享计划</a><span class="category-list-count">10</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E8%BF%90%E7%BB%B4%E7%9F%A5%E8%AF%86%E5%BA%93/" class="category-list-link">运维知识库</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86/" class="category-list-link">项目管理</a><span class="category-list-count">1</span></li>
+        </ul>
+    </div>
+</div>
+  </div>
+</aside>
+
+    
+    
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <h4 class="toc-title">文章目录</h4>
+    <nav id="toc" class="js-toc toc">
+
+    </nav>
+  </div>
+</aside>
+<main class="main" role="main"><div class="content">
+  
+  <article id="article-container" class="article article-type-" itemscope
+    itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      <h1 itemprop="name">
+  <a
+    class="article-title"
+    href="/posts/2018-11-13-dnsmasq-start.html"
+    >DNS 相关知识记录</a
+  >
+</h1>
+
+      <div class="article-meta">
+        
+<span class="article-date">
+  <i class="icon icon-calendar-check"></i>&nbsp;
+<a href="https://pylixm.top/posts/2018-11-13-dnsmasq-start.html" class="article-date">
+  <time datetime="2018-11-13 00:00:00 &#43;0000 UTC" itemprop="datePublished">2018-11-13</time>
+</a>
+</span>
+<span class="article-category">
+  <i class="icon icon-folder"></i>&nbsp;
+  <a class="article-category-link" href="/categories/%E8%BF%90%E7%BB%B4%E7%9F%A5%E8%AF%86%E5%BA%93/"> 运维知识库 </a>
+</span>  
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>&nbsp;
+    <a class="article-tag-link" href="/tags/%E8%BF%90%E7%BB%B4%E7%9F%A5%E8%AF%86%E5%BA%93/"> 运维知识库 </a>
+    <a class="article-tag-link" href="/tags/DNS/"> DNS </a>
+  </span>
+
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+        <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="/posts/2018-11-13-dnsmasq-start.html#comments"
+            class="article-comment-link">评论</a></span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 3654字</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 8分 </span>
+      </div>
+    </div>
+    <div class="article-entry marked-body js-toc-content" itemprop="articleBody">
+      <p>最近在处理问题时，看到 <code>dnsmasq</code> 这个工具，经查阅资料知道它是一款轻量级的网络相关的软件，可以配置作为DNS缓存服务器和DHCP服务器使用。</p>
+<p>结合之前了解的DNS知识，总结下。</p>
+<h2 id="前提知识点">前提知识点</h2>
+<p><strong>DNS</strong></p>
+<p>DNS是 Domain Name System 的缩写，中文意思为域名解析系统，用来做域名和IP的翻译解析，即可以根据有意义的域名找到无意义的IP，从而去请求该IP对应的服务。</p>
+<p>DNS 根据域名的分级会有不同类型的DNS服务器来解析不同的域名。主要可参考下图：</p>
+<p><img src="/static/imgs/DNS.png" alt=""></p>
+<p>DNS 服务器分为：</p>
+<ul>
+<li>
+<p>根域名服务器：最高层次的域名服务器，所有的根域名服务器都知道所有的顶级域名服务器的域名和IP地址。本地域名服务器解析域名，首先求助根域名服务器。在很多情况下，根域名服务器并不直接把待查询的域名直接解析出IP地址，而是告诉本地域名服务器下一步应当找哪一个顶级域名服务器进行查询。所有根服务器均由美国政府授权的互联网域名与号码分配机构ICANN统一管理，负责全球互联网域名根服务器、域名体系和IP地址等的管理。更多详情，可参阅<a href="https://lcx.cc/post/2343/">DNS根服务器、根服务器、全球13台根域名服务器、详细介绍</a></p>
+</li>
+<li>
+<p>顶级域名服务器：负责管理在该顶级域名服务器注册的二级域名，如.com .cn 等。</p>
+</li>
+<li>
+<p>权限域名服务器：负责一个“区”的域名服务器。</p>
+</li>
+<li>
+<p>本地域名服务器：本地域名服务器，一般为本地网络的域名服务器。若我们直接连接的是运营商的网络，那么本地域名服务器便是运营商的域名服务器。</p>
+</li>
+</ul>
+<blockquote>
+<p>以下内容转自：https://www.hi-linux.com/posts/30947.html</p>
+</blockquote>
+<h2 id="dnsmasq">DNSmasq</h2>
+<h3 id="介绍">介绍</h3>
+<p>DNSmasq提供DNS服务、DHCP服务和路由通告（Router Advertisement）等服务。作为域名解析服务器(DNS)，Dnsmasq可以通过缓存DNS请求来提高对访问过的网址的连接速度。作为DHCP服务器，Dnsmasq可以为局域网电脑提供内网ip地址和路由。DNS和DHCP两个功能可以同时或分别单独实现。Dnsmasq轻量且易配置，适用于个人用户或少于50台主机的网络。此外它还自带了一个PXE服务器。它还被广泛用于智能手机和便携式热点的网络共享，并支持虚拟化框架中的虚拟网络。 支持的平台包括Linux（带glibc和uclibc），Android，* BSD和Mac OS X.Dnsmasq包含在大多数Linux发行版和FreeBSD，OpenBSD和NetBSD的ports系统中。 Dnsmasq提供完整的IPv6支持。</p>
+<h3 id="工作原理">工作原理</h3>
+<p>当接受到一个DNS请求时，Dnsmasq首先会查找/etc/hosts这个文件，然后查找/etc/resolv.conf中定义的外部DNS。所以说Dnsmasq是一个很不错的外部DNS中继。</p>
+<p>配置Dnsmasq为DNS缓存服务器，同时在/etc/hosts文件中加入本地内网解析，这样一来每当内网机器查询时就会优先查询hosts文件，这就等于将/etc/hosts共享给全内网机器使用，从而解决内网机器互相识别的问题。相比逐台机器编辑hosts文件或者添加Bind DNS记录，仅编辑一个hosts文件，这就容易多了。</p>
+<h3 id="使用">使用</h3>
+<h4 id="安装">安装</h4>
+<p><strong>Ubuntu/Debian</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ apt-get install dnsmasq
+</code></pre></div><p><strong>Centos/RHEL</strong></p>
+<pre><code>$ yum install dnsmasq
+</code></pre><h4 id="配置dnsmasq">配置Dnsmasq</h4>
+<p>Dnsmasq处理DNS设置与BIND等其他DNS服务有所不同。所有的配置都在一个文件中完成/etc/dnsmasq.conf。默认情况下dnsmasq.conf中只开启了最后include项，可以在/etc/dnsmasq.d中自己写任意名字的配置文件。</p>
+<p>配置文件说明</p>
+<p>Dnsmasq配置文件是/etc/dnsmasq.conf，下面对Dnsmasq中和DNS相关的配置项进行说明。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">用指定的端口代替默认的DNS 53端口，如果设置为0，则完全禁止DNS功能，只使用dhcp服务
+port<span style="color:#f92672">=</span><span style="color:#ae81ff">5353</span>
+
+以下两个参数告诉Dnsmasq过滤一些查询：1.哪些公共DNS没有回答 2.哪些root根域不可达。
+
+从不转发格式错误的域名
+<span style="color:#75715e">#domain-needed</span>
+
+从不转发不在路由地址中的域名
+<span style="color:#75715e">#bogus-priv</span>
+
+resolv-file配置Dnsmasq额外的向流的DNS服务器，如果不开启就使用linux主机默认的/etc/resolv.conf里的nameserver，通过下面的选项指定其他文件。
+resolv-file<span style="color:#f92672">=</span>/etc/dnsmasq.d/upstream_dns.conf
+
+默认情况下Dnsmasq会发送查询到它的任何上游DNS服务器上，如果取消注释，则Dnsmasq则会严格按照/etc/resolv.conf中的DNS Server顺序进行查询。
+<span style="color:#75715e">#strict-order</span>
+
+以下两个参数控制是否通过/etc/resolv.conf确定上游服务器，是否检测/etc/resolv.conf的变化，则取消注释。 
+
+如果你不想Dnsmasq读取/etc/resolv.conf文件或者其他文件，获得它的servers
+<span style="color:#75715e"># If you don&#39;t want dnsmasq to read /etc/resolv.conf or any other</span>
+<span style="color:#75715e"># file, getting its servers from this file instead (see below), then</span>
+<span style="color:#75715e"># uncomment this.</span>
+<span style="color:#75715e">#no-resolv</span>
+
+如果你不允许Dnsmasq通过轮询/etc/resolv.conf或者其他文件来获取配置的改变，则取消注释。 
+<span style="color:#75715e">#no-poll</span>
+
+增加一个name server，一般用于内网域名
+<span style="color:#75715e">#server=/localnet/192.168.0.1</span>
+
+设置一个反向解析，所有192.168.3.0/24的地址都到10.1.2.3去解析
+<span style="color:#75715e">#server=/3.168.192.in-addr.arpa/10.1.2.3</span>
+
+增加一个本地域名，会在/etc/hosts中进行查询
+<span style="color:#75715e">#local=/localnet/</span>
+
+增加一个域名，强制解析到你指定的地址上
+<span style="color:#75715e">#address=/double-click.net/127.0.0.1</span>
+
+同上，还支持ipv6
+<span style="color:#75715e">#address=/www.thekelleys.org.uk/fe80::20d:60ff:fe36:f83</span>
+
+增加查询yahoo google和它们的子域名到vpn、search查找
+<span style="color:#75715e"># Add the IPs of all queries to yahoo.com, google.com, and their</span>
+<span style="color:#75715e"># subdomains to the vpn and search ipsets:</span>
+<span style="color:#75715e">#ipset=/yahoo.com/google.com/vpn,search</span>
+
+你还可以控制Dnsmasq和Server之间的查询从哪个网卡出去
+<span style="color:#75715e"># server=10.1.2.3@eth1</span>
+
+指定源地址携带10.1.2.3地址和192.168.1.1的55端口进行通讯
+<span style="color:#75715e"># and this sets the source (ie local) address used to talk to</span>
+<span style="color:#75715e"># 10.1.2.3 to 192.168.1.1 port 55 (there must be a interface with that</span>
+<span style="color:#75715e"># IP on the machine, obviously).</span>
+<span style="color:#75715e"># server=10.1.2.3@192.168.1.1#55</span>
+
+改变Dnsmasq默认的uid和gid
+<span style="color:#75715e">#user=</span>
+<span style="color:#75715e">#group=</span>
+
+如果你想Dnsmasq监听某个端口为dhcp、dns提供服务
+<span style="color:#75715e">#interface=</span>
+
+你还可以指定哪个端口你不想监听
+<span style="color:#75715e">#except-interface=</span>
+
+设置想监听的地址，如果你本机要使用写上127.0.0.1。
+<span style="color:#75715e">#listen-address=</span>
+
+
+如果你想在某个端口只提供dns服务，则可以进行配置禁止dhcp服务
+<span style="color:#75715e">#no-dhcp-interface=</span>
+
+<span style="color:#75715e"># On systems which support it, dnsmasq binds the wildcard address,</span>
+<span style="color:#75715e"># even when it is listening on only some interfaces. It then discards</span>
+<span style="color:#75715e"># requests that it shouldn&#39;t reply to. This has the advantage of</span>
+<span style="color:#75715e"># working even when interfaces come and go and change address. If you</span>
+<span style="color:#75715e"># want dnsmasq to really bind only the interfaces it is listening on,</span>
+<span style="color:#75715e"># uncomment this option. About the only time you may need this is when</span>
+<span style="color:#75715e"># running another nameserver on the same machine.</span>
+<span style="color:#75715e">#bind-interfaces</span>
+
+如果你不想使用/etc/hosts，则取消下面的注释
+<span style="color:#75715e">#no-hosts</span>
+
+如果你项读取其他类似/etc/hosts文件，则进行配置
+addn-hosts<span style="color:#f92672">=</span>/etc/banner_add_hosts
+
+自动的给hosts中的name增加一个域名
+<span style="color:#75715e">#expand-hosts</span>
+
+给dhcp服务赋予一个域名
+<span style="color:#75715e">#domain=thekelleys.org.uk</span>
+
+给dhcp的一个子域赋予一个不同的域名
+<span style="color:#75715e">#domain=wireless.thekelleys.org.uk,192.168.2.0/24</span>
+
+同上，不过子域是一个范围
+<span style="color:#75715e">#domain=reserved.thekelleys.org.uk,192.68.3.100,192.168.3.200</span>
+
+dhcp分发ip的范围，以及每个ip的租约时间
+<span style="color:#75715e">#dhcp-range=192.168.0.50,192.168.0.150,12h</span>
+
+同上，不过给出了掩码
+<span style="color:#75715e">#dhcp-range=192.168.0.50,192.168.0.150,255.255.255.0,12h</span>
+
+自动加载conf-dir目录下的配置文件
+conf-dir<span style="color:#f92672">=</span>/etc/dnsmasq.d
+  
+设置dns缓存大小,默认为150条
+cache-size<span style="color:#f92672">=</span><span style="color:#ae81ff">150</span>
+</code></pre></div><h4 id="配置实例">配置实例</h4>
+<p><strong>配置上游服务器地址</strong></p>
+<p>resolv-file配置Dnsmasq额外的上游的DNS服务器，如果不开启就使用Linux主机默认的/etc/resolv.conf里的nameserver。</p>
+<p>通过下面的选项指定其他文件来管理上游的DNS服务器</p>
+<pre><code>$ vi /etc/dnsmasq.conf
+
+resolv-file=/etc/resolv.dnsmasq.conf
+</code></pre><p>在指定文件中增加转发DNS的地址</p>
+<pre><code>$ vi /etc/resolv.dnsmasq.conf
+
+nameserver 8.8.8.8
+nameserver 8.8.4.4
+</code></pre><p>本地启用Dnsmasq解析</p>
+<pre><code>$ vi /etc/resolv.conf
+
+nameserver 127.0.0.1
+</code></pre><p>添加解析记录
+使用系统默认hosts
+编辑hosts文件,简单列举一下格式</p>
+<pre><code>$ vi /etc/hosts
+
+127.0.0.1  localhost 
+192.168.101.107   web01.mike.com web01
+192.168.101.107   web02.mike.com web02
+</code></pre><p>hosts文件的强大之处还在于能够劫持解析，譬如mirror.centos.org是CentOS仓库所在，几乎是机器正常必访问一个域名，我将它解析成一个内网地址，搭建一个内网镜像站，不仅内网机器也可以及时得到安全更新，每月还可以节省很多流量。</p>
+<p>使用自定义hosts文件
+修改配置，增加自定义hosts文件位置。</p>
+<pre><code>$ vi /etc/dnsmasq.conf
+
+addn-hosts=/etc/dnsmasq.hosts
+</code></pre><p>在/etc/dnsmasq.hosts文件中添加DNS记录</p>
+<pre><code>$ vi /etc/dnsmasq.hosts
+
+192.168.101.107   web01.mike.com    web01 
+192.168.101.107   web02.mike.com    web02
+</code></pre><p>使用自定义conf</p>
+<pre><code>$ vi /etc/dnsmasq.d/address.conf
+
+# 指定dnsmasq默认查询的上游服务器，此处以Google Public DNS为例。
+server=8.8.8.8
+server=8.8.4.4
+
+# 把所有.cn的域名全部通过114.114.114.114这台国内DNS服务器来解析
+server=/cn/114.114.114.114
+
+# 给*.apple.com和taobao.com使用专用的DNS
+server=/taobao.com/223.5.5.5
+server=/.apple.com/223.5.5.5
+
+# 把www.hi-linux.com解析到特定的IP
+address=/www.hi-linux.com/192.168.101.107
+
+在这里hi-linux.com相当于*.mike.com泛解析
+address=/hi-linux.com/192.168.101.107
+</code></pre><p>注：也可以直接添加到/etc/dnsmasq.conf中,不过/etc/dnsmasq.d/*.conf的优先级大于/etc/dnsmasq.conf。</p>
+<h4 id="修改iptables配置">修改iptables配置</h4>
+<p>允许本机的53端口可对外访问</p>
+<pre><code>$ iptables -A INPUT -p udp -m udp --dport 53 -j ACCEPT
+$ iptables -A INPUT -p tcp -m tcp --dport 53 -j ACCEPT
+</code></pre><p>转发DNS请求</p>
+<pre><code># 开启流量转发功能
+$ echo '1' &gt; /proc/sys/net/ipv4/ip_forward
+$ echo '1' &gt; /proc/sys/net/ipv6/ip_forward   # IPv6 用户选用
+
+# 添加流量转发规则，将外部到53的端口的请求映射到Dnsmasq服务器的53端口
+$ iptables -t nat -A PREROUTING -p udp --dport 53 -j REDIRECT --to-ports 53
+$ iptables -t nat -A PREROUTING -p tcp --dport 53 -j REDIRECT --to-ports 53
+
+# 如果要限制只允许内网的请求，方法如下
+$ iptables -t nat -A PREROUTING -i eth1 -p upd --dport 53 -j REDIRECT --to-port 53
+</code></pre><p>保存规则并重启</p>
+<pre><code>$ service iptables save
+$ service iptables restart
+</code></pre><h4 id="测试dnsmasq">测试Dnsmasq</h4>
+<p>启动Dnsmasq</p>
+<pre><code>$ service dnsmasq start
+</code></pre><p>测试Dnsmasq
+将其他机器的DNS换成dnsmasq所在的IP即可，就这么容易。</p>
+<pre><code>$ dig @192.168.101.104 www.hi-linux.com
+</code></pre><p>其他可参阅官网：http://www.thekelleys.org.uk/dnsmasq/</p>
+<h2 id="参考">参考</h2>
+<ul>
+<li><a href="https://lcx.cc/post/2343/">https://lcx.cc/post/2343/</a></li>
+<li><a href="https://blog.csdn.net/yipiankongbai/article/details/25031461">https://blog.csdn.net/yipiankongbai/article/details/25031461</a></li>
+<li><a href="https://www.hi-linux.com/posts/30947.html">https://www.hi-linux.com/posts/30947.html</a></li>
+</ul>
+
+    </div>
+    <div class="article-footer">
+<blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://pylixm.top/posts/2018-11-13-dnsmasq-start.html" title="DNS 相关知识记录" target="_blank" rel="external">https://pylixm.top/posts/2018-11-13-dnsmasq-start.html</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>许可协议：</strong>
+      <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN</a>
+    </li>
+  </ul>
+</blockquote>
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://pylixm.top" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="https://pylixm.top/static/imgs/avatar.png" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://pylixm.top" target="_blank"><span class="text-dark">DeanWu</span><small class="ml-1x">程序员</small></a></h3>
+        <div>努力成为真正的SRE</div>
+      </div>
+    </figure>
+  </div>
+</div>
+    </div>
+  </article>
+<section id="comments">
+    <div id="vcomments"></div>
+</section>
+
+</div><nav class="bar bar-footer clearfix" data-stick-bottom>
+    <div class="bar-inner">
+        <ul class="pager pull-left">
+            <li class="prev">
+                <a href="https://pylixm.top/posts/2018-10-23-Linux-grep.html" title="Linux基础系列 - 三剑客之 grep 命令使用总结"><i
+                        class="icon icon-angle-left"
+                        aria-hidden="true"></i><span>&nbsp;&nbsp;下一篇</span></a>
+            </li>
+            <li class="next">
+                <a href="https://pylixm.top/posts/2018-11-28-Linux-oom-killer.html"
+                    title="记一次 Linux OOM-killer 分析过程"><span>上一篇&nbsp;&nbsp;</span><i
+                        class="icon icon-angle-right" aria-hidden="true"></i></a>
+            </li>
+            
+            <li class="toggle-toc">
+                <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false"
+                    title="文章目录" role="button">
+                    <span>[&nbsp;</span><span>文章目录</span>
+                    <i class="text-collapsed icon icon-anchor"></i>
+                    <i class="text-in icon icon-close"></i>
+                    <span>]</span>
+                </a>
+            </li>
+        </ul>
+        <div class="bar-right">
+        </div>
+    </div>
+</nav>
+
+
+<script src="https://my.openwrite.cn/js/readmore.js" type="text/javascript"></script>
+<script>
+    const btw = new BTWPlugin();
+    btw.init({
+        id: 'article-container',
+        blogId: '24944-1607090547459-485',
+        name: '码农吴先生',
+        qrcode: 'https://gitee.com/pylixm/picture/raw/master/2020-12-4/1607089812769-image.png',
+        keyword: 'vip',
+    });
+</script>
+</main><footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+<ul class="social-links">
+    <li><a href="https://github.com/pylixm" target="_blank" title="github" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-github"></i></a></li>
+    <li><a href="https://pylixm.top/index.xml" target="_blank" title="rss" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-rss"></i></a></li>
+    <li><a href="http://weibo.com/2258086637" target="_blank" title="weibo" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-weibo"></i></a></li>
+</ul>
+  <div class="copyright">
+    &copy;2015  -
+    2020
+    <div class="publishby">
+      hugo驱动，Theme by <a href="https://github.com/xiaoheiAh/hugo-theme-pure" target="_blank"> pure</a>.
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_SVG"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+            showMathMenu: false, //disables context menu
+            tex2jax: {
+            inlineMath: [ ['$','$'], ['\\(','\\)'] ]
+           }
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+<script>
+    window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/highlight.min.js"></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/python.min.js" defer></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/javascript.min.js" defer></script><script>
+    hljs.configure({
+        tabReplace: '    ', 
+        classPrefix: ''     
+        
+    })
+    hljs.initHighlightingOnLoad();
+</script>
+<script src="https://pylixm.top/js/application.min.bdeb64b910570b6c41badc6a05b7afb0c8ad9efd8525de3c7257d59e786326a3.js"></script>
+<script src="https://pylixm.top/js/plugin.min.51ff8c7317566f82259170fa36e09c4493adc9b9378b427a01ad3f017ebac7dd.js"></script>
+
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(未命名)',
+            },
+            ROOT_URL: 'https:\/\/pylixm.top',
+            CONTENT_URL: 'https:\/\/pylixm.top\/searchindex.json ',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script type="text/javascript" src="https://pylixm.top/js/insight.min.a343cd9a5a7698336b28ef3a7c16a3a1b1d2d5fb17dc8ed04022bbe08cc5459073a15bdafa3a8a58cdd56080784bdd69fa70b1ae8597565c799c57ed00f0e120.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script>
+<script>
+    tocbot.init({
+        
+        tocSelector: '.js-toc',
+        
+        contentSelector: '.js-toc-content',
+        
+        headingSelector: 'h1, h2, h3',
+        
+        hasInnerContainers: true,
+    });
+</script>
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="https://cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine"></script>
+<script type="text/javascript">
+    var GUEST = ['nick', 'mail', 'link'];
+    var meta = 'nick,mail';
+    meta = meta.split(',').filter(function (item) {
+        return GUEST.indexOf(item) > -1;
+    });
+    new Valine({
+        el: '#vcomments',
+        verify: null ,
+        notify: null ,
+        appId: 'OBJcj4PU8JI0zDfu0HJSrG6W-gzGzoHsz',
+        appKey: 'tBtFzC72xIlgo2UFbA33nqmU',
+        placeholder: '来做第一个发言人吧',
+        avatar: 'mm',
+        meta: meta,
+        pageSize: '10' || 10,
+        visitor: false 
+});
+</script>
+
+  </body>
+</html>

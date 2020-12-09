@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <title>
+        「译」Kubernetes新手入门指南 - DeanWu
+      </title>
+        <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    
+    <meta name="theme-color" content="#000000" />
+    
+    <meta http-equiv="window-target" content="_top" />
+    
+    
+    <meta name="description" content="原文地址：https://dzone.com/articles/a-beginners-guide-to-kubernetes Kuberne" />
+    <meta name="generator" content="Hugo 0.73.0 with theme pure" />
+    <title>「译」Kubernetes新手入门指南 - DeanWu</title>
+    
+    
+    <link rel="stylesheet" href="https://pylixm.top/css/style.min.f70e8e0df9ea6aeb37dac252b17ca98082073ff1663b24118baaaa84ee8ae7e8.css">
+    
+    <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.15.10/styles/github.min.css" async>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css" async>
+    <meta property="og:title" content="「译」Kubernetes新手入门指南" />
+<meta property="og:description" content="原文地址：https://dzone.com/articles/a-beginners-guide-to-kubernetes Kuberne" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://pylixm.top/posts/2020-08-11-k8s-start.html" />
+<meta property="article:published_time" content="2020-08-11T22:26:00+00:00" />
+<meta property="article:modified_time" content="2020-08-11T22:26:00+00:00" />
+<meta itemprop="name" content="「译」Kubernetes新手入门指南">
+<meta itemprop="description" content="原文地址：https://dzone.com/articles/a-beginners-guide-to-kubernetes Kuberne">
+<meta itemprop="datePublished" content="2020-08-11T22:26:00&#43;00:00" />
+<meta itemprop="dateModified" content="2020-08-11T22:26:00&#43;00:00" />
+<meta itemprop="wordCount" content="7999">
+
+
+
+<meta itemprop="keywords" content="Kubernetes,docker,翻译," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="「译」Kubernetes新手入门指南"/>
+<meta name="twitter:description" content="原文地址：https://dzone.com/articles/a-beginners-guide-to-kubernetes Kuberne"/>
+
+    <!--[if lte IE 9]>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+      <![endif]-->
+
+    <!--[if lt IE 9]>
+        <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+      <![endif]-->
+  </head>
+
+  
+  
+
+  <body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage"><header class="header" itemscope itemtype="http://schema.org/WPHeader">
+    <div class="slimContent">
+      <div class="navbar-header">
+        <div class="profile-block text-center">
+          <a id="avatar" href="https://pylixm.top" target="_blank">
+            <img class="img-circle img-rotate" src="https://pylixm.top/static/imgs/avatar.png" width="200" height="200">
+          </a>
+          <h2 id="name" class="hidden-xs hidden-sm">DeanWu</h2>
+          <h3 id="title" class="hidden-xs hidden-sm hidden-md">程序员</h3>
+          <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i>Beijing, China</small>
+        </div><div class="search" id="search-form-wrap">
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i
+                        class="icon icon-search"></i></button>
+            </span>
+        </div>
+        <div class="ins-search">
+            <div class="ins-search-mask"></div>
+            <div class="ins-search-container">
+                <div class="ins-input-wrapper">
+                    <input type="text" class="ins-search-input" placeholder="想要查找什么..."
+                        x-webkit-speech />
+                    <button type="button" class="close ins-close ins-selectable" data-dismiss="modal"
+                        aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="ins-section-wrapper">
+                    <div class="ins-section-container"></div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+        <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+        <ul class="nav navbar-nav main-nav">
+            <li class="menu-item menu-item-home">
+                <a href="/">
+                    <i class="icon icon-home-fill"></i>
+                  <span class="menu-title">首页</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-series">
+                <a href="/series/">
+                    <i class="icon icon-folder"></i>
+                  <span class="menu-title">专题</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-repository">
+                <a href="/project/">
+                    <i class="icon icon-project"></i>
+                  <span class="menu-title">项目</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-archives">
+                <a href="/posts/">
+                    <i class="icon icon-archives-fill"></i>
+                  <span class="menu-title">归档</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-about">
+                <a href="/about/">
+                    <i class="icon icon-cup-fill"></i>
+                  <span class="menu-title">关于</span>
+                </a>
+            </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+<aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content"><div>欢迎关注微信公众号「码农吴先生」：专注python/golang/devops等技术的学习经验及资源分享！</br>回复关键字：go或python 获取我收集的资料，也可回复关键字：小二，加我wx，一块聊技术，聊人生~  </br><img src="/static/imgs/wx/wx_gzh.png" width="140" height="140"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+      
+<div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+        <ul class="recent-post-list list-unstyled no-thumbnail">
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2020-12-08-django-async-views-example.html" class="title">Django 三个异步使用的案例</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-12-08 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-08</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2020-12-05-go-from-python-structure-base.html" class="title">「对比Python学习Go」- 基本数据结构</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-12-05 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-05</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2020-12-03-go-from-python-start.html" class="title">「对比Python学习Go」- 环境篇</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-12-03 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-03</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2020-12-02-go-from-python-intro.html" class="title">「对比Python学习Go」- 开篇</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-12-02 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-02</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2020-12-01-for-range-point.html" class="title">「Go Tips」for range 遍历时变量取值的问题分析</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-12-01 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-01</time>
+                    </p>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+      <div class="widget">
+    <h3 class="widget-title"> 分类</h3>
+    <div class="widget-body">
+        <ul class="category-list">
+            <li class="category-list-item"><a href="https://pylixm.top/categories/ATS/" class="category-list-link">ATS</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/DevOps/" class="category-list-link">DevOps</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Devlopment-Demo/" class="category-list-link">Devlopment-Demo</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Django/" class="category-list-link">Django</a><span class="category-list-count">39</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Docker/" class="category-list-link">Docker</a><span class="category-list-count">4</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Flask/" class="category-list-link">Flask</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Git/" class="category-list-link">Git</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Golang/" class="category-list-link">Golang</a><span class="category-list-count">12</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/HTTPS/" class="category-list-link">HTTPS</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Javascript/" class="category-list-link">Javascript</a><span class="category-list-count">3</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Kubernetes/" class="category-list-link">Kubernetes</a><span class="category-list-count">4</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/LVS/" class="category-list-link">LVS</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Linux/" class="category-list-link">Linux</a><span class="category-list-count">15</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Mongodb/" class="category-list-link">Mongodb</a><span class="category-list-count">3</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Mysql/" class="category-list-link">Mysql</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/NoSQL/" class="category-list-link">NoSQL</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/PostgreSQL/" class="category-list-link">PostgreSQL</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Puppet/" class="category-list-link">Puppet</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Python/" class="category-list-link">Python</a><span class="category-list-count">19</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/QA/" class="category-list-link">QA</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Rabbitmq/" class="category-list-link">Rabbitmq</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Restful/" class="category-list-link">Restful</a><span class="category-list-count">6</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/SaltStack/" class="category-list-link">SaltStack</a><span class="category-list-count">7</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Software_Architect/" class="category-list-link">Software_Architect</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Supervisor/" class="category-list-link">Supervisor</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Tornado/" class="category-list-link">Tornado</a><span class="category-list-count">3</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Vagrant/" class="category-list-link">Vagrant</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Vue/" class="category-list-link">Vue</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/kafka/" class="category-list-link">kafka</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/zookeeper/" class="category-list-link">zookeeper</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E4%B8%AA%E4%BA%BA%E7%AE%A1%E7%90%86/" class="category-list-link">个人管理</a><span class="category-list-count">5</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB/" class="category-list-link">前后端分离</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" class="category-list-link">数据结构与算法</a><span class="category-list-count">13</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E6%9C%9D%E8%8A%B1%E5%A4%95%E6%8B%BE/" class="category-list-link">朝花夕拾</a><span class="category-list-count">10</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" class="category-list-link">机器学习</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" class="category-list-link">环境搭建</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E7%A8%8B%E5%BA%8F%E5%91%98%E8%87%AA%E6%88%91%E4%BF%AE%E5%85%BB/" class="category-list-link">程序员自我修养</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E8%B5%84%E6%BA%90%E5%88%86%E4%BA%AB%E8%AE%A1%E5%88%92/" class="category-list-link">资源分享计划</a><span class="category-list-count">10</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E8%BF%90%E7%BB%B4%E7%9F%A5%E8%AF%86%E5%BA%93/" class="category-list-link">运维知识库</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86/" class="category-list-link">项目管理</a><span class="category-list-count">1</span></li>
+        </ul>
+    </div>
+</div>
+  </div>
+</aside>
+
+    
+    
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <h4 class="toc-title">文章目录</h4>
+    <nav id="toc" class="js-toc toc">
+
+    </nav>
+  </div>
+</aside>
+<main class="main" role="main"><div class="content">
+  
+  <article id="article-container" class="article article-type-" itemscope
+    itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      <h1 itemprop="name">
+  <a
+    class="article-title"
+    href="/posts/2020-08-11-k8s-start.html"
+    >「译」Kubernetes新手入门指南</a
+  >
+</h1>
+
+      <div class="article-meta">
+        
+<span class="article-date">
+  <i class="icon icon-calendar-check"></i>&nbsp;
+<a href="https://pylixm.top/posts/2020-08-11-k8s-start.html" class="article-date">
+  <time datetime="2020-08-11 22:26:00 &#43;0000 UTC" itemprop="datePublished">2020-08-11</time>
+</a>
+</span>
+<span class="article-category">
+  <i class="icon icon-folder"></i>&nbsp;
+  <a class="article-category-link" href="/categories/Kubernetes/"> Kubernetes </a>
+</span>  
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>&nbsp;
+    <a class="article-tag-link" href="/tags/Kubernetes/"> Kubernetes </a>
+    <a class="article-tag-link" href="/tags/docker/"> docker </a>
+    <a class="article-tag-link" href="/tags/%E7%BF%BB%E8%AF%91/"> 翻译 </a>
+  </span>
+
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+        <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="/posts/2020-08-11-k8s-start.html#comments"
+            class="article-comment-link">评论</a></span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 7999字</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 16分 </span>
+      </div>
+    </div>
+    <div class="article-entry marked-body js-toc-content" itemprop="articleBody">
+      <blockquote>
+<p>原文地址：https://dzone.com/articles/a-beginners-guide-to-kubernetes</p>
+</blockquote>
+<p>Kubernetes现已成为在私有云，公共云以及混合云环境中大规模部署容器化应用程序的事实标准。业内最大的几家公有云平台<code>AWS</code>，<code>Google Cloud</code>，<code>Azure</code>，<code>IBM Cloud</code>以及<code>Oracle Cloud</code>现已提供<code>Kubernetes</code>托管服务。几年前，RedHat完全重写了他们的<code>Openshift</code>实现以适配<code>Kubernetes</code>，并且和<code>Kubernetes</code>社区一起合作实现了下一代容器平台。在Kubernetes变得受欢迎后不久，<code>Mesosphere</code>便将<code>Kubernetes</code>的主要功能（如容器分组，覆盖网络，4层路由，secret管理等）整合到他们的容器平台<code>DC/OS</code>中。<code>DC/OS</code>还将<a href="https://mesosphere.com/blog/kubernetes-dcos/"><code>Kubernetes</code>作为一个和<code>Marathon</code>相似的容器调度器</a>集成进来。<code>Pivotal</code>最近推出了基于<code>Kubernetes</code>的<a href="https://pivotal.io/platform/pivotal-container-service">Pivotal Container Service（PKS）</a>，用于在<code>Pivotal Cloud Foundry</code>上部署第三方服务，直到目前为止，还有很多其他组织和技术厂商处在一个加速适配它的阶段。</p>
+<p><code>Kubernetes</code>项目创立于2014年，它的背后是拥有在谷歌运行生产工作负载超过十年经验的谷歌内部容器集群管理平台Borg和Omega。在我看来，它让用户更加方便去适配一些新兴的软件架构模式（如微服务，无服务器功能，服务网格和事件驱动应用程序），并且为整个云原生系统生态铺平了道路。最重要的是，它的云不相关性的设计使得容器化的应用程序无需经过任何修改便可以跑在任何平台上。如今，大型企业的部署可以使用<code>Kubernetes</code>的生态系统，而从长远来看，任何中小型企业也可以通过使用<code>Kubernetes</code>节省大量的基础设施和维护成本。在这篇文章里，我将会介绍到<code>Kubernetes</code>整体上的架构，其应用程序的部署模型，服务发现和负载平衡，内部/外部路由分离，持久卷的使用，在节点上部署守护进程，部署有状态的分布式系统，运行后台作业，部署数据库，配置管理，凭据管理，滚动更新，自动伸缩以及包管理。</p>
+<h2 id="kubernetes架构">Kubernetes架构</h2>
+<p><img src="/static/imgs/k8s/k8s_struct.png" alt=""></p>
+<p>这个接近完美的集群管理器采取的基本设计决策之一是能够部署在虚拟机上运行的现有应用程序，而无需对应用程序代码做出任何修改。从整体上来说，任何在虚拟机上运行的应用程序都可以通过简单地容器化其组件的方式部署在<code>Kubernetes</code>上。这是通过其核心功能实现的：容器分组，容器编排，覆盖网络，基于4层虚拟IP路由系统的容器间路由，服务发现，对运行守护程序的支持，部署有状态的应用程序组件，而且最重要的是，它还能够通过扩展容器编排器以支持复杂的编排要求。</p>
+<p>从一个相对宏观的层面来讲，Kubernetes提供了<strong>一组动态可扩展的主机</strong>（node节点），用于承载运行工作负载的容器，并使用一组称为master的<strong>管理主机</strong>（master节点），提供用于管理整个容器基础设施的<strong>API</strong>。工作负载可能包括长期运行的服务，批处理作业和运行在特定容器主机上的守护程序。所有容器主机使用<strong>覆盖网络</strong>连接在一起以提供容器间的路由。部署在<code>Kubernetes</code>上的应用程序在集群网络是可以动态发现的，而且可以通过传统的负载均衡器暴露到外部网络。集群管理器的状态存放在<strong>高度分布式组织的k/v存储里</strong>（etcd），该存储运行在master实例上。</p>
+<p><code>Kubernetes scheduler</code>将始终确保每个应用程序组件都是经过健康检查的，提供高可用的服务，当副本数量设置为多个时，每个实例在多个主机上进行调度，并且如果其中一个主机变为不可用时，所有在该台主机上运行的容器都会被调度到剩余的其他主机。<code>Kubernetes</code>提供的一项迷人功能是两级自动扩缩。首先，通过使用一个叫做<code>Horizontal Pod Autoscaler</code>（Pod自动水平扩缩器）的资源，它可以为用户提供容器的自动扩缩功能，该资源将会监视资源的消耗并相应地扩展所需的容器数量。其次，它可以根据资源需求添加或删除主机来扩展容器集群本身。 此外，随着<code>集群联盟（cluster federation）</code>功能的引入，它甚至可以使用单个API端点管理一组<code>Kubernetes</code>集群，这些集群甚至可能跨越多个数据中心。</p>
+<p>以上只是Kubernetes所提供的开箱即用的功能的概览。在接下来的几节里，本人将为你介绍<code>Kubernetes</code>的核心功能，并说明用户该如何设计自己的软件应用，以便能够立即部署在上面。</p>
+<blockquote>
+<p>方便理解，译者补充：</p>
+<ul>
+<li>控制管理器 (kube-controller-manager)。Controller 负责维护集群的状态，比如故障检测、自动扩展、滚动更新等</li>
+<li>调度器 (kube-scheduler)。Scheduler 负责资源的调度，按照预定的调度策略将 Pod 调度到相应的机器上</li>
+</ul>
+</blockquote>
+<h2 id="应用部署模型">应用部署模型</h2>
+<p><img src="/static/imgs/k8s/k8s_app.png" alt=""></p>
+<p>上图展示的是<code>Kubernetes</code>宏观层面的应用程序部署模型。它使用一个叫做<code>ReplicaSet</code>的资源来编排容器。我们不妨将<code>ReplicaSet</code>视为基于YAML或基于JSON的一个<em>元数据文件</em>，该文件里定义了容器镜像，端口，副本数，激活运行状况检查（health check），存活状况检查（liveness health check），环境变量，挂载卷以及创建和管理容器所需的一些安全规则。在<code>Kubernetes</code>上，容器总是以所谓<code>Pods</code>的形式成组创建，它是<code>Kubernetes</code>的一个元数据定义或者说是一个资源。每个pod允许在使用了<code>Linux namespace</code>，<code>cgroup</code>和其他内核功能的容器之间共享文件系统，网络接口和操作系统用户。<code>ReplicaSet</code>可以由另外一个名为<code>Deployments</code>的高级资源管理，它被设计用于提供<em>滚动更新</em>和<em>处理回滚</em>等功能。</p>
+<p>通过执行下面这样一条简单的CLI命令，用户便可以通过定义一个<code>deployment</code>，在<code>Kubernetes</code>上部署一个容器化的应用程序：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">kubectl run &lt;application-name&gt; --image<span style="color:#f92672">=</span>&lt;container-image&gt; --port<span style="color:#f92672">=</span>&lt;port-no&gt;
+</code></pre></div><p>执行上述CLI命令后，它将使用给定的容器镜像创建一个<code>Deployment</code>声明，一个副本集以及一个采用了指定容器镜像的Pod；添加一个应用名的选择器标签。根据当前的设计，由此创建的每个pod将会拥有两个容器，一个用于指定的应用程序组件，另外一个即所谓的pause容器，用于连接网络接口。</p>
+<h2 id="服务发现--负载均衡">服务发现 &amp; 负载均衡</h2>
+<p><img src="/static/imgs/k8s/k8s_lb.png" alt=""></p>
+<p><code>Kubernetes</code>的一个关键特性便是由<em>SkyDNS</em>和<em>4层虚拟IP路由系统</em>提供的服务发现和内部路由模型。这些功能可以为面向service的应用请求提供内部路由。可以使用集群网络里的service对通过副本集创建的一组pod提供负载平衡。service使用选择器标签连接到pod。每个service都将会分配一个唯一的IP地址，一个由它的名称派生出的主机名，并且将会以round robin的方式路由pods的请求。这些service甚至可以为可能需要支持会话亲和性的应用程序提供基于IP哈希的路由机制。service可以指定一组端口，而针对指定的service定义的一系列属性将会以相同的形式同样应用到所有端口上。因此，如果只是某个给定端口需要支持会话亲和性，而所有的其他端口只需要round robin的方式路由的情况下，可能需要用到多个service。</p>
+<h2 id="service内部工作原理">service内部工作原理</h2>
+<p><img src="/static/imgs/k8s/k8s_service_work.png" alt=""></p>
+<p><code>Kubernetes service</code>背后是通过一个叫做kube-proxy的组件实现。<code>kube-proxy</code>实例运行在每个节点上，并提供了三种代理模式：userspace，iptables和IPVS。目前的默认值是iptables。</p>
+<p>在userspace模式下，kube-proxy本身将充当代理服务器的角色，并且将被一条iptable规则接受的请求代理到后端pod。在这种模式下，kube-proxy将在用户空间中运行，并且将会在消息流上额外增加一跳（hop）。</p>
+<p>在iptables模式下，kube-proxy将创建一个iptable规则集合，用于将来自客户端的入口请求在网络层面直接转发到后端pod的端口上，而不会在中间额外增加一跳。这种代理模式比第一种模式快得多，因为它是在内核空间中操作而不是在中间增加一台额外的代理服务器。</p>
+<p>第三种代理模式是在Kubernetes v1.8中添加的，它和第二种代理模式非常相似，该模式使用的是基于IPVS的虚拟服务器来路由请求，而无需用到iptable规则。IPVS是一个传输层的负载均衡功能，可以在基于Netfilter的Linux内核中使用，并且提供了一组负载均衡算法。在iptables上使用IPVS的主要原因是在使用iptables时同步代理规则带来的性能开销。当创建数千个service时，更新iptable规则需要相当长的时间，相比之下，使用IPVS只需几毫秒。此外，IPVS使用哈希表线性的扫描iptables来查找代理规则。有关介绍IPVS代理模式的更多信息，请参阅华为在KubeCon 2017上的“<a href="https://docs.google.com/presentation/d/1BaIAywY2qqeHtyGZtlyAp89JIZs59MZLKcFLxKE6LyM/edit#slide=id.p3">Scaling Kubernetes to Support 50,000 Services</a>”演示文稿。</p>
+<h2 id="内外路由分离">内外路由分离</h2>
+<p><img src="/static/imgs/k8s/k8s_route.png" alt=""></p>
+<p><code>Kubernetes service</code>可以通过两种主流方式暴露给外部网络。第一种是使用节点端口（node port），通过暴露节点上的动态端口，这些端口会将流量转发到service端口。第二种是使用一个ingress controller配置的负载均衡器，它将会连接到同一个覆盖网络并将请求代理给service。ingress controller是一个后台进程，它可以跑在容器里，该容器将会监听<code>Kubernetes API</code>，根据指定的一组ingress动态配置并重新加载给定的负载均衡器。一个ingress定义了一组基于service的主机名及上下文路径的路由规则。</p>
+<p>一旦通过执行kubectl run命令，在Kubernetes上跑起来应用后，我们可以通过一个负载均衡器将其暴露给外部网络，如下所示：</p>
+<pre><code>kubectl expose deployment &lt;application-name&gt; --type=LoadBalancer --name=&lt;service-name&gt;
+</code></pre><p>上述命令将创建一个负载均衡器类型的service，并且使用在POD创建之初建立的选择器标签映射到相同的一组pod。这样一来，根据Kubernetes集群不同的配置方式，一个负载均衡器类型的service将会在底层基础设施上创建出来，通过service或直接路由的形式将请求转发到指定的一组pod。</p>
+<h2 id="持久卷用法">持久卷用法</h2>
+<p><img src="/static/imgs/k8s/k8s_volume.png" alt=""></p>
+<p>需要在文件系统上持久化存储数据的应用程序可以使用卷将存储设备挂载到临时容器，这和虚拟机的使用方式类似。Kubernetes巧妙地重新设计了这一概念，通过引入一个所谓的持久卷声明（PVC）的中间资源，在物理存储设备和容器之间做了解耦。一个PVC定义了磁盘大小，磁盘类型（ReadWriteOnce，ReadOnlyMany，ReadWriteMany），并将存储设备动态链接到在pod中定义了的卷。该绑定过程可以使用PV这样一个静态的形式，也可以使用一个持久化存储的provider动态实现。在这两种方法里，卷将一对一地链接到PV，并且取决于其配置，给定的数据即便pod被终止也将会被保留。根据使用的磁盘类型，多个pod将能够连接到同一磁盘并进行读/写。</p>
+<p>支持ReadWriteOnce的磁盘将只能连接到单个pod，并且无法同时在多个pod之间共享。但是，支持ReadOnlyMany的磁盘将能够在只读模式下同时在多个pod之间共享。相反地，顾名思义，支持ReadWriteMany的磁盘可以连接到多个pod，以便在读写模式下共享数据。 Kubernetes提供了一系列的卷插件，用于支持公有云平台上可用的存储服务，例如AWS EBS，GCE Peristent Disk，Azure File，Azure Disk和许多其他众所周知的存储系统，如NFS，Glusterfs，Cinder等。</p>
+<h2 id="在节点上部署守护程序">在节点上部署守护程序</h2>
+<p><img src="/static/imgs/k8s/k8s_daemon.png" alt=""></p>
+<p>Kubernetes提供了一个名为DaemonSets的资源，用于在每个Kubernetes节点上以守护进程的形式运行pod的副本。DaemonSets的一些用例如下：</p>
+<ul>
+<li>需要部署到每个节点上提供持久化存储的集群存储守护程序（如glusterd，ceph）。</li>
+<li>需要在每个节点上运行的监控容器宿主机的节点监控守护程序，例如Prometheus Node Exporter。</li>
+<li>需要在每个节点上运行的，用作采集容器及Kubernetes组件日志的日志采集守护程序，例如fluentd或是logstash。</li>
+<li>需要在一组节点上运行的提供外部路由的ingress controll pod</li>
+</ul>
+<h2 id="部署有状态的分布式系统">部署有状态的分布式系统</h2>
+<p><img src="/static/imgs/k8s/k8s_deploy.png" alt=""></p>
+<p>容器化应用程序最艰巨的任务之一莫过于设计有状态分布式组件部署架构的流程。无状态组件可以很容易地进行容器化，因为它们可能没有预定的启动顺序，集群要求，点对点的TCP连接，唯一的网络标识符，优雅的启动和终止需求等。像数据库，大数据分析系统，分布式k/v存储以及消息代理这样的系统，可能拥有需要支持上述这些功能的复杂分布式架构。Kubernetes引入了StatefulSets资源来解决这些复杂的需求。</p>
+<p>从整体上来说，StatefulSets类似于ReplicaSet，除了提供处理pod的启动顺序的能力，唯一地标识每个pod以保留其状态之外，它还同时提供以下特性：</p>
+<ul>
+<li>稳定，唯一的网络标识符。</li>
+<li>稳定，持久化的存储。</li>
+<li>有序，优雅的部署和扩容。</li>
+<li>有序，优雅的删除和终止。</li>
+<li>有序，自动地滚动更新</li>
+</ul>
+<p>这里面的“稳定”指的是在跨pod重新调度时它将会保留网络标识符和持久化存储。如上图所示，唯一的网络标识符可以通过使用headless service提供。Kubernetes提供了一些StatefulSets的示例，包括以分布式的形式部署Cassandra以及Zookeeper。</p>
+<h2 id="执行后台任务">执行后台任务</h2>
+<p>除了ReplicaSet和StatefulSets之外，Kubernetes还提供了两个额外的控制器，用于在后台运行称为Jobs和CronJobs的工作负载。Jobs和CronJobs之间的区别在于Jobs执行一次即终止，而CronJobs会按照与标准Linux cron作业类似的给定时间间隔
+定期地执行。</p>
+<h2 id="部署数据库">部署数据库</h2>
+<p>由于存在对集群，点对点连接，复制同步，灰度，备份管理等需求，在容器平台上部署数据库用于生产环境将会比部署应用程序稍微困难一些。正如之前所提到的那样，Statefulsets专门为解决此类复杂需求而设计，而如今已经有一些在Kubernetes上运行PostgreSQL和MongoDB集群的方案。YouTube的数据库集群系统Vitess现如今已经是一个CNCF项目，对于在Kubernetes上大规模灰度运行MySQL是一个很好的选择。说是如此，我们最好注意一下，这些方案目前仍然处于非常早期的开发阶段，而如果现有的生产级别数据库系统，仍然可用于给定的基础架构，例如AWS上的RDS，GCP上的Cloud SQL，或是内部按需部署的数据库集群，考虑到安装的复杂性以及维护成本，选择这其中的一种方案可能更合适些。</p>
+<h2 id="配置管理">配置管理</h2>
+<p>容器通常使用环境变量来参数化它们的运行时配置。但是，常见的企业应用程序往往使用大量的配置文件为一个指定的部署提供所需的静态配置。Kubernetes则提供了一个绝妙的办法，使用名为ConfigMaps的一种简单资源来管理此类配置文件，而无需将它们打包到容器镜像里。可以通过执行以下CLI命令，使用目录，文件或文本值创建ConfigMaps：</p>
+<pre><code>kubectl create configmap &lt;map-name&gt; &lt;data-source&gt;
+# map-name: name of the config map
+# data-source: directory, file or literal value
+</code></pre><p>创建ConfigMap后，可以通过卷的形式将其挂载到pod。通过这种松耦合的架构，一个已经在运行的系统的配置可以通过更新相关的ConfigMaps的方式无缝更新，而其滚动更新的执行流程这块我将在下一节中详细说明。值得一提的是，ConfigMaps现在不支持嵌套的目录结构；因此，如果应用程序的嵌套目录结构中存放有配置文件的话，则需要为每一个目录层级创建一个ConfigMap。</p>
+<h2 id="凭证管理">凭证管理</h2>
+<p>与ConfigMaps类似，Kubernetes提供了另一种名为Secrets的宝贵资源，用于管理密码，OAuth令牌和ssh密钥等敏感信息。否则，在已运行的系统上更新该信息可能需要重建容器镜像。</p>
+<p>可以使用以下方式创建用于管理基本身份验证凭据的密钥：</p>
+<pre><code># write credentials to two files
+$ echo -n 'admin' &gt; ./username.txt
+$ echo -n '1f2d1e2e67df' &gt; ./password.txt
+# create a secret
+$ kubectl create secret generic app-credentials --from-file=./username.txt --from-file=./password.txt
+</code></pre><p>创建secret后，pod可以使用环境变量或挂载卷的方式来读取它。类似地，可以使用相同的方法将任何其他类型的敏感信息注入到pod中。</p>
+<h2 id="滚动更新">滚动更新</h2>
+<p><img src="/static/imgs/k8s/k8s_rollback.gif" alt=""></p>
+<p>上面这个动画描述了如何使用蓝/绿部署的方法为已经运行的应用程序发布应用程序更新，而无需任何宕机成本。这是Kubernetes提供的另一个重磅功能，它允许应用程序不费吹灰之力即可无缝地发布安全更新和向后兼容的变更。如果变更不向后兼容，则可能需要使用单独的部署定义手动执行蓝/绿部署。</p>
+<p>这一方案允许通过一条简单的CLI命令，发起一个部署以更新容器镜像：</p>
+<pre><code>$ kubectl set image deployment/&lt;application-name&gt; &lt;container-name&gt;=&lt;container-image-name&gt;:&lt;new-version&gt;
+</code></pre><p>一旦发起部署，可以通过如下方式检查部署进度的状态：</p>
+<pre><code>$ kubectl rollout status deployment/&lt;application-name&gt;Waiting for rollout to finish: 2 out of 3 new replicas have been updated...deployment &quot;&lt;application-name&gt;&quot; successfully rolled out
+</code></pre><p>使用相同的CLI命令kubectl set image deployment，可以让部署更新回滚到之前的状态。</p>
+<h2 id="自动扩缩">自动扩缩</h2>
+<p><img src="/static/imgs/k8s/k8s_scaling.png" alt=""></p>
+<p>Kubernetes允许使用ReplicaSet或Deployments手动调整pod数量。这可以通过执行如下CLI命令来实现：</p>
+<pre><code>kubectl scale --replicas=&lt;desired-instance-count&gt; deployment/&lt;application-name&gt;
+</code></pre><p>如上图所示，可以通过向Deployment添加另一个名为Horizontal Pod Autoscaler（HPA）的资源来扩展此功能，以便根据实际资源使用情况动态扩缩容器。HPA将通过资源指标的API监视每个pod的资源使用情况，并通知Deployment相应地更改ReplicaSet的副本数。Kubernetes使用高档延迟（upscale delay）和缩减延迟（downscale delay）来避免某些情况下频繁的资源使用波动而可能导致的颠簸。目前，HPA仅支持基于CPU的使用情况进行扩展。如果有必要的话，还可以通过Custom Metrics API加入自定义指标，这具体视应用程序的自然属性而定。</p>
+<h2 id="包管理">包管理</h2>
+<p><img src="/static/imgs/k8s/k8s_package_m.png" alt=""></p>
+<p>Kubernetes社区发起了一个单独的项目，为Kubernetes实现了一个称为Helm的包管理器。它允许用户使用一个名为Chart的资源模板化并打包Kubernetes资源，比如Deployment，Service，ConfigMap，Ingress等，并允许在安装时使用输入参数配置它们。更重要的是，它允许在使用依赖项实现包的安装时复用现有图表。Helm存储库可以托管在公有云或私有云环境中，用于管理应用程序的Chart。Helm提供了一个CLI，用于从给定的Helm存储库里安装应用程序到指定的Kubernetes环境中。</p>
+<p>一些众所周知的软件应用程序的各种稳定Helm图表可以在它的Github存储库中找到，也可以在中心化的Helm服务器中找到：Kubeapps Hub。</p>
+<h2 id="小结">小结</h2>
+<p>Kubernetes的设计源自于Google内部大规模运行容器化应用程序十多年来积累的经验。它已经被一些顶级的公有云厂商和技术厂商采用，并且在撰写本文时正在被更多的软件厂商和企业所接受。 它甚至促成了2015年云原生计算基金会（CNCF）的成立，并且是第一个在CNCF下毕业的项目，随后开始了同其他与容器相关的项目一起精简容器生态系统的道路，如CNI，Containerd，Envoy，Fluentd，gRPC，Jagger，Linkerd，Prometheus，rkt和Vitess。 Kubernetes受欢迎并得到如此认可的关键原因可能源自其完美的设计，与行业领导者的合作，其开源属性，以及始终对创意和贡献持开放态度的精神。</p>
+<h2 id="参考文献">参考文献</h2>
+<ul>
+<li>[1] What is Kubernetes: <a href="https://kubernetes.io/docs/concepts/overview/what-is-kubernetes/">https://kubernetes.io/docs/concepts/overview/what-is-kubernetes/</a></li>
+<li>[2] Borg, Omega and Kubernetes: <a href="https://ai.google/research/pubs/pub44843">https://ai.google/research/pubs/pub44843</a></li>
+<li>[3] Kubernetes Components: <a href="https://kubernetes.io/docs/concepts/overview/components/">https://kubernetes.io/docs/concepts/overview/components/</a></li>
+<li>[4] Kubernetes Services: <a href="https://kubernetes.io/docs/concepts/services-networking/service/">https://kubernetes.io/docs/concepts/services-networking/service/</a></li>
+<li>[5] IPVS (IP Virtual Server) <a href="http://www.linuxvirtualserver.org/software/ipvs.html">http://www.linuxvirtualserver.org/software/ipvs.html</a></li>
+<li>[6] Introduction of IPVS Proxy Mode: <a href="https://github.com/kubernetes/kubernetes/issues/44063">https://github.com/kubernetes/kubernetes/issues/44063</a></li>
+<li>[7] Kubernetes Persistent Volumes: <a href="https://kubernetes.io/docs/concepts/storage/persistent-volumes/">https://kubernetes.io/docs/concepts/storage/persistent-volumes/</a></li>
+<li>[8] Kubernetes Configuration Best Practices: <a href="https://kubernetes.io/docs/concepts/configuration/overview/">https://kubernetes.io/docs/concepts/configuration/overview/</a></li>
+<li>[9] Customer Resources &amp; Custom Controllers: <a href="https://kubernetes.io/docs/concepts/api-extension/custom-resources/">https://kubernetes.io/docs/concepts/api-extension/custom-resources/</a></li>
+<li>[10] Understanding Vitess: <a href="https://vitess.io/overview/">https://vitess.io/overview/</a></li>
+<li>[11] Skaffold, CI/CD for Kubernetes: <a href="https://github.com/GoogleContainerTools/skaffold">https://github.com/GoogleContainerTools/skaffold</a></li>
+<li>[12] Kaniko, Build Container Images in Kubernetes: <a href="https://github.com/GoogleContainerTools/kaniko">https://github.com/GoogleContainerTools/kaniko</a></li>
+<li>[13] Apache Spark 2.3 with Native Kubernetes Support <a href="https://kubernetes.io/blog/2018/03/apache-spark-23-with-native-kubernetes/">https://kubernetes.io/blog/2018/03/apache-spark-23-with-native-kubernetes/</a></li>
+<li>[14] Deploying Apache Kafka using StatefulSets: <a href="https://github.com/kubernetes/contrib/tree/master/statefulsets/kafka">https://github.com/kubernetes/contrib/tree/master/statefulsets/kafka</a></li>
+<li>[15] Deploying Apache Zookeeper using StatefulSets: <a href="https://github.com/kubernetes/contrib/tree/master/statefulsets/zookeeper">https://github.com/kubernetes/contrib/tree/master/statefulsets/zookeeper</a></li>
+</ul>
+
+    </div>
+    <div class="article-footer">
+<blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://pylixm.top/posts/2020-08-11-k8s-start.html" title="「译」Kubernetes新手入门指南" target="_blank" rel="external">https://pylixm.top/posts/2020-08-11-k8s-start.html</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>许可协议：</strong>
+      <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN</a>
+    </li>
+  </ul>
+</blockquote>
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://pylixm.top" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="https://pylixm.top/static/imgs/avatar.png" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://pylixm.top" target="_blank"><span class="text-dark">DeanWu</span><small class="ml-1x">程序员</small></a></h3>
+        <div>努力成为真正的SRE</div>
+      </div>
+    </figure>
+  </div>
+</div>
+    </div>
+  </article>
+<section id="comments">
+    <div id="vcomments"></div>
+</section>
+
+</div><nav class="bar bar-footer clearfix" data-stick-bottom>
+    <div class="bar-inner">
+        <ul class="pager pull-left">
+            <li class="prev">
+                <a href="https://pylixm.top/posts/2020-08-05-10-One-liners.html" title="「Python Tips」 - 10个一行代码的Python小技巧"><i
+                        class="icon icon-angle-left"
+                        aria-hidden="true"></i><span>&nbsp;&nbsp;下一篇</span></a>
+            </li>
+            <li class="next">
+                <a href="https://pylixm.top/posts/2020-08-17-go-basic-time.html"
+                    title="「Go模块」- time"><span>上一篇&nbsp;&nbsp;</span><i
+                        class="icon icon-angle-right" aria-hidden="true"></i></a>
+            </li>
+            
+            <li class="toggle-toc">
+                <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false"
+                    title="文章目录" role="button">
+                    <span>[&nbsp;</span><span>文章目录</span>
+                    <i class="text-collapsed icon icon-anchor"></i>
+                    <i class="text-in icon icon-close"></i>
+                    <span>]</span>
+                </a>
+            </li>
+        </ul>
+        <div class="bar-right">
+        </div>
+    </div>
+</nav>
+
+
+<script src="https://my.openwrite.cn/js/readmore.js" type="text/javascript"></script>
+<script>
+    const btw = new BTWPlugin();
+    btw.init({
+        id: 'article-container',
+        blogId: '24944-1607090547459-485',
+        name: '码农吴先生',
+        qrcode: 'https://gitee.com/pylixm/picture/raw/master/2020-12-4/1607089812769-image.png',
+        keyword: 'vip',
+    });
+</script>
+</main><footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+<ul class="social-links">
+    <li><a href="https://github.com/pylixm" target="_blank" title="github" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-github"></i></a></li>
+    <li><a href="https://pylixm.top/index.xml" target="_blank" title="rss" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-rss"></i></a></li>
+    <li><a href="http://weibo.com/2258086637" target="_blank" title="weibo" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-weibo"></i></a></li>
+</ul>
+  <div class="copyright">
+    &copy;2015  -
+    2020
+    <div class="publishby">
+      hugo驱动，Theme by <a href="https://github.com/xiaoheiAh/hugo-theme-pure" target="_blank"> pure</a>.
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_SVG"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+            showMathMenu: false, //disables context menu
+            tex2jax: {
+            inlineMath: [ ['$','$'], ['\\(','\\)'] ]
+           }
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+<script>
+    window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/highlight.min.js"></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/python.min.js" defer></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/javascript.min.js" defer></script><script>
+    hljs.configure({
+        tabReplace: '    ', 
+        classPrefix: ''     
+        
+    })
+    hljs.initHighlightingOnLoad();
+</script>
+<script src="https://pylixm.top/js/application.min.bdeb64b910570b6c41badc6a05b7afb0c8ad9efd8525de3c7257d59e786326a3.js"></script>
+<script src="https://pylixm.top/js/plugin.min.51ff8c7317566f82259170fa36e09c4493adc9b9378b427a01ad3f017ebac7dd.js"></script>
+
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(未命名)',
+            },
+            ROOT_URL: 'https:\/\/pylixm.top',
+            CONTENT_URL: 'https:\/\/pylixm.top\/searchindex.json ',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script type="text/javascript" src="https://pylixm.top/js/insight.min.a343cd9a5a7698336b28ef3a7c16a3a1b1d2d5fb17dc8ed04022bbe08cc5459073a15bdafa3a8a58cdd56080784bdd69fa70b1ae8597565c799c57ed00f0e120.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script>
+<script>
+    tocbot.init({
+        
+        tocSelector: '.js-toc',
+        
+        contentSelector: '.js-toc-content',
+        
+        headingSelector: 'h1, h2, h3',
+        
+        hasInnerContainers: true,
+    });
+</script>
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="https://cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine"></script>
+<script type="text/javascript">
+    var GUEST = ['nick', 'mail', 'link'];
+    var meta = 'nick,mail';
+    meta = meta.split(',').filter(function (item) {
+        return GUEST.indexOf(item) > -1;
+    });
+    new Valine({
+        el: '#vcomments',
+        verify: null ,
+        notify: null ,
+        appId: 'OBJcj4PU8JI0zDfu0HJSrG6W-gzGzoHsz',
+        appKey: 'tBtFzC72xIlgo2UFbA33nqmU',
+        placeholder: '来做第一个发言人吧',
+        avatar: 'mm',
+        meta: meta,
+        pageSize: '10' || 10,
+        visitor: false 
+});
+</script>
+
+  </body>
+</html>

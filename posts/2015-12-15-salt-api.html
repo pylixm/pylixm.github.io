@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <title>
+        SaltStack学习笔记2-- salt-api安装配置(转载) - DeanWu
+      </title>
+        <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    
+    <meta name="theme-color" content="#000000" />
+    
+    <meta http-equiv="window-target" content="_top" />
+    
+    
+    <meta name="description" content="原文地址：http://www.xiaomastack.com/2014/11/18/salt-api/ salt-api也用了一段时间了，现" />
+    <meta name="generator" content="Hugo 0.73.0 with theme pure" />
+    <title>SaltStack学习笔记2-- salt-api安装配置(转载) - DeanWu</title>
+    
+    
+    <link rel="stylesheet" href="https://pylixm.top/css/style.min.f70e8e0df9ea6aeb37dac252b17ca98082073ff1663b24118baaaa84ee8ae7e8.css">
+    
+    <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.15.10/styles/github.min.css" async>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css" async>
+    <meta property="og:title" content="SaltStack学习笔记2-- salt-api安装配置(转载)" />
+<meta property="og:description" content="原文地址：http://www.xiaomastack.com/2014/11/18/salt-api/ salt-api也用了一段时间了，现" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://pylixm.top/posts/2015-12-15-salt-api.html" />
+<meta property="article:published_time" content="2015-12-15T00:00:00+00:00" />
+<meta property="article:modified_time" content="2015-12-15T00:00:00+00:00" />
+<meta itemprop="name" content="SaltStack学习笔记2-- salt-api安装配置(转载)">
+<meta itemprop="description" content="原文地址：http://www.xiaomastack.com/2014/11/18/salt-api/ salt-api也用了一段时间了，现">
+<meta itemprop="datePublished" content="2015-12-15T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2015-12-15T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="2106">
+
+
+
+<meta itemprop="keywords" content="salt," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="SaltStack学习笔记2-- salt-api安装配置(转载)"/>
+<meta name="twitter:description" content="原文地址：http://www.xiaomastack.com/2014/11/18/salt-api/ salt-api也用了一段时间了，现"/>
+
+    <!--[if lte IE 9]>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+      <![endif]-->
+
+    <!--[if lt IE 9]>
+        <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+      <![endif]-->
+  </head>
+
+  
+  
+
+  <body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage"><header class="header" itemscope itemtype="http://schema.org/WPHeader">
+    <div class="slimContent">
+      <div class="navbar-header">
+        <div class="profile-block text-center">
+          <a id="avatar" href="https://pylixm.top" target="_blank">
+            <img class="img-circle img-rotate" src="https://pylixm.top/static/imgs/avatar.png" width="200" height="200">
+          </a>
+          <h2 id="name" class="hidden-xs hidden-sm">DeanWu</h2>
+          <h3 id="title" class="hidden-xs hidden-sm hidden-md">程序员</h3>
+          <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i>Beijing, China</small>
+        </div><div class="search" id="search-form-wrap">
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i
+                        class="icon icon-search"></i></button>
+            </span>
+        </div>
+        <div class="ins-search">
+            <div class="ins-search-mask"></div>
+            <div class="ins-search-container">
+                <div class="ins-input-wrapper">
+                    <input type="text" class="ins-search-input" placeholder="想要查找什么..."
+                        x-webkit-speech />
+                    <button type="button" class="close ins-close ins-selectable" data-dismiss="modal"
+                        aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="ins-section-wrapper">
+                    <div class="ins-section-container"></div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+        <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+        <ul class="nav navbar-nav main-nav">
+            <li class="menu-item menu-item-home">
+                <a href="/">
+                    <i class="icon icon-home-fill"></i>
+                  <span class="menu-title">首页</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-series">
+                <a href="/series/">
+                    <i class="icon icon-folder"></i>
+                  <span class="menu-title">专题</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-repository">
+                <a href="/project/">
+                    <i class="icon icon-project"></i>
+                  <span class="menu-title">项目</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-archives">
+                <a href="/posts/">
+                    <i class="icon icon-archives-fill"></i>
+                  <span class="menu-title">归档</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-about">
+                <a href="/about/">
+                    <i class="icon icon-cup-fill"></i>
+                  <span class="menu-title">关于</span>
+                </a>
+            </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+<aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content"><div>欢迎关注微信公众号「码农吴先生」：专注python/golang/devops等技术的学习经验及资源分享！</br>回复关键字：go或python 获取我收集的资料，也可回复关键字：小二，加我wx，一块聊技术，聊人生~  </br><img src="/static/imgs/wx/wx_gzh.png" width="140" height="140"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+      
+<div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+        <ul class="recent-post-list list-unstyled no-thumbnail">
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2020-12-08-django-async-views-example.html" class="title">Django 三个异步使用的案例</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-12-08 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-08</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2020-12-05-go-from-python-structure-base.html" class="title">「对比Python学习Go」- 基本数据结构</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-12-05 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-05</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2020-12-03-go-from-python-start.html" class="title">「对比Python学习Go」- 环境篇</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-12-03 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-03</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2020-12-02-go-from-python-intro.html" class="title">「对比Python学习Go」- 开篇</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-12-02 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-02</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2020-12-01-for-range-point.html" class="title">「Go Tips」for range 遍历时变量取值的问题分析</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-12-01 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-01</time>
+                    </p>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+      <div class="widget">
+    <h3 class="widget-title"> 分类</h3>
+    <div class="widget-body">
+        <ul class="category-list">
+            <li class="category-list-item"><a href="https://pylixm.top/categories/ATS/" class="category-list-link">ATS</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/DevOps/" class="category-list-link">DevOps</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Devlopment-Demo/" class="category-list-link">Devlopment-Demo</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Django/" class="category-list-link">Django</a><span class="category-list-count">39</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Docker/" class="category-list-link">Docker</a><span class="category-list-count">4</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Flask/" class="category-list-link">Flask</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Git/" class="category-list-link">Git</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Golang/" class="category-list-link">Golang</a><span class="category-list-count">12</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/HTTPS/" class="category-list-link">HTTPS</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Javascript/" class="category-list-link">Javascript</a><span class="category-list-count">3</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Kubernetes/" class="category-list-link">Kubernetes</a><span class="category-list-count">4</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/LVS/" class="category-list-link">LVS</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Linux/" class="category-list-link">Linux</a><span class="category-list-count">15</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Mongodb/" class="category-list-link">Mongodb</a><span class="category-list-count">3</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Mysql/" class="category-list-link">Mysql</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/NoSQL/" class="category-list-link">NoSQL</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/PostgreSQL/" class="category-list-link">PostgreSQL</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Puppet/" class="category-list-link">Puppet</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Python/" class="category-list-link">Python</a><span class="category-list-count">19</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/QA/" class="category-list-link">QA</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Rabbitmq/" class="category-list-link">Rabbitmq</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Restful/" class="category-list-link">Restful</a><span class="category-list-count">6</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/SaltStack/" class="category-list-link">SaltStack</a><span class="category-list-count">7</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Software_Architect/" class="category-list-link">Software_Architect</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Supervisor/" class="category-list-link">Supervisor</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Tornado/" class="category-list-link">Tornado</a><span class="category-list-count">3</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Vagrant/" class="category-list-link">Vagrant</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Vue/" class="category-list-link">Vue</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/kafka/" class="category-list-link">kafka</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/zookeeper/" class="category-list-link">zookeeper</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E4%B8%AA%E4%BA%BA%E7%AE%A1%E7%90%86/" class="category-list-link">个人管理</a><span class="category-list-count">5</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB/" class="category-list-link">前后端分离</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" class="category-list-link">数据结构与算法</a><span class="category-list-count">13</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E6%9C%9D%E8%8A%B1%E5%A4%95%E6%8B%BE/" class="category-list-link">朝花夕拾</a><span class="category-list-count">10</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" class="category-list-link">机器学习</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" class="category-list-link">环境搭建</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E7%A8%8B%E5%BA%8F%E5%91%98%E8%87%AA%E6%88%91%E4%BF%AE%E5%85%BB/" class="category-list-link">程序员自我修养</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E8%B5%84%E6%BA%90%E5%88%86%E4%BA%AB%E8%AE%A1%E5%88%92/" class="category-list-link">资源分享计划</a><span class="category-list-count">10</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E8%BF%90%E7%BB%B4%E7%9F%A5%E8%AF%86%E5%BA%93/" class="category-list-link">运维知识库</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86/" class="category-list-link">项目管理</a><span class="category-list-count">1</span></li>
+        </ul>
+    </div>
+</div>
+  </div>
+</aside>
+
+    
+    
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <h4 class="toc-title">文章目录</h4>
+    <nav id="toc" class="js-toc toc">
+
+    </nav>
+  </div>
+</aside>
+<main class="main" role="main"><div class="content">
+  
+  <article id="article-container" class="article article-type-" itemscope
+    itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      <h1 itemprop="name">
+  <a
+    class="article-title"
+    href="/posts/2015-12-15-salt-api.html"
+    >SaltStack学习笔记2-- salt-api安装配置(转载)</a
+  >
+</h1>
+
+      <div class="article-meta">
+        
+<span class="article-date">
+  <i class="icon icon-calendar-check"></i>&nbsp;
+<a href="https://pylixm.top/posts/2015-12-15-salt-api.html" class="article-date">
+  <time datetime="2015-12-15 00:00:00 &#43;0000 UTC" itemprop="datePublished">2015-12-15</time>
+</a>
+</span>
+<span class="article-category">
+  <i class="icon icon-folder"></i>&nbsp;
+  <a class="article-category-link" href="/categories/SaltStack/"> SaltStack </a>
+</span>  
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>&nbsp;
+    <a class="article-tag-link" href="/tags/salt/"> salt </a>
+  </span>
+
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+        <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="/posts/2015-12-15-salt-api.html#comments"
+            class="article-comment-link">评论</a></span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 2106字</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 5分 </span>
+      </div>
+    </div>
+    <div class="article-entry marked-body js-toc-content" itemprop="articleBody">
+      <blockquote>
+<p>原文地址：http://www.xiaomastack.com/2014/11/18/salt-api/</p>
+</blockquote>
+<p>salt-api也用了一段时间了，现在从安装、配置、使用三个方面梳理下知识。</p>
+<!-- raw HTML omitted -->
+<h2 id="安装">安装</h2>
+<p>采用pip安装方便快捷，当然编译安装也很nice。</p>
+<p>安装pip采用的编译安装的方式，版本当前最新1.5.6，下载、解压、编译、安装是不变的法则。</p>
+<pre><code>[root@saltstack ~]#wget https://pypi.python.org/packages/source/p/pip/pip-1.5.6.tar.gz#md5=01026f87978932060cc86c1dc527903e --no-check-certificate
+[root@saltstack ~]#tar xvfz pip-1.5.6.tar.gz
+[root@saltstack ~]#cd pip-1.5.6
+[root@saltstack pip-1.5.6]#python setup.py build
+[root@saltstack pip-1.5.6]#python setup.py install
+#安装完成后可以用pip freeze查看已安装的packages
+[root@saltstack pip-1.5.6]#pip freeze
+安装CherryPy，版本3.2.3
+
+[root@saltstack ~]#pip install cherrypy==3.2.3
+安装salt-api，版本0.8.3
+
+[root@saltstack ~]#pip install salt-api==0.8.3
+</code></pre>
+<h2 id="配置">配置</h2>
+<pre><code>[root@saltstack ~]# cd /etc/pki/tls/certs
+[root@saltstack certs]# make testcert
+umask 77 ; \
+    /usr/bin/openssl genrsa -aes128 2048 &gt; /etc/pki/tls/private/localhost.key
+Generating RSA private key, 2048 bit long modulus
+...+++
+..................................................................+++
+e is 65537 (0x10001)
+Enter pass phrase:    #键入加密短语，4到8191个字符
+Verifying - Enter pass phrase:    #确认加密短语
+umask 77 ; \
+    /usr/bin/openssl req -utf8 -new -key /etc/pki/tls/private/localhost.key -x509 -days 365 -out /etc/pki/tls/certs/localhost.crt -set_serial 0
+Enter pass phrase for /etc/pki/tls/private/localhost.key:    #再次输入相同的加密短语
+You are about to be asked to enter information that will be incorporated
+into your certificate request.
+What you are about to enter is what is called a Distinguished Name or a DN.
+There are quite a few fields but you can leave some blank
+For some fields there will be a default value,
+If you enter '.', the field will be left blank.
+-----
+Country Name (2 letter code) [XX]:CN    #都可以选填
+State or Province Name (full name) []:Shanghai
+Locality Name (eg, city) [Default City]:Shanghai
+Organization Name (eg, company) [Default Company Ltd]:
+Organizational Unit Name (eg, section) []:
+Common Name (eg, your name or your server's hostname) []:
+Email Address []:1989051805@qq.com
+[root@saltstack certs]# cd ../private/
+[root@saltstack private]# openssl rsa -in localhost.key -out localhost_nopass.key
+Enter pass phrase for localhost.key:    #输入之前的加密短语
+writing RSA key
+</code></pre>
+<p>如果遇到这样的错误</p>
+<pre><code>[root@saltstack certs]# make testcert
+umask 77 ; \
+    /usr/bin/openssl req -utf8 -new -key /etc/pki/tls/private/localhost.key -x509 -days 365 -out /etc/pki/tls/certs/localhost.crt -set_serial 0
+unable to load Private Key
+139696733648712:error:0906D06C:PEM routines:PEM_read_bio:no start line:pem_lib.c:703:Expecting: ANY PRIVATE KEY
+make: *** [/etc/pki/tls/certs/localhost.crt]
+</code></pre>
+<p>删掉文件/etc/pki/tls/private/localhost.key文件，然后再make testcert。</p>
+<p>为salt-api创建用户并设定密码，用户名没有特别要求，我就用saltapi好了。</p>
+<pre><code>[root@saltstack ~]#useradd -M -s /sbin/nologin saltapi
+#由于是测试，故采用了弱密码&quot;password&quot;，正式环境必须采用强密码，多用特殊字符
+[root@saltstack ~]# passwd saltapi
+</code></pre>
+<p>新增加配置文件/etc/salt/master.d/api.conf和/etc/salt/master.d/eauth.conf</p>
+<pre><code>#该配置文件给予saltapi用户所有模块使用权限，出于安全考虑一般只给予特定模块使用权限
+[root@saltstack master.d]# cat eauth.conf
+external_auth:
+  pam:
+    saltapi:
+      - .*
+[root@saltstack master.d]#
+[root@saltstack master.d]# cat api.conf
+rest_cherrypy:
+  port: 8888
+  ssl_crt: /etc/pki/tls/certs/localhost.crt
+  ssl_key: /etc/pki/tls/private/localhost_nopass.key
+[root@saltstack master.d]#
+</code></pre>
+<p>寻找salt-api的启动脚本，我比较懒就不自己写了,在页面https://github.com/saltstack/salt-api/releases下载salt-api的tar.gz包,启动脚本在解压包的这个位置./pkg/rpm/salt-api。</p>
+<p>不过提供的脚本貌似有个小的bug，就是使用restart参数时，salt-api能够stop但是不能start，如下：</p>
+<pre><code>[root@saltstack ~]# /etc/init.d/salt-api restart
+Stopping salt-api daemon:                                  [确定]
+Starting salt-api daemon:                                  [失败]
+</code></pre>
+<p>我估计可能是有些相关资源在下次启动前没有来得及释放造成的，解决方法很简单在脚本的restart函数的stop和start之间加上sleep语句。</p>
+<pre><code>restart() {
+   stop
+   sleep 1
+   start
+}
+</code></pre>
+<p>然后重启就没有问题了</p>
+<pre><code>[root@saltstack ~]# /etc/init.d/salt-api restart
+Stopping salt-api daemon:                                  [确定]
+Starting salt-api daemon:                                  [确定]
+[root@saltstack ~]#
+</code></pre>
+<p>最后重启salt-master在启动salt-api并将salt-api加入开机启动，安装就完成了。</p>
+<pre><code>[root@saltstack ~]# chkconfig salt-api on
+[root@saltstack ~]# /etc/init.d/salt-master restart
+Stopping salt-master daemon:                               [确定]
+Starting salt-master daemon:                               [确定]
+[root@saltstack ~]# /etc/init.d/salt-api restart
+Stopping salt-api daemon:                                  [确定]
+Starting salt-api daemon:                                  [确定]
+[root@saltstack ~]#
+</code></pre>
+<h2 id="使用基本的使用方法">使用（基本的使用方法）</h2>
+<p>登录获取token</p>
+<pre><code>[root@syndic02 ~]# curl -k https://192.168.186.134:8888/login -H &quot;Accept: application/x-yaml&quot; -d username='saltapi' -d password='password' -d eauth='pam'
+return:
+- eauth: pam
+  expire: 1416324685.2597771
+  perms:
+  - .*
+  start: 1416281485.2597761
+  token: 6171a922a9718ccb40e94ee7c8eb8768f4eea4e5
+  user: saltapi
+</code></pre>
+<p>获取token后就可以使用token通信</p>
+<pre><code>#相当于在salt-master本地执行salt \* test.ping
+[root@syndic02 ~]# curl -k https://192.168.186.134:8888/ -H &quot;Accept: application/x-yaml&quot; -H &quot;X-Auth-Token: 6171a922a9718ccb40e94ee7c8eb8768f4eea4e5&quot; -d client='local' -d tgt='*' -d fun='test.ping'
+return:
+- syndic01: true
+  syndic01-minion02: true
+  syndic02: true
+  syndic02-minion02: true
+ 
+#相当于在salt-master本地执行salt \* test.echo 'hello world'
+[root@syndic02 ~]# curl -k https://192.168.186.134:8888/ -H &quot;Accept: application/x-yaml&quot; -H &quot;X-Auth-Token: 6171a922a9718ccb40e94ee7c8eb8768f4eea4e5&quot; -d client='local' -d tgt='*' -d fun='test.echo' -d arg='hello world'
+return:
+- syndic01: hello world
+  syndic01-minion02: hello world
+  syndic02: hello world
+  syndic02-minion02: hello world
+[root@syndic02 ~]#
+</code></pre>
+<p>运维开发这样使用还是不方便的，下面写的是一个salt-api的类(其它的文章也提到过)可以参考。</p>
+<pre><code>#!/usr/bin/env python
+#coding=utf-8
+ 
+import urllib2, urllib, json, re
+ 
+class saltAPI:
+    def __init__(self):
+        self.__url = 'https://192.168.186.134:8888'       #salt-api监控的地址和端口如:'https://192.168.186.134:8888'
+        self.__user =  'saltapi'             #salt-api用户名
+        self.__password = 'password'          #salt-api用户密码
+        self.__token_id = self.salt_login()
+ 
+    def salt_login(self):
+        params = {'eauth': 'pam', 'username': self.__user, 'password': self.__password}
+        encode = urllib.urlencode(params)
+        obj = urllib.unquote(encode)
+        headers = {'X-Auth-Token':''}
+        url = self.__url + '/login'
+        req = urllib2.Request(url, obj, headers)
+        opener = urllib2.urlopen(req)
+        content = json.loads(opener.read())
+        try:
+            token = content['return'][0]['token']
+            return token
+        except KeyError:
+            raise KeyError
+ 
+    def postRequest(self, obj, prefix='/'):
+        url = self.__url + prefix
+        headers = {'X-Auth-Token'   : self.__token_id}
+        req = urllib2.Request(url, obj, headers)
+        opener = urllib2.urlopen(req)
+        content = json.loads(opener.read())
+        return content['return']
+ 
+    def saltCmd(self, params):
+        obj = urllib.urlencode(params)
+        obj, number = re.subn(&quot;arg\d&quot;, 'arg', obj)
+        res = self.postRequest(obj)
+        return res
+ 
+def main():
+    #以下是用来测试saltAPI类的部分
+    sapi = saltAPI()
+    params = {'client':'local', 'fun':'test.ping', 'tgt':'*'}
+    #params = {'client':'local', 'fun':'test.ping', 'tgt':'某台服务器的key'}
+    #params = {'client':'local', 'fun':'test.echo', 'tgt':'某台服务器的key', 'arg1':'hello'}
+    #params = {'client':'local', 'fun':'test.ping', 'tgt':'某组服务器的组名', 'expr_form':'nodegroup'}
+    test = sapi.saltCmd(params)
+    print test
+ 
+if __name__ == '__main__':
+    main()
+</code></pre>
+<p>测试效果</p>
+<pre><code>[root@syndic02 ~]# python salt-api.py
+[{u'syndic02': True, u'syndic02-minion02': True, u'syndic01': True, u'syndic01-minion02': True}]
+[root@syndic02 ~]#
+</code></pre>
+<p>以上只是一些基本的实例，salt-api还可以实现更多功能。</p>
+<h2 id="2016-5-30-update">2016-5-30 update：</h2>
+<p>当前salt版本：<code>2016.3</code>，官网对salt各模块安装配置文档做了整理重拍，更加清晰明了。</p>
+<p>前段时间试着按官方的文档搭建了下salt环境，感觉安装更简单了，下面更新下 salt-api的安装：</p>
+<pre><code># https://docs.saltstack.com/en/latest/ref/netapi/all/salt.netapi.rest_cherrypy.html
+# 1、安装 salt-api 
+yum install salt-api 
+
+# 2、生成 https ssl 证书
+salt-call --local tls.create_self_signed_cert
+
+# 3、向master 配置文件中增加：
+rest_cherrypy:
+port: 8000
+ssl_crt: /etc/pki/tls/certs/localhost.crt
+ssl_key: /etc/pki/tls/certs/localhost.key
+
+# 4、创建salt 用户
+[root@saltstack ~]# useradd -M -s /sbin/nologin salt
+[root@saltstack ~]# passwd salt
+# 修改 master 配置信息
+external_auth:
+  pam:
+    saltapi:
+      - .*  
+# 5、增加 api 访问信息
+ rest_cherrypy:
+   port: 8888
+   ssl_crt: /etc/pki/tls/certs/localhost.crt
+   ssl_key: /etc/pki/tls/private/localhost_nopass.key
+</code></pre>
+<p>到此，salt-api 安装配置完成。需要注意的是，有时候 yum 和 pip 使用的python 并不是一个，所以有些依赖包安装的时候，尽量统一使用一种包管理管理工具。</p>
+
+    </div>
+    <div class="article-footer">
+<blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://pylixm.top/posts/2015-12-15-salt-api.html" title="SaltStack学习笔记2-- salt-api安装配置(转载)" target="_blank" rel="external">https://pylixm.top/posts/2015-12-15-salt-api.html</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>许可协议：</strong>
+      <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN</a>
+    </li>
+  </ul>
+</blockquote>
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://pylixm.top" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="https://pylixm.top/static/imgs/avatar.png" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://pylixm.top" target="_blank"><span class="text-dark">DeanWu</span><small class="ml-1x">程序员</small></a></h3>
+        <div>努力成为真正的SRE</div>
+      </div>
+    </figure>
+  </div>
+</div>
+    </div>
+  </article>
+<section id="comments">
+    <div id="vcomments"></div>
+</section>
+
+</div><nav class="bar bar-footer clearfix" data-stick-bottom>
+    <div class="bar-inner">
+        <ul class="pager pull-left">
+            <li class="prev">
+                <a href="https://pylixm.top/posts/2015-12-14-yum-install.html" title="yum install Header V3 RSA/SHA256 Signature, key ID 0608b895: NOKEY"><i
+                        class="icon icon-angle-left"
+                        aria-hidden="true"></i><span>&nbsp;&nbsp;下一篇</span></a>
+            </li>
+            <li class="next">
+                <a href="https://pylixm.top/posts/2015-12-17-salt-install.html"
+                    title="SaltStack学习笔记1-salt安装配置"><span>上一篇&nbsp;&nbsp;</span><i
+                        class="icon icon-angle-right" aria-hidden="true"></i></a>
+            </li>
+            
+            <li class="toggle-toc">
+                <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false"
+                    title="文章目录" role="button">
+                    <span>[&nbsp;</span><span>文章目录</span>
+                    <i class="text-collapsed icon icon-anchor"></i>
+                    <i class="text-in icon icon-close"></i>
+                    <span>]</span>
+                </a>
+            </li>
+        </ul>
+        <div class="bar-right">
+        </div>
+    </div>
+</nav>
+
+
+<script src="https://my.openwrite.cn/js/readmore.js" type="text/javascript"></script>
+<script>
+    const btw = new BTWPlugin();
+    btw.init({
+        id: 'article-container',
+        blogId: '24944-1607090547459-485',
+        name: '码农吴先生',
+        qrcode: 'https://gitee.com/pylixm/picture/raw/master/2020-12-4/1607089812769-image.png',
+        keyword: 'vip',
+    });
+</script>
+</main><footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+<ul class="social-links">
+    <li><a href="https://github.com/pylixm" target="_blank" title="github" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-github"></i></a></li>
+    <li><a href="https://pylixm.top/index.xml" target="_blank" title="rss" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-rss"></i></a></li>
+    <li><a href="http://weibo.com/2258086637" target="_blank" title="weibo" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-weibo"></i></a></li>
+</ul>
+  <div class="copyright">
+    &copy;2015  -
+    2020
+    <div class="publishby">
+      hugo驱动，Theme by <a href="https://github.com/xiaoheiAh/hugo-theme-pure" target="_blank"> pure</a>.
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_SVG"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+            showMathMenu: false, //disables context menu
+            tex2jax: {
+            inlineMath: [ ['$','$'], ['\\(','\\)'] ]
+           }
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+<script>
+    window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/highlight.min.js"></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/python.min.js" defer></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/javascript.min.js" defer></script><script>
+    hljs.configure({
+        tabReplace: '    ', 
+        classPrefix: ''     
+        
+    })
+    hljs.initHighlightingOnLoad();
+</script>
+<script src="https://pylixm.top/js/application.min.bdeb64b910570b6c41badc6a05b7afb0c8ad9efd8525de3c7257d59e786326a3.js"></script>
+<script src="https://pylixm.top/js/plugin.min.51ff8c7317566f82259170fa36e09c4493adc9b9378b427a01ad3f017ebac7dd.js"></script>
+
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(未命名)',
+            },
+            ROOT_URL: 'https:\/\/pylixm.top',
+            CONTENT_URL: 'https:\/\/pylixm.top\/searchindex.json ',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script type="text/javascript" src="https://pylixm.top/js/insight.min.a343cd9a5a7698336b28ef3a7c16a3a1b1d2d5fb17dc8ed04022bbe08cc5459073a15bdafa3a8a58cdd56080784bdd69fa70b1ae8597565c799c57ed00f0e120.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script>
+<script>
+    tocbot.init({
+        
+        tocSelector: '.js-toc',
+        
+        contentSelector: '.js-toc-content',
+        
+        headingSelector: 'h1, h2, h3',
+        
+        hasInnerContainers: true,
+    });
+</script>
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="https://cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine"></script>
+<script type="text/javascript">
+    var GUEST = ['nick', 'mail', 'link'];
+    var meta = 'nick,mail';
+    meta = meta.split(',').filter(function (item) {
+        return GUEST.indexOf(item) > -1;
+    });
+    new Valine({
+        el: '#vcomments',
+        verify: null ,
+        notify: null ,
+        appId: 'OBJcj4PU8JI0zDfu0HJSrG6W-gzGzoHsz',
+        appKey: 'tBtFzC72xIlgo2UFbA33nqmU',
+        placeholder: '来做第一个发言人吧',
+        avatar: 'mm',
+        meta: meta,
+        pageSize: '10' || 10,
+        visitor: false 
+});
+</script>
+
+  </body>
+</html>

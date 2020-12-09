@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <title>
+        「Python Tips」- 命名元祖（namedtuple）使用指南 - DeanWu
+      </title>
+        <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    
+    <meta name="theme-color" content="#000000" />
+    
+    <meta http-equiv="window-target" content="_top" />
+    
+    
+    <meta name="description" content="原文地址：https://miguendes.me/everything-you-need-to-know-about-pythons-na" />
+    <meta name="generator" content="Hugo 0.73.0 with theme pure" />
+    <title>「Python Tips」- 命名元祖（namedtuple）使用指南 - DeanWu</title>
+    
+    
+    <link rel="stylesheet" href="https://pylixm.top/css/style.min.f70e8e0df9ea6aeb37dac252b17ca98082073ff1663b24118baaaa84ee8ae7e8.css">
+    
+    <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.15.10/styles/github.min.css" async>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css" async>
+    <meta property="og:title" content="「Python Tips」- 命名元祖（namedtuple）使用指南" />
+<meta property="og:description" content="原文地址：https://miguendes.me/everything-you-need-to-know-about-pythons-na" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://pylixm.top/posts/2020-10-18-namedtuple.html" />
+<meta property="article:published_time" content="2020-10-18T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-10-18T00:00:00+00:00" /><meta property="og:see_also" content="https://pylixm.top/posts/2020-10-21-python-string.html" /><meta property="og:see_also" content="https://pylixm.top/posts/2020-08-05-10-One-liners.html" /><meta property="og:see_also" content="https://pylixm.top/posts/2020-07-02-python-uninstall-for-mac.html" /><meta property="og:see_also" content="https://pylixm.top/posts/2018-02-02-python-pickle.html" /><meta property="og:see_also" content="https://pylixm.top/posts/2018-02-01-python-magic-method.html" />
+
+<meta itemprop="name" content="「Python Tips」- 命名元祖（namedtuple）使用指南">
+<meta itemprop="description" content="原文地址：https://miguendes.me/everything-you-need-to-know-about-pythons-na">
+<meta itemprop="datePublished" content="2020-10-18T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2020-10-18T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="4904">
+
+
+
+<meta itemprop="keywords" content="Python,Python Tips,翻译," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="「Python Tips」- 命名元祖（namedtuple）使用指南"/>
+<meta name="twitter:description" content="原文地址：https://miguendes.me/everything-you-need-to-know-about-pythons-na"/>
+
+    <!--[if lte IE 9]>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+      <![endif]-->
+
+    <!--[if lt IE 9]>
+        <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+      <![endif]-->
+  </head>
+
+  
+  
+
+  <body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage"><header class="header" itemscope itemtype="http://schema.org/WPHeader">
+    <div class="slimContent">
+      <div class="navbar-header">
+        <div class="profile-block text-center">
+          <a id="avatar" href="https://pylixm.top" target="_blank">
+            <img class="img-circle img-rotate" src="https://pylixm.top/static/imgs/avatar.png" width="200" height="200">
+          </a>
+          <h2 id="name" class="hidden-xs hidden-sm">DeanWu</h2>
+          <h3 id="title" class="hidden-xs hidden-sm hidden-md">程序员</h3>
+          <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i>Beijing, China</small>
+        </div><div class="search" id="search-form-wrap">
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i
+                        class="icon icon-search"></i></button>
+            </span>
+        </div>
+        <div class="ins-search">
+            <div class="ins-search-mask"></div>
+            <div class="ins-search-container">
+                <div class="ins-input-wrapper">
+                    <input type="text" class="ins-search-input" placeholder="想要查找什么..."
+                        x-webkit-speech />
+                    <button type="button" class="close ins-close ins-selectable" data-dismiss="modal"
+                        aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="ins-section-wrapper">
+                    <div class="ins-section-container"></div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+        <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+        <ul class="nav navbar-nav main-nav">
+            <li class="menu-item menu-item-home">
+                <a href="/">
+                    <i class="icon icon-home-fill"></i>
+                  <span class="menu-title">首页</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-series">
+                <a href="/series/">
+                    <i class="icon icon-folder"></i>
+                  <span class="menu-title">专题</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-repository">
+                <a href="/project/">
+                    <i class="icon icon-project"></i>
+                  <span class="menu-title">项目</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-archives">
+                <a href="/posts/">
+                    <i class="icon icon-archives-fill"></i>
+                  <span class="menu-title">归档</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-about">
+                <a href="/about/">
+                    <i class="icon icon-cup-fill"></i>
+                  <span class="menu-title">关于</span>
+                </a>
+            </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+<aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content"><div>欢迎关注微信公众号「码农吴先生」：专注python/golang/devops等技术的学习经验及资源分享！</br>回复关键字：go或python 获取我收集的资料，也可回复关键字：小二，加我wx，一块聊技术，聊人生~  </br><img src="/static/imgs/wx/wx_gzh.png" width="140" height="140"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+      
+<div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+        <ul class="recent-post-list list-unstyled no-thumbnail">
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2020-12-08-django-async-views-example.html" class="title">Django 三个异步使用的案例</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-12-08 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-08</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2020-12-05-go-from-python-structure-base.html" class="title">「对比Python学习Go」- 基本数据结构</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-12-05 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-05</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2020-12-03-go-from-python-start.html" class="title">「对比Python学习Go」- 环境篇</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-12-03 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-03</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2020-12-02-go-from-python-intro.html" class="title">「对比Python学习Go」- 开篇</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-12-02 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-02</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2020-12-01-for-range-point.html" class="title">「Go Tips」for range 遍历时变量取值的问题分析</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-12-01 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-01</time>
+                    </p>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+      <div class="widget">
+    <h3 class="widget-title"> 分类</h3>
+    <div class="widget-body">
+        <ul class="category-list">
+            <li class="category-list-item"><a href="https://pylixm.top/categories/ATS/" class="category-list-link">ATS</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/DevOps/" class="category-list-link">DevOps</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Devlopment-Demo/" class="category-list-link">Devlopment-Demo</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Django/" class="category-list-link">Django</a><span class="category-list-count">39</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Docker/" class="category-list-link">Docker</a><span class="category-list-count">4</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Flask/" class="category-list-link">Flask</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Git/" class="category-list-link">Git</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Golang/" class="category-list-link">Golang</a><span class="category-list-count">12</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/HTTPS/" class="category-list-link">HTTPS</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Javascript/" class="category-list-link">Javascript</a><span class="category-list-count">3</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Kubernetes/" class="category-list-link">Kubernetes</a><span class="category-list-count">4</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/LVS/" class="category-list-link">LVS</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Linux/" class="category-list-link">Linux</a><span class="category-list-count">15</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Mongodb/" class="category-list-link">Mongodb</a><span class="category-list-count">3</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Mysql/" class="category-list-link">Mysql</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/NoSQL/" class="category-list-link">NoSQL</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/PostgreSQL/" class="category-list-link">PostgreSQL</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Puppet/" class="category-list-link">Puppet</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Python/" class="category-list-link">Python</a><span class="category-list-count">19</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/QA/" class="category-list-link">QA</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Rabbitmq/" class="category-list-link">Rabbitmq</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Restful/" class="category-list-link">Restful</a><span class="category-list-count">6</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/SaltStack/" class="category-list-link">SaltStack</a><span class="category-list-count">7</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Software_Architect/" class="category-list-link">Software_Architect</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Supervisor/" class="category-list-link">Supervisor</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Tornado/" class="category-list-link">Tornado</a><span class="category-list-count">3</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Vagrant/" class="category-list-link">Vagrant</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Vue/" class="category-list-link">Vue</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/kafka/" class="category-list-link">kafka</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/zookeeper/" class="category-list-link">zookeeper</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E4%B8%AA%E4%BA%BA%E7%AE%A1%E7%90%86/" class="category-list-link">个人管理</a><span class="category-list-count">5</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB/" class="category-list-link">前后端分离</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" class="category-list-link">数据结构与算法</a><span class="category-list-count">13</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E6%9C%9D%E8%8A%B1%E5%A4%95%E6%8B%BE/" class="category-list-link">朝花夕拾</a><span class="category-list-count">10</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" class="category-list-link">机器学习</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" class="category-list-link">环境搭建</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E7%A8%8B%E5%BA%8F%E5%91%98%E8%87%AA%E6%88%91%E4%BF%AE%E5%85%BB/" class="category-list-link">程序员自我修养</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E8%B5%84%E6%BA%90%E5%88%86%E4%BA%AB%E8%AE%A1%E5%88%92/" class="category-list-link">资源分享计划</a><span class="category-list-count">10</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E8%BF%90%E7%BB%B4%E7%9F%A5%E8%AF%86%E5%BA%93/" class="category-list-link">运维知识库</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86/" class="category-list-link">项目管理</a><span class="category-list-count">1</span></li>
+        </ul>
+    </div>
+</div>
+  </div>
+</aside>
+
+    
+    
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <h4 class="toc-title">文章目录</h4>
+    <nav id="toc" class="js-toc toc">
+
+    </nav>
+  </div>
+</aside>
+<main class="main" role="main"><div class="content">
+  
+  <article id="article-container" class="article article-type-" itemscope
+    itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      <h1 itemprop="name">
+  <a
+    class="article-title"
+    href="/posts/2020-10-18-namedtuple.html"
+    >「Python Tips」- 命名元祖（namedtuple）使用指南</a
+  >
+</h1>
+
+      <div class="article-meta">
+        
+<span class="article-date">
+  <i class="icon icon-calendar-check"></i>&nbsp;
+<a href="https://pylixm.top/posts/2020-10-18-namedtuple.html" class="article-date">
+  <time datetime="2020-10-18 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-10-18</time>
+</a>
+</span>
+<span class="article-category">
+  <i class="icon icon-folder"></i>&nbsp;
+  <a class="article-category-link" href="/categories/Python/"> Python </a>
+</span>  
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>&nbsp;
+    <a class="article-tag-link" href="/tags/Python/"> Python </a>
+    <a class="article-tag-link" href="/tags/Python-Tips/"> Python Tips </a>
+    <a class="article-tag-link" href="/tags/%E7%BF%BB%E8%AF%91/"> 翻译 </a>
+  </span>
+
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+        <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="/posts/2020-10-18-namedtuple.html#comments"
+            class="article-comment-link">评论</a></span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 4904字</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 10分 </span>
+      </div>
+    </div>
+    <div class="article-entry marked-body js-toc-content" itemprop="articleBody">
+      <blockquote>
+<p>原文地址：https://miguendes.me/everything-you-need-to-know-about-pythons-namedtuples</p>
+<p>作者：Miguel Brito</p>
+<p>译者：DeanWu</p>
+</blockquote>
+<p>本文将讨论python中<code>namedtuple</code>的重点用法。我们将由浅入深的介绍<code>namedtuple</code>的各概念。您将了解为什么要使用它们，以及如何使用它们，从而是代码更简洁。在学习本指南之后，你一定会喜欢上使用它。</p>
+<h2 id="学习目标">学习目标</h2>
+<p>在本教程结束时，您应该能够：</p>
+<ul>
+<li>了解为什么以及何时使用它</li>
+<li>将常规元组和字典转换为<code>Namedtuple</code></li>
+<li>将<code>Namedtuple</code>转化为字典或常规元组</li>
+<li>对<code>Namedtuple</code>列表进行排序</li>
+<li>了解<code>Namedtuple</code>和数据类(DataClass)之间的区别</li>
+<li>使用可选字段创建<code>Namedtuple</code></li>
+<li>将<code>Namedtuple</code>序列化为JSON</li>
+<li>添加文档字符串(docstring)</li>
+</ul>
+<h2 id="为什么要使用namedtuple">为什么要使用<code>namedtuple</code>？</h2>
+<p><code>namedtuple</code>是一个非常有趣（也被低估了）的数据结构。我们可以轻松找到严重依赖常规元组和字典来存储数据的Python代码。我并不是说，这样不好，只是有时候他们常常被滥用，且听我慢慢道来。</p>
+<p>假设你有一个将字符串转换为颜色的函数。颜色必须在4维空间RGBA中表示。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">convert_string_to_color</span>(desc: str, alpha: float <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.0</span>):
+    <span style="color:#66d9ef">if</span> desc <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;green&#34;</span>:
+        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">50</span>, <span style="color:#ae81ff">205</span>, <span style="color:#ae81ff">50</span>, alpha
+    <span style="color:#66d9ef">elif</span> desc <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;blue&#34;</span>:
+        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">255</span>, alpha
+    <span style="color:#66d9ef">else</span>:
+        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, alpha
+</code></pre></div><p>然后，我们可以像这样使用它：</p>
+<pre><code>r, g, b, a = convert_string_to_color(desc=&quot;blue&quot;, alpha=1.0)
+</code></pre><p>好的，可以。但是我们这里有几个问题。第一个是，无法确保返回值的顺序。也就是说，没有什么可以阻止其他开发者这样调用</p>
+<pre><code>convert_string_to_color：
+g, b, r, a = convert_string_to_color(desc=&quot;blue&quot;, alpha=1.0)
+</code></pre><p>另外，我们可能不知道该函数返回4个值，可能会这样调用该函数：</p>
+<pre><code>r, g, b = convert_string_to_color(desc=&quot;blue&quot;, alpha=1.0)
+</code></pre><p>于是，因为返回值不够，抛出<code>ValueError</code>错误，调用失败。</p>
+<blockquote>
+<p>确实如此。但是，你可能会问，为什么不使用字典呢？</p>
+</blockquote>
+<p>Python的字典是一种非常通用的数据结构。它们是一种存储多个值的简便方法。但是，字典并非没有缺点。由于其灵活性，字典很容易被滥用。让
+我们看看使用字典之后的例子。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">convert_string_to_color</span>(desc: str, alpha: float <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.0</span>):
+    <span style="color:#66d9ef">if</span> desc <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;green&#34;</span>:
+        <span style="color:#66d9ef">return</span> {<span style="color:#e6db74">&#34;r&#34;</span>: <span style="color:#ae81ff">50</span>, <span style="color:#e6db74">&#34;g&#34;</span>: <span style="color:#ae81ff">205</span>, <span style="color:#e6db74">&#34;b&#34;</span>: <span style="color:#ae81ff">50</span>, <span style="color:#e6db74">&#34;alpha&#34;</span>: alpha}
+    <span style="color:#66d9ef">elif</span> desc <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;blue&#34;</span>:
+        <span style="color:#66d9ef">return</span> {<span style="color:#e6db74">&#34;r&#34;</span>: <span style="color:#ae81ff">0</span>, <span style="color:#e6db74">&#34;g&#34;</span>: <span style="color:#ae81ff">0</span>, <span style="color:#e6db74">&#34;b&#34;</span>: <span style="color:#ae81ff">255</span>, <span style="color:#e6db74">&#34;alpha&#34;</span>: alpha}
+    <span style="color:#66d9ef">else</span>:
+        <span style="color:#66d9ef">return</span> {<span style="color:#e6db74">&#34;r&#34;</span>: <span style="color:#ae81ff">0</span>, <span style="color:#e6db74">&#34;g&#34;</span>: <span style="color:#ae81ff">0</span>, <span style="color:#e6db74">&#34;b&#34;</span>: <span style="color:#ae81ff">0</span>, <span style="color:#e6db74">&#34;alpha&#34;</span>: alpha}
+</code></pre></div><p>好的，我们现在可以像这样使用它，期望只返回一个值：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">color <span style="color:#f92672">=</span> convert_string_to_color(desc<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;blue&#34;</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">1.0</span>)
+</code></pre></div><p>无需记住顺序，但它至少有两个缺点。第一个是我们必须跟踪密钥的名称。如果我们将其更改<code>{&quot;r&quot;: 0, “g”: 0, “b”: 0, “alpha”: alpha}</code>为<code>{”red&quot;: 0, “green”: 0, “blue”: 0, “a”: alpha}</code>，则在访问字段时会得到<code>KeyError</code>返回，因为键<code>r，g，b</code>和<code>alpha</code>不再存在。</p>
+<p>字典的第二个问题是它们不可散列。这意味着我们无法将它们存储在set或其他字典中。假设我们要跟踪特定图像有多少种颜色。如果我们使用<code>collections.Counter</code>计数，我们将得到<code>TypeError: unhashable type: ‘dict’</code>。</p>
+<p>而且，字典是可变的，因此我们可以根据需要添加任意数量的新键。相信我，这是一些很难发现的令人讨厌的错误点。</p>
+<p>好的，很好。那么现在怎么办？我可以用什么代替呢？</p>
+<p><code>namedtuple</code>！对，就是它！</p>
+<p>将我们的函数转换为使用<code>namedtuple</code>：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> collections <span style="color:#f92672">import</span> namedtuple
+<span style="color:#f92672">...</span>
+Color <span style="color:#f92672">=</span> namedtuple(<span style="color:#e6db74">&#34;Color&#34;</span>, <span style="color:#e6db74">&#34;r g b alpha&#34;</span>)
+<span style="color:#f92672">...</span>
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">convert_string_to_color</span>(desc: str, alpha: float <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.0</span>):
+    <span style="color:#66d9ef">if</span> desc <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;green&#34;</span>:
+        <span style="color:#66d9ef">return</span> Color(r<span style="color:#f92672">=</span><span style="color:#ae81ff">50</span>, g<span style="color:#f92672">=</span><span style="color:#ae81ff">205</span>, b<span style="color:#f92672">=</span><span style="color:#ae81ff">50</span>, alpha<span style="color:#f92672">=</span>alpha)
+    <span style="color:#66d9ef">elif</span> desc <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;blue&#34;</span>:
+        <span style="color:#66d9ef">return</span> Color(r<span style="color:#f92672">=</span><span style="color:#ae81ff">50</span>, g<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, b<span style="color:#f92672">=</span><span style="color:#ae81ff">255</span>, alpha<span style="color:#f92672">=</span>alpha)
+    <span style="color:#66d9ef">else</span>:
+        <span style="color:#66d9ef">return</span> Color(r<span style="color:#f92672">=</span><span style="color:#ae81ff">50</span>, g<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, b<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, alpha<span style="color:#f92672">=</span>alpha)
+
+</code></pre></div><p>与dict的情况一样，我们可以将值分配给单个变量并根据需要使用。无需记住顺序。而且，如果你使用的是诸如PyCharm和VSCode之类的IDE ，还可以自动提示补全。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">color <span style="color:#f92672">=</span> convert_string_to_color(desc<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;blue&#34;</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">1.0</span>)
+<span style="color:#f92672">...</span>
+has_alpha <span style="color:#f92672">=</span> color<span style="color:#f92672">.</span>alpha <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0.0</span>
+<span style="color:#f92672">...</span>
+is_black <span style="color:#f92672">=</span> color<span style="color:#f92672">.</span>r <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">and</span> color<span style="color:#f92672">.</span>g <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">and</span> color<span style="color:#f92672">.</span>b <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>
+</code></pre></div><p>最重要的是<code>namedtuple</code>是不可变的。如果团队中的另一位开发人员认为在运行时添加新字段是个好主意，则该程序将报错。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> blue <span style="color:#f92672">=</span> Color(r<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, g<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, b<span style="color:#f92672">=</span><span style="color:#ae81ff">255</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">1.0</span>)
+
+<span style="color:#f92672">&gt;&gt;&gt;</span> blue<span style="color:#f92672">.</span>e <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+<span style="color:#f92672">---------------------------------------------------------------------------</span>
+<span style="color:#a6e22e">AttributeError</span>                            Traceback (most recent call last)
+<span style="color:#f92672">&lt;</span>ipython<span style="color:#f92672">-</span>input<span style="color:#f92672">-</span><span style="color:#ae81ff">13</span><span style="color:#f92672">-</span><span style="color:#ae81ff">8</span>c7f9b29c633<span style="color:#f92672">&gt;</span> <span style="color:#f92672">in</span> <span style="color:#f92672">&lt;</span>module<span style="color:#f92672">&gt;</span>
+<span style="color:#f92672">----&gt;</span> <span style="color:#ae81ff">1</span> blue<span style="color:#f92672">.</span>e <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+
+<span style="color:#a6e22e">AttributeError</span>: <span style="color:#e6db74">&#39;Color&#39;</span> object has no attribute <span style="color:#e6db74">&#39;e&#39;</span>
+</code></pre></div><p>不仅如此，现在我们可以使用它Counter来跟踪一个集合有多少种颜色。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> Counter([blue, blue])
+<span style="color:#f92672">&gt;&gt;&gt;</span> Counter({Color(r<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, g<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, b<span style="color:#f92672">=</span><span style="color:#ae81ff">255</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">1.0</span>): <span style="color:#ae81ff">2</span>})
+</code></pre></div><h2 id="如何将常规元组或字典转换为-namedtuple">如何将常规元组或字典转换为 namedtuple</h2>
+<p>现在我们了解了为什么使用namedtuple，现在该学习如何将常规元组和字典转换为namedtuple了。假设由于某种原因，你有包含彩色RGBA值的字典实例。如果要将其转换为<code>Color namedtuple</code>，则可以按以下步骤进行：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> c <span style="color:#f92672">=</span> {<span style="color:#e6db74">&#34;r&#34;</span>: <span style="color:#ae81ff">50</span>, <span style="color:#e6db74">&#34;g&#34;</span>: <span style="color:#ae81ff">205</span>, <span style="color:#e6db74">&#34;b&#34;</span>: <span style="color:#ae81ff">50</span>, <span style="color:#e6db74">&#34;alpha&#34;</span>: alpha}
+<span style="color:#f92672">&gt;&gt;&gt;</span> Color(<span style="color:#f92672">**</span>c)
+<span style="color:#f92672">&gt;&gt;&gt;</span> Color(r<span style="color:#f92672">=</span><span style="color:#ae81ff">50</span>, g<span style="color:#f92672">=</span><span style="color:#ae81ff">205</span>, b<span style="color:#f92672">=</span><span style="color:#ae81ff">50</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>)
+</code></pre></div><p>我们可以利用该<code>**</code>结构将包解压缩<code>dict</code>为<code>namedtuple</code>。</p>
+<blockquote>
+<p>如果我想从dict创建一个namedtupe，如何做？</p>
+</blockquote>
+<p>没问题，下面这样做就可以了：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> c <span style="color:#f92672">=</span> {<span style="color:#e6db74">&#34;r&#34;</span>: <span style="color:#ae81ff">50</span>, <span style="color:#e6db74">&#34;g&#34;</span>: <span style="color:#ae81ff">205</span>, <span style="color:#e6db74">&#34;b&#34;</span>: <span style="color:#ae81ff">50</span>, <span style="color:#e6db74">&#34;alpha&#34;</span>: alpha}
+<span style="color:#f92672">&gt;&gt;&gt;</span> Color <span style="color:#f92672">=</span> namedtuple(<span style="color:#e6db74">&#34;Color&#34;</span>, c)
+<span style="color:#f92672">&gt;&gt;&gt;</span> Color(<span style="color:#f92672">**</span>c)
+Color(r<span style="color:#f92672">=</span><span style="color:#ae81ff">50</span>, g<span style="color:#f92672">=</span><span style="color:#ae81ff">205</span>, b<span style="color:#f92672">=</span><span style="color:#ae81ff">50</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>)
+</code></pre></div><p>通过将dict实例传递给namedtuple工厂函数，它将为你创建字段。然后，Color像上边的例子一样解压字典c，创建新实例。</p>
+<h2 id="如何将-namedtuple-转换为字典或常规元组">如何将 namedtuple 转换为字典或常规元组</h2>
+<p>我们刚刚学习了如何将转换<code>namedtuple</code>为<code>dict</code>。反过来呢？我们又如何将其转换为字典实例？</p>
+<p>实验证明，namedtuple它带有一种称为的方法<code>._asdict()</code>。因此，转换它就像调用方法一样简单。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> blue <span style="color:#f92672">=</span> Color(r<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, g<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, b<span style="color:#f92672">=</span><span style="color:#ae81ff">255</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">1.0</span>)
+<span style="color:#f92672">&gt;&gt;&gt;</span> blue<span style="color:#f92672">.</span>_asdict()
+{<span style="color:#e6db74">&#39;r&#39;</span>: <span style="color:#ae81ff">0</span>, <span style="color:#e6db74">&#39;g&#39;</span>: <span style="color:#ae81ff">0</span>, <span style="color:#e6db74">&#39;b&#39;</span>: <span style="color:#ae81ff">255</span>, <span style="color:#e6db74">&#39;alpha&#39;</span>: <span style="color:#ae81ff">1.0</span>}
+</code></pre></div><p>您可能想知道为什么该方法以<code>_</code>开头。这是与Python的常规规范不一致的一个地方。通常，<code>_</code>代表私有方法或属性。但是，<code>namedtuple</code>为了避免<strong>命名冲突</strong>将它们添加到了公共方法中。除了<code>_asdict</code>，还有<code>_replace</code>，<code>_fields</code>和<code>_field_defaults</code>。您可以在<a href="https://docs.python.org/3/library/collections.html#collections.somenamedtuple._asdict">这里</a>找到所有这些。</p>
+<p>要将<code>namedtupe</code>转换为常规元组，只需将其传递给tuple构造函数即可。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> tuple(Color(r<span style="color:#f92672">=</span><span style="color:#ae81ff">50</span>, g<span style="color:#f92672">=</span><span style="color:#ae81ff">205</span>, b<span style="color:#f92672">=</span><span style="color:#ae81ff">50</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0.1</span>))
+(<span style="color:#ae81ff">50</span>, <span style="color:#ae81ff">205</span>, <span style="color:#ae81ff">50</span>, <span style="color:#ae81ff">0.1</span>)
+</code></pre></div><h2 id="如何对namedtuples列表进行排序">如何对namedtuples列表进行排序</h2>
+<p>另一个常见的用例是将多个<code>namedtuple</code>实例存储在列表中，并根据某些条件对它们进行排序。例如，假设我们有一个颜色列表，我们需要按alpha强度对其进行排序。</p>
+<p>幸运的是，Python允许使用非常Python化的方式来执行此操作。我们可以使用<code>operator.attrgetter</code>运算符。根据<a href="https://docs.python.org/3/library/operator.html#operator.attrgetter">文档</a>，<code>attrgetter</code>“返回从其操作数获取attr的可调用对象”。简单来说就是，我们可以通过该运算符，来获取传递给sorted函数排序的字段。例：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> operator <span style="color:#f92672">import</span> attrgetter
+<span style="color:#f92672">...</span>
+colors <span style="color:#f92672">=</span> [
+    Color(r<span style="color:#f92672">=</span><span style="color:#ae81ff">50</span>, g<span style="color:#f92672">=</span><span style="color:#ae81ff">205</span>, b<span style="color:#f92672">=</span><span style="color:#ae81ff">50</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0.1</span>),
+    Color(r<span style="color:#f92672">=</span><span style="color:#ae81ff">50</span>, g<span style="color:#f92672">=</span><span style="color:#ae81ff">205</span>, b<span style="color:#f92672">=</span><span style="color:#ae81ff">50</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0.5</span>),
+    Color(r<span style="color:#f92672">=</span><span style="color:#ae81ff">50</span>, g<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, b<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0.3</span>)
+]
+<span style="color:#f92672">...</span>
+<span style="color:#f92672">&gt;&gt;&gt;</span> sorted(colors, key<span style="color:#f92672">=</span>attrgetter(<span style="color:#e6db74">&#34;alpha&#34;</span>))
+[Color(r<span style="color:#f92672">=</span><span style="color:#ae81ff">50</span>, g<span style="color:#f92672">=</span><span style="color:#ae81ff">205</span>, b<span style="color:#f92672">=</span><span style="color:#ae81ff">50</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0.1</span>),
+ Color(r<span style="color:#f92672">=</span><span style="color:#ae81ff">50</span>, g<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, b<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0.3</span>),
+ Color(r<span style="color:#f92672">=</span><span style="color:#ae81ff">50</span>, g<span style="color:#f92672">=</span><span style="color:#ae81ff">205</span>, b<span style="color:#f92672">=</span><span style="color:#ae81ff">50</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0.5</span>)]
+</code></pre></div><p>现在，颜色列表按alpha强度升序排列！</p>
+<h2 id="如何将namedtuples序列化为json">如何将namedtuples序列化为JSON</h2>
+<p>有时你可能需要将储存<code>namedtuple</code>转为JSON。Python的字典可以通过json模块转换为JSON。那么我们可以使用_asdict方法将元组转换为字典，然后接下来就和字典一样了。例如：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> blue <span style="color:#f92672">=</span> Color(r<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, g<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, b<span style="color:#f92672">=</span><span style="color:#ae81ff">255</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">1.0</span>)
+<span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#f92672">import</span> json
+<span style="color:#f92672">&gt;&gt;&gt;</span> json<span style="color:#f92672">.</span>dumps(blue<span style="color:#f92672">.</span>_asdict())
+<span style="color:#e6db74">&#39;{&#34;r&#34;: 0, &#34;g&#34;: 0, &#34;b&#34;: 255, &#34;alpha&#34;: 1.0}&#39;</span>
+</code></pre></div><h2 id="如何给namedtuple添加docstring">如何给namedtuple添加docstring</h2>
+<p>在Python中，我们可以使用纯字符串来记录方法，类和模块。然后，此字符串可作为名为的特殊属性使用<code>__doc__</code>。话虽这么说，我们如何向我们的<code>Color namedtuple</code>添加docstring的？</p>
+<p>我们可以通过两种方式做到这一点。第一个（比较麻烦）是使用包装器扩展元组。这样，我们便可以docstring在此包装器中定义。例如，请考虑以下代码片段：</p>
+<pre><code>_Color = namedtuple(&quot;Color&quot;, &quot;r g b alpha&quot;)
+
+class Color(_Color):
+    &quot;&quot;&quot;A namedtuple that represents a color.
+    It has 4 fields:
+    r - red
+    g - green
+    b - blue
+    alpha - the alpha channel
+    &quot;&quot;&quot;
+
+&gt;&gt;&gt; print(Color.__doc__)
+A namedtuple that represents a color.
+    It has 4 fields:
+    r - red
+    g - green
+    b - blue
+    alpha - the alpha channel
+&gt;&gt;&gt; help(Color)
+Help on class Color in module __main__:
+
+class Color(Color)
+ |  Color(r, g, b, alpha)
+ |  
+ |  A namedtuple that represents a color.
+ |  It has 4 fields:
+ |  r - red
+ |  g - green
+ |  b - blue
+ |  alpha - the alpha channel
+ |  
+ |  Method resolution order:
+ |      Color
+ |      Color
+ |      builtins.tuple
+ |      builtins.object
+ |  
+ |  Data descriptors defined here:
+ |  
+ |  __dict__
+ |      dictionary for instance variables (if defined)
+</code></pre><p>如上，通过继承<code>_Color</code>元组，我们为namedtupe添加了一个<code>__doc__</code>属性。</p>
+<p>添加的第二种方法，直接设置<code>__doc__</code>属性。这种方法不需要扩展元组。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> Color<span style="color:#f92672">.</span>__doc__ <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;&#34;A namedtuple that represents a color.
+</span><span style="color:#e6db74">    It has 4 fields:
+</span><span style="color:#e6db74">    r - red
+</span><span style="color:#e6db74">    g - green
+</span><span style="color:#e6db74">    b - blue
+</span><span style="color:#e6db74">    alpha - the alpha channel
+</span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
+</code></pre></div><p>注意，这些方法仅适用于<code>Python 3+</code>。</p>
+<h2 id="namedtuples和数据类data-class之间有什么区别">namedtuples和数据类(Data Class)之间有什么区别？</h2>
+<h3 id="功能">功能</h3>
+<p>在Python 3.7之前，可使用以下任一方法创建一个简单的数据容器：</p>
+<ul>
+<li>namedtuple</li>
+<li>常规类</li>
+<li>第三方库，<code>attrs</code></li>
+</ul>
+<p>如果您想使用常规类，那意味着您将必须实现几个方法。例如，常规类将需要一种<code>__init__</code>方法来在类实例化期间设置属性。如果您希望该类是可哈希的，则意味着自己实现一个<code>__hash__</code>方法。为了比较不同的对象，还需要<code>__eq__</code>实现一个方法。最后，为了简化调试，您需要一种<code>__repr__</code>方法。</p>
+<p>让我们使用常规类来实现下我们的颜色用例。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Color</span>:
+    <span style="color:#e6db74">&#34;&#34;&#34;A regular class that represents a color.&#34;&#34;&#34;</span>
+
+    <span style="color:#66d9ef">def</span> __init__(self, r, g, b, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0.0</span>):
+        self<span style="color:#f92672">.</span>r <span style="color:#f92672">=</span> r
+        self<span style="color:#f92672">.</span>g <span style="color:#f92672">=</span> g
+        self<span style="color:#f92672">.</span>b <span style="color:#f92672">=</span> b
+        self<span style="color:#f92672">.</span>alpha <span style="color:#f92672">=</span> alpha
+
+    <span style="color:#66d9ef">def</span> __hash__(self):
+        <span style="color:#66d9ef">return</span> hash((self<span style="color:#f92672">.</span>r, self<span style="color:#f92672">.</span>g, self<span style="color:#f92672">.</span>b, self<span style="color:#f92672">.</span>alpha))
+
+    <span style="color:#66d9ef">def</span> __repr__(self):
+        <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;{0}({1}, {2}, {3}, {4})&#34;</span><span style="color:#f92672">.</span>format(
+            self<span style="color:#f92672">.</span>__class__<span style="color:#f92672">.</span>__name__, self<span style="color:#f92672">.</span>r, self<span style="color:#f92672">.</span>g, self<span style="color:#f92672">.</span>b, self<span style="color:#f92672">.</span>alpha
+        )
+
+    <span style="color:#66d9ef">def</span> __eq__(self, other):
+        <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> isinstance(other, Color):
+            <span style="color:#66d9ef">return</span> False
+        <span style="color:#66d9ef">return</span> (
+            self<span style="color:#f92672">.</span>r <span style="color:#f92672">==</span> other<span style="color:#f92672">.</span>r
+            <span style="color:#f92672">and</span> self<span style="color:#f92672">.</span>g <span style="color:#f92672">==</span> other<span style="color:#f92672">.</span>g
+            <span style="color:#f92672">and</span> self<span style="color:#f92672">.</span>b <span style="color:#f92672">==</span> other<span style="color:#f92672">.</span>b
+            <span style="color:#f92672">and</span> self<span style="color:#f92672">.</span>alpha <span style="color:#f92672">==</span> other<span style="color:#f92672">.</span>alpha
+        )
+</code></pre></div><p>如上，你需要实现好多方法。您只需要一个容器来为您保存数据，而不必担心分散注意力的细节。同样，人们偏爱实现类的一个关键区别是常规类是可变的。</p>
+<p>实际上，引入<code>数据类（Data Class）</code>的<a href="https://www.python.org/dev/peps/pep-0557/#abstract">PEP</a>将它们称为“具有默认值的可变namedtuple”(译者注：Data Class python 3.7引入，参考：https://docs.python.org/zh-cn/3/library/dataclasses.html)。</p>
+<p>现在，让我们看看如何用<code>数据类</code>来实现。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> dataclasses <span style="color:#f92672">import</span> dataclass
+<span style="color:#f92672">...</span>
+<span style="color:#a6e22e">@dataclass</span>
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Color</span>:
+    <span style="color:#e6db74">&#34;&#34;&#34;A regular class that represents a color.&#34;&#34;&#34;</span>
+    r: float
+    g: float
+    b: float
+    alpha: float
+</code></pre></div><p>哇！就是这么简单。由于没有<code>__init__</code>，您只需在docstring后面定义属性即可。此外，必须使用类型提示对其进行注释。</p>
+<p>除了可变之外，数据类还可以开箱即用提供可选字段。假设我们的Color类不需要alpha字段。然后我们可以设置为可选。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> dataclasses <span style="color:#f92672">import</span> dataclass
+<span style="color:#f92672">from</span> typing <span style="color:#f92672">import</span> Optional
+<span style="color:#f92672">...</span>
+<span style="color:#a6e22e">@dataclass</span>
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Color</span>:
+    <span style="color:#e6db74">&#34;&#34;&#34;A regular class that represents a color.&#34;&#34;&#34;</span>
+    r: float
+    g: float
+    b: float
+    alpha: Optional[float]
+</code></pre></div><p>我们可以像这样实例化它：</p>
+<pre><code class="language-pyuthon" data-lang="pyuthon">&gt;&gt;&gt; blue = Color(r=0, g=0, b=255)
+</code></pre><p>由于它们是可变的，因此我们可以更改所需的任何字段。我们可以像这样实例化它：</p>
+<pre><code>&gt;&gt;&gt; blue = Color(r=0, g=0, b=255)
+&gt;&gt;&gt; blue.r = 1
+&gt;&gt;&gt; # 可以设置更多的属性字段
+&gt;&gt;&gt; blue.e = 10
+</code></pre><p>相较之下，<code>namedtuple</code>默认情况下没有可选字段。要添加它们，我们需要一点技巧和一些元编程。</p>
+<p>提示：要添加<code>__hash__</code>方法，您需要通过将设置<code>unsafe_hash</code>为使其不可变<code>True</code>：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#a6e22e">@dataclass</span>(unsafe_hash<span style="color:#f92672">=</span>True)
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Color</span>:
+    <span style="color:#f92672">...</span>
+</code></pre></div><p>另一个区别是，拆箱(unpacking)是namedtuples的自带的功能(first-class citizen)。如果希望<code>数据类</code>具有相同的行为，则必须实现自己。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> dataclasses <span style="color:#f92672">import</span> dataclass, astuple
+<span style="color:#f92672">...</span>
+<span style="color:#a6e22e">@dataclass</span>
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Color</span>:
+    <span style="color:#e6db74">&#34;&#34;&#34;A regular class that represents a color.&#34;&#34;&#34;</span>
+    r: float
+    g: float
+    b: float
+    alpha: float
+
+    <span style="color:#66d9ef">def</span> __iter__(self):
+        <span style="color:#66d9ef">yield</span> <span style="color:#f92672">from</span> dataclasses.astuple(self)
+</code></pre></div><h3 id="性能比较">性能比较</h3>
+<p>仅比较功能是不够的，namedtuple和数据类在性能上也有所不同。数据类基于纯Python实现dict。这使得它们在访问字段时更快。另一方面，namedtuples只是常规的扩展tuple。这意味着它们的实现基于更快的C代码并具有较小的内存占用量。</p>
+<p>为了证明这一点，请考虑在Python 3.8.5上进行此实验。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">In [<span style="color:#ae81ff">6</span>]: <span style="color:#f92672">import</span> sys
+
+In [<span style="color:#ae81ff">7</span>]: ColorTuple <span style="color:#f92672">=</span> namedtuple(<span style="color:#e6db74">&#34;Color&#34;</span>, <span style="color:#e6db74">&#34;r g b alpha&#34;</span>)
+
+In [<span style="color:#ae81ff">8</span>]: <span style="color:#a6e22e">@dataclass</span>
+   <span style="color:#f92672">...</span>: <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ColorClass</span>:
+   <span style="color:#f92672">...</span>:     <span style="color:#e6db74">&#34;&#34;&#34;A regular class that represents a color.&#34;&#34;&#34;</span>
+   <span style="color:#f92672">...</span>:     r: float
+   <span style="color:#f92672">...</span>:     g: float
+   <span style="color:#f92672">...</span>:     b: float
+   <span style="color:#f92672">...</span>:     alpha: float
+   <span style="color:#f92672">...</span>: 
+
+In [<span style="color:#ae81ff">9</span>]: color_tup <span style="color:#f92672">=</span> ColorTuple(r<span style="color:#f92672">=</span><span style="color:#ae81ff">50</span>, g<span style="color:#f92672">=</span><span style="color:#ae81ff">205</span>, b<span style="color:#f92672">=</span><span style="color:#ae81ff">50</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">1.0</span>)
+
+In [<span style="color:#ae81ff">10</span>]: color_cls <span style="color:#f92672">=</span> ColorClass(r<span style="color:#f92672">=</span><span style="color:#ae81ff">50</span>, g<span style="color:#f92672">=</span><span style="color:#ae81ff">205</span>, b<span style="color:#f92672">=</span><span style="color:#ae81ff">50</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">1.0</span>)
+
+In [<span style="color:#ae81ff">11</span>]: <span style="color:#f92672">%</span>timeit color_tup<span style="color:#f92672">.</span>r
+<span style="color:#ae81ff">36.8</span> ns <span style="color:#960050;background-color:#1e0010">±</span> <span style="color:#ae81ff">0.109</span> ns per loop (mean <span style="color:#960050;background-color:#1e0010">±</span> std<span style="color:#f92672">.</span> dev<span style="color:#f92672">.</span> of <span style="color:#ae81ff">7</span> runs, <span style="color:#ae81ff">10000000</span> loops each)
+
+In [<span style="color:#ae81ff">12</span>]: <span style="color:#f92672">%</span>timeit color_cls<span style="color:#f92672">.</span>r
+<span style="color:#ae81ff">38.4</span> ns <span style="color:#960050;background-color:#1e0010">±</span> <span style="color:#ae81ff">0.112</span> ns per loop (mean <span style="color:#960050;background-color:#1e0010">±</span> std<span style="color:#f92672">.</span> dev<span style="color:#f92672">.</span> of <span style="color:#ae81ff">7</span> runs, <span style="color:#ae81ff">10000000</span> loops each)
+
+In [<span style="color:#ae81ff">15</span>]: sys<span style="color:#f92672">.</span>getsizeof(color_tup)
+Out[<span style="color:#ae81ff">15</span>]: <span style="color:#ae81ff">72</span>
+
+In [<span style="color:#ae81ff">16</span>]: sys<span style="color:#f92672">.</span>getsizeof(color_cls) <span style="color:#f92672">+</span> sys<span style="color:#f92672">.</span>getsizeof(vars(color_cls))
+Out[<span style="color:#ae81ff">16</span>]: <span style="color:#ae81ff">152</span>
+
+</code></pre></div><p>如上，数据类在中访问字段的速度稍快一些，但是它们比nametuple占用更多的内存空间。</p>
+<h2 id="如何将类型提示添加到-namedtuple">如何将类型提示添加到 namedtuple</h2>
+<p>数据类默认使用类型提示。我们也可以将它们放在namedtuples上。通过导入Namedtuple注释类型并从中继承，我们可以对Color元组进行注释。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> typing <span style="color:#f92672">import</span> NamedTuple
+<span style="color:#f92672">...</span>
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Color</span>(NamedTuple):
+    <span style="color:#e6db74">&#34;&#34;&#34;A namedtuple that represents a color.&#34;&#34;&#34;</span>
+    r: float
+    g: float
+    b: float
+    alpha: float
+</code></pre></div><p>另一个可能未引起注意的细节是，这种方式还允许我们使用docstring。如果输入，help(Color)我们将能够看到它们。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">Help on <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Color</span> <span style="color:#f92672">in</span> module __main__:
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Color</span>(builtins<span style="color:#f92672">.</span>tuple)
+ <span style="color:#f92672">|</span>  Color(r: float, g: float, b: float, alpha: Union[float, NoneType])
+ <span style="color:#f92672">|</span>  
+ <span style="color:#f92672">|</span>  A namedtuple that represents a color<span style="color:#f92672">.</span>
+ <span style="color:#f92672">|</span>  
+ <span style="color:#f92672">|</span>  Method resolution order:
+ <span style="color:#f92672">|</span>      Color
+ <span style="color:#f92672">|</span>      builtins<span style="color:#f92672">.</span>tuple
+ <span style="color:#f92672">|</span>      builtins<span style="color:#f92672">.</span>object
+ <span style="color:#f92672">|</span>  
+ <span style="color:#f92672">|</span>  Methods defined here:
+ <span style="color:#f92672">|</span>  
+ <span style="color:#f92672">|</span>  __getnewargs__(self)
+ <span style="color:#f92672">|</span>      Return self <span style="color:#66d9ef">as</span> a plain tuple<span style="color:#f92672">.</span>  Used by copy <span style="color:#f92672">and</span> pickle<span style="color:#f92672">.</span>
+ <span style="color:#f92672">|</span>  
+ <span style="color:#f92672">|</span>  __repr__(self)
+ <span style="color:#f92672">|</span>      Return a nicely formatted representation string
+ <span style="color:#f92672">|</span>  
+ <span style="color:#f92672">|</span>  _asdict(self)
+ <span style="color:#f92672">|</span>      Return a new dict which maps field names to their values<span style="color:#f92672">.</span>
+</code></pre></div><h2 id="如何将可选的默认值添加到-namedtuple">如何将可选的默认值添加到 namedtuple</h2>
+<p>在上一节中，我们了解了数据类可以具有可选值。另外，我提到要模仿上的相同行为，<code>namedtuple</code>需要进行一些技巧修改操作。事实证明，我们可以使用继承，如下例所示。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> collections <span style="color:#f92672">import</span> namedtuple
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Color</span>(namedtuple(<span style="color:#e6db74">&#34;Color&#34;</span>, <span style="color:#e6db74">&#34;r g b alpha&#34;</span>)):
+    __slots__ <span style="color:#f92672">=</span> ()
+    <span style="color:#66d9ef">def</span> __new__(cls, r, g, b, alpha<span style="color:#f92672">=</span>None):
+        <span style="color:#66d9ef">return</span> super()<span style="color:#f92672">.</span>__new__(cls, r, g, b, alpha)
+<span style="color:#f92672">&gt;&gt;&gt;</span> c <span style="color:#f92672">=</span> Color(r<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, g<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, b<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>)
+<span style="color:#f92672">&gt;&gt;&gt;</span> c
+Color(r<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, g<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, b<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, alpha<span style="color:#f92672">=</span>None)
+</code></pre></div><h2 id="结论">结论</h2>
+<p>元组是一个非常强大的数据结构。它们使我们的代码更清洁，更可靠。尽管与新的<code>数据类</code>竞争激烈，但他们仍有大量的场景可用。在本教程中，我们学习了使用<code>namedtuples</code>的几种方法，希望您可以使用它们。</p>
+
+    </div>
+    <div class="article-footer">
+<blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://pylixm.top/posts/2020-10-18-namedtuple.html" title="「Python Tips」- 命名元祖（namedtuple）使用指南" target="_blank" rel="external">https://pylixm.top/posts/2020-10-18-namedtuple.html</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>许可协议：</strong>
+      <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN</a>
+    </li>
+  </ul>
+</blockquote>
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://pylixm.top" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="https://pylixm.top/static/imgs/avatar.png" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://pylixm.top" target="_blank"><span class="text-dark">DeanWu</span><small class="ml-1x">程序员</small></a></h3>
+        <div>努力成为真正的SRE</div>
+      </div>
+    </figure>
+  </div>
+</div>
+    </div>
+  </article>
+<section id="comments">
+    <div id="vcomments"></div>
+</section>
+
+</div><nav class="bar bar-footer clearfix" data-stick-bottom>
+    <div class="bar-inner">
+        <ul class="pager pull-left">
+            <li class="prev">
+                <a href="https://pylixm.top/posts/2020-10-13-cross-origin.html" title="谈谈前后端分离中的跨域问题"><i
+                        class="icon icon-angle-left"
+                        aria-hidden="true"></i><span>&nbsp;&nbsp;下一篇</span></a>
+            </li>
+            <li class="next">
+                <a href="https://pylixm.top/posts/2020-10-21-python-string.html"
+                    title="「Python Tips」- 40中常用Python string用法"><span>上一篇&nbsp;&nbsp;</span><i
+                        class="icon icon-angle-right" aria-hidden="true"></i></a>
+            </li>
+            
+            <li class="toggle-toc">
+                <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false"
+                    title="文章目录" role="button">
+                    <span>[&nbsp;</span><span>文章目录</span>
+                    <i class="text-collapsed icon icon-anchor"></i>
+                    <i class="text-in icon icon-close"></i>
+                    <span>]</span>
+                </a>
+            </li>
+        </ul>
+        <div class="bar-right">
+        </div>
+    </div>
+</nav>
+
+
+<script src="https://my.openwrite.cn/js/readmore.js" type="text/javascript"></script>
+<script>
+    const btw = new BTWPlugin();
+    btw.init({
+        id: 'article-container',
+        blogId: '24944-1607090547459-485',
+        name: '码农吴先生',
+        qrcode: 'https://gitee.com/pylixm/picture/raw/master/2020-12-4/1607089812769-image.png',
+        keyword: 'vip',
+    });
+</script>
+</main><footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+<ul class="social-links">
+    <li><a href="https://github.com/pylixm" target="_blank" title="github" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-github"></i></a></li>
+    <li><a href="https://pylixm.top/index.xml" target="_blank" title="rss" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-rss"></i></a></li>
+    <li><a href="http://weibo.com/2258086637" target="_blank" title="weibo" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-weibo"></i></a></li>
+</ul>
+  <div class="copyright">
+    &copy;2015  -
+    2020
+    <div class="publishby">
+      hugo驱动，Theme by <a href="https://github.com/xiaoheiAh/hugo-theme-pure" target="_blank"> pure</a>.
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_SVG"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+            showMathMenu: false, //disables context menu
+            tex2jax: {
+            inlineMath: [ ['$','$'], ['\\(','\\)'] ]
+           }
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+<script>
+    window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/highlight.min.js"></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/python.min.js" defer></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/javascript.min.js" defer></script><script>
+    hljs.configure({
+        tabReplace: '    ', 
+        classPrefix: ''     
+        
+    })
+    hljs.initHighlightingOnLoad();
+</script>
+<script src="https://pylixm.top/js/application.min.bdeb64b910570b6c41badc6a05b7afb0c8ad9efd8525de3c7257d59e786326a3.js"></script>
+<script src="https://pylixm.top/js/plugin.min.51ff8c7317566f82259170fa36e09c4493adc9b9378b427a01ad3f017ebac7dd.js"></script>
+
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(未命名)',
+            },
+            ROOT_URL: 'https:\/\/pylixm.top',
+            CONTENT_URL: 'https:\/\/pylixm.top\/searchindex.json ',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script type="text/javascript" src="https://pylixm.top/js/insight.min.a343cd9a5a7698336b28ef3a7c16a3a1b1d2d5fb17dc8ed04022bbe08cc5459073a15bdafa3a8a58cdd56080784bdd69fa70b1ae8597565c799c57ed00f0e120.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script>
+<script>
+    tocbot.init({
+        
+        tocSelector: '.js-toc',
+        
+        contentSelector: '.js-toc-content',
+        
+        headingSelector: 'h1, h2, h3',
+        
+        hasInnerContainers: true,
+    });
+</script>
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="https://cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine"></script>
+<script type="text/javascript">
+    var GUEST = ['nick', 'mail', 'link'];
+    var meta = 'nick,mail';
+    meta = meta.split(',').filter(function (item) {
+        return GUEST.indexOf(item) > -1;
+    });
+    new Valine({
+        el: '#vcomments',
+        verify: null ,
+        notify: null ,
+        appId: 'OBJcj4PU8JI0zDfu0HJSrG6W-gzGzoHsz',
+        appKey: 'tBtFzC72xIlgo2UFbA33nqmU',
+        placeholder: '来做第一个发言人吧',
+        avatar: 'mm',
+        meta: meta,
+        pageSize: '10' || 10,
+        visitor: false 
+});
+</script>
+
+  </body>
+</html>

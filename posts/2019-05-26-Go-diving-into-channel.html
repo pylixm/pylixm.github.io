@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <title>
+        「Go模块」译-深入理解Golang channel - DeanWu
+      </title>
+        <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    
+    <meta name="theme-color" content="#000000" />
+    
+    <meta http-equiv="window-target" content="_top" />
+    
+    
+    <meta name="description" content="原文地址：https://itnext.io/diving-into-golang-channels-e9e610d586e8 作者：Robe" />
+    <meta name="generator" content="Hugo 0.73.0 with theme pure" />
+    <title>「Go模块」译-深入理解Golang channel - DeanWu</title>
+    
+    
+    <link rel="stylesheet" href="https://pylixm.top/css/style.min.f70e8e0df9ea6aeb37dac252b17ca98082073ff1663b24118baaaa84ee8ae7e8.css">
+    
+    <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.15.10/styles/github.min.css" async>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css" async>
+    <meta property="og:title" content="「Go模块」译-深入理解Golang channel" />
+<meta property="og:description" content="原文地址：https://itnext.io/diving-into-golang-channels-e9e610d586e8 作者：Robe" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://pylixm.top/posts/2019-05-26-Go-diving-into-channel.html" />
+<meta property="article:published_time" content="2019-05-26T00:00:00+00:00" />
+<meta property="article:modified_time" content="2019-05-26T00:00:00+00:00" />
+<meta itemprop="name" content="「Go模块」译-深入理解Golang channel">
+<meta itemprop="description" content="原文地址：https://itnext.io/diving-into-golang-channels-e9e610d586e8 作者：Robe">
+<meta itemprop="datePublished" content="2019-05-26T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2019-05-26T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="3307">
+
+
+
+<meta itemprop="keywords" content="Golang,语言学习," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="「Go模块」译-深入理解Golang channel"/>
+<meta name="twitter:description" content="原文地址：https://itnext.io/diving-into-golang-channels-e9e610d586e8 作者：Robe"/>
+
+    <!--[if lte IE 9]>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+      <![endif]-->
+
+    <!--[if lt IE 9]>
+        <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+      <![endif]-->
+  </head>
+
+  
+  
+
+  <body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage"><header class="header" itemscope itemtype="http://schema.org/WPHeader">
+    <div class="slimContent">
+      <div class="navbar-header">
+        <div class="profile-block text-center">
+          <a id="avatar" href="https://pylixm.top" target="_blank">
+            <img class="img-circle img-rotate" src="https://pylixm.top/static/imgs/avatar.png" width="200" height="200">
+          </a>
+          <h2 id="name" class="hidden-xs hidden-sm">DeanWu</h2>
+          <h3 id="title" class="hidden-xs hidden-sm hidden-md">程序员</h3>
+          <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i>Beijing, China</small>
+        </div><div class="search" id="search-form-wrap">
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i
+                        class="icon icon-search"></i></button>
+            </span>
+        </div>
+        <div class="ins-search">
+            <div class="ins-search-mask"></div>
+            <div class="ins-search-container">
+                <div class="ins-input-wrapper">
+                    <input type="text" class="ins-search-input" placeholder="想要查找什么..."
+                        x-webkit-speech />
+                    <button type="button" class="close ins-close ins-selectable" data-dismiss="modal"
+                        aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="ins-section-wrapper">
+                    <div class="ins-section-container"></div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+        <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+        <ul class="nav navbar-nav main-nav">
+            <li class="menu-item menu-item-home">
+                <a href="/">
+                    <i class="icon icon-home-fill"></i>
+                  <span class="menu-title">首页</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-series">
+                <a href="/series/">
+                    <i class="icon icon-folder"></i>
+                  <span class="menu-title">专题</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-repository">
+                <a href="/project/">
+                    <i class="icon icon-project"></i>
+                  <span class="menu-title">项目</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-archives">
+                <a href="/posts/">
+                    <i class="icon icon-archives-fill"></i>
+                  <span class="menu-title">归档</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-about">
+                <a href="/about/">
+                    <i class="icon icon-cup-fill"></i>
+                  <span class="menu-title">关于</span>
+                </a>
+            </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+<aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content"><div>欢迎关注微信公众号「码农吴先生」：专注python/golang/devops等技术的学习经验及资源分享！</br>回复关键字：go或python 获取我收集的资料，也可回复关键字：小二，加我wx，一块聊技术，聊人生~  </br><img src="/static/imgs/wx/wx_gzh.png" width="140" height="140"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+      
+<div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+        <ul class="recent-post-list list-unstyled no-thumbnail">
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2020-12-08-django-async-views-example.html" class="title">Django 三个异步使用的案例</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-12-08 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-08</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2020-12-05-go-from-python-structure-base.html" class="title">「对比Python学习Go」- 基本数据结构</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-12-05 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-05</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2020-12-03-go-from-python-start.html" class="title">「对比Python学习Go」- 环境篇</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-12-03 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-03</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2020-12-02-go-from-python-intro.html" class="title">「对比Python学习Go」- 开篇</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-12-02 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-02</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2020-12-01-for-range-point.html" class="title">「Go Tips」for range 遍历时变量取值的问题分析</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-12-01 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-01</time>
+                    </p>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+      <div class="widget">
+    <h3 class="widget-title"> 分类</h3>
+    <div class="widget-body">
+        <ul class="category-list">
+            <li class="category-list-item"><a href="https://pylixm.top/categories/ATS/" class="category-list-link">ATS</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/DevOps/" class="category-list-link">DevOps</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Devlopment-Demo/" class="category-list-link">Devlopment-Demo</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Django/" class="category-list-link">Django</a><span class="category-list-count">39</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Docker/" class="category-list-link">Docker</a><span class="category-list-count">4</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Flask/" class="category-list-link">Flask</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Git/" class="category-list-link">Git</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Golang/" class="category-list-link">Golang</a><span class="category-list-count">12</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/HTTPS/" class="category-list-link">HTTPS</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Javascript/" class="category-list-link">Javascript</a><span class="category-list-count">3</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Kubernetes/" class="category-list-link">Kubernetes</a><span class="category-list-count">4</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/LVS/" class="category-list-link">LVS</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Linux/" class="category-list-link">Linux</a><span class="category-list-count">15</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Mongodb/" class="category-list-link">Mongodb</a><span class="category-list-count">3</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Mysql/" class="category-list-link">Mysql</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/NoSQL/" class="category-list-link">NoSQL</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/PostgreSQL/" class="category-list-link">PostgreSQL</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Puppet/" class="category-list-link">Puppet</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Python/" class="category-list-link">Python</a><span class="category-list-count">19</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/QA/" class="category-list-link">QA</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Rabbitmq/" class="category-list-link">Rabbitmq</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Restful/" class="category-list-link">Restful</a><span class="category-list-count">6</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/SaltStack/" class="category-list-link">SaltStack</a><span class="category-list-count">7</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Software_Architect/" class="category-list-link">Software_Architect</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Supervisor/" class="category-list-link">Supervisor</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Tornado/" class="category-list-link">Tornado</a><span class="category-list-count">3</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Vagrant/" class="category-list-link">Vagrant</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Vue/" class="category-list-link">Vue</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/kafka/" class="category-list-link">kafka</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/zookeeper/" class="category-list-link">zookeeper</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E4%B8%AA%E4%BA%BA%E7%AE%A1%E7%90%86/" class="category-list-link">个人管理</a><span class="category-list-count">5</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB/" class="category-list-link">前后端分离</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" class="category-list-link">数据结构与算法</a><span class="category-list-count">13</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E6%9C%9D%E8%8A%B1%E5%A4%95%E6%8B%BE/" class="category-list-link">朝花夕拾</a><span class="category-list-count">10</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" class="category-list-link">机器学习</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" class="category-list-link">环境搭建</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E7%A8%8B%E5%BA%8F%E5%91%98%E8%87%AA%E6%88%91%E4%BF%AE%E5%85%BB/" class="category-list-link">程序员自我修养</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E8%B5%84%E6%BA%90%E5%88%86%E4%BA%AB%E8%AE%A1%E5%88%92/" class="category-list-link">资源分享计划</a><span class="category-list-count">10</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E8%BF%90%E7%BB%B4%E7%9F%A5%E8%AF%86%E5%BA%93/" class="category-list-link">运维知识库</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86/" class="category-list-link">项目管理</a><span class="category-list-count">1</span></li>
+        </ul>
+    </div>
+</div>
+  </div>
+</aside>
+
+    
+    
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <h4 class="toc-title">文章目录</h4>
+    <nav id="toc" class="js-toc toc">
+
+    </nav>
+  </div>
+</aside>
+<main class="main" role="main"><div class="content">
+  
+  <article id="article-container" class="article article-type-" itemscope
+    itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      <h1 itemprop="name">
+  <a
+    class="article-title"
+    href="/posts/2019-05-26-Go-diving-into-channel.html"
+    >「Go模块」译-深入理解Golang channel</a
+  >
+</h1>
+
+      <div class="article-meta">
+        
+<span class="article-date">
+  <i class="icon icon-calendar-check"></i>&nbsp;
+<a href="https://pylixm.top/posts/2019-05-26-Go-diving-into-channel.html" class="article-date">
+  <time datetime="2019-05-26 00:00:00 &#43;0000 UTC" itemprop="datePublished">2019-05-26</time>
+</a>
+</span>
+<span class="article-category">
+  <i class="icon icon-folder"></i>&nbsp;
+  <a class="article-category-link" href="/categories/Golang/"> Golang </a>
+</span>  
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>&nbsp;
+    <a class="article-tag-link" href="/tags/Golang/"> Golang </a>
+    <a class="article-tag-link" href="/tags/%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0/"> 语言学习 </a>
+  </span>
+
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+        <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="/posts/2019-05-26-Go-diving-into-channel.html#comments"
+            class="article-comment-link">评论</a></span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 3307字</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 7分 </span>
+      </div>
+    </div>
+    <div class="article-entry marked-body js-toc-content" itemprop="articleBody">
+      <blockquote>
+<p>原文地址：https://itnext.io/diving-into-golang-channels-e9e610d586e8</p>
+</blockquote>
+<blockquote>
+<p>作者：Robert Weber</p>
+</blockquote>
+<blockquote>
+<p>译者：DeanWu</p>
+</blockquote>
+<p><strong>直接将C++或Java编写的程序代码转化为Go，并不是一个令人满意的方式。Java程序毕竟是使用Java语言编写的，而不是GO。相反的，如果我们从一开始就从使用Go的编程方式，那么我们会得到一个完全不同的结果</strong>。- Effective Go</p>
+<p>golang设计的核心目标之一是开发一种可以轻松实现多线程进程和无需重新编译即可夸平台的语言。 goroutine不是线程，但是它是在线程的基础上，来并行的调度您的程序执行，以达到并行化和提高性能。因此，在使用时，必须使用线程安全的数据结构。</p>
+<h2 id="对互斥锁的误解">对互斥锁的误解</h2>
+<p>在传统的多线程设计中，数据结构使用锁定结构（如互斥锁和信号量）进行保护。关键部分受这些“锁”保护，资源通过阻止一个线程访问另一个线程正在写入的数据来管理，直到事务完成为止。因为即使是简单的代码行也可以分解为多个指令，因此这些锁对于维护数据完整性至关重要。正确使用时，互斥锁可以避免竞争条件和无效数据，但如果过度地使用，它们也会削弱线性线程缩放。它们给出了多线程的“错觉”，因为代码似乎运行多个线程，但实际上它们只是按顺序执行多个线程。</p>
+<p>如下代码：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang"><span style="color:#75715e">//MutexProtection on a data string
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">MutexProtection</span> <span style="color:#66d9ef">struct</span> {
+	<span style="color:#a6e22e">data</span> <span style="color:#66d9ef">string</span>
+	<span style="color:#a6e22e">lock</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">sync</span>.<span style="color:#a6e22e">Mutex</span>
+} 
+<span style="color:#75715e">//NewMutextProtection ...
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">NewMutextProtection</span>() <span style="color:#f92672">*</span><span style="color:#a6e22e">MutexProtection</span> {
+	<span style="color:#66d9ef">return</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">MutexProtection</span>{<span style="color:#a6e22e">lock</span>: <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">sync</span>.<span style="color:#a6e22e">Mutex</span>{}}
+}
+<span style="color:#75715e">//Read the current data
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">m</span> <span style="color:#a6e22e">MutexProtection</span>) <span style="color:#a6e22e">Read</span>() <span style="color:#66d9ef">string</span> {
+	<span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">lock</span>.<span style="color:#a6e22e">Lock</span>()
+	<span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Sleep</span>(<span style="color:#ae81ff">10</span><span style="color:#f92672">*</span><span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Millisecond</span>) <span style="color:#75715e">// simulates &#34;work&#34; done to retrieve the data
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">lock</span>.<span style="color:#a6e22e">Unlock</span>()
+
+	<span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;test&#34;</span>
+}
+<span style="color:#75715e">//Write something to the data
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">m</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">MutexProtection</span>) <span style="color:#a6e22e">Write</span>(<span style="color:#a6e22e">s</span> <span style="color:#66d9ef">string</span>) {
+	<span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">lock</span>.<span style="color:#a6e22e">Lock</span>()
+	<span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">data</span> = <span style="color:#a6e22e">s</span>
+	<span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Sleep</span>(<span style="color:#ae81ff">10</span><span style="color:#f92672">*</span><span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Millisecond</span>) <span style="color:#75715e">// simultes &#34;work&#34; done to save the data
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">lock</span>.<span style="color:#a6e22e">Unlock</span>()
+}
+</code></pre></div><p>下面我们对他做测试：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">benchMutex</span>(<span style="color:#a6e22e">workers</span> <span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">workload</span> <span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">b</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">B</span>) {
+	<span style="color:#a6e22e">m</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">NewMutextProtection</span>()
+	<span style="color:#a6e22e">wg</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">sync</span>.<span style="color:#a6e22e">WaitGroup</span>{}
+	<span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">ResetTimer</span>()
+	<span style="color:#a6e22e">writer</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">func</span>() {
+		<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">workload</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+			<span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">Write</span>(<span style="color:#e6db74">&#34;test&#34;</span>)
+		}
+		<span style="color:#a6e22e">wg</span>.<span style="color:#a6e22e">Done</span>()
+	}
+	<span style="color:#a6e22e">reader</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">func</span>() {
+		<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">workload</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+			<span style="color:#a6e22e">_</span> = <span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">Read</span>()
+		}
+		<span style="color:#a6e22e">wg</span>.<span style="color:#a6e22e">Done</span>()
+	}
+	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">workers</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+		<span style="color:#a6e22e">wg</span>.<span style="color:#a6e22e">Add</span>(<span style="color:#ae81ff">1</span>)
+		<span style="color:#66d9ef">go</span> <span style="color:#a6e22e">writer</span>()
+		<span style="color:#a6e22e">wg</span>.<span style="color:#a6e22e">Add</span>(<span style="color:#ae81ff">1</span>)
+		<span style="color:#66d9ef">go</span> <span style="color:#a6e22e">reader</span>()
+  }
+	<span style="color:#a6e22e">wg</span>.<span style="color:#a6e22e">Wait</span>()
+}
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">BenchmarkMutexWorks1by1000</span>(<span style="color:#a6e22e">b</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">B</span>) {
+	<span style="color:#a6e22e">benchMutex</span>(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1000</span>, <span style="color:#a6e22e">b</span>)
+}
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">BenchmarkMutexWorks10by100</span>(<span style="color:#a6e22e">b</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">B</span>) {
+	<span style="color:#a6e22e">benchMutex</span>(<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">100</span>, <span style="color:#a6e22e">b</span>)
+}
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">BenchmarkMutexWorks100by10</span>(<span style="color:#a6e22e">b</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">B</span>) {
+	<span style="color:#a6e22e">benchMutex</span>(<span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">10</span>, <span style="color:#a6e22e">b</span>)
+}
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">BenchmarkMutexWorks1000by1</span>(<span style="color:#a6e22e">b</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">B</span>) {
+	<span style="color:#a6e22e">benchMutex</span>(<span style="color:#ae81ff">1000</span>, <span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">b</span>)
+}
+</code></pre></div><p>随着线程数的添加，我们肯定会认为性能会提升。事实并非如此：</p>
+<p><img src="/static/imgs/go-channels.png" alt=""></p>
+<p>即使线程数量减少，处理时间的变化也在合理的误差范围内。如果还不是很明显，这可能是代码设计方式的问题。虽然我们有许多线程，但他们都在互斥锁排队等候。如果没有互斥锁，这种虚构的工作机制就不安全，我们所做的只是添加了额外的 <code>goroutine</code>，一些同步对象，并且没有比串行的更好。显然，这不是我们的想要的结果。</p>
+<p>在不仅仅是单个数据操作的关键逻辑附近使用互斥锁不会线性地提高性能。这个例子可能没有出现在您的计算机科学教科书中，因为互斥体通常放在示例中的数据元素中。不幸的是，关键部分通常通过API，套接字或其他慢速操作（如加密或身份验证）来操作复杂和缓慢的外部系统。因此，在内存紧密性的简单模型中互斥将不起作用。</p>
+<h2 id="基于channel-的安全对象">基于channel 的安全对象</h2>
+<p>最好的是具有与互斥锁示例相同的接口的对象，但以某种方式阻止<code>Mutex</code>创建的资源阻塞。虽然有几种方法可以做到这一点 - 甚至一些使用互斥体 - 使用通道可以简化代码并增加系统的可能并行性。我们需要做的第一件事是增加界面。我们可以保留“读取”和“写入”公共方法，但我们还需要添加“开始”和“关闭”方法，以确保我们可以确保完全处理工作负载：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang"><span style="color:#75715e">//Start the background processing
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">m</span> <span style="color:#a6e22e">ChannelProtection</span>) <span style="color:#a6e22e">Start</span>() {
+	<span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">wg</span>.<span style="color:#a6e22e">Add</span>(<span style="color:#ae81ff">1</span>)
+	<span style="color:#66d9ef">go</span> <span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">background</span>()
+}
+<span style="color:#75715e">//Close down the background resources
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">m</span> <span style="color:#a6e22e">ChannelProtection</span>) <span style="color:#a6e22e">Close</span>() {
+	<span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">shutdown</span> <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">struct</span>{}{}
+	<span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">wg</span>.<span style="color:#a6e22e">Wait</span>()
+}
+</code></pre></div><p>与基准代码一样，我们使用<code>sync.WaitGroup</code>来确保后台线程在主程序关闭之前完成。后台线程是一个<code>for/select</code>循环，用于处理少数几个通道：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang"><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">m</span> <span style="color:#a6e22e">ChannelProtection</span>) <span style="color:#a6e22e">background</span>() {
+	<span style="color:#a6e22e">mainloop</span>:
+	<span style="color:#66d9ef">for</span> {
+		<span style="color:#66d9ef">select</span> {
+		<span style="color:#66d9ef">case</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">shutdown</span>:
+			<span style="color:#66d9ef">for</span> {
+				<span style="color:#66d9ef">select</span> {
+				<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">newString</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">writeData</span>:
+					<span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">write</span>(<span style="color:#a6e22e">newString</span>)
+				<span style="color:#66d9ef">case</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">readRequest</span>:
+					<span style="color:#66d9ef">go</span> <span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">read</span>()
+				<span style="color:#66d9ef">default</span>:
+					<span style="color:#66d9ef">break</span> <span style="color:#a6e22e">mainloop</span>
+				}
+			}
+		<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">newString</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">writeData</span>:
+			<span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">write</span>(<span style="color:#a6e22e">newString</span>)
+		<span style="color:#66d9ef">case</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">readRequest</span>:
+			<span style="color:#66d9ef">go</span> <span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">read</span>()
+		}
+	}
+	<span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">wg</span>.<span style="color:#a6e22e">Done</span>()
+}
+</code></pre></div><p>按照我们的预期，写入操作将被强制同步执行。在给定的时间内，已可以异步的读取数据。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang"><span style="color:#75715e">//write is done in a different goroutine and the data in the input 
+</span><span style="color:#75715e">// no longer &#34;belongs&#34; to the sender.  This means that if it is a pointer 
+</span><span style="color:#75715e">// type like a map or a slice the sender must send a copy
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">m</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">ChannelProtection</span>) <span style="color:#a6e22e">write</span>(<span style="color:#a6e22e">s</span> <span style="color:#66d9ef">string</span>) {
+	<span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">data</span> = <span style="color:#a6e22e">s</span>
+	<span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Sleep</span>(<span style="color:#ae81ff">10</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Millisecond</span>) <span style="color:#75715e">// Simulates &#34;work&#34; done to save the data
+</span><span style="color:#75715e"></span>}
+<span style="color:#75715e">//read is done in a different gorioutine and the data returned 
+</span><span style="color:#75715e">// is &#34;given&#34; to the caller of Read through a channel and must be a 
+</span><span style="color:#75715e">// copy of the data at a given time and cannot reference internal data
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">m</span> <span style="color:#a6e22e">ChannelProtection</span>) <span style="color:#a6e22e">read</span>() {
+	<span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Sleep</span>(<span style="color:#ae81ff">10</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Millisecond</span>) <span style="color:#75715e">// Simulates &#34;work&#34; done to retrieve the data
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">readData</span> <span style="color:#f92672">&lt;-</span> <span style="color:#e6db74">&#34;test&#34;</span>
+}
+</code></pre></div><p>这是完成模拟慢速资源的“工作”的地方。剩下的就是将Write和Read连接到后台线程：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang"><span style="color:#75715e">//Read the current data
+</span><span style="color:#75715e">// this function runs in goroutine that calls it
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">m</span> <span style="color:#a6e22e">ChannelProtection</span>) <span style="color:#a6e22e">Read</span>() <span style="color:#66d9ef">string</span> {
+	<span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">readRequest</span> <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">struct</span>{}{}
+	<span style="color:#a6e22e">currentData</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">readData</span>
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">currentData</span>
+}
+<span style="color:#75715e">//Write something to the data
+</span><span style="color:#75715e">// this function runs in the goroutine that calls it
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">m</span> <span style="color:#a6e22e">ChannelProtection</span>) <span style="color:#a6e22e">Write</span>(<span style="color:#a6e22e">s</span> <span style="color:#66d9ef">string</span>) {
+	<span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">writeData</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">s</span>
+}
+</code></pre></div><p>并构建一个构造函数：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang"><span style="color:#75715e">//ChannelProtection on a data string
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">ChannelProtection</span> <span style="color:#66d9ef">struct</span> {
+	<span style="color:#a6e22e">data</span> <span style="color:#66d9ef">string</span>
+	<span style="color:#a6e22e">writeData</span> <span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">string</span>
+	<span style="color:#a6e22e">readRequest</span> <span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">struct</span>{}
+	<span style="color:#a6e22e">readData</span> <span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">string</span>
+	<span style="color:#a6e22e">shutdown</span> <span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">struct</span>{}
+	<span style="color:#a6e22e">wg</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">sync</span>.<span style="color:#a6e22e">WaitGroup</span>
+} 
+<span style="color:#75715e">//NewChannelProtection ...
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">NewChannelProtection</span>() <span style="color:#f92672">*</span><span style="color:#a6e22e">ChannelProtection</span> {
+	<span style="color:#66d9ef">return</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">ChannelProtection</span>{
+		<span style="color:#a6e22e">writeData</span>: make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">string</span>, <span style="color:#ae81ff">10</span>),
+		<span style="color:#a6e22e">readRequest</span>: make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">struct</span>{}, <span style="color:#ae81ff">10</span>),
+		<span style="color:#a6e22e">readData</span>: make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">string</span>, <span style="color:#ae81ff">10</span>),
+		<span style="color:#a6e22e">shutdown</span>: make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">struct</span>{}, <span style="color:#ae81ff">10</span>),
+		<span style="color:#a6e22e">wg</span>: <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">sync</span>.<span style="color:#a6e22e">WaitGroup</span>{},
+	}
+
+</code></pre></div><p>注释中解释了这些原则，但要记住的基本思想是通过通道在<code>goroutine</code>之间移动内存。我将详细介绍如何完成这项工作，但现在可以说它在现代处理器上非常有效。一旦数据被传递给“Write”，它就不再属于调用者（使用“-race”运行测试将保护您免受违反此规则）并且从“Read”返回的数据只是存储内容的副本在结构内（存储在内存中或通过API存储的抽象意义上）。</p>
+<p>有了这个框架设置，这里是基准测试结果：</p>
+<p><img src="/static/go-channels-2.png" alt=""></p>
+<p>即使有一个读写消费者，性能也优于互斥设计，并且随着更多工作人员的加入，它会快速接近理论最大值（因为我们设计的写入是同步的，最大值将达到10000000000 ns/op）。如果我们改为有一个系统可以按顺序处理“Write”，那么缩放是荒谬的:</p>
+<p><img src="/static/go-channels-3.png" alt=""></p>
+<p>最后两个速度需要通过（迭代*速度）在120000000和20000000 ns/op处计算。</p>
+<h3 id="世上没有免费的午餐">世上没有免费的午餐</h3>
+<p>像软件工程中的所有东西一样，这种设计的速度提高需要付出代价。如果必须按照收到的确切顺序处理读取和写入，或者正在完成的工作是在单个资源上（例如，如果您只有一个数据库连接），那么这种设计显然有点过分。如果您的系统无法使用并行工作负载建模，则线程永远不会为您提供更好的性能。但是，如果您可以容忍异步处理，“陈旧”但内部一致的读取，或者如果您的工作负载由开销（例如加密）控制，则在此类系统中安排线程将为您提供可能的扩展。当你开始将数据pipleine拼凑在一起时，这变得更加强大，但这是另一天的主题。</p>
+<h3 id="为什么选择channels">为什么选择channels</h3>
+<p>您可能会问自己：当我可以想象以我一直以来的方式构建这些类型的工作负载分配系统时，为什么要使用<code>channels</code>？秘诀在于<code>channels</code>如何运作。<code>channels</code>使用两种关键技术来尽可能快地完成这些内存操作。第一个是**写屏障(Write Barriers)**的概念，第二个是使用<code>AMD64</code>的<code>CMPXCHG</code>指令，这是一个比较和交换或“CAS”操作。</p>
+<h3 id="write-barriers">Write Barriers</h3>
+<p>当通道将数据发送到目标时，它必须执行非常快速的内存移动。在golang中，这是直接在汇编程序中编写的代码的少数部分之一。为了保证这个低级代码始终正确并且不被垃圾收集中断，创建了Write Barriers。这会创建一个位图来强制源和目标之间的写入按顺序发生，一旦设置，就可以安全地执行高度优化的内存移动汇编程序，而垃圾收集不会改变屏障下的数据。</p>
+<h3 id="cas-operations">CAS Operations</h3>
+<p>CAS操作执行以下操作：</p>
+<pre><code>If (accumulator == destination) then (destination &lt;- source)
+else (accumulator &lt;- destination)
+</code></pre><p>这个单一的操作码本质上是“lazy barber”竞争条件的处理器级解决方案。 如果累加器用于存储在目标中找到的“lock”变量的值，并且源是您希望设置的“锁定状态”（例如，非零值），则可以使用CAS操作来验证 您没有在另一个设置锁定状态的进程之上设置锁定状态。 使用此操作可以大大降低通道<code>memmove</code>操作中写入障碍的成本，并将通道实现中的低级原子变量降低到仅使用互斥锁和高级代码无法实现的水平。 旁注：这也是golang中原子包的实现方式，所以如果通道不适合你的同步，你需要弄清楚你的代码，我鼓励你看看你会发现的<code>CompareAndSwap*</code>函数那里。</p>
+<h3 id="习惯用法">习惯用法</h3>
+<p>虽然每种语言都有其纯粹主义者，他们用不太高尚的推理来追求惯用的代码golang的原则是“通过沟通来分享记忆;不要通过分享记忆来沟通。“不仅仅是空话。因为golang既是托管内存又是托管线程（通过调度程序），当你遵循惯用模式时，例如避开共享内存，你的代码性能会提高。组织代码管道处理以通过通道传递数据不仅可以更清晰地封装关注点，还可以让golang系统更好地处理内存和线程资源。核心语言的最新更新已经改进了垃圾收集器的内部操作，以便更好地将内存与goroutine相关联，但是这些类型的优化是围绕这种惯用模式构建的。</p>
+<p>本文所有的代码均可在此处找到：https://github.com/weberr13/Kata/tree/master/channels</p>
+
+    </div>
+    <div class="article-footer">
+<blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://pylixm.top/posts/2019-05-26-Go-diving-into-channel.html" title="「Go模块」译-深入理解Golang channel" target="_blank" rel="external">https://pylixm.top/posts/2019-05-26-Go-diving-into-channel.html</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>许可协议：</strong>
+      <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN</a>
+    </li>
+  </ul>
+</blockquote>
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://pylixm.top" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="https://pylixm.top/static/imgs/avatar.png" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://pylixm.top" target="_blank"><span class="text-dark">DeanWu</span><small class="ml-1x">程序员</small></a></h3>
+        <div>努力成为真正的SRE</div>
+      </div>
+    </figure>
+  </div>
+</div>
+    </div>
+  </article>
+<section id="comments">
+    <div id="vcomments"></div>
+</section>
+
+</div><nav class="bar bar-footer clearfix" data-stick-bottom>
+    <div class="bar-inner">
+        <ul class="pager pull-left">
+            <li class="prev">
+                <a href="https://pylixm.top/posts/2019-05-25-share-resource.html" title="资源分享计划第五期 0525"><i
+                        class="icon icon-angle-left"
+                        aria-hidden="true"></i><span>&nbsp;&nbsp;下一篇</span></a>
+            </li>
+            <li class="next">
+                <a href="https://pylixm.top/posts/2019-06-01-share-resource.html"
+                    title="资源分享计划第六期 0601"><span>上一篇&nbsp;&nbsp;</span><i
+                        class="icon icon-angle-right" aria-hidden="true"></i></a>
+            </li>
+            
+            <li class="toggle-toc">
+                <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false"
+                    title="文章目录" role="button">
+                    <span>[&nbsp;</span><span>文章目录</span>
+                    <i class="text-collapsed icon icon-anchor"></i>
+                    <i class="text-in icon icon-close"></i>
+                    <span>]</span>
+                </a>
+            </li>
+        </ul>
+        <div class="bar-right">
+        </div>
+    </div>
+</nav>
+
+
+<script src="https://my.openwrite.cn/js/readmore.js" type="text/javascript"></script>
+<script>
+    const btw = new BTWPlugin();
+    btw.init({
+        id: 'article-container',
+        blogId: '24944-1607090547459-485',
+        name: '码农吴先生',
+        qrcode: 'https://gitee.com/pylixm/picture/raw/master/2020-12-4/1607089812769-image.png',
+        keyword: 'vip',
+    });
+</script>
+</main><footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+<ul class="social-links">
+    <li><a href="https://github.com/pylixm" target="_blank" title="github" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-github"></i></a></li>
+    <li><a href="https://pylixm.top/index.xml" target="_blank" title="rss" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-rss"></i></a></li>
+    <li><a href="http://weibo.com/2258086637" target="_blank" title="weibo" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-weibo"></i></a></li>
+</ul>
+  <div class="copyright">
+    &copy;2015  -
+    2020
+    <div class="publishby">
+      hugo驱动，Theme by <a href="https://github.com/xiaoheiAh/hugo-theme-pure" target="_blank"> pure</a>.
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_SVG"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+            showMathMenu: false, //disables context menu
+            tex2jax: {
+            inlineMath: [ ['$','$'], ['\\(','\\)'] ]
+           }
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+<script>
+    window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/highlight.min.js"></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/python.min.js" defer></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/javascript.min.js" defer></script><script>
+    hljs.configure({
+        tabReplace: '    ', 
+        classPrefix: ''     
+        
+    })
+    hljs.initHighlightingOnLoad();
+</script>
+<script src="https://pylixm.top/js/application.min.bdeb64b910570b6c41badc6a05b7afb0c8ad9efd8525de3c7257d59e786326a3.js"></script>
+<script src="https://pylixm.top/js/plugin.min.51ff8c7317566f82259170fa36e09c4493adc9b9378b427a01ad3f017ebac7dd.js"></script>
+
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(未命名)',
+            },
+            ROOT_URL: 'https:\/\/pylixm.top',
+            CONTENT_URL: 'https:\/\/pylixm.top\/searchindex.json ',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script type="text/javascript" src="https://pylixm.top/js/insight.min.a343cd9a5a7698336b28ef3a7c16a3a1b1d2d5fb17dc8ed04022bbe08cc5459073a15bdafa3a8a58cdd56080784bdd69fa70b1ae8597565c799c57ed00f0e120.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script>
+<script>
+    tocbot.init({
+        
+        tocSelector: '.js-toc',
+        
+        contentSelector: '.js-toc-content',
+        
+        headingSelector: 'h1, h2, h3',
+        
+        hasInnerContainers: true,
+    });
+</script>
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="https://cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine"></script>
+<script type="text/javascript">
+    var GUEST = ['nick', 'mail', 'link'];
+    var meta = 'nick,mail';
+    meta = meta.split(',').filter(function (item) {
+        return GUEST.indexOf(item) > -1;
+    });
+    new Valine({
+        el: '#vcomments',
+        verify: null ,
+        notify: null ,
+        appId: 'OBJcj4PU8JI0zDfu0HJSrG6W-gzGzoHsz',
+        appKey: 'tBtFzC72xIlgo2UFbA33nqmU',
+        placeholder: '来做第一个发言人吧',
+        avatar: 'mm',
+        meta: meta,
+        pageSize: '10' || 10,
+        visitor: false 
+});
+</script>
+
+  </body>
+</html>

@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <title>
+        Django 3.0 异步试用分享 - DeanWu
+      </title>
+        <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    
+    <meta name="theme-color" content="#000000" />
+    
+    <meta http-equiv="window-target" content="_top" />
+    
+    
+    <meta name="description" content="上周Django官方正式发布了Django 3.0版本，其中最重要的更新莫过于对ASGI的支持。今天对Django 3.0的异步功能做了简单的试" />
+    <meta name="generator" content="Hugo 0.73.0 with theme pure" />
+    <title>Django 3.0 异步试用分享 - DeanWu</title>
+    
+    
+    <link rel="stylesheet" href="https://pylixm.top/css/style.min.f70e8e0df9ea6aeb37dac252b17ca98082073ff1663b24118baaaa84ee8ae7e8.css">
+    
+    <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.15.10/styles/github.min.css" async>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css" async>
+    <meta property="og:title" content="Django 3.0 异步试用分享" />
+<meta property="og:description" content="上周Django官方正式发布了Django 3.0版本，其中最重要的更新莫过于对ASGI的支持。今天对Django 3.0的异步功能做了简单的试" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://pylixm.top/posts/2019-12-12-django-3.0.html" />
+<meta property="article:published_time" content="2019-12-12T00:00:00+00:00" />
+<meta property="article:modified_time" content="2019-12-12T00:00:00+00:00" />
+<meta itemprop="name" content="Django 3.0 异步试用分享">
+<meta itemprop="description" content="上周Django官方正式发布了Django 3.0版本，其中最重要的更新莫过于对ASGI的支持。今天对Django 3.0的异步功能做了简单的试">
+<meta itemprop="datePublished" content="2019-12-12T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2019-12-12T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="1934">
+
+
+
+<meta itemprop="keywords" content="Django," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Django 3.0 异步试用分享"/>
+<meta name="twitter:description" content="上周Django官方正式发布了Django 3.0版本，其中最重要的更新莫过于对ASGI的支持。今天对Django 3.0的异步功能做了简单的试"/>
+
+    <!--[if lte IE 9]>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+      <![endif]-->
+
+    <!--[if lt IE 9]>
+        <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+      <![endif]-->
+  </head>
+
+  
+  
+
+  <body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage"><header class="header" itemscope itemtype="http://schema.org/WPHeader">
+    <div class="slimContent">
+      <div class="navbar-header">
+        <div class="profile-block text-center">
+          <a id="avatar" href="https://pylixm.top" target="_blank">
+            <img class="img-circle img-rotate" src="https://pylixm.top/static/imgs/avatar.png" width="200" height="200">
+          </a>
+          <h2 id="name" class="hidden-xs hidden-sm">DeanWu</h2>
+          <h3 id="title" class="hidden-xs hidden-sm hidden-md">程序员</h3>
+          <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i>Beijing, China</small>
+        </div><div class="search" id="search-form-wrap">
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i
+                        class="icon icon-search"></i></button>
+            </span>
+        </div>
+        <div class="ins-search">
+            <div class="ins-search-mask"></div>
+            <div class="ins-search-container">
+                <div class="ins-input-wrapper">
+                    <input type="text" class="ins-search-input" placeholder="想要查找什么..."
+                        x-webkit-speech />
+                    <button type="button" class="close ins-close ins-selectable" data-dismiss="modal"
+                        aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="ins-section-wrapper">
+                    <div class="ins-section-container"></div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+        <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+        <ul class="nav navbar-nav main-nav">
+            <li class="menu-item menu-item-home">
+                <a href="/">
+                    <i class="icon icon-home-fill"></i>
+                  <span class="menu-title">首页</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-series">
+                <a href="/series/">
+                    <i class="icon icon-folder"></i>
+                  <span class="menu-title">专题</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-repository">
+                <a href="/project/">
+                    <i class="icon icon-project"></i>
+                  <span class="menu-title">项目</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-archives">
+                <a href="/posts/">
+                    <i class="icon icon-archives-fill"></i>
+                  <span class="menu-title">归档</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-about">
+                <a href="/about/">
+                    <i class="icon icon-cup-fill"></i>
+                  <span class="menu-title">关于</span>
+                </a>
+            </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+<aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content"><div>欢迎关注微信公众号「码农吴先生」：专注python/golang/devops等技术的学习经验及资源分享！</br>回复关键字：go或python 获取我收集的资料，也可回复关键字：小二，加我wx，一块聊技术，聊人生~  </br><img src="/static/imgs/wx/wx_gzh.png" width="140" height="140"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+      
+<div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+        <ul class="recent-post-list list-unstyled no-thumbnail">
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2020-12-08-django-async-views-example.html" class="title">Django 三个异步使用的案例</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-12-08 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-08</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2020-12-05-go-from-python-structure-base.html" class="title">「对比Python学习Go」- 基本数据结构</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-12-05 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-05</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2020-12-03-go-from-python-start.html" class="title">「对比Python学习Go」- 环境篇</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-12-03 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-03</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2020-12-02-go-from-python-intro.html" class="title">「对比Python学习Go」- 开篇</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-12-02 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-02</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2020-12-01-for-range-point.html" class="title">「Go Tips」for range 遍历时变量取值的问题分析</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-12-01 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-01</time>
+                    </p>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+      <div class="widget">
+    <h3 class="widget-title"> 分类</h3>
+    <div class="widget-body">
+        <ul class="category-list">
+            <li class="category-list-item"><a href="https://pylixm.top/categories/ATS/" class="category-list-link">ATS</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/DevOps/" class="category-list-link">DevOps</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Devlopment-Demo/" class="category-list-link">Devlopment-Demo</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Django/" class="category-list-link">Django</a><span class="category-list-count">39</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Docker/" class="category-list-link">Docker</a><span class="category-list-count">4</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Flask/" class="category-list-link">Flask</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Git/" class="category-list-link">Git</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Golang/" class="category-list-link">Golang</a><span class="category-list-count">12</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/HTTPS/" class="category-list-link">HTTPS</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Javascript/" class="category-list-link">Javascript</a><span class="category-list-count">3</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Kubernetes/" class="category-list-link">Kubernetes</a><span class="category-list-count">4</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/LVS/" class="category-list-link">LVS</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Linux/" class="category-list-link">Linux</a><span class="category-list-count">15</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Mongodb/" class="category-list-link">Mongodb</a><span class="category-list-count">3</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Mysql/" class="category-list-link">Mysql</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/NoSQL/" class="category-list-link">NoSQL</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/PostgreSQL/" class="category-list-link">PostgreSQL</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Puppet/" class="category-list-link">Puppet</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Python/" class="category-list-link">Python</a><span class="category-list-count">19</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/QA/" class="category-list-link">QA</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Rabbitmq/" class="category-list-link">Rabbitmq</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Restful/" class="category-list-link">Restful</a><span class="category-list-count">6</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/SaltStack/" class="category-list-link">SaltStack</a><span class="category-list-count">7</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Software_Architect/" class="category-list-link">Software_Architect</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Supervisor/" class="category-list-link">Supervisor</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Tornado/" class="category-list-link">Tornado</a><span class="category-list-count">3</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Vagrant/" class="category-list-link">Vagrant</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Vue/" class="category-list-link">Vue</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/kafka/" class="category-list-link">kafka</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/zookeeper/" class="category-list-link">zookeeper</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E4%B8%AA%E4%BA%BA%E7%AE%A1%E7%90%86/" class="category-list-link">个人管理</a><span class="category-list-count">5</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB/" class="category-list-link">前后端分离</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" class="category-list-link">数据结构与算法</a><span class="category-list-count">13</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E6%9C%9D%E8%8A%B1%E5%A4%95%E6%8B%BE/" class="category-list-link">朝花夕拾</a><span class="category-list-count">10</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" class="category-list-link">机器学习</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" class="category-list-link">环境搭建</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E7%A8%8B%E5%BA%8F%E5%91%98%E8%87%AA%E6%88%91%E4%BF%AE%E5%85%BB/" class="category-list-link">程序员自我修养</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E8%B5%84%E6%BA%90%E5%88%86%E4%BA%AB%E8%AE%A1%E5%88%92/" class="category-list-link">资源分享计划</a><span class="category-list-count">10</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E8%BF%90%E7%BB%B4%E7%9F%A5%E8%AF%86%E5%BA%93/" class="category-list-link">运维知识库</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86/" class="category-list-link">项目管理</a><span class="category-list-count">1</span></li>
+        </ul>
+    </div>
+</div>
+  </div>
+</aside>
+
+    
+    
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <h4 class="toc-title">文章目录</h4>
+    <nav id="toc" class="js-toc toc">
+
+    </nav>
+  </div>
+</aside>
+<main class="main" role="main"><div class="content">
+  
+  <article id="article-container" class="article article-type-" itemscope
+    itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      <h1 itemprop="name">
+  <a
+    class="article-title"
+    href="/posts/2019-12-12-django-3.0.html"
+    >Django 3.0 异步试用分享</a
+  >
+</h1>
+
+      <div class="article-meta">
+        
+<span class="article-date">
+  <i class="icon icon-calendar-check"></i>&nbsp;
+<a href="https://pylixm.top/posts/2019-12-12-django-3.0.html" class="article-date">
+  <time datetime="2019-12-12 00:00:00 &#43;0000 UTC" itemprop="datePublished">2019-12-12</time>
+</a>
+</span>
+<span class="article-category">
+  <i class="icon icon-folder"></i>&nbsp;
+  <a class="article-category-link" href="/categories/Django/"> Django </a>
+</span>  
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>&nbsp;
+    <a class="article-tag-link" href="/tags/Django/"> Django </a>
+  </span>
+
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+        <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="/posts/2019-12-12-django-3.0.html#comments"
+            class="article-comment-link">评论</a></span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 1934字</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 4分 </span>
+      </div>
+    </div>
+    <div class="article-entry marked-body js-toc-content" itemprop="articleBody">
+      <p>上周<code>Django</code>官方正式发布了<code>Django 3.0</code>版本，其中最重要的更新莫过于对<code>ASGI</code>的支持。今天对<code>Django 3.0</code>的异步功能做了简单的试用，分析下过程，希望对大家有帮助。</p>
+<p>具体的详细更新列表可参考官方 <a href="https://docs.djangoproject.com/en/3.0/releases/3.0/">Django 3.0 release notes</a>, 这里不再赘述，下面我们开始。</p>
+<h2 id="准备工作">准备工作</h2>
+<p>在开始之前我们先来准备下环境，直接使用 Pycharm 新建一个项目，并新建虚拟环境.</p>
+<p><img src="/static/imgs/django/django3-1.png" alt=""></p>
+<p>得到如下项目：</p>
+<p><img src="/static/imgs/django/django3-asgi.png" alt=""></p>
+<p>相比之前版本的 django 项目，多了一个<code>asgi.py</code>。这便是<code>ASGI</code>的服务的入口文件了，内容基本同<code>wsgi.py</code>。</p>
+<h2 id="asgi-协议知识">ASGI 协议知识</h2>
+<p>在使用<code>ASGI</code> 特性之前，先让我们了解下，什么是 ASGI?</p>
+<p><code>ASGI</code>和<code>WSGI</code>，都是一种 Web 服务网关接口协议，是在<code>CGI</code>的标准上构建的。</p>
+<p><code>CGI</code>（通用网关接口， Common Gateway Interface），简单来说就是解析浏览器等客户端发送给服务端的请求，并组装需要返回的 HTTP 请求的一种通用协议，处理这个过程的程序，我们就可以叫 CGI 脚本。互联网早起的动态网页都是基于<code>CGI</code>标准的。</p>
+<p><img src="/static/imgs/django/django3-cgi.png" alt=""></p>
+<p><code>WSGI</code>，是一种 Python 专用的 Web 服务器网关接口，它分为两部分&quot;服务器（或网关）&ldquo;和&quot;应用程序（或应用框架）&quot;。「服务器」，一般独立于应用框架，为应用程序运行提供环境信息和一个回调函数（Callback Function）。当应用程序完成处理请求后，透过回调函数，将结果回传给服务器。常用的<code>WSGI</code>服务器有: <code>uwsgi</code>、<code>gunicon</code>。「应用程序」，是各种实现了<code>WSGI</code>标准的 Python web 框架了，常用的有<code>Django</code>、<code>Flask</code>等。</p>
+<p><code>ASGI</code>（Asynchronous Server Gateway Interface)是 Django 团队提出的一种具有异步功能的 Python web 服务器网关接口协议。能够处理多种通用的协议类型，包括 HTTP，HTTP2 和 WebSocket。<code>WSGI</code>是基于 HTTP 协议模式的，不支持<code>WebSocket</code>，而<code>ASGI</code>的诞生则是为了解决 Python 常用的 WSGI 不支持当前 Web 开发中的一些新的协议标准(WebSocket、Http2 等)。同时，<code>ASGI</code>向下兼容<code>WSGI</code>标准，可以通过一些方法跑<code>WSGI</code>的应用程序。常用的「服务器」有<code>Daphne</code>、<code>Uvicorn</code>。</p>
+<p>更多<code>ASGI</code>资料可参考<a href="https://asgi.readthedocs.io/en/latest/index.html">文档</a></p>
+<h2 id="使用过程">使用过程</h2>
+<p>了解了<code>ASGI</code>，我们进入正题。关于<code>ASGI</code>在<code>Django release Notes</code>文档中并没有过多的介绍，只有一个部署的文档 <a href="https://docs.djangoproject.com/zh-hans/3.0/howto/deployment/asgi/">How to deploy with ASGI</a></p>
+<p>看了下，主要说了两种部署方式：daphne 和 uvicorn。其中&rdquo;<strong>必须使用 <code>Daphne</code>或<code>Uvicorn</code>部署，才会是 ASGI 服务，直接 runnerserver 是同步服务</strong>&ldquo;这句给了我们提醒，想要使用 ASGI，便不能直接 runerserver。</p>
+<p>我们随便选一种使用方式，并启动服务：</p>
+<pre><code># 安装
+pip install  uvicorn
+
+# 启动服务
+uvicorn django3_demo.asgi:application
+</code></pre><p>启动日志如下：</p>
+<pre><code>$ uvicorn django3_demo.asgi:application
+INFO:     Started server process [48508]
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     Waiting for application startup.
+INFO:     ASGI 'lifespan' protocol appears unsupported.
+INFO:     Application startup complete.
+</code></pre><p>根据<code>ASGI</code>的特性，可以支持 HTTP、HTTP2 和 WebSocket。那我们来进行下 websocket 和 http 的测试。</p>
+<h3 id="websocket-测试"><strong>websocket 测试</strong></h3>
+<p>打开浏览器 console 控制台，新建一个 websocket 链接，出现如下错误：</p>
+<p><img src="/static/imgs/django/django3-websocket.png" alt=""></p>
+<p>看服务错误如下：</p>
+<pre><code>INFO:     Application startup complete.
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File &quot;/Users/xiumin1/.local/share/virtualenvs/django3_demo/lib/python3.6/site-packages/uvicorn/protocols/websockets/websockets_impl.py&quot;, line 153, in run_asgi
+    result = await self.app(self.scope, self.asgi_receive, self.asgi_send)
+  File &quot;/Users/xiumin1/.local/share/virtualenvs/django3_demo/lib/python3.6/site-packages/uvicorn/middleware/proxy_headers.py&quot;, line 45, in __call__
+    return await self.app(scope, receive, send)
+  File &quot;/Users/xiumin1/.local/share/virtualenvs/django3_demo/lib/python3.6/site-packages/django/core/handlers/asgi.py&quot;, line 146, in __call__
+    % scope['type']
+ValueError: Django can only handle ASGI/HTTP connections, not websocket.
+
+</code></pre><p><code>Django can only handle ASGI/HTTP connections, not websocket</code> ，貌似 Django 的 ASGI 还没有完全实现，仅支持 HTTP。</p>
+<h3 id="http-测试"><strong>http 测试</strong></h3>
+<p>在浏览器输入<code>http://127.0.0.1:8000</code> 出现了我们熟悉的小火箭页面。这只是简单的启动页面，我们需要写个异步的 view 和 model 来具体操作下。</p>
+<p>翻阅了一遍文档，在一个小角落里:</p>
+<p><img src="/static/imgs/django/django3-model-async.png" alt=""></p>
+<p>令我失望的找到了如下说明：</p>
+<blockquote>
+<p>Django has developing support for asynchronous (“async”) Python, but does not yet support asynchronous views or middleware; they will be coming in a future release.</p>
+</blockquote>
+<p>主要意思是现阶段不支持异步的 view 和中间件。那也就说明没法使用 Django 原生的方式来实现<code>ASGI</code>了。</p>
+<p>到此，异步功能的试用告一段落。结论，<strong>现阶段<code>Django</code>原生还是无法完全的支持<code>ASGI</code>的服务。如果想完全实现<code>ASGI</code>服务，还是需要 <a href="https://channels.readthedocs.io/en/latest/"><code>Channels</code></a> 或 <a href="https://www.starlette.io/"><code>starlette</code></a></strong>。</p>
+<p>经过翻阅资料，我找到了 Django 原生异步主要推动者<a href="https://www.aeracode.org/2018/06/04/django-async-roadmap/">Andrew Godwin</a>的一篇博客， 描述了异步功能开发的时间轴。大致如下：</p>
+<ul>
+<li>Django 2.1：当前进行中的版本。没有异步工作。</li>
+<li>Django 2.2：添加异步 ORM 和查看功能的初始工作，但默认情况下所有内容默认都同步，并且异步支持主要基于线程池。</li>
+<li>Django 3.0：将内部请求处理堆栈重写为完全异步的，添加异步中间件，表单，缓存，会话，身份验证。对所有变为仅异步的 API 开始弃用过程。</li>
+<li>Django 3.1：继续改善异步支持，潜在的异步模板更改</li>
+<li>Django 3.2：完成不推荐使用的过程，并拥有一个异步的 Django。</li>
+</ul>
+<p>从现在 3.0 发布的功能看，实现貌似与该时间抽差了一个版本，只实现了应该到 2.2 的功能。</p>
+<p>到这里今天的分享就结束了。最后，还是希望 Django 的异步功能早点来临，到时候我们便能直接使用 django 开发各种异步特性的功能，而不必安装三方软件。</p>
+<h2 id="扩展阅读">扩展阅读</h2>
+<ul>
+<li><a href="https://pypi.org/project/daphne/" title="Daphne 文档">Daphne 文档</a></li>
+<li><a href="https://github.com/django/deps/blob/master/accepted/0009-async.rst#views-http-handling" title="DEP0009">DEP0009</a></li>
+<li><a href="https://hub.packtpub.com/django-3-0-is-going-async/" title="Django 3.0 is going async!">Django 3.0 is going async!</a></li>
+<li><a href="https://www.aeracode.org/2018/06/04/django-async-roadmap/" title="A Django Async Roadmap">A Django Async Roadmap</a></li>
+<li><a href="https://groups.google.com/forum/#!msg/django-developers/5CVsR9FSqmg/qKD3QCrLCAAJ" title="django developers goolge groups">django developers goolge groups</a></li>
+<li><a href="http://www.liujiangblog.com/blog/47/" title="刘江-Django3.0初体验">刘江-Django3.0 初体验</a></li>
+</ul>
+
+    </div>
+    <div class="article-footer">
+<blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://pylixm.top/posts/2019-12-12-django-3.0.html" title="Django 3.0 异步试用分享" target="_blank" rel="external">https://pylixm.top/posts/2019-12-12-django-3.0.html</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>许可协议：</strong>
+      <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN</a>
+    </li>
+  </ul>
+</blockquote>
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://pylixm.top" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="https://pylixm.top/static/imgs/avatar.png" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://pylixm.top" target="_blank"><span class="text-dark">DeanWu</span><small class="ml-1x">程序员</small></a></h3>
+        <div>努力成为真正的SRE</div>
+      </div>
+    </figure>
+  </div>
+</div>
+    </div>
+  </article>
+<section id="comments">
+    <div id="vcomments"></div>
+</section>
+
+</div><nav class="bar bar-footer clearfix" data-stick-bottom>
+    <div class="bar-inner">
+        <ul class="pager pull-left">
+            <li class="prev">
+                <a href="https://pylixm.top/posts/2019-11-26-Puppet-tutorial-two.html" title="Puppet 简单入门 - 安装篇"><i
+                        class="icon icon-angle-left"
+                        aria-hidden="true"></i><span>&nbsp;&nbsp;下一篇</span></a>
+            </li>
+            <li class="next">
+                <a href="https://pylixm.top/posts/2019-12-16-django-restfull-framework-performance.html"
+                    title="「译」Django restful framework 性能优化"><span>上一篇&nbsp;&nbsp;</span><i
+                        class="icon icon-angle-right" aria-hidden="true"></i></a>
+            </li>
+            
+            <li class="toggle-toc">
+                <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false"
+                    title="文章目录" role="button">
+                    <span>[&nbsp;</span><span>文章目录</span>
+                    <i class="text-collapsed icon icon-anchor"></i>
+                    <i class="text-in icon icon-close"></i>
+                    <span>]</span>
+                </a>
+            </li>
+        </ul>
+        <div class="bar-right">
+        </div>
+    </div>
+</nav>
+
+
+<script src="https://my.openwrite.cn/js/readmore.js" type="text/javascript"></script>
+<script>
+    const btw = new BTWPlugin();
+    btw.init({
+        id: 'article-container',
+        blogId: '24944-1607090547459-485',
+        name: '码农吴先生',
+        qrcode: 'https://gitee.com/pylixm/picture/raw/master/2020-12-4/1607089812769-image.png',
+        keyword: 'vip',
+    });
+</script>
+</main><footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+<ul class="social-links">
+    <li><a href="https://github.com/pylixm" target="_blank" title="github" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-github"></i></a></li>
+    <li><a href="https://pylixm.top/index.xml" target="_blank" title="rss" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-rss"></i></a></li>
+    <li><a href="http://weibo.com/2258086637" target="_blank" title="weibo" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-weibo"></i></a></li>
+</ul>
+  <div class="copyright">
+    &copy;2015  -
+    2020
+    <div class="publishby">
+      hugo驱动，Theme by <a href="https://github.com/xiaoheiAh/hugo-theme-pure" target="_blank"> pure</a>.
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_SVG"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+            showMathMenu: false, //disables context menu
+            tex2jax: {
+            inlineMath: [ ['$','$'], ['\\(','\\)'] ]
+           }
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+<script>
+    window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/highlight.min.js"></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/python.min.js" defer></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/javascript.min.js" defer></script><script>
+    hljs.configure({
+        tabReplace: '    ', 
+        classPrefix: ''     
+        
+    })
+    hljs.initHighlightingOnLoad();
+</script>
+<script src="https://pylixm.top/js/application.min.bdeb64b910570b6c41badc6a05b7afb0c8ad9efd8525de3c7257d59e786326a3.js"></script>
+<script src="https://pylixm.top/js/plugin.min.51ff8c7317566f82259170fa36e09c4493adc9b9378b427a01ad3f017ebac7dd.js"></script>
+
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(未命名)',
+            },
+            ROOT_URL: 'https:\/\/pylixm.top',
+            CONTENT_URL: 'https:\/\/pylixm.top\/searchindex.json ',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script type="text/javascript" src="https://pylixm.top/js/insight.min.a343cd9a5a7698336b28ef3a7c16a3a1b1d2d5fb17dc8ed04022bbe08cc5459073a15bdafa3a8a58cdd56080784bdd69fa70b1ae8597565c799c57ed00f0e120.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script>
+<script>
+    tocbot.init({
+        
+        tocSelector: '.js-toc',
+        
+        contentSelector: '.js-toc-content',
+        
+        headingSelector: 'h1, h2, h3',
+        
+        hasInnerContainers: true,
+    });
+</script>
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="https://cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine"></script>
+<script type="text/javascript">
+    var GUEST = ['nick', 'mail', 'link'];
+    var meta = 'nick,mail';
+    meta = meta.split(',').filter(function (item) {
+        return GUEST.indexOf(item) > -1;
+    });
+    new Valine({
+        el: '#vcomments',
+        verify: null ,
+        notify: null ,
+        appId: 'OBJcj4PU8JI0zDfu0HJSrG6W-gzGzoHsz',
+        appKey: 'tBtFzC72xIlgo2UFbA33nqmU',
+        placeholder: '来做第一个发言人吧',
+        avatar: 'mm',
+        meta: meta,
+        pageSize: '10' || 10,
+        visitor: false 
+});
+</script>
+
+  </body>
+</html>

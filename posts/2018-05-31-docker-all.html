@@ -1,0 +1,1506 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <title>
+        Docker 知识大全 - DeanWu
+      </title>
+        <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    
+    <meta name="theme-color" content="#000000" />
+    
+    <meta http-equiv="window-target" content="_top" />
+    
+    
+    <meta name="description" content="原文地址：https://blog.opskumu.com/docker.html 本文对原文进行了更新和补充，转载备查。 一、Docker 简介" />
+    <meta name="generator" content="Hugo 0.73.0 with theme pure" />
+    <title>Docker 知识大全 - DeanWu</title>
+    
+    
+    <link rel="stylesheet" href="https://pylixm.top/css/style.min.f70e8e0df9ea6aeb37dac252b17ca98082073ff1663b24118baaaa84ee8ae7e8.css">
+    
+    <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.15.10/styles/github.min.css" async>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css" async>
+    <meta property="og:title" content="Docker 知识大全" />
+<meta property="og:description" content="原文地址：https://blog.opskumu.com/docker.html 本文对原文进行了更新和补充，转载备查。 一、Docker 简介" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://pylixm.top/posts/2018-05-31-docker-all.html" />
+<meta property="article:published_time" content="2018-05-31T00:00:00+00:00" />
+<meta property="article:modified_time" content="2018-05-31T00:00:00+00:00" />
+<meta itemprop="name" content="Docker 知识大全">
+<meta itemprop="description" content="原文地址：https://blog.opskumu.com/docker.html 本文对原文进行了更新和补充，转载备查。 一、Docker 简介">
+<meta itemprop="datePublished" content="2018-05-31T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2018-05-31T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="13544">
+
+
+
+<meta itemprop="keywords" content="自动化运维,Docker," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Docker 知识大全"/>
+<meta name="twitter:description" content="原文地址：https://blog.opskumu.com/docker.html 本文对原文进行了更新和补充，转载备查。 一、Docker 简介"/>
+
+    <!--[if lte IE 9]>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+      <![endif]-->
+
+    <!--[if lt IE 9]>
+        <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+      <![endif]-->
+  </head>
+
+  
+  
+
+  <body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage"><header class="header" itemscope itemtype="http://schema.org/WPHeader">
+    <div class="slimContent">
+      <div class="navbar-header">
+        <div class="profile-block text-center">
+          <a id="avatar" href="https://pylixm.top" target="_blank">
+            <img class="img-circle img-rotate" src="https://pylixm.top/static/imgs/avatar.png" width="200" height="200">
+          </a>
+          <h2 id="name" class="hidden-xs hidden-sm">DeanWu</h2>
+          <h3 id="title" class="hidden-xs hidden-sm hidden-md">程序员</h3>
+          <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i>Beijing, China</small>
+        </div><div class="search" id="search-form-wrap">
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i
+                        class="icon icon-search"></i></button>
+            </span>
+        </div>
+        <div class="ins-search">
+            <div class="ins-search-mask"></div>
+            <div class="ins-search-container">
+                <div class="ins-input-wrapper">
+                    <input type="text" class="ins-search-input" placeholder="想要查找什么..."
+                        x-webkit-speech />
+                    <button type="button" class="close ins-close ins-selectable" data-dismiss="modal"
+                        aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="ins-section-wrapper">
+                    <div class="ins-section-container"></div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+        <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+        <ul class="nav navbar-nav main-nav">
+            <li class="menu-item menu-item-home">
+                <a href="/">
+                    <i class="icon icon-home-fill"></i>
+                  <span class="menu-title">首页</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-series">
+                <a href="/series/">
+                    <i class="icon icon-folder"></i>
+                  <span class="menu-title">专题</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-repository">
+                <a href="/project/">
+                    <i class="icon icon-project"></i>
+                  <span class="menu-title">项目</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-archives">
+                <a href="/posts/">
+                    <i class="icon icon-archives-fill"></i>
+                  <span class="menu-title">归档</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-about">
+                <a href="/about/">
+                    <i class="icon icon-cup-fill"></i>
+                  <span class="menu-title">关于</span>
+                </a>
+            </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+<aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content"><div>欢迎关注微信公众号「码农吴先生」：专注python/golang/devops等技术的学习经验及资源分享！</br>回复关键字：go或python 获取我收集的资料，也可回复关键字：小二，加我wx，一块聊技术，聊人生~  </br><img src="/static/imgs/wx/wx_gzh.png" width="140" height="140"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+      
+<div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+        <ul class="recent-post-list list-unstyled no-thumbnail">
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2020-12-08-django-async-views-example.html" class="title">Django 三个异步使用的案例</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-12-08 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-08</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2020-12-05-go-from-python-structure-base.html" class="title">「对比Python学习Go」- 基本数据结构</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-12-05 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-05</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2020-12-03-go-from-python-start.html" class="title">「对比Python学习Go」- 环境篇</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-12-03 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-03</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2020-12-02-go-from-python-intro.html" class="title">「对比Python学习Go」- 开篇</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-12-02 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-02</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2020-12-01-for-range-point.html" class="title">「Go Tips」for range 遍历时变量取值的问题分析</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-12-01 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-01</time>
+                    </p>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+      <div class="widget">
+    <h3 class="widget-title"> 分类</h3>
+    <div class="widget-body">
+        <ul class="category-list">
+            <li class="category-list-item"><a href="https://pylixm.top/categories/ATS/" class="category-list-link">ATS</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/DevOps/" class="category-list-link">DevOps</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Devlopment-Demo/" class="category-list-link">Devlopment-Demo</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Django/" class="category-list-link">Django</a><span class="category-list-count">39</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Docker/" class="category-list-link">Docker</a><span class="category-list-count">4</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Flask/" class="category-list-link">Flask</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Git/" class="category-list-link">Git</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Golang/" class="category-list-link">Golang</a><span class="category-list-count">12</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/HTTPS/" class="category-list-link">HTTPS</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Javascript/" class="category-list-link">Javascript</a><span class="category-list-count">3</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Kubernetes/" class="category-list-link">Kubernetes</a><span class="category-list-count">4</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/LVS/" class="category-list-link">LVS</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Linux/" class="category-list-link">Linux</a><span class="category-list-count">15</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Mongodb/" class="category-list-link">Mongodb</a><span class="category-list-count">3</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Mysql/" class="category-list-link">Mysql</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/NoSQL/" class="category-list-link">NoSQL</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/PostgreSQL/" class="category-list-link">PostgreSQL</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Puppet/" class="category-list-link">Puppet</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Python/" class="category-list-link">Python</a><span class="category-list-count">19</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/QA/" class="category-list-link">QA</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Rabbitmq/" class="category-list-link">Rabbitmq</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Restful/" class="category-list-link">Restful</a><span class="category-list-count">6</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/SaltStack/" class="category-list-link">SaltStack</a><span class="category-list-count">7</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Software_Architect/" class="category-list-link">Software_Architect</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Supervisor/" class="category-list-link">Supervisor</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Tornado/" class="category-list-link">Tornado</a><span class="category-list-count">3</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Vagrant/" class="category-list-link">Vagrant</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Vue/" class="category-list-link">Vue</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/kafka/" class="category-list-link">kafka</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/zookeeper/" class="category-list-link">zookeeper</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E4%B8%AA%E4%BA%BA%E7%AE%A1%E7%90%86/" class="category-list-link">个人管理</a><span class="category-list-count">5</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB/" class="category-list-link">前后端分离</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" class="category-list-link">数据结构与算法</a><span class="category-list-count">13</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E6%9C%9D%E8%8A%B1%E5%A4%95%E6%8B%BE/" class="category-list-link">朝花夕拾</a><span class="category-list-count">10</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" class="category-list-link">机器学习</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" class="category-list-link">环境搭建</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E7%A8%8B%E5%BA%8F%E5%91%98%E8%87%AA%E6%88%91%E4%BF%AE%E5%85%BB/" class="category-list-link">程序员自我修养</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E8%B5%84%E6%BA%90%E5%88%86%E4%BA%AB%E8%AE%A1%E5%88%92/" class="category-list-link">资源分享计划</a><span class="category-list-count">10</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E8%BF%90%E7%BB%B4%E7%9F%A5%E8%AF%86%E5%BA%93/" class="category-list-link">运维知识库</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86/" class="category-list-link">项目管理</a><span class="category-list-count">1</span></li>
+        </ul>
+    </div>
+</div>
+  </div>
+</aside>
+
+    
+    
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <h4 class="toc-title">文章目录</h4>
+    <nav id="toc" class="js-toc toc">
+
+    </nav>
+  </div>
+</aside>
+<main class="main" role="main"><div class="content">
+  
+  <article id="article-container" class="article article-type-" itemscope
+    itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      <h1 itemprop="name">
+  <a
+    class="article-title"
+    href="/posts/2018-05-31-docker-all.html"
+    >Docker 知识大全</a
+  >
+</h1>
+
+      <div class="article-meta">
+        
+<span class="article-date">
+  <i class="icon icon-calendar-check"></i>&nbsp;
+<a href="https://pylixm.top/posts/2018-05-31-docker-all.html" class="article-date">
+  <time datetime="2018-05-31 00:00:00 &#43;0000 UTC" itemprop="datePublished">2018-05-31</time>
+</a>
+</span>
+<span class="article-category">
+  <i class="icon icon-folder"></i>&nbsp;
+  <a class="article-category-link" href="/categories/Docker/"> Docker </a>
+</span>  
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>&nbsp;
+    <a class="article-tag-link" href="/tags/%E8%87%AA%E5%8A%A8%E5%8C%96%E8%BF%90%E7%BB%B4/"> 自动化运维 </a>
+    <a class="article-tag-link" href="/tags/Docker/"> Docker </a>
+  </span>
+
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+        <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="/posts/2018-05-31-docker-all.html#comments"
+            class="article-comment-link">评论</a></span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 13544字</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 28分 </span>
+      </div>
+    </div>
+    <div class="article-entry marked-body js-toc-content" itemprop="articleBody">
+      <blockquote>
+<p>原文地址：https://blog.opskumu.com/docker.html
+本文对原文进行了更新和补充，转载备查。</p>
+</blockquote>
+<h2 id="一docker-简介">一、Docker 简介</h2>
+<p>Docker 是一种轻量级的虚拟化技术，是一种Linux容器（Linux Containers，缩写为 LXC）技术的封装。</p>
+<p>大多数人可能知道虚拟机，可以在一台硬件机器上虚拟出另一台计算机，有它自己的cpu、硬盘等各种虚拟的硬件。而 Linux 容器技术也是一种虚拟技术，但是它并非直接从硬件上来虚拟，而是通过软件技术对进程及资源进行隔离，从而达到虚拟化的目的。Docker 就是一种这样隔离虚拟化技术。</p>
+<!-- raw HTML omitted -->
+<p>Docker的发展由来大致如下：</p>
+<p><img src="https://ws1.sinaimg.cn/large/8697aaedly1frtdhgj1ilj20k00dxaaj.jpg" alt=""></p>
+<p>（图片来源：https://zhuanlan.zhihu.com/p/34732608）</p>
+<p>Docker 与传统虚拟化技术不同如下：</p>
+<p><img src="https://ws1.sinaimg.cn/large/8697aaedly1frtfbkjvuxj211i0e0k14.jpg" alt=""></p>
+<p><img src="https://ws1.sinaimg.cn/large/8697aaedly1frtfbjwwm5j211g0aek1r.jpg" alt=""></p>
+<p>(图片来源：Docker 从入门到实践)</p>
+<p>Docker 发展之迅速，除了分布式和微服务的大潮外，还得益于其优秀的特性。</p>
+<p><strong>更高效的利用系统资源</strong></p>
+<p>Docker 容器不需要进行硬件虚拟以及运行完整操作系统等额外开销，Docker 对系统资源的利用率更高。</p>
+<p><strong>更快速的启动时间</strong></p>
+<p>Docker 直接运行于宿主内核，无需启动完整的操作系统，因此可以做到秒级、甚至毫秒级的启动时间。大大的节约了开发、测试、部署的时间。</p>
+<p><strong>一致的运行环境</strong></p>
+<p>Docker 容器中有镜像的概念，Docker 容器有镜像生成，镜像保证了除内核外的运行环境。</p>
+<p><strong>持续交付和部署</strong></p>
+<p>也是因为镜像技术，可以使Devops人员实现持续集成、持续交付、部署，一次构建可在任意地方运行。</p>
+<p><strong>更轻松的迁移</strong></p>
+<p>Docker 容器封装了软件运行环境，使其不依赖系统，使其更容易移植。</p>
+<p><strong>更轻松的维护和扩展</strong></p>
+<p>Docker 使用分层存储和镜像技术，使得镜像可重复使用，维护和扩展更轻松。</p>
+<p><strong>Docker相较虚拟机优势明显</strong></p>
+<p><img src="https://ws1.sinaimg.cn/large/8697aaedly1frtffbs8p2j21540aqq58.jpg" alt=""></p>
+<p>Docker 两个主要部件：</p>
+<ul>
+<li>Docker: 开源的容器虚拟化平台</li>
+<li>Docker Hub: 用于分享、管理 Docker 容器镜像的 Docker SaaS 平台 – Docker Hub</li>
+</ul>
+<p>Docker 使用客户端-服务器 (C/S) 架构模式。Docker 客户端会与 Docker 守护进程进行通信。Docker 守护进程会处理复杂繁重的任务，例如建立、运行、发布你的 Docker 容器。Docker 客户端和守护进程可以运行在同一个系统上，当然你也可以使用 Docker 客户端去连接一个远程的 Docker 守护进程。Docker 客户端和守护进程之间通过 socket 或者 RESTful API 进行通信。</p>
+<p><img src="https://ws1.sinaimg.cn/large/8697aaedly1frul61gqzvj20g10djaac.jpg" alt=""></p>
+<h3 id="11-docker-守护进程">1.1 Docker 守护进程</h3>
+<p>如上图所示，Docker 守护进程运行在一台主机上。用户并不直接和守护进程进行交互，而是通过 Docker 客户端间接和其通信。</p>
+<h3 id="12-docker-客户端">1.2 Docker 客户端</h3>
+<p>Docker 客户端，实际上是 docker 的二进制程序，是主要的用户与 Docker 交互方式。它接收用户指令并且与背后的 Docker 守护进程通信，如此来回往复。</p>
+<h3 id="13-docker-内部">1.3 Docker 内部</h3>
+<p>要理解 Docker 内部构建，需要理解以下三种部件：</p>
+<ul>
+<li>Docker 镜像 - Docker images</li>
+<li>Docker 仓库 - Docker registeries</li>
+<li>Docker 容器 - Docker containers</li>
+</ul>
+<h4 id="docker-镜像">Docker 镜像</h4>
+<p>Docker 镜像是 Docker 容器运行时的只读模板，每一个镜像由一系列的层 (layers) 组成。Docker 使用 UnionFS（一种Linux 下的文件系统，Linux 内核4.x以后不再支持，Docker公司开发了自己的文件系统如OverlayFS和overlay2。） 来将这些层联合到单独的镜像中。UnionFS 允许独立文件系统中的文件和文件夹(称之为分支)被透明覆盖，形成一个单独连贯的文件系统。正因为有了这些层的存在，Docker 是如此的轻量。当你改变了一个 Docker 镜像，比如升级到某个程序到新的版本，一个新的层会被创建。因此，不用替换整个原先的镜像或者重新建立(在使用虚拟机的时候你可能会这么做)，只是一个新的层被添加或升级了。现在你不用重新发布整个镜像，只需要“升级”，层使得分发 Docker 镜像变得简单和快速。</p>
+<p>Docker有各种存储驱动程序（https://docs.docker.com/engine/userguide/storagedriver/selectadriver/）。唯一得到广泛支持的驱动程序就是AUFS。</p>
+<p>镜像具有以下特点：</p>
+<ul>
+<li>类似虚拟机的快照，但更轻量，非常非常轻量。</li>
+<li>镜像拥有唯一ID，以及一个供人阅读的名字和标签对。</li>
+<li>只读层被称为镜像，一个镜像是永久不会变的。</li>
+<li>由于 Docker 使用一个统一文件系统，Docker 进程认为整个文件系统是以读写方式挂载的。 但是所有的变更都发生顶层的可写层，而下层的原始的只读镜像文件并未变化。由于镜像不可写，所以镜像是无状态的。</li>
+</ul>
+<h4 id="docker-仓库">Docker 仓库</h4>
+<p>Docker 仓库用来保存镜像，可以理解为代码控制中的代码仓库。同样的，Docker 仓库也有公有和私有的概念。公有的 Docker 仓库名字是 Docker Hub。Docker Hub 提供了庞大的镜像集合供使用。这些镜像可以是自己创建，或者在别人的镜像基础上创建。Docker 仓库是 Docker 的分发部分。</p>
+<h4 id="docker-容器">Docker 容器</h4>
+<p>Docker 容器和文件夹很类似，一个Docker容器包含了所有的某个应用运行所需要的环境。每一个 Docker 容器都是从 Docker 镜像创建的。Docker 容器可以运行、开始、停止、移动和删除。每一个 Docker 容器都是独立和安全的应用平台，Docker 容器是 Docker 的运行部分。</p>
+<h3 id="14-libcontainer">1.4 libcontainer</h3>
+<p>Docker 从 0.9 版本开始使用 libcontainer 替代 lxc，libcontainer 和 Linux 系统的交互图如下：</p>
+<p><img src="https://ws1.sinaimg.cn/large/8697aaedly1frulxcgv3rj20le0g1dhy.jpg" alt=""></p>
+<p>图片来源: Docker 0.9: introducing execution drivers and libcontainer</p>
+<h3 id="15-命名空间namespaces">1.5 命名空间「Namespaces」</h3>
+<h4 id="pid-namespace">pid namespace</h4>
+<p>不同用户的进程就是通过 pid namespace 隔离开的，且不同 namespace 中可以有相同 PID。具有以下特征:</p>
+<ul>
+<li>每个 namespace 中的 pid 是有自己的 pid=1 的进程(类似 /sbin/init 进程)</li>
+<li>每个 namespace 中的进程只能影响自己的同一个 namespace 或子 namespace 中的进程</li>
+<li>因为 /proc 包含正在运行的进程，因此在 container 中的 pseudo-filesystem 的 /proc 目录只能看到自己 namespace 中的进程</li>
+<li>因为 namespace 允许嵌套，父 namespace 可以影响子 namespace 的进程，所以子 namespace 的进程可以在父 namespace 中看到，但是具有不同的 pid</li>
+</ul>
+<p>参考文档：<a href="https://blog.jtlebi.fr/2014/01/05/introduction-to-linux-namespaces-part-3-pid/">Introduction to Linux namespaces – Part 3: PID</a></p>
+<h4 id="mnt-namespace">mnt namespace</h4>
+<p>类似 chroot，将一个进程放到一个特定的目录执行。mnt namespace 允许不同 namespace 的进程看到的文件结构不同，这样每个 namespace 中的进程所看到的文件目录就被隔离开了。同 chroot 不同，每个 namespace 中的 container 在 /proc/mounts 的信息只包含所在 namespace 的 mount point。</p>
+<h4 id="net-namespace">net namespace</h4>
+<p>网络隔离是通过 net namespace 实现的， 每个 net namespace 有独立的 network devices, IP addresses, IP routing tables, /proc/net 目录。这样每个 container 的网络就能隔离开来。 docker 默认采用 veth 的方式将 container 中的虚拟网卡同 host 上的一个 docker bridge 连接在一起。</p>
+<p>参考文档：<a href="https://blog.jtlebi.fr/2014/01/19/introduction-to-linux-namespaces-part-5-net/">Introduction to Linux namespaces – Part 5: NET</a></p>
+<h4 id="uts-namespace">uts namespace</h4>
+<p>UTS (“UNIX Time-sharing System”) namespace 允许每个 container 拥有独立的 hostname 和 domain name, 使其在网络上可以被视作一个独立的节点而非 Host 上的一个进程。</p>
+<p>参考文档：<a href="https://blog.jtlebi.fr/2013/12/22/introduction-to-linux-namespaces-part-1-uts/">Introduction to Linux namespaces – Part 1: UTS</a></p>
+<h4 id="ipc-namespace">ipc namespace</h4>
+<p>container 中进程交互还是采用 Linux 常见的进程间交互方法 (interprocess communication - IPC), 包括常见的信号量、消息队列和共享内存。然而同 VM 不同，container 的进程间交互实际上还是 host 上具有相同 pid namespace 中的进程间交互，因此需要在IPC资源申请时加入 namespace 信息 - 每个 IPC 资源有一个唯一的 32bit ID。</p>
+<p>参考文档：<a href="https://blog.jtlebi.fr/2013/12/28/introduction-to-linux-namespaces-part-2-ipc/">Introduction to Linux namespaces – Part 2: IPC</a></p>
+<h4 id="user-namespace">user namespace</h4>
+<p>每个 container 可以有不同的 user 和 group id, 也就是说可以以 container 内部的用户在 container 内部执行程序而非 Host 上的用户。</p>
+<p>有了以上 6 种 namespace 从进程、网络、IPC、文件系统、UTS 和用户角度的隔离，一个 container 就可以对外展现出一个独立计算机的能力，并且不同 container 从 OS 层面实现了隔离。 然而不同 namespace 之间资源还是相互竞争的，仍然需要类似 ulimit 来管理每个 container 所能使用的资源 - cgroup。</p>
+<p>####Reference</p>
+<ul>
+<li><a href="http://tiewei.github.io/cloud/Docker-Getting-Start/">Docker Getting Start: Related Knowledge</a></li>
+<li><a href="https://ruby-china.org/topics/22004">Docker 介绍以及其相关术语、底层原理和技术</a></li>
+</ul>
+<h3 id="16-资源配额cgroups">1.6 资源配额「cgroups」</h3>
+<p>cgroups 实现了对资源的配额和度量。 cgroups 的使用非常简单，提供类似文件的接口，在 /cgroup 目录下新建一个文件夹即可新建一个 group，在此文件夹中新建 task 文件，并将 pid 写入该文件，即可实现对该进程的资源控制。具体的资源配置选项可以在该文件夹中新建子 subsystem ，&lt;子系统前缀&gt;.&lt;资源项&gt; 是典型的配置方法， 如 memory.usage_in_bytes 就定义了该 group 在 subsystem memory 中的一个内存限制选项。 另外，cgroups 中的 subsystem 可以随意组合，一个 subsystem 可以在不同的 group 中，也可以一个 group 包含多个 subsystem - 也就是说一个 subsystem。</p>
+<ul>
+<li>memory
+<ul>
+<li>内存相关的限制</li>
+</ul>
+</li>
+<li>cpu
+<ul>
+<li>在 cgroup 中，并不能像硬件虚拟化方案一样能够定义 CPU 能力，但是能够定义 CPU 轮转的优先级，因此具有较高 CPU 优先级的进程会更可能得到 CPU 运算。 通过将参数写入 cpu.shares ,即可定义改 cgroup 的 CPU 优先级 - 这里是一个相对权重，而非绝对值</li>
+</ul>
+</li>
+<li>blkio
+<ul>
+<li>block IO 相关的统计和限制，byte/operation 统计和限制 (IOPS 等)，读写速度限制等，但是这里主要统计的都是同步 IO</li>
+</ul>
+</li>
+<li>devices
+<ul>
+<li>设备权限限制</li>
+</ul>
+</li>
+</ul>
+<p>参考文档：<a href="http://tiewei.github.io/devops/howto-use-cgroup/">how to use cgroup</a></p>
+<h2 id="二docker-安装">二、Docker 安装</h2>
+<p>docker 的相关安装方法这里不作介绍，具体安装参考 <a href="https://docs.docker.com/installation/">官档</a></p>
+<p>获取当前 docker 版本</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ docker version
+Client:
+ Version:      18.03.1-ce
+ API version:  1.37
+ Go version:   go1.9.5
+ Git commit:   9ee9f40
+ Built:        Thu Apr <span style="color:#ae81ff">26</span> 07:13:02 <span style="color:#ae81ff">2018</span>
+ OS/Arch:      darwin/amd64
+ Experimental: false
+ Orchestrator: swarm
+
+Server:
+ Engine:
+  Version:      18.03.1-ce
+  API version:  1.37 <span style="color:#f92672">(</span>minimum version 1.12<span style="color:#f92672">)</span>
+  Go version:   go1.9.5
+  Git commit:   9ee9f40
+  Built:        Thu Apr <span style="color:#ae81ff">26</span> 07:22:38 <span style="color:#ae81ff">2018</span>
+  OS/Arch:      linux/amd64
+  Experimental: false
+</code></pre></div><h2 id="三docker-基础用法">三、Docker 基础用法</h2>
+<p><a href="https://registry.hub.docker.com/">Docker HUB</a> : Docker镜像首页，包括官方镜像和其它公开镜像</p>
+<p>因为国情的原因，国内下载 Docker HUB 官方的相关镜像比较慢，可以使用 <a href="http://daocloud.com/">Daocloud</a> 镜像加速。</p>
+<h3 id="31-search-images">3.1 Search images</h3>
+<pre><code>$ sudo docker search ubuntu
+</code></pre><h3 id="32-pull-images">3.2 Pull images</h3>
+<pre><code>$ sudo docker pull ubuntu # 获取 ubuntu 官方镜像
+$ sudo docker images # 查看当前镜像列表
+</code></pre><h3 id="33-running-an-interactive-shell">3.3 Running an interactive shell</h3>
+<pre><code>$ sudo docker run -i -t ubuntu:14.04 /bin/bash
+</code></pre><ul>
+<li>docker run - 运行一个容器</li>
+<li>-t - 分配一个（伪）tty (link is external)</li>
+<li>-i - 交互模式 (so we can interact with it)</li>
+<li>ubuntu:14.04 - 使用 ubuntu 基础镜像 14.04</li>
+<li>/bin/bash - 运行命令 bash shell</li>
+</ul>
+<p>注: ubuntu 会有多个版本，通过指定 tag 来启动特定的版本 [image]:[tag]</p>
+<pre><code>$ sudo docker ps # 查看当前运行的容器, ps -a 列出当前系统所有的容器
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
+6c9129e9df10        ubuntu:14.04        /bin/bash           6 minutes ago       Up 6 minutes                            cranky_babbage
+</code></pre><h3 id="34-相关快捷键">3.4 相关快捷键</h3>
+<ul>
+<li>退出：Ctrl-D or exit</li>
+<li>detach：Ctrl-P + Ctrl-Q</li>
+<li>attach: docker attach CONTAINER-ID</li>
+</ul>
+<h2 id="四docker-常用命令">四、Docker 常用命令</h2>
+<h3 id="41-docker-help">4.1 docker help</h3>
+<pre><code>$ sudo docker   # docker 命令帮助
+</code></pre><h3 id="42-docker-search">4.2 docker search</h3>
+<pre><code>$ sudo docker search --help
+</code></pre><p>示例：</p>
+<pre><code># 查找 star 数至少为 100 的镜像，找出只有官方镜像 start 数超过 100，默认不加 s 选项找出所有相关 ubuntu 镜像
+$ docker search -s 100 ubuntu
+Flag --stars has been deprecated, use --filter=stars=3 instead
+NAME                             DESCRIPTION                                     STARS               OFFICIAL            AUTOMATED
+ubuntu                           Ubuntu is a Debian-based Linux operating sys…   7755                [OK]
+dorowu/ubuntu-desktop-lxde-vnc   Ubuntu with openssh-server and NoVNC            185                                     [OK]
+rastasheep/ubuntu-sshd           Dockerized SSH service, built on top of offi…   151                                     [OK]
+</code></pre><h3 id="43-docker-info">4.3 docker info</h3>
+<pre><code>$ sudo docker info
+Containers: 0   # 容器个数
+ Running: 0
+ Paused: 0
+ Stopped: 0
+Images: 20   # 镜像个数
+Server Version: 18.05.0-ce
+Storage Driver: overlay2   # 存储驱动
+ Backing Filesystem: extfs
+ Supports d_type: true
+ Native Overlay Diff: true
+Logging Driver: json-file
+Cgroup Driver: cgroupfs
+Plugins:
+ Volume: local
+ Network: bridge host macvlan null overlay
+ Log: awslogs fluentd gcplogs gelf journald json-file logentries splunk syslog
+Swarm: inactive
+Runtimes: runc
+Default Runtime: runc
+Init Binary: docker-init
+containerd version: 773c489c9c1b21a6d78b5c538cd395416ec50f88
+runc version: 4fc53a81fb7c994640722ac585fa9ca548971871
+init version: 949e6fa
+Security Options:
+ seccomp
+  Profile: default
+Kernel Version: 3.10.0-693.5.2.el7.x86_64   # 主机内核
+Operating System: CentOS Linux 7 (Core)
+OSType: linux
+Architecture: x86_64
+CPUs: 1
+Total Memory: 992.4MiB
+Name: xxxxx
+ID: xxxxxx
+Docker Root Dir: /var/lib/docker
+Debug Mode (client): false
+Debug Mode (server): false
+Registry: https://index.docker.io/v1/
+Labels:
+Experimental: false
+Insecure Registries:
+ 127.0.0.0/8
+Live Restore Enabled: false
+</code></pre><h3 id="44-docker-pull--docker-push">4.4 docker pull &amp;&amp; docker push</h3>
+<pre><code>$ sudo docker pull &lt;images-name&gt;:&lt;tag&gt;  # pull 拉取镜像
+</code></pre><p>示例：</p>
+<pre><code>$ sudo docker pull ubuntu           # 下载官方 ubuntu docker 镜像，默认下载所有 ubuntu 官方库镜像
+$ sudo docker pull ubuntu:14.04     # 下载指定版本 ubuntu 官方镜像
+$ sudo docker push 192.168.0.100:5000/ubuntu # 推送镜像库到私有源[可注册 docker 官方账户，推送到官方自有账户]
+$ sudo docker push 192.168.0.100:5000/ubuntu:14.04 # 推送指定镜像到私有源
+</code></pre><h3 id="45-docker-images">4.5 docker images</h3>
+<p>列出当前系统镜像</p>
+<pre><code>$ sudo docker images &lt;images-name&gt;:&lt;tag&gt;
+</code></pre><p>示例：</p>
+<pre><code>$ sudo docker images            # 显示当前系统镜像，不包括过渡层镜像
+$ sudo docker images -a         # 显示当前系统所有镜像，包括过渡层镜像
+$ sudo docker images ubuntu     # 显示当前系统 docker ubuntu 库中的所有镜像
+REPOSITORY                 TAG                 IMAGE ID            CREATED             VIRTUAL SIZE
+ubuntu                     12.04               ebe4be4dd427        4 weeks ago         210.6 MB
+ubuntu                     14.04               e54ca5efa2e9        4 weeks ago         276.5 MB
+ubuntu                     14.04-ssh           6334d3ac099a        7 weeks ago         383.2 MB
+</code></pre><h3 id="46-docker-rmi">4.6 docker rmi</h3>
+<p>删除一个或者多个镜像</p>
+<pre><code>$ sudo docker rmi --help
+
+Usage: docker rmi IMAGE [IMAGE...]
+
+Remove one or more images
+
+  -f, --force=false    Force removal of the image       # 强制移除镜像不管是否有容器使用该镜像
+  --no-prune=false     Do not delete untagged parents   # 不要删除未标记的父镜像
+</code></pre><h3 id="47-docker-run">4.7 docker run</h3>
+<pre><code>$ sudo docker images ubuntu
+REPOSITORY          TAG                 IMAGE ID            CREATED             VIRTUAL SIZE
+ubuntu              14.04               e54ca5efa2e9        4 weeks ago         276.5 MB
+... ...
+$ sudo docker run -t -i -c 100 -m 512MB -h test1 -d --name=&quot;docker_test1&quot; ubuntu /bin/bash
+# 创建一个 cpu 优先级为 100，内存限制 512MB，主机名为 test1，名为 docker_test1 后台运行 bash 的容器
+a424ca613c9f2247cd3ede95adfbaf8d28400cbcb1d5f9b69a7b56f97b2b52e5
+$ sudo docker ps
+CONTAINER ID        IMAGE           COMMAND         CREATED             STATUS              PORTS       NAMES
+a424ca613c9f        ubuntu:14.04    /bin/bash       6 seconds ago       Up 5 seconds                    docker_test1
+$ sudo docker attach docker_test1
+root@test1:/# pwd
+/
+root@test1:/# exit
+exit
+</code></pre><p>关于cpu优先级:</p>
+<blockquote>
+<p>By default all groups have 1024 shares. A group with 100 shares will get a ~10% portion of the CPU time -archlinux cgroups</p>
+</blockquote>
+<h3 id="48-其他-docker">4.8 其他 docker</h3>
+<ul>
+<li>docker create -t -i fedora bash
+<ul>
+<li>创建容器，但不启动</li>
+</ul>
+</li>
+<li>docker start CONTAINER [CONTAINER…]
+<ul>
+<li>运行一个或多个停止的容器</li>
+</ul>
+</li>
+<li>docker stop CONTAINER [CONTAINER…]
+<ul>
+<li>停掉一个或多个运行的容器 -t 选项可指定超时时间</li>
+</ul>
+</li>
+<li>docker kill [OPTIONS] CONTAINER [CONTAINER…]
+<ul>
+<li>默认 kill 发送 SIGKILL 信号 -s 可以指定发送 kill 信号类型</li>
+</ul>
+</li>
+<li>docker restart [OPTIONS] CONTAINER [CONTAINER…]
+<ul>
+<li>重启一个或多个运行的容器 -t 选项可指定超时时间</li>
+</ul>
+</li>
+<li>docker pause CONTAINER
+<ul>
+<li>暂停一个容器，方便 commit</li>
+</ul>
+</li>
+<li>docker unpause CONTAINER
+<ul>
+<li>继续暂停的容器</li>
+</ul>
+</li>
+<li>docker rm [OPTIONS] CONTAINER [CONTAINER…]
+<ul>
+<li>移除一个或多个容器</li>
+<li>-f, –force=false Force removal of running container</li>
+<li>-l, –link=false Remove the specified link and not the underlying container</li>
+<li>-v, –volumes=false Remove the volumes associated with the container</li>
+</ul>
+</li>
+<li>docker commit [OPTIONS] CONTAINER [REPOSITORY[:TAG]]
+<ul>
+<li>提交指定容器为镜像</li>
+<li>-a, –author=”” Author (e.g., “John Hannibal Smith <a href="mailto:hannibal@a-team.com">hannibal@a-team.com</a>”)</li>
+<li>-m, –message=”” Commit message</li>
+<li>-p, –pause=true Pause container during commit</li>
+<li>默认 commit 是暂停状态</li>
+</ul>
+</li>
+<li>docker inspect CONTAINER|IMAGE [CONTAINER|IMAGE…]
+<ul>
+<li>查看容器或者镜像的详细信息</li>
+</ul>
+</li>
+<li>docker logs CONTAINER
+<ul>
+<li>输出指定容器日志信息</li>
+<li>-f, –follow=false Follow log output</li>
+<li>类似 tail -f</li>
+<li>-t, –timestamps=false Show timestamps</li>
+<li>–tail=”all” Output the specified number of lines at the end of logs (defaults to all logs)</li>
+</ul>
+</li>
+<li>docker exec -it ubuntu_bash bash
+<ul>
+<li>进入容器 docker 1.3 后新增</li>
+</ul>
+</li>
+<li>docker attach
+<ul>
+<li>进入容器， exit 退出后，容器会关闭</li>
+</ul>
+</li>
+</ul>
+<p>参考文档：<a href="https://docs.docker.com/reference/run/">Docker Run Reference</a></p>
+<h2 id="五docker-端口映射">五、Docker 端口映射</h2>
+<pre><code># Find IP address of container with ID &lt;container_id&gt; 通过容器 id 获取 ip
+$ sudo docker inspect &lt;container_id&gt; | grep IPAddress | cut -d ’&quot;’ -f 4
+</code></pre><p>无论如何，这些 ip 是基于本地系统的并且容器的端口非本地主机是访问不到的。此外，除了端口只能本地访问外，对于容器的另外一个问题是这些 ip 在容器每次启动的时候都会改变。</p>
+<p>Docker 解决了容器的这两个问题，并且给容器内部服务的访问提供了一个简单而可靠的方法。Docker 通过端口绑定主机系统的接口，允许非本地客户端访问容器内部运行的服务。为了简便的使得容器间通信，Docker 提供了这种连接机制。</p>
+<h3 id="51-自动映射端口">5.1 自动映射端口</h3>
+<p>-P 使用时需要指定 &ndash;expose 选项，指定需要对外提供服务的端口</p>
+<pre><code>$ sudo docker run -t -P --expose 22 --name server  ubuntu:14.04
+# 使用 docker run -P 自动绑定所有对外提供服务的容器端口，映射的端口将会从没有使用的端口池中 (49000..49900) 自动选择，你可以通过docker ps 、docker inspect &lt;container_id&gt; 或者 docker port &lt;container_id&gt; &lt;port&gt; 确定具体的绑定信息。
+</code></pre><h3 id="52-绑定端口到指定接口">5.2 绑定端口到指定接口</h3>
+<pre><code>$ sudo docker run -p [([&lt;host_interface&gt;:[host_port]])|(&lt;host_port&gt;):]&lt;container_port&gt;[/udp] &lt;image&gt; &lt;cmd&gt;
+# 默认不指定绑定 ip 则监听所有网络接口。
+</code></pre><p>示例：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># 绑定 TCP 端口</span>
+<span style="color:#75715e"># Bind TCP port 8080 of the container to TCP port 80 on 127.0.0.1 of the host machine.</span>
+$ sudo docker run -p 127.0.0.1:80:8080 &lt;image&gt; &lt;cmd&gt;
+<span style="color:#75715e"># Bind TCP port 8080 of the container to a dynamically allocated TCP port on 127.0.0.1 of the host machine.</span>
+$ sudo docker run -p 127.0.0.1::8080 &lt;image&gt; &lt;cmd&gt;
+<span style="color:#75715e"># Bind TCP port 8080 of the container to TCP port 80 on all available interfaces of the host machine.</span>
+$ sudo docker run -p 80:8080 &lt;image&gt; &lt;cmd&gt;
+<span style="color:#75715e"># Bind TCP port 8080 of the container to a dynamically allocated TCP port on all available interfaces</span>
+$ sudo docker run -p <span style="color:#ae81ff">8080</span> &lt;image&gt; &lt;cmd&gt;
+<span style="color:#75715e"># 绑定 UDP 端口</span>
+<span style="color:#75715e"># Bind UDP port 5353 of the container to UDP port 53 on 127.0.0.1 of the host machine.</span>
+$ sudo docker run -p 127.0.0.1:53:5353/udp &lt;image&gt; &lt;cmd&gt;
+</code></pre></div><h2 id="六docker-网络配置">六、Docker 网络配置</h2>
+<p><img src="https://ws1.sinaimg.cn/large/8697aaedly1frunbbzgcjj20ee09xdge.jpg" alt=""></p>
+<p>图: <a href="http://www.slideshare.net/janghoonsim/docker-container-and-lightweight-virtualization">Docker - container and lightweight virtualization</a></p>
+<p>Dokcer 通过使用 Linux 桥接提供容器之间的通信，docker0 桥接接口的目的就是方便 Docker 管理。当 Docker daemon 启动时需要做以下操作：</p>
+<ul>
+<li>creates the docker0 bridge if not present # 如果 docker0 不存在则创建</li>
+<li>searches for an IP address range which doesn’t overlap with an existing route # 搜索一个与当前路由不冲突的 ip 段</li>
+<li>picks an IP in the selected range # 在确定的范围中选择 ip</li>
+<li>assigns this IP to the docker0 bridge # 绑定 ip 到 docker0</li>
+</ul>
+<h3 id="61-docker-四种网络模式">6.1 Docker 四种网络模式</h3>
+<p>四种网络模式摘自 <a href="http://www.infoq.com/cn/articles/docker-network-and-pipework-open-source-explanation-practice">Docker 网络详解及 pipework 源码解读与实践</a></p>
+<p>docker run 创建 Docker 容器时，可以用 –net 选项指定容器的网络模式，Docker 有以下 4 种网络模式：</p>
+<ul>
+<li>host 模式，使用 –net=host 指定。</li>
+<li>container 模式，使用 –net=container:NAME_or_ID 指定。</li>
+<li>none 模式，使用 –net=none 指定。</li>
+<li>bridge 模式，使用 –net=bridge 指定，默认设置。</li>
+</ul>
+<h4 id="host-模式">host 模式</h4>
+<p>如果启动容器的时候使用 host 模式，那么这个容器将不会获得一个独立的 Network Namespace，而是和宿主机共用一个 Network Namespace。容器将不会虚拟出自己的网卡，配置自己的 IP 等，而是使用宿主机的 IP 和端口。</p>
+<p>例如，我们在 10.10.101.105/24 的机器上用 host 模式启动一个含有 web 应用的 Docker 容器，监听 tcp 80 端口。当我们在容器中执行任何类似 ifconfig 命令查看网络环境时，看到的都是宿主机上的信息。而外界访问容器中的应用，则直接使用 10.10.101.105:80 即可，不用任何 NAT 转换，就如直接跑在宿主机中一样。但是，容器的其他方面，如文件系统、进程列表等还是和宿主机隔离的。</p>
+<h4 id="container-模式">container 模式</h4>
+<p>这个模式指定新创建的容器和已经存在的一个容器共享一个 Network Namespace，而不是和宿主机共享。新创建的容器不会创建自己的网卡，配置自己的 IP，而是和一个指定的容器共享 IP、端口范围等。同样，两个容器除了网络方面，其他的如文件系统、进程列表等还是隔离的。两个容器的进程可以通过 lo 网卡设备通信。</p>
+<h4 id="none模式">none模式</h4>
+<p>这个模式和前两个不同。在这种模式下，Docker 容器拥有自己的 Network Namespace，但是，并不为 Docker容器进行任何网络配置。也就是说，这个 Docker 容器没有网卡、IP、路由等信息。需要我们自己为 Docker 容器添加网卡、配置 IP 等。</p>
+<h4 id="bridge模式">bridge模式</h4>
+<p><img src="https://ws1.sinaimg.cn/large/8697aaedly1frungck2m5j20f8098jrg.jpg" alt=""></p>
+<p>图:<a href="http://www.wickedawesometech.us/2014/07/the-container-world-part-2-networking.html">The Container World Part 2 Networking</a></p>
+<p>bridge 模式是 Docker 默认的网络设置，此模式会为每一个容器分配 Network Namespace、设置 IP 等，并将一个主机上的 Docker 容器连接到一个虚拟网桥上。当 Docker server 启动时，会在主机上创建一个名为 docker0 的虚拟网桥，此主机上启动的 Docker 容器会连接到这个虚拟网桥上。虚拟网桥的工作方式和物理交换机类似，这样主机上的所有容器就通过交换机连在了一个二层网络中。接下来就要为容器分配 IP 了，Docker 会从 RFC1918 所定义的私有 IP 网段中，选择一个和宿主机不同的IP地址和子网分配给 docker0，连接到 docker0 的容器就从这个子网中选择一个未占用的 IP 使用。如一般 Docker 会使用 172.17.0.0/16 这个网段，并将 172.17.42.1/16 分配给 docker0 网桥（在主机上使用 ifconfig 命令是可以看到 docker0 的，可以认为它是网桥的管理接口，在宿主机上作为一块虚拟网卡使用）</p>
+<h3 id="62-列出当前主机网桥">6.2 列出当前主机网桥</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo brctl show  <span style="color:#75715e"># brctl 工具依赖 bridge-utils 软件包</span>
+bridge name bridge id STP enabled interfaces
+docker0 8000.000000000000 no
+</code></pre></div><h3 id="63-查看当前-docker0-ip">6.3 查看当前 docker0 ip</h3>
+<pre><code>$ sudo ifconfig docker0
+docker0 Link encap:Ethernet HWaddr xx:xx:xx:xx:xx:xx
+inet addr:172.17.42.1 Bcast:0.0.0.0 Mask:255.255.0.0
+</code></pre><p>在容器运行时，每个容器都会分配一个特定的虚拟机口并桥接到 docker0。每个容器都会配置同 docker0 ip 相同网段的专用 ip 地址，docker0 的 IP 地址被用于所有容器的默认网关。</p>
+<h3 id="64-运行一个容器">6.4 运行一个容器</h3>
+<pre><code>$ sudo docker run -t -i -d ubuntu /bin/bash
+52f811c5d3d69edddefc75aff5a4525fc8ba8bcfa1818132f9dc7d4f7c7e78b4
+$ sudo brctl show
+bridge name bridge id STP enabled interfaces
+docker0 8000.fef213db5a66 no vethQCDY1N
+</code></pre><p>以上, docker0 扮演着 52f811c5d3d6 container 这个容器的虚拟接口 vethQCDY1N interface 桥接的角色。</p>
+<p><strong>使用特定范围的 IP</strong></p>
+<p>Docker 会尝试寻找没有被主机使用的 ip 段，尽管它适用于大多数情况下，但是它不是万能的，有时候我们还是需要对 ip 进一步规划。Docker 允许你管理 docker0 桥接或者通过 -b 选项自定义桥接网卡，需要安装 bridge-utils 软件包。</p>
+<p>基本步骤如下：</p>
+<ul>
+<li>ensure Docker is stopped # 确保 docker 的进程是停止的</li>
+<li>create your own bridge (bridge0 for example) # 创建自定义网桥</li>
+<li>assign a specific IP to this bridge # 给网桥分配特定的 ip</li>
+<li>start Docker with the -b=bridge0 parameter # 以 -b 的方式指定网桥</li>
+</ul>
+<pre><code># Stopping Docker and removing docker0
+
+$ sudo service docker stop
+$ sudo ip link set dev docker0 down
+$ sudo brctl delbr docker0
+
+# Create our own bridge
+
+$ sudo brctl addbr bridge0
+$ sudo ip addr add 192.168.5.1/24 dev bridge0
+$ sudo ip link set dev bridge0 up
+
+# Confirming that our bridge is up and running
+
+$ ip addr show bridge0
+4: bridge0: &lt;BROADCAST,MULTICAST&gt; mtu 1500 qdisc noop state UP group default
+    link/ether 66:38:d0:0d:76:18 brd ff:ff:ff:ff:ff:ff
+    inet 192.168.5.1/24 scope global bridge0
+       valid_lft forever preferred_lft forever
+
+# Tell Docker about it and restart (on Ubuntu)
+
+$ echo 'DOCKER_OPTS=&quot;-b=bridge0&quot;' &gt;&gt; /etc/default/docker
+$ sudo service docker start
+
+</code></pre><p>参考文档: <a href="https://docs.docker.com/articles/networking/">Network Configuration</a></p>
+<h3 id="65-不同主机间容器通信">6.5 不同主机间容器通信</h3>
+<p>不同容器之间的通信可以借助于 pipework 这个工具：</p>
+<pre><code>$ git clone https://github.com/jpetazzo/pipework.git
+$ sudo cp -rp pipework/pipework /usr/local/bin/
+</code></pre><p><strong>安装相应依赖软件</strong></p>
+<pre><code>$ sudo apt-get install iputils-arping bridge-utils -y
+</code></pre><p><strong>桥接网络</strong></p>
+<pre><code># brctl show
+bridge name     bridge id               STP enabled     interfaces
+br0             8000.000c291412cd       no              eth0
+docker0         8000.56847afe9799       no              vetheb48029
+</code></pre><p>可以删除 docker0，直接把 docker 的桥接指定为 br0。也可以保留使用默认的配置，这样单主机容器之间的通信可以通过 docker0，而跨主机不同容器之间通过 pipework 新建 docker 容器的网卡桥接到 br0，这样跨主机容器之间就可以通信了。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># ubuntu</span>
+$ sudo service docker stop
+$ sudo ip link set dev docker0 down
+$ sudo brctl delbr docker0
+$ echo <span style="color:#e6db74">&#39;DOCKER_OPTS=&#34;-b=br0&#34;&#39;</span> &gt;&gt; /etc/default/docker
+$ sudo service docker start
+
+<span style="color:#75715e"># CentOS 7/RHEL 7</span>
+$ sudo systemctl stop docker
+$ sudo ip link set dev docker0 down
+$ sudo brctl delbr docker0
+$ cat /etc/sysconfig/docker | grep <span style="color:#e6db74">&#39;OPTIONS=&#39;</span>
+OPTIONS<span style="color:#f92672">=</span>--selinux-enabled -b<span style="color:#f92672">=</span>br0 -H fd://
+$ sudo systemctl start docker
+</code></pre></div><p><strong>pipework</strong></p>
+<p><img src="https://ws1.sinaimg.cn/large/8697aaedly1frunpughzyj20im0f10t6.jpg" alt=""></p>
+<p>不同容器之间的通信可以借助于 pipework 这个工具给 docker 容器新建虚拟网卡并绑定 IP 桥接到 br0</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git clone https://github.com/jpetazzo/pipework.git
+$ sudo cp -rp pipework/pipework /usr/local/bin/
+$ pipework
+Syntax:
+pipework &lt;hostinterface&gt; <span style="color:#f92672">[</span>-i containerinterface<span style="color:#f92672">]</span> &lt;guest&gt; &lt;ipaddr&gt;/&lt;subnet&gt;<span style="color:#f92672">[</span>@default_gateway<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>macaddr<span style="color:#f92672">][</span>@vlan<span style="color:#f92672">]</span>
+pipework &lt;hostinterface&gt; <span style="color:#f92672">[</span>-i containerinterface<span style="color:#f92672">]</span> &lt;guest&gt; dhcp <span style="color:#f92672">[</span>macaddr<span style="color:#f92672">][</span>@vlan<span style="color:#f92672">]</span>
+pipework --wait <span style="color:#f92672">[</span>-i containerinterface<span style="color:#f92672">]</span>
+</code></pre></div><p>如果删除了默认的 docker0 桥接，把 docker 默认桥接指定到了 br0，则最好在创建容器的时候加上 &ndash;net=none，防止自动分配的 IP 在局域网中有冲突。</p>
+<pre><code>$ sudo docker run --rm -ti --net=none ubuntu:14.04 /bin/bash
+root@a46657528059:/#
+$                  # Ctrl-P + Ctrl-Q 回到宿主机 shell，容器 detach 状态
+$ sudo docker  ps
+CONTAINER ID    IMAGE          COMMAND       CREATED         STATUS          PORTS      NAMES
+a46657528059    ubuntu:14.04   &quot;/bin/bash&quot;   4 minutes ago   Up 4 minutes               hungry_lalande
+$ sudo pipework br0 -i eth0 a46657528059 192.168.115.10/24@192.168.115.2
+# 默认不指定网卡设备名，则默认添加为 eth1
+# 另外 pipework 不能添加静态路由，如果有需求则可以在 run 的时候加上 --privileged=true 权限在容器中手动添加，
+# 但这种安全性有缺陷，可以通过 ip netns 操作
+$ sudo docker attach a46657528059
+root@a46657528059:/# ifconfig eth0
+eth0      Link encap:Ethernet  HWaddr 86:b6:6b:e8:2e:4d
+          inet addr:192.168.115.10  Bcast:0.0.0.0  Mask:255.255.255.0
+          inet6 addr: fe80::84b6:6bff:fee8:2e4d/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:8 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:9 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:648 (648.0 B)  TX bytes:690 (690.0 B)
+
+root@a46657528059:/# route -n
+Kernel IP routing table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+0.0.0.0         192.168.115.2   0.0.0.0         UG    0      0        0 eth0
+192.168.115.0   0.0.0.0         255.255.255.0   U     0      0        0 eth0
+</code></pre><p>使用 ip netns 添加静态路由，避免创建容器使用 &ndash;privileged=true 选项造成一些不必要的安全问题：</p>
+<pre><code>$ docker inspect --format=&quot;&lt; .State.Pid &gt;&quot; a46657528059 # 获取指定容器 pid
+6350
+$ sudo ln -s /proc/6350/ns/net /var/run/netns/6350
+$ sudo ip netns exec 6350 ip route add 192.168.0.0/16 dev eth0 via 192.168.115.2
+$ sudo ip netns exec 6350 ip route    # 添加成功
+192.168.0.0/16 via 192.168.115.2 dev eth0
+... ...
+</code></pre><p>在其它宿主机进行相应的配置，新建容器并使用 pipework 添加虚拟网卡桥接到 br0，测试通信情况即可。</p>
+<p>另外，pipework 可以创建容器的 vlan 网络，这里不作过多的介绍了，官方文档已经写的很清楚了，可以查看以下两篇文章：</p>
+<ul>
+<li><a href="https://github.com/jpetazzo/pipework">Pipework 官方文档</a></li>
+<li><a href="http://www.infoq.com/cn/articles/docker-network-and-pipework-open-source-explanation-practice">Docker 网络详解及 pipework 源码解读与实践</a></li>
+</ul>
+<h2 id="七dockerfile">七、Dockerfile</h2>
+<p>Docker 可以通过 Dockerfile 的内容来自动构建镜像。Dockerfile 是一个包含创建镜像所有命令的文本文件，通过 docker build 命令可以根据 Dockerfile 的内容构建镜像，在介绍如何构建之前先介绍下 Dockerfile 的基本语法结构。</p>
+<p>Dockerfile 有以下指令选项:</p>
+<pre><code>FROM
+MAINTAINER
+RUN
+CMD
+EXPOSE
+ENV
+ADD
+COPY
+ENTRYPOINT
+VOLUME
+USER
+WORKDIR
+ONBUILD
+</code></pre><h3 id="71-from">7.1 FROM</h3>
+<p>用法:
+<code>FROM &lt;image&gt;</code></p>
+<ul>
+<li>FROM 指定构建镜像的基础源镜像，如果本地没有指定的镜像，则会自动从 Docker 的公共库 pull 镜像下来。</li>
+<li>FROM 必须是 Dockerfile 中非注释行的第一个指令，即一个 Dockerfile 从 FROM 语句开始。</li>
+<li>FROM 可以在一个 Dockerfile 中出现多次，如果有需求在一个 Dockerfile 中创建多个镜像。
+如果 FROM 语句没有指定镜像标签，则默认使用 latest 标签。</li>
+</ul>
+<h3 id="72-maintainer">7.2 MAINTAINER</h3>
+<p>用法:
+<code>MAINTAINER &lt;name&gt;</code></p>
+<p>指定创建镜像的用户</p>
+<h3 id="73-run-有两种使用方式">7.3 RUN 有两种使用方式</h3>
+<p>RUN (the command is run in a shell - /bin/sh -c - shell form)
+RUN [“executable”, “param1”, “param2”] (exec form)
+每条 RUN 指令将在当前镜像基础上执行指定命令，并提交为新的镜像，后续的 RUN 都在之前 RUN 提交后的镜像为基础，镜像是分层的，可以通过一个镜像的任何一个历史提交点来创建，类似源码的版本控制。</p>
+<p>exec 方式会被解析为一个 JSON 数组，所以必须使用双引号而不是单引号。exec 方式不会调用一个命令 shell，所以也就不会继承相应的变量，如：</p>
+<p><code>RUN [ &quot;echo&quot;, &quot;$HOME&quot; ]</code></p>
+<p>这种方式是不会达到输出 HOME 变量的，正确的方式应该是这样的</p>
+<p><code>RUN [ &quot;sh&quot;, &quot;-c&quot;, &quot;echo&quot;, &quot;$HOME&quot; ]</code></p>
+<p>RUN 产生的缓存在下一次构建的时候是不会失效的，会被重用，可以使用 &ndash;no-cache 选项，即 docker build &ndash;no-cache，如此便不会缓存。</p>
+<h3 id="74-cmd">7.4 CMD</h3>
+<p>CMD 有三种使用方式:</p>
+<pre><code>CMD [“executable”,”param1”,”param2”] (exec form, this is the preferred form, 优先选择)
+CMD [“param1”,”param2”] (as default parameters to ENTRYPOINT)
+CMD command param1 param2 (shell form)
+</code></pre><p>CMD 指定在 Dockerfile 中只能使用一次，如果有多个，则只有最后一个会生效。</p>
+<p>CMD 的目的是为了在启动容器时提供一个默认的命令执行选项。如果用户启动容器时指定了运行的命令，则会覆盖掉 CMD 指定的命令。</p>
+<blockquote>
+<p>CMD 会在启动容器的时候执行，build 时不执行，而 RUN 只是在构建镜像的时候执行，后续镜像构建完成之后，启动容器就与 RUN 无关了，这个初学者容易弄混这个概念，这里简单注解一下。</p>
+</blockquote>
+<h3 id="75-expose">7.5 EXPOSE</h3>
+<p><code>EXPOSE &lt;port&gt; [&lt;port&gt;...]</code></p>
+<p>告诉 Docker 服务端容器对外映射的本地端口，需要在 docker run 的时候使用 -p 或者 -P 选项生效。</p>
+<h3 id="76-env">7.6 ENV</h3>
+<pre><code>ENV &lt;key&gt; &lt;value&gt;       # 只能设置一个变量
+ENV &lt;key&gt;=&lt;value&gt; ...   # 允许一次设置多个变量
+</code></pre><p>指定一个环节变量，会被后续 RUN 指令使用，并在容器运行时保留。</p>
+<p>例子:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">ENV myName<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;John Doe&#34;</span> myDog<span style="color:#f92672">=</span>Rex<span style="color:#ae81ff">\ </span>The<span style="color:#ae81ff">\ </span>Dog <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    myCat<span style="color:#f92672">=</span>fluffy
+<span style="color:#75715e"># 等同于</span>
+
+ENV myName John Doe
+ENV myDog Rex The Dog
+ENV myCat fluffy
+</code></pre></div><h3 id="77-add">7.7 ADD</h3>
+<p><code>ADD &lt;src&gt;... &lt;dest&gt;</code></p>
+<p>ADD 复制本地主机文件、目录或者远程文件 URLS 从 <!-- raw HTML omitted --> 并且添加到容器指定路径中 <!-- raw HTML omitted -->。</p>
+<p><!-- raw HTML omitted --> 支持通过 GO 的正则模糊匹配，具体规则可参见 Go filepath.Match</p>
+<pre><code>ADD hom* /mydir/        # adds all files starting with &quot;hom&quot;
+ADD hom?.txt /mydir/    # ? is replaced with any single character
+</code></pre><ul>
+<li><!-- raw HTML omitted --> 路径可以绝对路径也可以是相对于工作路径的相对路径，如果 <!-- raw HTML omitted --> 不存在，会自动创建对应目录</li>
+<li><!-- raw HTML omitted --> 路径必须是 Dockerfile 所在路径的相对路径，或路径是 build 上下文 context 的路径或子路径。</li>
+<li><!-- raw HTML omitted --> 如果是一个目录，只会复制目录下的内容，而目录本身则不会被复制</li>
+</ul>
+<h3 id="77-copy">7.7 COPY</h3>
+<p><code>COPY &lt;src&gt;... &lt;dest&gt;</code></p>
+<p>COPY 复制新文件或者目录从 <!-- raw HTML omitted --> 添加到容器指定路径中 <!-- raw HTML omitted -->。用法同 ADD，唯一的不同是不能指定远程文件 URLS。</p>
+<h3 id="78-entrypoint">7.8 ENTRYPOINT</h3>
+<p>有2中执行方式：</p>
+<pre><code>ENTRYPOINT [“executable”, “param1”, “param2”] (the preferred exec form，优先选择)
+ENTRYPOINT command param1 param2 (shell form)
+</code></pre><p>配置容器启动后执行的命令，并且不可被 docker run 提供的参数覆盖，而 CMD 是可以被覆盖的。如果需要覆盖，则可以使用 docker run &ndash;entrypoint 选项。</p>
+<p>每个 Dockerfile 中只能有一个 ENTRYPOINT，当指定多个时，只有最后一个生效。</p>
+<p><strong>Exec form ENTRYPOINT 例子</strong></p>
+<p>通过 ENTRYPOINT 使用 exec form 方式设置稳定的默认命令和选项，而使用 CMD 添加默认之外经常被改动的选项。</p>
+<pre><code>FROM ubuntu
+ENTRYPOINT [&quot;top&quot;, &quot;-b&quot;]
+CMD [&quot;-c&quot;]
+</code></pre><p>通过 Dockerfile 使用 ENTRYPOINT 展示前台运行 Apache 服务</p>
+<pre><code>FROM debian:stable
+RUN apt-get update &amp;&amp; apt-get install -y --force-yes apache2
+EXPOSE 80 443
+VOLUME [&quot;/var/www&quot;, &quot;/var/log/apache2&quot;, &quot;/etc/apache2&quot;]
+ENTRYPOINT [&quot;/usr/sbin/apache2ctl&quot;, &quot;-D&quot;, &quot;FOREGROUND&quot;]
+</code></pre><p><strong>Shell form ENTRYPOINT 例子</strong></p>
+<p>这种方式会在 /bin/sh -c 中执行，会忽略任何 CMD 或者 docker run 命令行选项，为了确保 docker stop 能够停止长时间运行 ENTRYPOINT 的容器，确保执行的时候使用 exec 选项。</p>
+<pre><code>FROM ubuntu
+ENTRYPOINT exec top -b
+</code></pre><p>如果在 ENTRYPOINT 忘记使用 exec 选项，则可以使用 CMD 补上:</p>
+<pre><code>FROM ubuntu
+ENTRYPOINT top -b
+CMD --ignored-param1 # --ignored-param2 ... --ignored-param3 ... 依此类推
+</code></pre><h3 id="79-volume">7.9 VOLUME</h3>
+<p><code>VOLUME [&quot;/data&quot;]</code></p>
+<p>创建一个可以从本地主机或其他容器挂载的挂载点，后续具体介绍。</p>
+<h3 id="710-user">7.10 USER</h3>
+<p><code>USER daemon</code></p>
+<p>指定运行容器时的用户名或 UID，后续的 RUN、CMD、ENTRYPOINT 也会使用指定用户。</p>
+<h3 id="711-workdir">7.11 WORKDIR</h3>
+<pre><code>WORKDIR /path/to/workdir
+</code></pre><p>为后续的 RUN、CMD、ENTRYPOINT 指令配置工作目录。可以使用多个 WORKDIR 指令，后续命令如果参数是相对路径，则会基于之前命令指定的路径。</p>
+<pre><code>WORKDIR /a
+WORKDIR b
+WORKDIR c
+RUN pwd
+</code></pre><p>最终路径是 /a/b/c。</p>
+<p>WORKDIR 指令可以在 ENV 设置变量之后调用环境变量:</p>
+<pre><code>ENV DIRPATH /path
+WORKDIR $DIRPATH/$DIRNAME
+</code></pre><p>最终路径则为 /path/$DIRNAME。</p>
+<h3 id="712-onbuild">7.12 ONBUILD</h3>
+<p><code>ONBUILD [INSTRUCTION]</code>
+配置当所创建的镜像作为其它新创建镜像的基础镜像时，所执行的操作指令。</p>
+<p>例如，Dockerfile 使用如下的内容创建了镜像 image-A：</p>
+<pre><code>[...]
+ONBUILD ADD . /app/src
+ONBUILD RUN /usr/local/bin/python-build --dir /app/src
+[...]
+</code></pre><p>如果基于 image-A 创建新的镜像时，新的 Dockerfile 中使用 FROM image-A 指定基础镜像时，会自动执行 ONBUILD 指令内容，等价于在后面添加了两条指令。</p>
+<pre><code># Automatically run the following
+ADD . /app/src
+RUN /usr/local/bin/python-build --dir /app/src
+</code></pre><p>使用 ONBUILD 指令的镜像，推荐在标签中注明，例如 ruby:1.9-onbuild。</p>
+<h3 id="713-dockerfile-examples">7.13 Dockerfile Examples</h3>
+<pre><code># Nginx
+#
+# VERSION               0.0.1
+
+FROM      ubuntu
+MAINTAINER Victor Vieux &lt;victor@docker.com&gt;
+
+RUN apt-get update &amp;&amp; apt-get install -y inotify-tools nginx apache2 openssh-server
+
+# Firefox over VNC
+#
+# VERSION               0.3
+
+</code></pre><pre><code>FROM ubuntu
+
+# Install vnc, xvfb in order to create a 'fake' display and firefox
+RUN apt-get update &amp;&amp; apt-get install -y x11vnc xvfb firefox
+RUN mkdir ~/.vnc
+# Setup a password
+RUN x11vnc -storepasswd 1234 ~/.vnc/passwd
+# Autostart firefox (might not be the best way, but it does the trick)
+RUN bash -c 'echo &quot;firefox&quot; &gt;&gt; /.bashrc'
+
+EXPOSE 5900
+CMD    [&quot;x11vnc&quot;, &quot;-forever&quot;, &quot;-usepw&quot;, &quot;-create&quot;]
+</code></pre><pre><code># Multiple images example
+#
+# VERSION               0.1
+
+
+FROM ubuntu
+RUN echo foo &gt; bar
+# Will output something like ===&gt; 907ad6c2736f
+</code></pre><pre><code>FROM ubuntu
+RUN echo moo &gt; oink
+# Will output something like ===&gt; 695d7793cbe4
+
+# You᾿ll now have two images, 907ad6c2736f with /bar, and 695d7793cbe4 with
+# /oink.
+</code></pre><h3 id="714-docker-build">7.14 docker build</h3>
+<pre><code>$ docker build -t &lt;container-name&gt;:&lt;tag&gt; -f Dockerfile .
+</code></pre><p>参考文档: <a href="https://docs.docker.com/reference/builder/">Dockerfile Reference</a></p>
+<h3 id="715-dockerfile-最佳实践">7.15 dockerfile 最佳实践</h3>
+<ul>
+<li>
+<p>使用 .dockerignore 文件
+为了在 docker build 过程中更快上传和更加高效，应该使用一个 .dockerignore 文件用来排除构建镜像时不需要的文件或目录。例如,除非 .git 在构建过程中需要用到，否则你应该将它添加到 .dockerignore 文件中，这样可以节省很多时间。</p>
+</li>
+<li>
+<p>避免安装不必要的软件包
+为了降低复杂性、依赖性、文件大小以及构建时间，应该避免安装额外的或不必要的包。例如，不需要在一个数据库镜像中安装一个文本编辑器。</p>
+</li>
+<li>
+<p>每个容器都跑一个进程
+在大多数情况下，一个容器应该只单独跑一个程序。解耦应用到多个容器使其更容易横向扩展和重用。如果一个服务依赖另外一个服务，可以参考 Linking Containers Together。</p>
+</li>
+<li>
+<p>最小化层
+我们知道每执行一个指令，都会有一次镜像的提交，镜像是分层的结构，对于 Dockerfile，应该找到可读性和最小化层之间的平衡。</p>
+</li>
+<li>
+<p>多行参数排序
+如果可能，通过字母顺序来排序，这样可以避免安装包的重复并且更容易更新列表，另外可读性也会更强，添加一个空行使用 \ 换行:</p>
+</li>
+</ul>
+<pre><code>RUN apt-get update &amp;&amp; apt-get install -y \
+  bzr \
+  cvs \
+  git \
+  mercurial \
+  subversion
+</code></pre><ul>
+<li>创建缓存
+镜像构建过程中会按照 Dockerfile 的顺序依次执行，每执行一次指令 Docker 会寻找是否有存在的镜像缓存可复用，如果没有则创建新的镜像。如果不想使用缓存，则可以在 docker build 时添加 &ndash;no-cache=true 选项。</li>
+</ul>
+<p>从基础镜像开始就已经在缓存中了，下一个指令会对比所有的子镜像寻找是否执行相同的指令，如果没有则缓存失效。在大多数情况下只对比 Dockerfile 指令和子镜像就足够了。ADD 和 COPY 指令除外，执行 ADD 和 COPY 时存放到镜像的文件也是需要检查的，完成一个文件的校验之后再利用这个校验在缓存中查找，如果检测的文件改变则缓存失效。RUN apt-get -y update 命令只检查命令是否匹配，如果匹配就不会再执行更新了。</p>
+<blockquote>
+<p>为了有效地利用缓存，你需要保持你的 Dockerfile 一致，并且尽量在末尾修改。</p>
+</blockquote>
+<ul>
+<li>
+<p>Dockerfile 指令</p>
+<ul>
+<li>
+<p>FROM: 只要可能就使用官方镜像库作为基础镜像</p>
+</li>
+<li>
+<p>RUN: 为保持可读性、方便理解、可维护性，把长或者复杂的 RUN 语句使用 \ 分隔符分成多行</p>
+<ul>
+<li>不建议 RUN apt-get update 独立成行，否则如果后续包有更新，那么也不会再执行更新</li>
+<li>避免使用 RUN apt-get upgrade 或者 dist-upgrade，很多必要的包在一个非 privileged 权限的容器里是无法升级的。如果知道某个包更新，使用 apt-get install -y xxx</li>
+<li>标准写法</li>
+</ul>
+<pre><code>RUN apt-get update &amp;&amp; apt-get install -y package-bar package-foo
+</code></pre><p>例子:</p>
+<pre><code>RUN apt-get update &amp;&amp; apt-get install -y \
+    aufs-tools \
+    automake \
+    btrfs-tools \
+    build-essential \
+    curl \
+    dpkg-sig \
+    git \
+    iptables \
+    libapparmor-dev \
+    libcap-dev \
+    libsqlite3-dev \
+    lxc=1.0* \
+    mercurial \
+    parallel \
+    reprepro \
+    ruby1.9.1 \
+    ruby1.9.1-dev \
+    s3cmd=1.1.0*
+
+</code></pre></li>
+<li>
+<p>CMD: 推荐使用 CMD [“executable”, “param1”, “param2”…] 这种格式，CMD [“param”, “param”] 则配合 ENTRYPOINT 使用</p>
+</li>
+<li>
+<p>EXPOSE: Dockerfile 指定要公开的端口，使用 docker run 时指定映射到宿主机的端口即可</p>
+</li>
+<li>
+<p>ENV: 为了使新的软件更容易运行，可以使用 ENV 更新 PATH 变量。如 ENV PATH /usr/local/nginx/bin:$PATH 确保 CMD [&ldquo;nginx&rdquo;] 即可运行</p>
+</li>
+</ul>
+<pre><code>ENV 也可以这样定义变量：
+
+ENV PG_MAJOR 9.3
+ENV PG_VERSION 9.3.4
+RUN curl -SL http://example.com/postgres-$PG_VERSION.tar.xz | tar -xJC /usr/src/postgress &amp;&amp; …
+ENV PATH /usr/local/postgres-$PG_MAJOR/bin:$PATH
+</code></pre><ul>
+<li>ADD or COPY: ADD 比 COPY 多一些特性「tar 文件自动解包和支持远程 URL」，不推荐添加远程 URL</li>
+</ul>
+<pre><code># 如不推荐这种方式:
+
+ADD http://example.com/big.tar.xz /usr/src/things/
+RUN tar -xJf /usr/src/things/big.tar.xz -C /usr/src/things
+RUN make -C /usr/src/things all
+
+# 推荐使用 curl 或者 wget 替换，使用如下方式:
+
+RUN mkdir -p /usr/src/things \
+    &amp;&amp; curl -SL http://example.com/big.tar.gz \
+    | tar -xJC /usr/src/things \
+    &amp;&amp; make -C /usr/src/things all
+
+# 如果不需要添加 tar 文件，推荐使用 COPY。
+</code></pre></li>
+</ul>
+<p>参考文档:</p>
+<ul>
+<li><a href="https://docs.docker.com/articles/dockerfile_best-practices/">Best practices for writing Dockerfiles</a></li>
+<li><a href="http://dockerone.com/article/131">Dockerfile最佳实践（一）</a></li>
+<li><a href="http://dockerone.com/article/132">Dockerfile最佳实践（二）</a></li>
+</ul>
+<h2 id="八容器数据管理">八、容器数据管理</h2>
+<p>docker管理数据的方式有两种：</p>
+<ul>
+<li>数据卷</li>
+<li>数据卷容器</li>
+</ul>
+<h3 id="81-数据卷">8.1 数据卷</h3>
+<p>数据卷是一个或多个容器专门指定绕过 Union File System 的目录，为持续性或共享数据提供一些有用的功能：</p>
+<ul>
+<li>数据卷可以在容器间共享和重用</li>
+<li>数据卷数据改变是直接修改的</li>
+<li>数据卷数据改变不会被包括在容器中</li>
+<li>数据卷是持续性的，直到没有容器使用它们</li>
+</ul>
+<h4 id="添加一个数据卷">添加一个数据卷</h4>
+<p>你可以使用 -v 选项添加一个数据卷，或者可以使用多次 -v 选项为一个 docker 容器运行挂载多个数据卷。</p>
+<pre><code>$ sudo docker run --name data -v /data -t -i ubuntu:14.04 /bin/bash
+# 创建数据卷绑定到到新建容器，新建容器中会创建 /data 数据卷
+bash-4.1# ls -ld /data/
+drwxr-xr-x 2 root root 4096 Jul 23 06:59 /data/
+bash-4.1# df -Th
+Filesystem    Type    Size  Used Avail Use% Mounted on
+... ...
+              ext4     91G  4.6G   82G   6% /data
+</code></pre><p>创建的数据卷可以通过 docker inspect 获取宿主机对应路径</p>
+<pre><code>$ sudo docker inspect data
+... ...
+    &quot;Volumes&quot;: {
+        &quot;/data&quot;: &quot;/var/lib/docker/vfs/dir/151de401d268226f96d824fdf444e77a4500aed74c495de5980c807a2ffb7ea9&quot;
+    }, # 可以看到创建的数据卷宿主机路径
+... ...
+</code></pre><p>或者直接指定获取</p>
+<pre><code>$ sudo docker inspect --format=&quot;&lt; .Volumes &gt;&quot; data
+map[/data: /var/lib/docker/vfs/dir/151de401d268226f96d824fdf444e77a4500aed74c495de5980c807a2ffb7ea9]
+挂载宿主机目录为一个数据卷
+-v 选项除了可以创建卷，也可以挂载当前主机的一个目录到容器中。
+
+$ sudo docker run --name web -v /source/:/web -t -i ubuntu:14.04 /bin/bash
+bash-4.1# ls -ld /web/
+drwxr-xr-x 2 root root 4096 Jul 23 06:59 /web/
+bash-4.1# df -Th
+... ...
+              ext4     91G  4.6G   82G   6% /web
+bash-4.1# exit
+</code></pre><p>默认挂载卷是可读写的，可以在挂载时指定只读</p>
+<pre><code>$ sudo docker run --rm --name test -v /source/:/test:ro -t -i ubuntu:14.04 /bin/bash
+</code></pre><h3 id="82-创建和挂载一个数据卷容器">8.2 创建和挂载一个数据卷容器</h3>
+<p>如果你有一些持久性的数据并且想在容器间共享，或者想用在非持久性的容器上，最好的方法是创建一个数据卷容器，然后从此容器上挂载数据。</p>
+<h4 id="创建数据卷容器">创建数据卷容器</h4>
+<pre><code>$ sudo docker run -t -i -d -v /test --name test ubuntu:14.04 echo hello
+</code></pre><p>使用 &ndash;volumes-from 选项在另一个容器中挂载 /test 卷。不管 test 容器是否运行，其它容器都可以挂载该容器数据卷，当然如果只是单独的数据卷是没必要运行容器的。</p>
+<pre><code>$ sudo docker run -t -i -d --volumes-from test --name test1 ubuntu:14.04 /bin/bash
+</code></pre><p>添加另一个容器</p>
+<pre><code>$ sudo docker run -t -i -d --volumes-from test --name test2 ubuntu:14.04 /bin/bash
+</code></pre><p>也可以继承其它挂载有 /test 卷的容器</p>
+<pre><code>$ sudo docker run -t -i -d --volumes-from test1 --name test3 ubuntu:14.04 /bin/bash
+</code></pre><p><img src="https://ws1.sinaimg.cn/large/8697aaedly1fruojmwb2aj20i405tt8l.jpg" alt=""></p>
+<h3 id="83-备份恢复或迁移数据卷">8.3 备份、恢复或迁移数据卷</h3>
+<h4 id="备份">备份</h4>
+<pre><code>$ sudo docker run --rm --volumes-from test -v $(pwd):/backup ubuntu:14.04 tar cvf /backup/test.tar /test
+tar: Removing leading `/' from member names
+/test/
+/test/b
+/test/d
+/test/c
+/test/a
+</code></pre><p>启动一个新的容器并且从 test 容器中挂载卷，然后挂载当前目录到容器中为 backup，并备份 test 卷中所有的数据为 test.tar，执行完成之后删除容器 &ndash;rm，此时备份就在当前的目录下，名为 test.tar。</p>
+<pre><code>$ ls        # 宿主机当前目录下产生了 test 卷的备份文件 test.tar
+test.tar
+</code></pre><h4 id="恢复">恢复</h4>
+<p>你可以恢复给同一个容器或者另外的容器，新建容器并解压备份文件到新的容器数据卷</p>
+<pre><code>$ sudo docker run -t -i -d -v /test --name test4 ubuntu:14.04  /bin/bash
+$ sudo docker run --rm --volumes-from test4 -v $(pwd):/backup ubuntu:14.04 tar xvf /backup/test.tar -C /
+# 恢复之前的文件到新建卷中，执行完后自动删除容器
+test/
+test/b
+test/d
+test/c
+test/a
+</code></pre><h3 id="84-删除-volumes">8.4 删除 Volumes</h3>
+<p>Volume 只有在下列情况下才能被删除：</p>
+<pre><code>docker rm -v 删除容器时添加了 -v 选项
+docker run --rm 运行容器时添加了 --rm 选项
+</code></pre><p>否则，会在 /var/lib/docker/vfs/dir 目录中遗留很多不明目录。</p>
+<p>参考文档：</p>
+<ul>
+<li><a href="http://docs.docker.com/userguide/dockervolumes/#data-volumes">Managing Data in Containers</a></li>
+<li><a href="http://dockerone.com/article/128">深入理解Docker Volume（一）</a></li>
+<li><a href="http://dockerone.com/article/129">深入理解Docker Volume（二）</a></li>
+</ul>
+<h2 id="九链接容器">九、链接容器</h2>
+<p>docker 允许把多个容器连接在一起，相互交互信息。docker 链接会创建一种容器父子级别的关系，其中父容器可以看到其子容器提供的信息。</p>
+<h3 id="91-容器命名">9.1 容器命名</h3>
+<p>在创建容器时，如果不指定容器的名字，则默认会自动创建一个名字，这里推荐给容器命名：</p>
+<p>1、给容器命名方便记忆，如命名运行 web 应用的容器为 web
+2、为 docker 容器提供一个参考，允许方便其他容器调用，如把容器 web 链接到容器 db
+可以通过 &ndash;name 选项给容器自定义命名：</p>
+<pre><code>$ sudo docker run -d -t -i --name test ubuntu:14.04 bash
+$ sudo docker  inspect --format=&quot;&lt;.Nmae&gt;&quot; test
+/test
+</code></pre><blockquote>
+<p>注：容器名称必须唯一，即你只能命名一个叫 test 的容器。如果你想复用容器名，则必须在创建新的容器前通过 docker rm 删除旧的容器或者创建容器时添加 &ndash;rm 选项。</p>
+</blockquote>
+<h3 id="92-链接容器">9.2 链接容器</h3>
+<p>链接允许容器间安全通信，使用 &ndash;link 选项创建链接。</p>
+<pre><code>$ sudo docker run -d --name db training/postgres
+# 基于 training/postgres 镜像创建一个名为 db 的容器，然后下面创建一个叫做 web 的容器，并且将它与 db 相互连接在一起
+
+$ sudo docker run -d -P --name web --link db:db training/webapp python app.py
+# --link &lt;name or id&gt;:alias 选项指定链接到的容器。
+</code></pre><p>查看 web 容器的链接关系:</p>
+<pre><code>$ sudo docker inspect -f &quot;&lt; .HostConfig.Links &gt;&quot; web
+[/db:/web/db]
+</code></pre><p>可以看到 web 容器被链接到 db 容器为 /web/db，这允许 web 容器访问 db 容器的信息。</p>
+<p>容器之间的链接实际做了什么？一个链接允许一个源容器提供信息访问给一个接收容器。在本例中，web 容器作为一个接收者，允许访问源容器 db 的相关服务信息。Docker 创建了一个安全隧道而不需要对外公开任何端口给外部容器，因此不需要在创建容器的时候添加 -p 或 -P 指定对外公开的端口，这也是链接容器的最大好处，本例为 PostgreSQL 数据库。</p>
+<p>Docker 主要通过以下两个方式提供连接信息给接收容器：</p>
+<ul>
+<li>环境变量</li>
+<li>更新 /etc/hosts 文件</li>
+</ul>
+<h4 id="环境变量">环境变量</h4>
+<p>当两个容器链接，Docker 会在目标容器上设置一些环境变量，以获取源容器的相关信息。</p>
+<p>首先，Docker 会在每个通过 &ndash;link 选项指定别名的目标容器上设置一个 <!-- raw HTML omitted -->_NAME 环境变量。如果一个名为 web 的容器通过 &ndash;link db:webdb 被链接到一个名为 db 的数据库容器，那么 web 容器上会设置一个环境变量为 WEBDB_NAME=/web/webdb.</p>
+<p>以之前的为例，Docker 还会设置端口变量:</p>
+<pre><code>$ sudo docker run --rm --name web2 --link db:db training/webapp env
+. . .
+DB_NAME=/web2/db
+DB_PORT=tcp://172.17.0.5:5432
+DB_PORT_5432_TCP=tcp://172.17.0.5:5432  # &lt;name&gt;_PORT_&lt;port&gt;_&lt;protocol&gt; 协议可以是 TCP 或 UDP
+DB_PORT_5432_TCP_PROTO=tcp
+DB_PORT_5432_TCP_PORT=5432
+DB_PORT_5432_TCP_ADDR=172.17.0.5
+. . .
+</code></pre><blockquote>
+<p>注：这些环境变量只设置给容器中的第一个进程，类似一些守护进程 (如 sshd ) 当他们派生 shells 时会清除这些变量</p>
+</blockquote>
+<h4 id="更新-etchosts-文件">更新 /etc/hosts 文件</h4>
+<p>除了环境变量，Docker 会在目标容器上添加相关主机条目到 /etc/hosts 中，上例中就是 web 容器。</p>
+<pre><code>$ sudo docker run -t -i --rm --link db:db training/webapp /bin/bash
+root@aed84ee21bde:/opt/webapp# cat /etc/hosts
+172.17.0.7  aed84ee21bde
+. . .
+172.17.0.5  db
+</code></pre><p>/etc/host 文件在源容器被重启之后会自动更新 IP 地址，而环境变量中的 IP 地址则不会自动更新的。</p>
+<h2 id="十构建私有库">十、构建私有库</h2>
+<p>Docker 官方提供了 docker registry 的构建方法 docker-registry</p>
+<h3 id="101-快速构建">10.1 快速构建</h3>
+<p>快速构建 docker registry 通过以下两步:</p>
+<ul>
+<li>安装 docker</li>
+<li>运行 registry: docker run -p 5000:5000 registry
+这种方法通过 Docker hub 使用官方镜像 <a href="https://registry.hub.docker.com/_/registry/">official image from the Docker hub</a></li>
+</ul>
+<h3 id="102-不使用容器构建-registry">10.2 不使用容器构建 registry</h3>
+<h4 id="安装必要的软件">安装必要的软件</h4>
+<pre><code>$ sudo apt-get install build-essential python-dev libevent-dev python-pip liblzma-dev
+</code></pre><h4 id="配置-docker-registry">配置 docker-registry</h4>
+<pre><code>sudo pip install docker-registry
+</code></pre><p>或者 使用 github clone 手动安装</p>
+<pre><code>$ git clone https://github.com/dotcloud/docker-registry.git
+$ cd docker-registry/
+$ cp config/config_sample.yml config/config.yml
+$ mkdir /data/registry -p
+$ pip install .
+</code></pre><h4 id="运行">运行</h4>
+<p><code>docker-registry</code></p>
+<h4 id="高级启动方式-不推荐">高级启动方式 [不推荐]</h4>
+<p>使用 gunicorn 控制:</p>
+<pre><code>gunicorn -c contrib/gunicorn_config.py docker_registry.wsgi:application
+</code></pre><p>或者对外监听开放</p>
+<pre><code>gunicorn --access-logfile - --error-logfile - -k gevent -b 0.0.0.0:5000 -w 4 --max-requests 100 docker_registry.wsgi:application
+</code></pre><h3 id="103-提交指定容器到私有库">10.3 提交指定容器到私有库</h3>
+<p>$ docker tag ubuntu:12.04 私有库IP:5000/ubuntu:12.04
+$ docker push 私有库IP:5000/ubuntu
+更多的配置选项推荐阅读官方文档:</p>
+<ul>
+<li><a href="https://github.com/docker/docker-registry/blob/master/README.md">Docker-Registry README</a></li>
+<li><a href="https://github.com/docker/docker-registry/blob/master/ADVANCED.md">Docker-Registry advanced use</a></li>
+</ul>
+
+    </div>
+    <div class="article-footer">
+<blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://pylixm.top/posts/2018-05-31-docker-all.html" title="Docker 知识大全" target="_blank" rel="external">https://pylixm.top/posts/2018-05-31-docker-all.html</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>许可协议：</strong>
+      <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN</a>
+    </li>
+  </ul>
+</blockquote>
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://pylixm.top" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="https://pylixm.top/static/imgs/avatar.png" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://pylixm.top" target="_blank"><span class="text-dark">DeanWu</span><small class="ml-1x">程序员</small></a></h3>
+        <div>努力成为真正的SRE</div>
+      </div>
+    </figure>
+  </div>
+</div>
+    </div>
+  </article>
+<section id="comments">
+    <div id="vcomments"></div>
+</section>
+
+</div><nav class="bar bar-footer clearfix" data-stick-bottom>
+    <div class="bar-inner">
+        <ul class="pager pull-left">
+            <li class="prev">
+                <a href="https://pylixm.top/posts/2018-05-02-How-to-arrange-note.html" title="如何整理个人资料"><i
+                        class="icon icon-angle-left"
+                        aria-hidden="true"></i><span>&nbsp;&nbsp;下一篇</span></a>
+            </li>
+            <li class="next">
+                <a href="https://pylixm.top/posts/2018-06-04-flask-base.html"
+                    title="Flask 目录结构分析"><span>上一篇&nbsp;&nbsp;</span><i
+                        class="icon icon-angle-right" aria-hidden="true"></i></a>
+            </li>
+            
+            <li class="toggle-toc">
+                <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false"
+                    title="文章目录" role="button">
+                    <span>[&nbsp;</span><span>文章目录</span>
+                    <i class="text-collapsed icon icon-anchor"></i>
+                    <i class="text-in icon icon-close"></i>
+                    <span>]</span>
+                </a>
+            </li>
+        </ul>
+        <div class="bar-right">
+        </div>
+    </div>
+</nav>
+
+
+<script src="https://my.openwrite.cn/js/readmore.js" type="text/javascript"></script>
+<script>
+    const btw = new BTWPlugin();
+    btw.init({
+        id: 'article-container',
+        blogId: '24944-1607090547459-485',
+        name: '码农吴先生',
+        qrcode: 'https://gitee.com/pylixm/picture/raw/master/2020-12-4/1607089812769-image.png',
+        keyword: 'vip',
+    });
+</script>
+</main><footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+<ul class="social-links">
+    <li><a href="https://github.com/pylixm" target="_blank" title="github" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-github"></i></a></li>
+    <li><a href="https://pylixm.top/index.xml" target="_blank" title="rss" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-rss"></i></a></li>
+    <li><a href="http://weibo.com/2258086637" target="_blank" title="weibo" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-weibo"></i></a></li>
+</ul>
+  <div class="copyright">
+    &copy;2015  -
+    2020
+    <div class="publishby">
+      hugo驱动，Theme by <a href="https://github.com/xiaoheiAh/hugo-theme-pure" target="_blank"> pure</a>.
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_SVG"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+            showMathMenu: false, //disables context menu
+            tex2jax: {
+            inlineMath: [ ['$','$'], ['\\(','\\)'] ]
+           }
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+<script>
+    window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/highlight.min.js"></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/python.min.js" defer></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/javascript.min.js" defer></script><script>
+    hljs.configure({
+        tabReplace: '    ', 
+        classPrefix: ''     
+        
+    })
+    hljs.initHighlightingOnLoad();
+</script>
+<script src="https://pylixm.top/js/application.min.bdeb64b910570b6c41badc6a05b7afb0c8ad9efd8525de3c7257d59e786326a3.js"></script>
+<script src="https://pylixm.top/js/plugin.min.51ff8c7317566f82259170fa36e09c4493adc9b9378b427a01ad3f017ebac7dd.js"></script>
+
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(未命名)',
+            },
+            ROOT_URL: 'https:\/\/pylixm.top',
+            CONTENT_URL: 'https:\/\/pylixm.top\/searchindex.json ',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script type="text/javascript" src="https://pylixm.top/js/insight.min.a343cd9a5a7698336b28ef3a7c16a3a1b1d2d5fb17dc8ed04022bbe08cc5459073a15bdafa3a8a58cdd56080784bdd69fa70b1ae8597565c799c57ed00f0e120.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script>
+<script>
+    tocbot.init({
+        
+        tocSelector: '.js-toc',
+        
+        contentSelector: '.js-toc-content',
+        
+        headingSelector: 'h1, h2, h3',
+        
+        hasInnerContainers: true,
+    });
+</script>
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="https://cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine"></script>
+<script type="text/javascript">
+    var GUEST = ['nick', 'mail', 'link'];
+    var meta = 'nick,mail';
+    meta = meta.split(',').filter(function (item) {
+        return GUEST.indexOf(item) > -1;
+    });
+    new Valine({
+        el: '#vcomments',
+        verify: null ,
+        notify: null ,
+        appId: 'OBJcj4PU8JI0zDfu0HJSrG6W-gzGzoHsz',
+        appKey: 'tBtFzC72xIlgo2UFbA33nqmU',
+        placeholder: '来做第一个发言人吧',
+        avatar: 'mm',
+        meta: meta,
+        pageSize: '10' || 10,
+        visitor: false 
+});
+</script>
+
+  </body>
+</html>

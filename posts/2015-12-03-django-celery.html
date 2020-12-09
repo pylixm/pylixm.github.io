@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <title>
+        「译」在django中使用celery实现异步任务 - DeanWu
+      </title>
+        <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    
+    <meta name="theme-color" content="#000000" />
+    
+    <meta http-equiv="window-target" content="_top" />
+    
+    
+    <meta name="description" content="在django中使用celery 在使用celery时，你需要定义一个celery的实例（叫做 app ）。如果你有一个现成的django项目，如下：" />
+    <meta name="generator" content="Hugo 0.73.0 with theme pure" />
+    <title>「译」在django中使用celery实现异步任务 - DeanWu</title>
+    
+    
+    <link rel="stylesheet" href="https://pylixm.top/css/style.min.f70e8e0df9ea6aeb37dac252b17ca98082073ff1663b24118baaaa84ee8ae7e8.css">
+    
+    <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.15.10/styles/github.min.css" async>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css" async>
+    <meta property="og:title" content="「译」在django中使用celery实现异步任务" />
+<meta property="og:description" content="在django中使用celery 在使用celery时，你需要定义一个celery的实例（叫做 app ）。如果你有一个现成的django项目，如下：" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://pylixm.top/posts/2015-12-03-django-celery.html" />
+<meta property="article:published_time" content="2015-12-03T16:00:00+00:00" />
+<meta property="article:modified_time" content="2015-12-03T16:00:00+00:00" />
+<meta itemprop="name" content="「译」在django中使用celery实现异步任务">
+<meta itemprop="description" content="在django中使用celery 在使用celery时，你需要定义一个celery的实例（叫做 app ）。如果你有一个现成的django项目，如下：">
+<meta itemprop="datePublished" content="2015-12-03T16:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2015-12-03T16:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="2071">
+
+
+
+<meta itemprop="keywords" content="Django,Celery,翻译," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="「译」在django中使用celery实现异步任务"/>
+<meta name="twitter:description" content="在django中使用celery 在使用celery时，你需要定义一个celery的实例（叫做 app ）。如果你有一个现成的django项目，如下："/>
+
+    <!--[if lte IE 9]>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+      <![endif]-->
+
+    <!--[if lt IE 9]>
+        <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+      <![endif]-->
+  </head>
+
+  
+  
+
+  <body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage"><header class="header" itemscope itemtype="http://schema.org/WPHeader">
+    <div class="slimContent">
+      <div class="navbar-header">
+        <div class="profile-block text-center">
+          <a id="avatar" href="https://pylixm.top" target="_blank">
+            <img class="img-circle img-rotate" src="https://pylixm.top/static/imgs/avatar.png" width="200" height="200">
+          </a>
+          <h2 id="name" class="hidden-xs hidden-sm">DeanWu</h2>
+          <h3 id="title" class="hidden-xs hidden-sm hidden-md">程序员</h3>
+          <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i>Beijing, China</small>
+        </div><div class="search" id="search-form-wrap">
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i
+                        class="icon icon-search"></i></button>
+            </span>
+        </div>
+        <div class="ins-search">
+            <div class="ins-search-mask"></div>
+            <div class="ins-search-container">
+                <div class="ins-input-wrapper">
+                    <input type="text" class="ins-search-input" placeholder="想要查找什么..."
+                        x-webkit-speech />
+                    <button type="button" class="close ins-close ins-selectable" data-dismiss="modal"
+                        aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="ins-section-wrapper">
+                    <div class="ins-section-container"></div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+        <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+        <ul class="nav navbar-nav main-nav">
+            <li class="menu-item menu-item-home">
+                <a href="/">
+                    <i class="icon icon-home-fill"></i>
+                  <span class="menu-title">首页</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-series">
+                <a href="/series/">
+                    <i class="icon icon-folder"></i>
+                  <span class="menu-title">专题</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-repository">
+                <a href="/project/">
+                    <i class="icon icon-project"></i>
+                  <span class="menu-title">项目</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-archives">
+                <a href="/posts/">
+                    <i class="icon icon-archives-fill"></i>
+                  <span class="menu-title">归档</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-about">
+                <a href="/about/">
+                    <i class="icon icon-cup-fill"></i>
+                  <span class="menu-title">关于</span>
+                </a>
+            </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+<aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content"><div>欢迎关注微信公众号「码农吴先生」：专注python/golang/devops等技术的学习经验及资源分享！</br>回复关键字：go或python 获取我收集的资料，也可回复关键字：小二，加我wx，一块聊技术，聊人生~  </br><img src="/static/imgs/wx/wx_gzh.png" width="140" height="140"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+      
+<div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+        <ul class="recent-post-list list-unstyled no-thumbnail">
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2020-12-08-django-async-views-example.html" class="title">Django 三个异步使用的案例</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-12-08 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-08</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2020-12-05-go-from-python-structure-base.html" class="title">「对比Python学习Go」- 基本数据结构</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-12-05 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-05</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2020-12-03-go-from-python-start.html" class="title">「对比Python学习Go」- 环境篇</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-12-03 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-03</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2020-12-02-go-from-python-intro.html" class="title">「对比Python学习Go」- 开篇</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-12-02 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-02</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2020-12-01-for-range-point.html" class="title">「Go Tips」for range 遍历时变量取值的问题分析</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-12-01 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-01</time>
+                    </p>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+      <div class="widget">
+    <h3 class="widget-title"> 分类</h3>
+    <div class="widget-body">
+        <ul class="category-list">
+            <li class="category-list-item"><a href="https://pylixm.top/categories/ATS/" class="category-list-link">ATS</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/DevOps/" class="category-list-link">DevOps</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Devlopment-Demo/" class="category-list-link">Devlopment-Demo</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Django/" class="category-list-link">Django</a><span class="category-list-count">39</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Docker/" class="category-list-link">Docker</a><span class="category-list-count">4</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Flask/" class="category-list-link">Flask</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Git/" class="category-list-link">Git</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Golang/" class="category-list-link">Golang</a><span class="category-list-count">12</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/HTTPS/" class="category-list-link">HTTPS</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Javascript/" class="category-list-link">Javascript</a><span class="category-list-count">3</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Kubernetes/" class="category-list-link">Kubernetes</a><span class="category-list-count">4</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/LVS/" class="category-list-link">LVS</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Linux/" class="category-list-link">Linux</a><span class="category-list-count">15</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Mongodb/" class="category-list-link">Mongodb</a><span class="category-list-count">3</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Mysql/" class="category-list-link">Mysql</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/NoSQL/" class="category-list-link">NoSQL</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/PostgreSQL/" class="category-list-link">PostgreSQL</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Puppet/" class="category-list-link">Puppet</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Python/" class="category-list-link">Python</a><span class="category-list-count">19</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/QA/" class="category-list-link">QA</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Rabbitmq/" class="category-list-link">Rabbitmq</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Restful/" class="category-list-link">Restful</a><span class="category-list-count">6</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/SaltStack/" class="category-list-link">SaltStack</a><span class="category-list-count">7</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Software_Architect/" class="category-list-link">Software_Architect</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Supervisor/" class="category-list-link">Supervisor</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Tornado/" class="category-list-link">Tornado</a><span class="category-list-count">3</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Vagrant/" class="category-list-link">Vagrant</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Vue/" class="category-list-link">Vue</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/kafka/" class="category-list-link">kafka</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/zookeeper/" class="category-list-link">zookeeper</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E4%B8%AA%E4%BA%BA%E7%AE%A1%E7%90%86/" class="category-list-link">个人管理</a><span class="category-list-count">5</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB/" class="category-list-link">前后端分离</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" class="category-list-link">数据结构与算法</a><span class="category-list-count">13</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E6%9C%9D%E8%8A%B1%E5%A4%95%E6%8B%BE/" class="category-list-link">朝花夕拾</a><span class="category-list-count">10</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" class="category-list-link">机器学习</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" class="category-list-link">环境搭建</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E7%A8%8B%E5%BA%8F%E5%91%98%E8%87%AA%E6%88%91%E4%BF%AE%E5%85%BB/" class="category-list-link">程序员自我修养</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E8%B5%84%E6%BA%90%E5%88%86%E4%BA%AB%E8%AE%A1%E5%88%92/" class="category-list-link">资源分享计划</a><span class="category-list-count">10</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E8%BF%90%E7%BB%B4%E7%9F%A5%E8%AF%86%E5%BA%93/" class="category-list-link">运维知识库</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86/" class="category-list-link">项目管理</a><span class="category-list-count">1</span></li>
+        </ul>
+    </div>
+</div>
+  </div>
+</aside>
+
+    
+    
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <h4 class="toc-title">文章目录</h4>
+    <nav id="toc" class="js-toc toc">
+
+    </nav>
+  </div>
+</aside>
+<main class="main" role="main"><div class="content">
+  
+  <article id="article-container" class="article article-type-" itemscope
+    itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      <h1 itemprop="name">
+  <a
+    class="article-title"
+    href="/posts/2015-12-03-django-celery.html"
+    >「译」在django中使用celery实现异步任务</a
+  >
+</h1>
+
+      <div class="article-meta">
+        
+<span class="article-date">
+  <i class="icon icon-calendar-check"></i>&nbsp;
+<a href="https://pylixm.top/posts/2015-12-03-django-celery.html" class="article-date">
+  <time datetime="2015-12-03 16:00:00 &#43;0000 UTC" itemprop="datePublished">2015-12-03</time>
+</a>
+</span>
+<span class="article-category">
+  <i class="icon icon-folder"></i>&nbsp;
+  <a class="article-category-link" href="/categories/Django/"> Django </a>
+</span>  
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>&nbsp;
+    <a class="article-tag-link" href="/tags/Django/"> Django </a>
+    <a class="article-tag-link" href="/tags/Celery/"> Celery </a>
+    <a class="article-tag-link" href="/tags/%E7%BF%BB%E8%AF%91/"> 翻译 </a>
+  </span>
+
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+        <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="/posts/2015-12-03-django-celery.html#comments"
+            class="article-comment-link">评论</a></span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 2071字</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 5分 </span>
+      </div>
+    </div>
+    <div class="article-entry marked-body js-toc-content" itemprop="articleBody">
+      <h3 id="在django中使用celery">在django中使用celery</h3>
+<p>在使用celery时，你需要定义一个celery的实例（叫做 app ）。如果你有一个现成的django项目，如下：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">-</span> proj<span style="color:#f92672">/</span>
+  <span style="color:#f92672">-</span> proj<span style="color:#f92672">/</span>__init__<span style="color:#f92672">.</span>py
+  <span style="color:#f92672">-</span> proj<span style="color:#f92672">/</span>settings<span style="color:#f92672">.</span>py
+  <span style="color:#f92672">-</span> proj<span style="color:#f92672">/</span>urls<span style="color:#f92672">.</span>py
+<span style="color:#f92672">-</span> manage<span style="color:#f92672">.</span>py
+</code></pre></div><!-- raw HTML omitted -->
+<p>建议如下方式创建celery实例。</p>
+<p>创建 proj/proj/celery.py 文件，如下：</p>
+<p><code>proj/proj/celery.py</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> __future__ <span style="color:#f92672">import</span> absolute_import
+
+<span style="color:#f92672">import</span> os
+
+<span style="color:#f92672">from</span> celery <span style="color:#f92672">import</span> Celery
+
+<span style="color:#75715e"># set the default Django settings module for the &#39;celery&#39; program.</span>
+os<span style="color:#f92672">.</span>environ<span style="color:#f92672">.</span>setdefault(<span style="color:#e6db74">&#39;DJANGO_SETTINGS_MODULE&#39;</span>, <span style="color:#e6db74">&#39;proj.settings&#39;</span>)
+
+<span style="color:#f92672">from</span> django.conf <span style="color:#f92672">import</span> settings  <span style="color:#75715e"># noqa</span>
+
+app <span style="color:#f92672">=</span> Celery(<span style="color:#e6db74">&#39;proj&#39;</span>)
+
+<span style="color:#75715e"># Using a string here means the worker will not have to</span>
+<span style="color:#75715e"># pickle the object when using Windows.</span>
+app<span style="color:#f92672">.</span>config_from_object(<span style="color:#e6db74">&#39;django.conf:settings&#39;</span>)
+app<span style="color:#f92672">.</span>autodiscover_tasks(<span style="color:#66d9ef">lambda</span>: settings<span style="color:#f92672">.</span>INSTALLED_APPS)
+
+
+<span style="color:#a6e22e">@app.task</span>(bind<span style="color:#f92672">=</span>True)
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">debug_task</span>(self):
+    <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#39;Request: {0!r}&#39;</span><span style="color:#f92672">.</span>format(self<span style="color:#f92672">.</span>request))
+</code></pre></div><p>接下来，你需要把这个app放到<code>proj/proj/__init__.py</code>模块中，确保django启动的时候这个app能够被加载。</p>
+<p>从而提供给<code>@shared_task</code>(稍后讲到)注解使用。</p>
+<p><code>proj/proj/__init__.py</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> __future__ <span style="color:#f92672">import</span> absolute_import
+
+<span style="color:#75715e"># This will make sure the app is always imported when</span>
+<span style="color:#75715e"># Django starts so that shared_task will use this app.</span>
+<span style="color:#f92672">from</span> .celery <span style="color:#f92672">import</span> app <span style="color:#66d9ef">as</span> celery_app  <span style="color:#75715e"># noqa</span>
+</code></pre></div><p>注意，这个项目实例的布局，适合于大型项目。对于简单的小项目来说，你可以用一个模块来同时定义celery实例和任务。</p>
+<p>参考celery <a href="http://docs.celeryproject.org/en/latest/getting-started/first-steps-with-celery.html#tut-celery">入门教程</a>教程。</p>
+<p>让我们逐个分析下第一个模块都做了什么。</p>
+<p>首先，我们导入<code>future</code> 模块，让我们的<code>celery.py</code> 不会与其他类库产生冲突。</p>
+<pre><code>from __future__ import absolute_import
+</code></pre>
+<p>接下来，我们为celery 设置类默认的django项目 <code>DJANGO_SETTINGS_MODULE </code>。</p>
+<pre><code>os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'proj.settings')
+</code></pre>
+<p>这个设置让celery程序知道我们的django项目配置在哪。这句必须放在celery每次被实例化之前。</p>
+<p>接下来，实例化 celery 。</p>
+<pre><code>app = Celery('proj')
+</code></pre>
+<p>在django项目中，你只需要一个celery实例就可以了。</p>
+<p>我们可以把celery的配置放到django的settings配置文件中，如下：</p>
+<pre><code>app.config_from_object('django.conf:settings')
+</code></pre>
+<p>此处的参数你可以传递对象，但是建议字符串，这样使用windows 或execv 的时候，无需序列化对象。</p>
+<p>接下来，将所有可以重复操作的任务tasks.py 放到一个django的app中，celery使用如下的机制来发现此模块。</p>
+<pre><code>app.autodiscover_tasks(lambda: settings.INSTALLED_APPS)
+</code></pre>
+<p>tasks.py 的放至如下：</p>
+<pre><code>- app1/
+    - app1/tasks.py
+    - app1/models.py
+- app2/
+    - app2/tasks.py
+    - app2/models.py
+</code></pre>
+<p>这样，您就不必在各个模块手动添加到CELERY_IMPORTS参数。lambda 函数会使app在调用的时候能够被自动的发现，并且使你输入的模块不会影响Django的设置对象。</p>
+<p>最后，debug_task 例子是绑定了自己的request请求信息的一个任务函数。</p>
+<p>Finally, the debug_task example is a task that dumps its own request information.</p>
+<p>This is using the new bind=True task option introduced in Celery 3.1 to easily refer to the current task instance.</p>
+<h3 id="using-the-shared_task-decorator">Using the @shared_task decorator</h3>
+<p>你的task任务写在了django的app中，这个app可能不依赖与django项目本身。所以你不能讲celery的实例一如此app中。</p>
+<p>该@shared_task装饰可以让你创建任务，而无需任何具体的celery实例：</p>
+<p>注：此时需要把 django 的app 添加到 settings的app列表（INSTALLED_APPS）中。</p>
+<p>demoapp/tasks.py:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> __future__ <span style="color:#f92672">import</span> absolute_import
+
+<span style="color:#f92672">from</span> celery <span style="color:#f92672">import</span> shared_task
+
+
+<span style="color:#a6e22e">@shared_task</span>
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">add</span>(x, y):
+    <span style="color:#66d9ef">return</span> x <span style="color:#f92672">+</span> y
+
+
+<span style="color:#a6e22e">@shared_task</span>
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">mul</span>(x, y):
+    <span style="color:#66d9ef">return</span> x <span style="color:#f92672">*</span> y
+
+
+<span style="color:#a6e22e">@shared_task</span>
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">xsum</span>(numbers):
+    <span style="color:#66d9ef">return</span> sum(numbers)
+</code></pre></div><h3 id="using-the-django-ormcache-as-a-result-backend">Using the Django ORM/Cache as a result backend.</h3>
+<p>如果你想讲celery的返回结果使用django的ORM（或SQLAlchemy）存到数据库中，你需要安装 django-celery 模块库。</p>
+<p>django-celery 模块库结果默认使用django的ORM 和 Cache 框架。</p>
+<p>使用步骤如下：</p>
+<p>1、安装 django-celery 库：</p>
+<pre><code>$ pip install django-celery
+</code></pre>
+<p>2、Add djcelery to INSTALLED_APPS.</p>
+<p>3、创建celery的数据表</p>
+<pre><code>If you are using south for schema migrations, you’ll want to:
+
+$ python manage.py migrate djcelery
+For those who are not using south, a normal syncdb will work:
+
+$ python manage.py syncdb
+
+&gt;=django1.7 
+可直接使用django自带的数据库同步命令：
+$ python manage.py makemigrations
+$ python manage.py migrate
+</code></pre>
+<p>4、配置celery。</p>
+<pre><code># For the database backend you must use:
+app.conf.update(
+    CELERY_RESULT_BACKEND='djcelery.backends.database:DatabaseBackend',
+)
+# For the cache backend you can use:
+app.conf.update(
+    CELERY_RESULT_BACKEND='djcelery.backends.cache:CacheBackend',
+)
+# 此处配置用来存储任务执行结果。
+</code></pre>
+<p>除了这种方式外，你可以把 CELERY_RESULT_BACKEND 放到你的django的settings配置文件中。</p>
+<h3 id="starting-the-worker-process">Starting the worker process</h3>
+<p>在生产环境中，你将希望在后台运行worker - 请参阅 <a href="http://docs.celeryproject.org/en/latest/tutorials/daemonizing.html#daemonizing"> Running the worker as a daemon</a> -</p>
+<p>但对于测试和开发它能够通过使用 celery 启动工作实例的管理命令非常有用，</p>
+<p>就像你使用Django的runserver：</p>
+<pre><code>celery -A proj worker -l info
+</code></pre>
+<p>获取完整的celery命令列表，请使用：</p>
+<pre><code>celery help 
+</code></pre>
+<h3 id="2015年12月10日-update">2015年12月10日 update：</h3>
+<p>按照此教程，启动celery后，报错误如下：</p>
+<pre><code>[2016-05-29 01:19:24,751: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 2.00 seconds...
+</code></pre>
+<p>原因是，celery 需要一个 <code>broker</code> 来发送和接收消息，支持：rabbitmq、redis、数据库等作为这个broker。上边的配置中没有设置这个borker，</p>
+<p>celery 默认使用 rabbitmq来作为broker。所以，报错链接不上rabbitmq。</p>
+<p>解决办法：</p>
+<p>1、按装rabbitmq 显式的指定 broker为你配置的rabbitmq。</p>
+<pre><code>CELERY_BROKER_URL = 'amqp://guest:guest@localhost//' 
+</code></pre>
+<p>2、使用django数据库作为 broker：</p>
+<pre><code># 增加配置
+BROKER_URL = 'django://'
+# 增加app实例配置
+INSTALLED_APPS = ('kombu.transport.django', )
+</code></pre>
+<p>broker 官方建议使用 rabbitmq 或 redis ，其他的broker 仅为开发测试，性能不稳定。</p>
+<p>官网详细介绍：http://docs.jinkan.org/docs/celery/getting-started/brokers/index.html</p>
+<h3 id="2016年5月29日-更新">2016年5月29日 更新：</h3>
+<p>在搭建django + celery 使用总结：</p>
+<p>1、使用 <code> app.autodiscover_tasks(lambda: settings.INSTALLED_APPS)</code>这个配置，让celery 自动发现django app 下定义的task 时， django app下的task 文件名 必须为 <code>tasks.py</code>。</p>
+<p>2、celery 3.1 后，和django的结合无需再依靠django-celery。 可按以上方式搭建。具体官方地址 <a href="http://docs.celeryproject.org/en/latest/django/first-steps-with-django.html">这里</a></p>
+<p>3、todo 后续补充</p>
+<h3 id="各种功能搭建实例源码">各种功能搭建实例源码</h3>
+<p><a href="https://github.com/pylixm/celery-examples/tree/master">源码</a></p>
+<hr>
+<p><strong>ps: 个人英文水平有限，还请各位批评指正。</strong></p>
+<h3 id="参考">参考：</h3>
+<p><a href="http://docs.celeryproject.org/en/latest/django/first-steps-with-django.html">http://docs.celeryproject.org/en/latest/django/first-steps-with-django.html</a></p>
+
+    </div>
+    <div class="article-footer">
+<blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://pylixm.top/posts/2015-12-03-django-celery.html" title="「译」在django中使用celery实现异步任务" target="_blank" rel="external">https://pylixm.top/posts/2015-12-03-django-celery.html</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>许可协议：</strong>
+      <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN</a>
+    </li>
+  </ul>
+</blockquote>
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://pylixm.top" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="https://pylixm.top/static/imgs/avatar.png" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://pylixm.top" target="_blank"><span class="text-dark">DeanWu</span><small class="ml-1x">程序员</small></a></h3>
+        <div>努力成为真正的SRE</div>
+      </div>
+    </figure>
+  </div>
+</div>
+    </div>
+  </article>
+<section id="comments">
+    <div id="vcomments"></div>
+</section>
+
+</div><nav class="bar bar-footer clearfix" data-stick-bottom>
+    <div class="bar-inner">
+        <ul class="pager pull-left">
+            <li class="prev">
+                <a href="https://pylixm.top/posts/2015-12-01-vagrant-install.html" title="vagrant的开发环境搭建-windows开发环境为例"><i
+                        class="icon icon-angle-left"
+                        aria-hidden="true"></i><span>&nbsp;&nbsp;下一篇</span></a>
+            </li>
+            <li class="next">
+                <a href="https://pylixm.top/posts/2015-12-14-yum-install.html"
+                    title="yum install Header V3 RSA/SHA256 Signature, key ID 0608b895: NOKEY"><span>上一篇&nbsp;&nbsp;</span><i
+                        class="icon icon-angle-right" aria-hidden="true"></i></a>
+            </li>
+            
+            <li class="toggle-toc">
+                <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false"
+                    title="文章目录" role="button">
+                    <span>[&nbsp;</span><span>文章目录</span>
+                    <i class="text-collapsed icon icon-anchor"></i>
+                    <i class="text-in icon icon-close"></i>
+                    <span>]</span>
+                </a>
+            </li>
+        </ul>
+        <div class="bar-right">
+        </div>
+    </div>
+</nav>
+
+
+<script src="https://my.openwrite.cn/js/readmore.js" type="text/javascript"></script>
+<script>
+    const btw = new BTWPlugin();
+    btw.init({
+        id: 'article-container',
+        blogId: '24944-1607090547459-485',
+        name: '码农吴先生',
+        qrcode: 'https://gitee.com/pylixm/picture/raw/master/2020-12-4/1607089812769-image.png',
+        keyword: 'vip',
+    });
+</script>
+</main><footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+<ul class="social-links">
+    <li><a href="https://github.com/pylixm" target="_blank" title="github" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-github"></i></a></li>
+    <li><a href="https://pylixm.top/index.xml" target="_blank" title="rss" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-rss"></i></a></li>
+    <li><a href="http://weibo.com/2258086637" target="_blank" title="weibo" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-weibo"></i></a></li>
+</ul>
+  <div class="copyright">
+    &copy;2015  -
+    2020
+    <div class="publishby">
+      hugo驱动，Theme by <a href="https://github.com/xiaoheiAh/hugo-theme-pure" target="_blank"> pure</a>.
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_SVG"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+            showMathMenu: false, //disables context menu
+            tex2jax: {
+            inlineMath: [ ['$','$'], ['\\(','\\)'] ]
+           }
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+<script>
+    window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/highlight.min.js"></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/python.min.js" defer></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/javascript.min.js" defer></script><script>
+    hljs.configure({
+        tabReplace: '    ', 
+        classPrefix: ''     
+        
+    })
+    hljs.initHighlightingOnLoad();
+</script>
+<script src="https://pylixm.top/js/application.min.bdeb64b910570b6c41badc6a05b7afb0c8ad9efd8525de3c7257d59e786326a3.js"></script>
+<script src="https://pylixm.top/js/plugin.min.51ff8c7317566f82259170fa36e09c4493adc9b9378b427a01ad3f017ebac7dd.js"></script>
+
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(未命名)',
+            },
+            ROOT_URL: 'https:\/\/pylixm.top',
+            CONTENT_URL: 'https:\/\/pylixm.top\/searchindex.json ',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script type="text/javascript" src="https://pylixm.top/js/insight.min.a343cd9a5a7698336b28ef3a7c16a3a1b1d2d5fb17dc8ed04022bbe08cc5459073a15bdafa3a8a58cdd56080784bdd69fa70b1ae8597565c799c57ed00f0e120.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script>
+<script>
+    tocbot.init({
+        
+        tocSelector: '.js-toc',
+        
+        contentSelector: '.js-toc-content',
+        
+        headingSelector: 'h1, h2, h3',
+        
+        hasInnerContainers: true,
+    });
+</script>
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="https://cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine"></script>
+<script type="text/javascript">
+    var GUEST = ['nick', 'mail', 'link'];
+    var meta = 'nick,mail';
+    meta = meta.split(',').filter(function (item) {
+        return GUEST.indexOf(item) > -1;
+    });
+    new Valine({
+        el: '#vcomments',
+        verify: null ,
+        notify: null ,
+        appId: 'OBJcj4PU8JI0zDfu0HJSrG6W-gzGzoHsz',
+        appKey: 'tBtFzC72xIlgo2UFbA33nqmU',
+        placeholder: '来做第一个发言人吧',
+        avatar: 'mm',
+        meta: meta,
+        pageSize: '10' || 10,
+        visitor: false 
+});
+</script>
+
+  </body>
+</html>

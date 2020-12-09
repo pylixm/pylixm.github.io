@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <title>
+        「Python Tips」 - python 单元测试 unittest 工具使用 - DeanWu
+      </title>
+        <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    
+    <meta name="theme-color" content="#000000" />
+    
+    <meta http-equiv="window-target" content="_top" />
+    
+    
+    <meta name="description" content="python 的单元测试有许多工具，如unittest、pytest、nosetest 等等，这里主要介绍下unittest 的使用。 以下文字为转载，原文链" />
+    <meta name="generator" content="Hugo 0.73.0 with theme pure" />
+    <title>「Python Tips」 - python 单元测试 unittest 工具使用 - DeanWu</title>
+    
+    
+    <link rel="stylesheet" href="https://pylixm.top/css/style.min.f70e8e0df9ea6aeb37dac252b17ca98082073ff1663b24118baaaa84ee8ae7e8.css">
+    
+    <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.15.10/styles/github.min.css" async>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css" async>
+    <meta property="og:title" content="「Python Tips」 - python 单元测试 unittest 工具使用" />
+<meta property="og:description" content="python 的单元测试有许多工具，如unittest、pytest、nosetest 等等，这里主要介绍下unittest 的使用。 以下文字为转载，原文链" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://pylixm.top/posts/2018-01-18-python-unittest.html" />
+<meta property="article:published_time" content="2018-01-18T00:00:00+00:00" />
+<meta property="article:modified_time" content="2018-01-18T00:00:00+00:00" /><meta property="og:see_also" content="https://pylixm.top/posts/2020-10-21-python-string.html" /><meta property="og:see_also" content="https://pylixm.top/posts/2020-10-18-namedtuple.html" /><meta property="og:see_also" content="https://pylixm.top/posts/2020-08-05-10-One-liners.html" /><meta property="og:see_also" content="https://pylixm.top/posts/2020-07-02-python-uninstall-for-mac.html" /><meta property="og:see_also" content="https://pylixm.top/posts/2018-02-02-python-pickle.html" /><meta property="og:see_also" content="https://pylixm.top/posts/2018-02-01-python-magic-method.html" />
+
+<meta itemprop="name" content="「Python Tips」 - python 单元测试 unittest 工具使用">
+<meta itemprop="description" content="python 的单元测试有许多工具，如unittest、pytest、nosetest 等等，这里主要介绍下unittest 的使用。 以下文字为转载，原文链">
+<meta itemprop="datePublished" content="2018-01-18T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2018-01-18T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="3984">
+
+
+
+<meta itemprop="keywords" content="Python,unittest," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="「Python Tips」 - python 单元测试 unittest 工具使用"/>
+<meta name="twitter:description" content="python 的单元测试有许多工具，如unittest、pytest、nosetest 等等，这里主要介绍下unittest 的使用。 以下文字为转载，原文链"/>
+
+    <!--[if lte IE 9]>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+      <![endif]-->
+
+    <!--[if lt IE 9]>
+        <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+      <![endif]-->
+  </head>
+
+  
+  
+
+  <body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage"><header class="header" itemscope itemtype="http://schema.org/WPHeader">
+    <div class="slimContent">
+      <div class="navbar-header">
+        <div class="profile-block text-center">
+          <a id="avatar" href="https://pylixm.top" target="_blank">
+            <img class="img-circle img-rotate" src="https://pylixm.top/static/imgs/avatar.png" width="200" height="200">
+          </a>
+          <h2 id="name" class="hidden-xs hidden-sm">DeanWu</h2>
+          <h3 id="title" class="hidden-xs hidden-sm hidden-md">程序员</h3>
+          <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i>Beijing, China</small>
+        </div><div class="search" id="search-form-wrap">
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i
+                        class="icon icon-search"></i></button>
+            </span>
+        </div>
+        <div class="ins-search">
+            <div class="ins-search-mask"></div>
+            <div class="ins-search-container">
+                <div class="ins-input-wrapper">
+                    <input type="text" class="ins-search-input" placeholder="想要查找什么..."
+                        x-webkit-speech />
+                    <button type="button" class="close ins-close ins-selectable" data-dismiss="modal"
+                        aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="ins-section-wrapper">
+                    <div class="ins-section-container"></div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+        <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+        <ul class="nav navbar-nav main-nav">
+            <li class="menu-item menu-item-home">
+                <a href="/">
+                    <i class="icon icon-home-fill"></i>
+                  <span class="menu-title">首页</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-series">
+                <a href="/series/">
+                    <i class="icon icon-folder"></i>
+                  <span class="menu-title">专题</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-repository">
+                <a href="/project/">
+                    <i class="icon icon-project"></i>
+                  <span class="menu-title">项目</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-archives">
+                <a href="/posts/">
+                    <i class="icon icon-archives-fill"></i>
+                  <span class="menu-title">归档</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-about">
+                <a href="/about/">
+                    <i class="icon icon-cup-fill"></i>
+                  <span class="menu-title">关于</span>
+                </a>
+            </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+<aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content"><div>欢迎关注微信公众号「码农吴先生」：专注python/golang/devops等技术的学习经验及资源分享！</br>回复关键字：go或python 获取我收集的资料，也可回复关键字：小二，加我wx，一块聊技术，聊人生~  </br><img src="/static/imgs/wx/wx_gzh.png" width="140" height="140"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+      
+<div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+        <ul class="recent-post-list list-unstyled no-thumbnail">
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2020-12-08-django-async-views-example.html" class="title">Django 三个异步使用的案例</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-12-08 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-08</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2020-12-05-go-from-python-structure-base.html" class="title">「对比Python学习Go」- 基本数据结构</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-12-05 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-05</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2020-12-03-go-from-python-start.html" class="title">「对比Python学习Go」- 环境篇</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-12-03 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-03</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2020-12-02-go-from-python-intro.html" class="title">「对比Python学习Go」- 开篇</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-12-02 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-02</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2020-12-01-for-range-point.html" class="title">「Go Tips」for range 遍历时变量取值的问题分析</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-12-01 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-01</time>
+                    </p>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+      <div class="widget">
+    <h3 class="widget-title"> 分类</h3>
+    <div class="widget-body">
+        <ul class="category-list">
+            <li class="category-list-item"><a href="https://pylixm.top/categories/ATS/" class="category-list-link">ATS</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/DevOps/" class="category-list-link">DevOps</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Devlopment-Demo/" class="category-list-link">Devlopment-Demo</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Django/" class="category-list-link">Django</a><span class="category-list-count">39</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Docker/" class="category-list-link">Docker</a><span class="category-list-count">4</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Flask/" class="category-list-link">Flask</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Git/" class="category-list-link">Git</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Golang/" class="category-list-link">Golang</a><span class="category-list-count">12</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/HTTPS/" class="category-list-link">HTTPS</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Javascript/" class="category-list-link">Javascript</a><span class="category-list-count">3</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Kubernetes/" class="category-list-link">Kubernetes</a><span class="category-list-count">4</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/LVS/" class="category-list-link">LVS</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Linux/" class="category-list-link">Linux</a><span class="category-list-count">15</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Mongodb/" class="category-list-link">Mongodb</a><span class="category-list-count">3</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Mysql/" class="category-list-link">Mysql</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/NoSQL/" class="category-list-link">NoSQL</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/PostgreSQL/" class="category-list-link">PostgreSQL</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Puppet/" class="category-list-link">Puppet</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Python/" class="category-list-link">Python</a><span class="category-list-count">19</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/QA/" class="category-list-link">QA</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Rabbitmq/" class="category-list-link">Rabbitmq</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Restful/" class="category-list-link">Restful</a><span class="category-list-count">6</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/SaltStack/" class="category-list-link">SaltStack</a><span class="category-list-count">7</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Software_Architect/" class="category-list-link">Software_Architect</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Supervisor/" class="category-list-link">Supervisor</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Tornado/" class="category-list-link">Tornado</a><span class="category-list-count">3</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Vagrant/" class="category-list-link">Vagrant</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Vue/" class="category-list-link">Vue</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/kafka/" class="category-list-link">kafka</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/zookeeper/" class="category-list-link">zookeeper</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E4%B8%AA%E4%BA%BA%E7%AE%A1%E7%90%86/" class="category-list-link">个人管理</a><span class="category-list-count">5</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB/" class="category-list-link">前后端分离</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" class="category-list-link">数据结构与算法</a><span class="category-list-count">13</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E6%9C%9D%E8%8A%B1%E5%A4%95%E6%8B%BE/" class="category-list-link">朝花夕拾</a><span class="category-list-count">10</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" class="category-list-link">机器学习</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" class="category-list-link">环境搭建</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E7%A8%8B%E5%BA%8F%E5%91%98%E8%87%AA%E6%88%91%E4%BF%AE%E5%85%BB/" class="category-list-link">程序员自我修养</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E8%B5%84%E6%BA%90%E5%88%86%E4%BA%AB%E8%AE%A1%E5%88%92/" class="category-list-link">资源分享计划</a><span class="category-list-count">10</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E8%BF%90%E7%BB%B4%E7%9F%A5%E8%AF%86%E5%BA%93/" class="category-list-link">运维知识库</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86/" class="category-list-link">项目管理</a><span class="category-list-count">1</span></li>
+        </ul>
+    </div>
+</div>
+  </div>
+</aside>
+
+    
+    
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <h4 class="toc-title">文章目录</h4>
+    <nav id="toc" class="js-toc toc">
+
+    </nav>
+  </div>
+</aside>
+<main class="main" role="main"><div class="content">
+  
+  <article id="article-container" class="article article-type-" itemscope
+    itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      <h1 itemprop="name">
+  <a
+    class="article-title"
+    href="/posts/2018-01-18-python-unittest.html"
+    >「Python Tips」 - python 单元测试 unittest 工具使用</a
+  >
+</h1>
+
+      <div class="article-meta">
+        
+<span class="article-date">
+  <i class="icon icon-calendar-check"></i>&nbsp;
+<a href="https://pylixm.top/posts/2018-01-18-python-unittest.html" class="article-date">
+  <time datetime="2018-01-18 00:00:00 &#43;0000 UTC" itemprop="datePublished">2018-01-18</time>
+</a>
+</span>
+<span class="article-category">
+  <i class="icon icon-folder"></i>&nbsp;
+  <a class="article-category-link" href="/categories/Python/"> Python </a>
+</span>  
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>&nbsp;
+    <a class="article-tag-link" href="/tags/Python/"> Python </a>
+    <a class="article-tag-link" href="/tags/unittest/"> unittest </a>
+  </span>
+
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+        <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="/posts/2018-01-18-python-unittest.html#comments"
+            class="article-comment-link">评论</a></span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 3984字</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 8分 </span>
+      </div>
+    </div>
+    <div class="article-entry marked-body js-toc-content" itemprop="articleBody">
+      <p>python 的单元测试有许多工具，如unittest、pytest、nosetest 等等，这里主要介绍下unittest 的使用。</p>
+<blockquote>
+<p>以下文字为转载，原文链接：<a href="https://www.cnblogs.com/yufeihlf/p/5707929.html">https://www.cnblogs.com/yufeihlf/p/5707929.html</a></p>
+</blockquote>
+<p>unittest单元测试框架不仅可以适用于单元测试，还可以适用WEB自动化测试用例的开发与执行，该测试框架可组织执行测试用例，并且提供了丰富的断言方法，判断测试用例是否通过，最终生成测试结果。今天笔者就总结下如何使用unittest单元测试框架来进行WEB自动化测试。</p>
+<!-- raw HTML omitted -->
+<h2 id="unittest模块的各个属性说明">unittest模块的各个属性说明</h2>
+<p>先来聊一聊unittest模块的各个属性，所谓知己知彼方能百战百胜，了解unittest的各个属性，对于后续编写用例有很大的帮助。</p>
+<p><strong>1.unittest的属性如下：</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">[<span style="color:#e6db74">&#39;BaseTestSuite&#39;</span>, <span style="color:#e6db74">&#39;FunctionTestCase&#39;</span>, <span style="color:#e6db74">&#39;SkipTest&#39;</span>, <span style="color:#e6db74">&#39;TestCase&#39;</span>, <span style="color:#e6db74">&#39;TestLoader&#39;</span>, <span style="color:#e6db74">&#39;TestProgram&#39;</span>, <span style="color:#e6db74">&#39;TestResult&#39;</span>, <span style="color:#e6db74">&#39;TestSuite&#39;</span>, <span style="color:#e6db74">&#39;TextTestResult&#39;</span>, <span style="color:#e6db74">&#39;TextTestRunner&#39;</span>, <span style="color:#e6db74">&#39;_TextTestResult&#39;</span>, <span style="color:#e6db74">&#39;__all__&#39;</span>, <span style="color:#e6db74">&#39;__builtins__&#39;</span>, <span style="color:#e6db74">&#39;__doc__&#39;</span>, <span style="color:#e6db74">&#39;__file__&#39;</span>, <span style="color:#e6db74">&#39;__name__&#39;</span>, <span style="color:#e6db74">&#39;__package__&#39;</span>, <span style="color:#e6db74">&#39;__path__&#39;</span>, <span style="color:#e6db74">&#39;__unittest&#39;</span>, <span style="color:#e6db74">&#39;case&#39;</span>, <span style="color:#e6db74">&#39;defaultTestLoader&#39;</span>, <span style="color:#e6db74">&#39;expectedFailure&#39;</span>, <span style="color:#e6db74">&#39;findTestCases&#39;</span>, <span style="color:#e6db74">&#39;getTestCaseNames&#39;</span>, <span style="color:#e6db74">&#39;installHandler&#39;</span>, <span style="color:#e6db74">&#39;loader&#39;</span>, <span style="color:#e6db74">&#39;main&#39;</span>, <span style="color:#e6db74">&#39;makeSuite&#39;</span>, <span style="color:#e6db74">&#39;registerResult&#39;</span>, <span style="color:#e6db74">&#39;removeHandler&#39;</span>, <span style="color:#e6db74">&#39;removeResult&#39;</span>, <span style="color:#e6db74">&#39;result&#39;</span>, <span style="color:#e6db74">&#39;runner&#39;</span>, <span style="color:#e6db74">&#39;signals&#39;</span>, <span style="color:#e6db74">&#39;skip&#39;</span>, <span style="color:#e6db74">&#39;skipIf&#39;</span>, <span style="color:#e6db74">&#39;skipUnless&#39;</span>, <span style="color:#e6db74">&#39;suite&#39;</span>, <span style="color:#e6db74">&#39;util&#39;</span>]
+</code></pre></div><p>说明：
+<code>unittest.TestCase</code>: TestCase类，所有测试用例类继承的基本类。</p>
+<p><code>unittest.main()</code>: 使用她可以方便的将一个单元测试模块变为可直接运行的测试脚本，main()方法使用TestLoader类来搜索所有包含在该模块中以“test”命名开头的测试方法，并自动执行他们。执行方法的默认顺序是：根据ASCII码的顺序加载测试用例，数字与字母的顺序为：0-9，A-Z，a-z。所以以A开头的测试用例方法会优先执行，以a开头会后执行。</p>
+<p><code>unittest.TestSuite()</code>: unittest框架的TestSuite()类是用来创建测试套件的。</p>
+<p><code>unittest.TextTextRunner()</code>: unittest框架的TextTextRunner()类，通过该类下面的run()方法来运行suite所组装的测试用例，入参为suite测试套件。</p>
+<p><code>unittest.defaultTestLoader()</code>: defaultTestLoader()类，通过该类下面的discover()方法可自动根据测试目录start_dir匹配查找测试用例文件（test*.py），并将查找到的测试用例组装到测试套件，因此可以直接通过run()方法执行discover。用法如下：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">discover<span style="color:#f92672">=</span>unittest<span style="color:#f92672">.</span>defaultTestLoader<span style="color:#f92672">.</span>discover(test_dir, pattern<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;test_*.py&#39;</span>)
+</code></pre></div><p><code>unittest.skip()</code>: 装饰器，当运行用例时，有些用例可能不想执行等，可用装饰器暂时屏蔽该条测试用例。一种常见的用法就是比如说想调试某一个测试用例，想先屏蔽其他用例就可以用装饰器屏蔽。</p>
+<p>@unittest.skip(reason): skip(reason)装饰器：无条件跳过装饰的测试，并说明跳过测试的原因。</p>
+<p>@unittest.skipIf(reason): skipIf(condition,reason)装饰器：条件为真时，跳过装饰的测试，并说明跳过测试的原因。</p>
+<p>@unittest.skipUnless(reason): skipUnless(condition,reason)装饰器：条件为假时，跳过装饰的测试，并说明跳过测试的原因。</p>
+<p>@unittest.expectedFailure(): expectedFailure()测试标记为失败。</p>
+<p><strong>2.TestCase类的属性如下：</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">[<span style="color:#e6db74">&#39;__call__&#39;</span>, <span style="color:#e6db74">&#39;__class__&#39;</span>, <span style="color:#e6db74">&#39;__delattr__&#39;</span>, <span style="color:#e6db74">&#39;__dict__&#39;</span>, <span style="color:#e6db74">&#39;__doc__&#39;</span>, <span style="color:#e6db74">&#39;__eq__&#39;</span>, <span style="color:#e6db74">&#39;__format__&#39;</span>, <span style="color:#e6db74">&#39;__getattribute__&#39;</span>, <span style="color:#e6db74">&#39;__hash__&#39;</span>, <span style="color:#e6db74">&#39;__init__&#39;</span>, <span style="color:#e6db74">&#39;__module__&#39;</span>, <span style="color:#e6db74">&#39;__ne__&#39;</span>, <span style="color:#e6db74">&#39;__new__&#39;</span>, <span style="color:#e6db74">&#39;__reduce__&#39;</span>, <span style="color:#e6db74">&#39;__reduce_ex__&#39;</span>, <span style="color:#e6db74">&#39;__repr__&#39;</span>, <span style="color:#e6db74">&#39;__setattr__&#39;</span>, <span style="color:#e6db74">&#39;__sizeof__&#39;</span>, <span style="color:#e6db74">&#39;__str__&#39;</span>, <span style="color:#e6db74">&#39;__subclasshook__&#39;</span>, <span style="color:#e6db74">&#39;__weakref__&#39;</span>, <span style="color:#e6db74">&#39;_addSkip&#39;</span>, <span style="color:#e6db74">&#39;_baseAssertEqual&#39;</span>, <span style="color:#e6db74">&#39;_classSetupFailed&#39;</span>, <span style="color:#e6db74">&#39;_deprecate&#39;</span>, <span style="color:#e6db74">&#39;_diffThreshold&#39;</span>, <span style="color:#e6db74">&#39;_formatMessage&#39;</span>, <span style="color:#e6db74">&#39;_getAssertEqualityFunc&#39;</span>, <span style="color:#e6db74">&#39;_truncateMessage&#39;</span>, <span style="color:#e6db74">&#39;addCleanup&#39;</span>, <span style="color:#e6db74">&#39;addTypeEqualityFunc&#39;</span>, <span style="color:#e6db74">&#39;assertAlmostEqual&#39;</span>, <span style="color:#e6db74">&#39;assertAlmostEquals&#39;</span>, <span style="color:#e6db74">&#39;assertDictContainsSubset&#39;</span>, <span style="color:#e6db74">&#39;assertDictEqual&#39;</span>, <span style="color:#e6db74">&#39;assertEqual&#39;</span>, <span style="color:#e6db74">&#39;assertEquals&#39;</span>, <span style="color:#e6db74">&#39;assertFalse&#39;</span>, <span style="color:#e6db74">&#39;assertGreater&#39;</span>, <span style="color:#e6db74">&#39;assertGreaterEqual&#39;</span>, <span style="color:#e6db74">&#39;assertIn&#39;</span>, <span style="color:#e6db74">&#39;assertIs&#39;</span>, <span style="color:#e6db74">&#39;assertIsInstance&#39;</span>, <span style="color:#e6db74">&#39;assertIsNone&#39;</span>, <span style="color:#e6db74">&#39;assertIsNot&#39;</span>, <span style="color:#e6db74">&#39;assertIsNotNone&#39;</span>, <span style="color:#e6db74">&#39;assertItemsEqual&#39;</span>, <span style="color:#e6db74">&#39;assertLess&#39;</span>, <span style="color:#e6db74">&#39;assertLessEqual&#39;</span>, <span style="color:#e6db74">&#39;assertListEqual&#39;</span>, <span style="color:#e6db74">&#39;assertMultiLineEqual&#39;</span>, <span style="color:#e6db74">&#39;assertNotAlmostEqual&#39;</span>, <span style="color:#e6db74">&#39;assertNotAlmostEquals&#39;</span>, <span style="color:#e6db74">&#39;assertNotEqual&#39;</span>, <span style="color:#e6db74">&#39;assertNotEquals&#39;</span>, <span style="color:#e6db74">&#39;assertNotIn&#39;</span>, <span style="color:#e6db74">&#39;assertNotIsInstance&#39;</span>, <span style="color:#e6db74">&#39;assertNotRegexpMatches&#39;</span>, <span style="color:#e6db74">&#39;assertRaises&#39;</span>, <span style="color:#e6db74">&#39;assertRaisesRegexp&#39;</span>, <span style="color:#e6db74">&#39;assertRegexpMatches&#39;</span>, <span style="color:#e6db74">&#39;assertSequenceEqual&#39;</span>, <span style="color:#e6db74">&#39;assertSetEqual&#39;</span>, <span style="color:#e6db74">&#39;assertTrue&#39;</span>, <span style="color:#e6db74">&#39;assertTupleEqual&#39;</span>, <span style="color:#e6db74">&#39;assert_&#39;</span>, <span style="color:#e6db74">&#39;countTestCases&#39;</span>, <span style="color:#e6db74">&#39;debug&#39;</span>, <span style="color:#e6db74">&#39;defaultTestResult&#39;</span>, <span style="color:#e6db74">&#39;doCleanups&#39;</span>, <span style="color:#e6db74">&#39;fail&#39;</span>, <span style="color:#e6db74">&#39;failIf&#39;</span>, <span style="color:#e6db74">&#39;failIfAlmostEqual&#39;</span>, <span style="color:#e6db74">&#39;failIfEqual&#39;</span>, <span style="color:#e6db74">&#39;failUnless&#39;</span>, <span style="color:#e6db74">&#39;failUnlessAlmostEqual&#39;</span>, <span style="color:#e6db74">&#39;failUnlessEqual&#39;</span>, <span style="color:#e6db74">&#39;failUnlessRaises&#39;</span>, <span style="color:#e6db74">&#39;failureException&#39;</span>, <span style="color:#e6db74">&#39;id&#39;</span>, <span style="color:#e6db74">&#39;longMessage&#39;</span>, <span style="color:#e6db74">&#39;maxDiff&#39;</span>, <span style="color:#e6db74">&#39;run&#39;</span>, <span style="color:#e6db74">&#39;setUp&#39;</span>, <span style="color:#e6db74">&#39;setUpClass&#39;</span>, <span style="color:#e6db74">&#39;shortDescription&#39;</span>, <span style="color:#e6db74">&#39;skipTest&#39;</span>, <span style="color:#e6db74">&#39;tearDown&#39;</span>, <span style="color:#e6db74">&#39;tearDownClass&#39;</span>]
+</code></pre></div><p>说明：</p>
+<p>setUp():setUp()方法用于测试用例执行前的初始化工作。如测试用例中需要访问数据库，可以在setUp中建立数据库连接并进行初始化。如测试用例需要登录web，可以先实例化浏览器。</p>
+<p>tearDown():tearDown()方法用于测试用例执行之后的善后工作。如关闭数据库连接。关闭浏览器。</p>
+<p>assert*():一些断言方法：在执行测试用例的过程中，最终用例是否执行通过，是通过判断测试得到的实际结果和预期结果是否相等决定的。</p>
+<p>assertEqual(a,b，[msg='测试失败时打印的信息&rsquo;]):断言a和b是否相等，相等则测试用例通过。</p>
+<p>assertNotEqual(a,b，[msg='测试失败时打印的信息&rsquo;]):断言a和b是否相等，不相等则测试用例通过。</p>
+<p>assertTrue(x，[msg='测试失败时打印的信息&rsquo;])：断言x是否True，是True则测试用例通过。</p>
+<p>assertFalse(x，[msg='测试失败时打印的信息&rsquo;])：断言x是否False，是False则测试用例通过。</p>
+<p>assertIs(a,b，[msg='测试失败时打印的信息&rsquo;]):断言a是否是b，是则测试用例通过。</p>
+<p>assertNotIs(a,b，[msg='测试失败时打印的信息&rsquo;]):断言a是否是b，不是则测试用例通过。</p>
+<p>assertIsNone(x，[msg='测试失败时打印的信息&rsquo;])：断言x是否None，是None则测试用例通过。</p>
+<p>assertIsNotNone(x，[msg='测试失败时打印的信息&rsquo;])：断言x是否None，不是None则测试用例通过。</p>
+<p>assertIn(a,b，[msg='测试失败时打印的信息&rsquo;])：断言a是否在b中，在b中则测试用例通过。</p>
+<p>assertNotIn(a,b，[msg='测试失败时打印的信息&rsquo;])：断言a是否在b中，不在b中则测试用例通过。</p>
+<p>assertIsInstance(a,b，[msg='测试失败时打印的信息&rsquo;])：断言a是是b的一个实例，是则测试用例通过。</p>
+<p>assertNotIsInstance(a,b，[msg='测试失败时打印的信息&rsquo;])：断言a是是b的一个实例，不是则测试用例通过。</p>
+<p><strong>3.TestSuite类的属性如下：（组织用例时需要用到）</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">[<span style="color:#e6db74">&#39;__call__&#39;</span>, <span style="color:#e6db74">&#39;__class__&#39;</span>, <span style="color:#e6db74">&#39;__delattr__&#39;</span>, <span style="color:#e6db74">&#39;__dict__&#39;</span>, <span style="color:#e6db74">&#39;__doc__&#39;</span>, <span style="color:#e6db74">&#39;__eq__&#39;</span>, <span style="color:#e6db74">&#39;__format__&#39;</span>, <span style="color:#e6db74">&#39;__getattribute__&#39;</span>, <span style="color:#e6db74">&#39;__hash__&#39;</span>, <span style="color:#e6db74">&#39;__init__&#39;</span>, <span style="color:#e6db74">&#39;__iter__&#39;</span>, <span style="color:#e6db74">&#39;__module__&#39;</span>, <span style="color:#e6db74">&#39;__ne__&#39;</span>, <span style="color:#e6db74">&#39;__new__&#39;</span>, <span style="color:#e6db74">&#39;__reduce__&#39;</span>, <span style="color:#e6db74">&#39;__reduce_ex__&#39;</span>, <span style="color:#e6db74">&#39;__repr__&#39;</span>, <span style="color:#e6db74">&#39;__setattr__&#39;</span>, <span style="color:#e6db74">&#39;__sizeof__&#39;</span>, <span style="color:#e6db74">&#39;__str__&#39;</span>, <span style="color:#e6db74">&#39;__subclasshook__&#39;</span>, <span style="color:#e6db74">&#39;__weakref__&#39;</span>, <span style="color:#e6db74">&#39;_addClassOrModuleLevelException&#39;</span>, <span style="color:#e6db74">&#39;_get_previous_module&#39;</span>, <span style="color:#e6db74">&#39;_handleClassSetUp&#39;</span>, <span style="color:#e6db74">&#39;_handleModuleFixture&#39;</span>, <span style="color:#e6db74">&#39;_handleModuleTearDown&#39;</span>, <span style="color:#e6db74">&#39;_tearDownPreviousClass&#39;</span>, <span style="color:#e6db74">&#39;_tests&#39;</span>, <span style="color:#e6db74">&#39;addTest&#39;</span>, <span style="color:#e6db74">&#39;addTests&#39;</span>, <span style="color:#e6db74">&#39;countTestCases&#39;</span>, <span style="color:#e6db74">&#39;debug&#39;</span>, <span style="color:#e6db74">&#39;run&#39;</span>]
+</code></pre></div><p>说明：</p>
+<p>addTest(): addTest()方法是将测试用例添加到测试套件中，如下方，是将test_baidu模块下的BaiduTest类下的test_baidu测试用例添加到测试套件。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">suite <span style="color:#f92672">=</span> unittest<span style="color:#f92672">.</span>TestSuite()
+suite<span style="color:#f92672">.</span>addTest(test_baidu<span style="color:#f92672">.</span>BaiduTest(<span style="color:#e6db74">&#39;test_baidu&#39;</span>))
+</code></pre></div><p><strong>4.TextTextRunner的属性如下：（组织用例时需要用到）</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">[<span style="color:#e6db74">&#39;__class__&#39;</span>, <span style="color:#e6db74">&#39;__delattr__&#39;</span>, <span style="color:#e6db74">&#39;__dict__&#39;</span>, <span style="color:#e6db74">&#39;__doc__&#39;</span>, <span style="color:#e6db74">&#39;__format__&#39;</span>, <span style="color:#e6db74">&#39;__getattribute__&#39;</span>, <span style="color:#e6db74">&#39;__hash__&#39;</span>, <span style="color:#e6db74">&#39;__init__&#39;</span>, <span style="color:#e6db74">&#39;__module__&#39;</span>, <span style="color:#e6db74">&#39;__new__&#39;</span>, <span style="color:#e6db74">&#39;__reduce__&#39;</span>, <span style="color:#e6db74">&#39;__reduce_ex__&#39;</span>, <span style="color:#e6db74">&#39;__repr__&#39;</span>, <span style="color:#e6db74">&#39;__setattr__&#39;</span>, <span style="color:#e6db74">&#39;__sizeof__&#39;</span>, <span style="color:#e6db74">&#39;__str__&#39;</span>, <span style="color:#e6db74">&#39;__subclasshook__&#39;</span>, <span style="color:#e6db74">&#39;__weakref__&#39;</span>, <span style="color:#e6db74">&#39;_makeResult&#39;</span>, <span style="color:#e6db74">&#39;buffer&#39;</span>, <span style="color:#e6db74">&#39;descriptions&#39;</span>, <span style="color:#e6db74">&#39;failfast&#39;</span>, <span style="color:#e6db74">&#39;resultclass&#39;</span>, <span style="color:#e6db74">&#39;run&#39;</span>, <span style="color:#e6db74">&#39;stream&#39;</span>, <span style="color:#e6db74">&#39;verbosity&#39;</span>]
+</code></pre></div><p>说明：</p>
+<p>run(): run()方法是运行测试套件的测试用例，入参为suite测试套件。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">runner <span style="color:#f92672">=</span> unittest<span style="color:#f92672">.</span>TextTestRunner()
+runner<span style="color:#f92672">.</span>run(suite)
+</code></pre></div><h2 id="使用unittest框架编写测试用例思路">使用unittest框架编写测试用例思路</h2>
+<p>设计基本思路如下：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># coding=utf-8</span>
+<span style="color:#75715e">#1.先设置编码，utf-8可支持中英文，如上，一般放在第一行</span>
+
+<span style="color:#75715e">#2.注释：包括记录创建时间，创建人，项目名称。</span>
+<span style="color:#e6db74">&#39;&#39;&#39;
+</span><span style="color:#e6db74">Created on 2016-7-27
+</span><span style="color:#e6db74">@author: Jennifer
+</span><span style="color:#e6db74">Project:使用unittest框架编写测试用例思路
+</span><span style="color:#e6db74">&#39;&#39;&#39;</span>
+<span style="color:#75715e">#3.导入unittest模块</span>
+<span style="color:#f92672">import</span> unittest
+
+<span style="color:#75715e">#4.定义测试类，父类为unittest.TestCase。</span>
+<span style="color:#75715e">#可继承unittest.TestCase的方法，如setUp和tearDown方法，不过此方法可以在子类重写，覆盖父类方法。</span>
+<span style="color:#75715e">#可继承unittest.TestCase的各种断言方法。</span>
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Test</span>(unittest<span style="color:#f92672">.</span>TestCase): 
+    
+<span style="color:#75715e">#5.定义setUp()方法用于测试用例执行前的初始化工作。</span>
+<span style="color:#75715e">#注意，所有类中方法的入参为self，定义方法的变量也要“self.变量”</span>
+<span style="color:#75715e">#注意，输入的值为字符型的需要转为int型</span>
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">setUp</span>(self):
+        self<span style="color:#f92672">.</span>number<span style="color:#f92672">=</span>raw_input(<span style="color:#e6db74">&#39;Enter a number:&#39;</span>)
+        self<span style="color:#f92672">.</span>number<span style="color:#f92672">=</span>int(self<span style="color:#f92672">.</span>number)
+
+<span style="color:#75715e">#6.定义测试用例，以“test_”开头命名的方法</span>
+<span style="color:#75715e">#注意，方法的入参为self</span>
+<span style="color:#75715e">#可使用unittest.TestCase类下面的各种断言方法用于对测试结果的判断</span>
+<span style="color:#75715e">#可定义多个测试用例</span>
+<span style="color:#75715e">#最重要的就是该部分</span>
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">test_case1</span>(self):
+        <span style="color:#66d9ef">print</span> self<span style="color:#f92672">.</span>number
+        self<span style="color:#f92672">.</span>assertEqual(self<span style="color:#f92672">.</span>number,<span style="color:#ae81ff">10</span>,msg<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Your input is not 10&#39;</span>)
+        
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">test_case2</span>(self):
+        <span style="color:#66d9ef">print</span> self<span style="color:#f92672">.</span>number
+        self<span style="color:#f92672">.</span>assertEqual(self<span style="color:#f92672">.</span>number,<span style="color:#ae81ff">20</span>,msg<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Your input is not 20&#39;</span>)
+
+    <span style="color:#a6e22e">@unittest.skip</span>(<span style="color:#e6db74">&#39;暂时跳过用例3的测试&#39;</span>)
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">test_case3</span>(self):
+        <span style="color:#66d9ef">print</span> self<span style="color:#f92672">.</span>number
+        self<span style="color:#f92672">.</span>assertEqual(self<span style="color:#f92672">.</span>number,<span style="color:#ae81ff">30</span>,msg<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Your input is not 30&#39;</span>)
+
+<span style="color:#75715e">#7.定义tearDown()方法用于测试用例执行之后的善后工作。</span>
+<span style="color:#75715e">#注意，方法的入参为self</span>
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">tearDown</span>(self):
+        <span style="color:#66d9ef">print</span> <span style="color:#e6db74">&#39;Test over&#39;</span>
+        
+<span style="color:#75715e">#8如果直接运行该文件(__name__值为__main__),则执行以下语句，常用于测试脚本是否能够正常运行</span>
+<span style="color:#66d9ef">if</span> __name__<span style="color:#f92672">==</span><span style="color:#e6db74">&#39;__main__&#39;</span>:
+<span style="color:#75715e">#8.1执行测试用例方案一如下：</span>
+<span style="color:#75715e">#unittest.main()方法会搜索该模块下所有以test开头的测试用例方法，并自动执行它们。</span>
+<span style="color:#75715e">#执行顺序是命名顺序：先执行test_case1，再执行test_case2</span>
+    unittest<span style="color:#f92672">.</span>main()
+
+<span style="color:#e6db74">&#39;&#39;&#39;
+</span><span style="color:#e6db74">#8.2执行测试用例方案二如下：
+</span><span style="color:#e6db74">#8.2.1先构造测试集
+</span><span style="color:#e6db74">#8.2.1.1实例化测试套件
+</span><span style="color:#e6db74">    suite=unittest.TestSuite()
+</span><span style="color:#e6db74">#8.2.1.2将测试用例加载到测试套件中。
+</span><span style="color:#e6db74">#执行顺序是安装加载顺序：先执行test_case2，再执行test_case1
+</span><span style="color:#e6db74">    suite.addTest(Test(&#39;test_case2&#39;))
+</span><span style="color:#e6db74">    suite.addTest(Test(&#39;test_case1&#39;))
+</span><span style="color:#e6db74">#8.2.2执行测试用例
+</span><span style="color:#e6db74">#8.2.2.1实例化TextTestRunner类
+</span><span style="color:#e6db74">    runner=unittest.TextTestRunner()
+</span><span style="color:#e6db74">#8.2.2.2使用run()方法运行测试套件（即运行测试套件中的所有用例）
+</span><span style="color:#e6db74">    runner.run(suite)
+</span><span style="color:#e6db74">&#39;&#39;&#39;</span>
+    
+<span style="color:#e6db74">&#39;&#39;&#39;
+</span><span style="color:#e6db74">#8.3执行测试用例方案三如下：
+</span><span style="color:#e6db74">#8.3.1构造测试集（简化了方案二中先要创建测试套件然后再依次加载测试用例）
+</span><span style="color:#e6db74">#执行顺序同方案一：执行顺序是命名顺序：先执行test_case1，再执行test_case2
+</span><span style="color:#e6db74">    test_dir = &#39;./&#39;
+</span><span style="color:#e6db74">    discover = unittest.defaultTestLoader.discover(test_dir, pattern=&#39;test_*.py&#39;)
+</span><span style="color:#e6db74">#8.3.2执行测试用例
+</span><span style="color:#e6db74">#8.3.2.1实例化TextTestRunner类
+</span><span style="color:#e6db74">    runner=unittest.TextTestRunner()
+</span><span style="color:#e6db74">#8.3.2.2使用run()方法运行测试套件（即运行测试套件中的所有用例）
+</span><span style="color:#e6db74">    runner.run(discover)   
+</span><span style="color:#e6db74">&#39;&#39;&#39;</span>
+
+<span style="color:#75715e">## 使用unittest框架编写测试用例实例</span>
+
+<span style="color:#f92672">**</span><span style="color:#960050;background-color:#1e0010">百度搜索测试用例</span>Test Case<span style="color:#960050;background-color:#1e0010">：</span><span style="color:#f92672">**</span>
+<span style="color:#e6db74">``</span><span style="color:#960050;background-color:#1e0010">`</span>python
+<span style="color:#75715e"># coding=utf-8</span>
+<span style="color:#e6db74">&#39;&#39;&#39;
+</span><span style="color:#e6db74">Created on 2016-7-22
+</span><span style="color:#e6db74">@author: Jennifer
+</span><span style="color:#e6db74">Project:登录百度测试用例
+</span><span style="color:#e6db74">&#39;&#39;&#39;</span>
+<span style="color:#f92672">from</span> selenium <span style="color:#f92672">import</span> webdriver
+<span style="color:#f92672">import</span> unittest<span style="color:#f92672">,</span> time
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">BaiduTest</span>(unittest<span style="color:#f92672">.</span>TestCase):
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">setUp</span>(self):
+        self<span style="color:#f92672">.</span>driver <span style="color:#f92672">=</span> webdriver<span style="color:#f92672">.</span>Firefox()
+        self<span style="color:#f92672">.</span>driver<span style="color:#f92672">.</span>implicitly_wait(<span style="color:#ae81ff">30</span>) <span style="color:#75715e">#隐性等待时间为30秒</span>
+        self<span style="color:#f92672">.</span>base_url <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;https://www.baidu.com&#34;</span>
+    
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">test_baidu</span>(self):
+        driver <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>driver
+        driver<span style="color:#f92672">.</span>get(self<span style="color:#f92672">.</span>base_url <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;/&#34;</span>)
+        driver<span style="color:#f92672">.</span>find_element_by_id(<span style="color:#e6db74">&#34;kw&#34;</span>)<span style="color:#f92672">.</span>clear()
+        driver<span style="color:#f92672">.</span>find_element_by_id(<span style="color:#e6db74">&#34;kw&#34;</span>)<span style="color:#f92672">.</span>send_keys(<span style="color:#e6db74">&#34;unittest&#34;</span>)
+        driver<span style="color:#f92672">.</span>find_element_by_id(<span style="color:#e6db74">&#34;su&#34;</span>)<span style="color:#f92672">.</span>click()
+        time<span style="color:#f92672">.</span>sleep(<span style="color:#ae81ff">3</span>)
+        title<span style="color:#f92672">=</span>driver<span style="color:#f92672">.</span>title
+        self<span style="color:#f92672">.</span>assertEqual(title, <span style="color:#e6db74">u</span><span style="color:#e6db74">&#34;unittest_百度搜索&#34;</span>) 
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">tearDown</span>(self):
+        self<span style="color:#f92672">.</span>driver<span style="color:#f92672">.</span>quit()
+
+<span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;__main__&#34;</span>:
+    unittest<span style="color:#f92672">.</span>main()
+</code></pre></div><p><strong>有道翻译测试用例Test Case：</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># coding=utf-8</span>
+<span style="color:#e6db74">&#39;&#39;&#39;
+</span><span style="color:#e6db74">Created on 2016-7-22
+</span><span style="color:#e6db74">@author: Jennifer
+</span><span style="color:#e6db74">Project:使用有道翻译测试用例
+</span><span style="color:#e6db74">&#39;&#39;&#39;</span>
+<span style="color:#f92672">from</span> selenium <span style="color:#f92672">import</span> webdriver
+<span style="color:#f92672">import</span> unittest<span style="color:#f92672">,</span> time
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">YoudaoTest</span>(unittest<span style="color:#f92672">.</span>TestCase):
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">setUp</span>(self):
+        self<span style="color:#f92672">.</span>driver <span style="color:#f92672">=</span> webdriver<span style="color:#f92672">.</span>Firefox()
+        self<span style="color:#f92672">.</span>driver<span style="color:#f92672">.</span>implicitly_wait(<span style="color:#ae81ff">30</span>) <span style="color:#75715e">#隐性等待时间为30秒</span>
+        self<span style="color:#f92672">.</span>base_url <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;http://www.youdao.com&#34;</span>
+    
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">test_youdao</span>(self):
+        driver <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>driver
+        driver<span style="color:#f92672">.</span>get(self<span style="color:#f92672">.</span>base_url <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;/&#34;</span>)
+        driver<span style="color:#f92672">.</span>find_element_by_id(<span style="color:#e6db74">&#34;translateContent&#34;</span>)<span style="color:#f92672">.</span>clear()
+        driver<span style="color:#f92672">.</span>find_element_by_id(<span style="color:#e6db74">&#34;translateContent&#34;</span>)<span style="color:#f92672">.</span>send_keys(<span style="color:#e6db74">u</span><span style="color:#e6db74">&#34;你好&#34;</span>)
+        driver<span style="color:#f92672">.</span>find_element_by_id(<span style="color:#e6db74">&#34;translateContent&#34;</span>)<span style="color:#f92672">.</span>submit()
+        time<span style="color:#f92672">.</span>sleep(<span style="color:#ae81ff">3</span>)
+        page_source<span style="color:#f92672">=</span>driver<span style="color:#f92672">.</span>page_source
+        self<span style="color:#f92672">.</span>assertIn( <span style="color:#e6db74">&#34;hello&#34;</span>,page_source) 
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">tearDown</span>(self):
+        self<span style="color:#f92672">.</span>driver<span style="color:#f92672">.</span>quit()
+
+<span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;__main__&#34;</span>:
+    unittest<span style="color:#f92672">.</span>main()
+</code></pre></div><p><strong>web测试用例：通过测试套件TestSuite来组装多个测试用例。</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># coding=utf-8</span>
+<span style="color:#e6db74">&#39;&#39;&#39;
+</span><span style="color:#e6db74">Created on 2016-7-26
+</span><span style="color:#e6db74">@author: Jennifer
+</span><span style="color:#e6db74">Project:编写Web测试用例
+</span><span style="color:#e6db74">&#39;&#39;&#39;</span>
+<span style="color:#f92672">import</span> unittest
+<span style="color:#f92672">from</span> test_case <span style="color:#f92672">import</span> test_baidu
+<span style="color:#f92672">from</span> test_case <span style="color:#f92672">import</span> test_youdao
+
+<span style="color:#75715e">#构造测试集</span>
+suite <span style="color:#f92672">=</span> unittest<span style="color:#f92672">.</span>TestSuite()
+suite<span style="color:#f92672">.</span>addTest(test_baidu<span style="color:#f92672">.</span>BaiduTest(<span style="color:#e6db74">&#39;test_baidu&#39;</span>))
+suite<span style="color:#f92672">.</span>addTest(test_youdao<span style="color:#f92672">.</span>YoudaoTest(<span style="color:#e6db74">&#39;test_youdao&#39;</span>))
+
+<span style="color:#66d9ef">if</span> __name__<span style="color:#f92672">==</span><span style="color:#e6db74">&#39;__main__&#39;</span>:
+    <span style="color:#75715e">#执行测试</span>
+    runner <span style="color:#f92672">=</span> unittest<span style="color:#f92672">.</span>TextTestRunner()
+    runner<span style="color:#f92672">.</span>run(suite)
+</code></pre></div><p>测试结果：
+<img src="/static/imgs/test_case_ret.jpg" alt=""></p>
+<p>说明：.代表用例执行通过，两个点表示两个用例执行通过。F表示用例执行不通过。</p>
+
+    </div>
+    <div class="article-footer">
+<blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://pylixm.top/posts/2018-01-18-python-unittest.html" title="「Python Tips」 - python 单元测试 unittest 工具使用" target="_blank" rel="external">https://pylixm.top/posts/2018-01-18-python-unittest.html</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>许可协议：</strong>
+      <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN</a>
+    </li>
+  </ul>
+</blockquote>
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://pylixm.top" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="https://pylixm.top/static/imgs/avatar.png" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://pylixm.top" target="_blank"><span class="text-dark">DeanWu</span><small class="ml-1x">程序员</small></a></h3>
+        <div>努力成为真正的SRE</div>
+      </div>
+    </figure>
+  </div>
+</div>
+    </div>
+  </article>
+<section id="comments">
+    <div id="vcomments"></div>
+</section>
+
+</div><nav class="bar bar-footer clearfix" data-stick-bottom>
+    <div class="bar-inner">
+        <ul class="pager pull-left">
+            <li class="prev">
+                <a href="https://pylixm.top/posts/2018-01-13-python-pipenv.html" title="「Python Tips」 - pipenv 试用过程分享"><i
+                        class="icon icon-angle-left"
+                        aria-hidden="true"></i><span>&nbsp;&nbsp;下一篇</span></a>
+            </li>
+            <li class="next">
+                <a href="https://pylixm.top/posts/2018-01-24-Go-introduction.html"
+                    title="「Go语言学习笔记一」- Golang 初步了解"><span>上一篇&nbsp;&nbsp;</span><i
+                        class="icon icon-angle-right" aria-hidden="true"></i></a>
+            </li>
+            
+            <li class="toggle-toc">
+                <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false"
+                    title="文章目录" role="button">
+                    <span>[&nbsp;</span><span>文章目录</span>
+                    <i class="text-collapsed icon icon-anchor"></i>
+                    <i class="text-in icon icon-close"></i>
+                    <span>]</span>
+                </a>
+            </li>
+        </ul>
+        <div class="bar-right">
+        </div>
+    </div>
+</nav>
+
+
+<script src="https://my.openwrite.cn/js/readmore.js" type="text/javascript"></script>
+<script>
+    const btw = new BTWPlugin();
+    btw.init({
+        id: 'article-container',
+        blogId: '24944-1607090547459-485',
+        name: '码农吴先生',
+        qrcode: 'https://gitee.com/pylixm/picture/raw/master/2020-12-4/1607089812769-image.png',
+        keyword: 'vip',
+    });
+</script>
+</main><footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+<ul class="social-links">
+    <li><a href="https://github.com/pylixm" target="_blank" title="github" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-github"></i></a></li>
+    <li><a href="https://pylixm.top/index.xml" target="_blank" title="rss" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-rss"></i></a></li>
+    <li><a href="http://weibo.com/2258086637" target="_blank" title="weibo" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-weibo"></i></a></li>
+</ul>
+  <div class="copyright">
+    &copy;2015  -
+    2020
+    <div class="publishby">
+      hugo驱动，Theme by <a href="https://github.com/xiaoheiAh/hugo-theme-pure" target="_blank"> pure</a>.
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_SVG"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+            showMathMenu: false, //disables context menu
+            tex2jax: {
+            inlineMath: [ ['$','$'], ['\\(','\\)'] ]
+           }
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+<script>
+    window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/highlight.min.js"></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/python.min.js" defer></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/javascript.min.js" defer></script><script>
+    hljs.configure({
+        tabReplace: '    ', 
+        classPrefix: ''     
+        
+    })
+    hljs.initHighlightingOnLoad();
+</script>
+<script src="https://pylixm.top/js/application.min.bdeb64b910570b6c41badc6a05b7afb0c8ad9efd8525de3c7257d59e786326a3.js"></script>
+<script src="https://pylixm.top/js/plugin.min.51ff8c7317566f82259170fa36e09c4493adc9b9378b427a01ad3f017ebac7dd.js"></script>
+
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(未命名)',
+            },
+            ROOT_URL: 'https:\/\/pylixm.top',
+            CONTENT_URL: 'https:\/\/pylixm.top\/searchindex.json ',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script type="text/javascript" src="https://pylixm.top/js/insight.min.a343cd9a5a7698336b28ef3a7c16a3a1b1d2d5fb17dc8ed04022bbe08cc5459073a15bdafa3a8a58cdd56080784bdd69fa70b1ae8597565c799c57ed00f0e120.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script>
+<script>
+    tocbot.init({
+        
+        tocSelector: '.js-toc',
+        
+        contentSelector: '.js-toc-content',
+        
+        headingSelector: 'h1, h2, h3',
+        
+        hasInnerContainers: true,
+    });
+</script>
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="https://cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine"></script>
+<script type="text/javascript">
+    var GUEST = ['nick', 'mail', 'link'];
+    var meta = 'nick,mail';
+    meta = meta.split(',').filter(function (item) {
+        return GUEST.indexOf(item) > -1;
+    });
+    new Valine({
+        el: '#vcomments',
+        verify: null ,
+        notify: null ,
+        appId: 'OBJcj4PU8JI0zDfu0HJSrG6W-gzGzoHsz',
+        appKey: 'tBtFzC72xIlgo2UFbA33nqmU',
+        placeholder: '来做第一个发言人吧',
+        avatar: 'mm',
+        meta: meta,
+        pageSize: '10' || 10,
+        visitor: false 
+});
+</script>
+
+  </body>
+</html>

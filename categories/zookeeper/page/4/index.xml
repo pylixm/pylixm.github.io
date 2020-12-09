@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>zookeeper on DeanWu</title>
+    <link>https://pylixm.top/categories/zookeeper/</link>
+    <description>Recent content in zookeeper on DeanWu</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Tue, 31 Dec 2019 00:00:00 +0000</lastBuildDate>
+    
+        <atom:link href="https://pylixm.top/categories/zookeeper/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Django 中如何使用 sass</title>
+      <link>https://pylixm.top/posts/2019-07-08-how-to-use-sass-in-django.html</link>
+      <pubDate>Sun, 07 Jul 2019 18:20:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2019-07-08-how-to-use-sass-in-django.html</guid>
+      <description>作为一个运维开发，不像业务开发只专注后端业务开发即可，常常需要自己来构建前端的东西，当然系统交互体验说的过去就行，要求也没有业务系统那么高。</description>
+    </item>
+    
+    <item>
+      <title>「译」如何选择python项目的基础docker镜像</title>
+      <link>https://pylixm.top/posts/2019-06-26-base-image-python-docker-images.html</link>
+      <pubDate>Wed, 26 Jun 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2019-06-26-base-image-python-docker-images.html</guid>
+      <description>最近在鼓捣自己的sideproject时，对如何选择Docker镜像犹豫了半天，这里找到了一片如何选择镜像的文章，翻译记录，仅供参考。 原文作</description>
+    </item>
+    
+    <item>
+      <title>资源分享计划第八期 final</title>
+      <link>https://pylixm.top/posts/2019-06-20-share-resource.html</link>
+      <pubDate>Thu, 20 Jun 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2019-06-20-share-resource.html</guid>
+      <description>「资源分享计划」系列记录本周内我看到的一些好的编程学习资源及优秀的技术文章，在自己学习记录的同时，分享给大家希望对大家有帮助。 资料类 vue + vuex 权</description>
+    </item>
+    
+    <item>
+      <title>LVS 相关原理说明</title>
+      <link>https://pylixm.top/posts/2019-06-13-lvs.html</link>
+      <pubDate>Thu, 13 Jun 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2019-06-13-lvs.html</guid>
+      <description>简介 LVS是Linux virtual server的缩写，是一个高可用性、高性能的虚拟服务器集群系统。主要针对高可伸缩、高可用网络服务的需求，给出了基于I</description>
+    </item>
+    
+    <item>
+      <title>资源分享计划第七期 0608</title>
+      <link>https://pylixm.top/posts/2019-06-08-share-resource.html</link>
+      <pubDate>Sat, 08 Jun 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2019-06-08-share-resource.html</guid>
+      <description>「资源分享计划」系列记录本周内我看到的一些好的编程学习资源及优秀的技术文章，在自己学习记录的同时，分享给大家希望对大家有帮助。 资源类 一本器学</description>
+    </item>
+    
+    <item>
+      <title>Linux基础系列 - rsync</title>
+      <link>https://pylixm.top/posts/2019-06-03-Linux-rsync.html</link>
+      <pubDate>Mon, 03 Jun 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2019-06-03-Linux-rsync.html</guid>
+      <description>介绍 rsync 是一个快速的、多功能的本地和远端的文件同步工具。官方网站：https://rsync.samba.org/ ，可以在上边找到使用方法和提</description>
+    </item>
+    
+    <item>
+      <title>资源分享计划第六期 0601</title>
+      <link>https://pylixm.top/posts/2019-06-01-share-resource.html</link>
+      <pubDate>Sat, 01 Jun 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2019-06-01-share-resource.html</guid>
+      <description>「资源分享计划」系列记录本周内我看到的一些好的编程学习资源及优秀的技术文章，在自己学习记录的同时，分享给大家希望对大家有帮助。 资源类 一套开源</description>
+    </item>
+    
+    <item>
+      <title>「Go模块」译-深入理解Golang channel</title>
+      <link>https://pylixm.top/posts/2019-05-26-Go-diving-into-channel.html</link>
+      <pubDate>Sun, 26 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2019-05-26-Go-diving-into-channel.html</guid>
+      <description>原文地址：https://itnext.io/diving-into-golang-channels-e9e610d586e8 作者：Robe</description>
+    </item>
+    
+    <item>
+      <title>资源分享计划第五期 0525</title>
+      <link>https://pylixm.top/posts/2019-05-25-share-resource.html</link>
+      <pubDate>Sat, 25 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2019-05-25-share-resource.html</guid>
+      <description>「资源分享计划」系列记录本周内我看到的一些好的编程学习资源及优秀的技术文章，在自己学习记录的同时，分享给大家希望对大家有帮助。 资源类 一款开源</description>
+    </item>
+    
+    <item>
+      <title>资源分享计划第四期 0518</title>
+      <link>https://pylixm.top/posts/2019-05-18-share-resource.html</link>
+      <pubDate>Sat, 18 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2019-05-18-share-resource.html</guid>
+      <description>「资源分享计划」系列记录本周内我看到的一些好的编程学习资源及优秀的技术文章，在自己学习记录的同时，分享给大家希望对大家有帮助。 资源类 有赞前端</description>
+    </item>
+    
+    <item>
+      <title>「译」python 3 值得尝试的一些技巧</title>
+      <link>https://pylixm.top/posts/2019-05-16-python-trick.html</link>
+      <pubDate>Thu, 16 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2019-05-16-python-trick.html</guid>
+      <description>原文：https://datawhatnow.com/things-you-are-probably-not-using-in-python</description>
+    </item>
+    
+    <item>
+      <title>资源分享计划第三期 0511</title>
+      <link>https://pylixm.top/posts/2019-05-11-share-resource.html</link>
+      <pubDate>Sat, 11 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2019-05-11-share-resource.html</guid>
+      <description>「资源分享计划」系列记录本周内我看到的一些好的编程学习资源及优秀的技术文章，在自己学习记录的同时，分享给大家希望对大家有帮助。 资源类 2019 US pycon 演</description>
+    </item>
+    
+    <item>
+      <title>「译」机器学习简介</title>
+      <link>https://pylixm.top/posts/2019-05-10-introduction-to-machine-learning.html</link>
+      <pubDate>Fri, 10 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2019-05-10-introduction-to-machine-learning.html</guid>
+      <description>本文为「资源分享计划第一期 0427」中分享的文章「Introduction To Machine Learning | Machine Learning Basics」的一个节选译文，主要介绍了机器学习的一些</description>
+    </item>
+    
+    <item>
+      <title>资源分享计划第二期 0504</title>
+      <link>https://pylixm.top/posts/2019-05-06-share-resource.html</link>
+      <pubDate>Mon, 06 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2019-05-06-share-resource.html</guid>
+      <description>「资源分享计划」系列记录本周内我看到的一些好的Python学习资源及优秀的技术文章，在自己学习记录的同时，分享给大家希望对大家有帮助。 资源类</description>
+    </item>
+    
+    <item>
+      <title>资源分享计划第一期 0427</title>
+      <link>https://pylixm.top/posts/2019-04-29-share-resource.html</link>
+      <pubDate>Sat, 27 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2019-04-29-share-resource.html</guid>
+      <description>「资源分享计划」系列记录本周内我看到的一些好的Python学习资源及优秀的技术文章，在自己学习记录的同时，分享给大家希望对大家有帮助。 资源类</description>
+    </item>
+    
+    <item>
+      <title>Linux基础系列 - flock 命令</title>
+      <link>https://pylixm.top/posts/2019-04-24-flock.html</link>
+      <pubDate>Wed, 24 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2019-04-24-flock.html</guid>
+      <description>最近有这么一个场景，系统的定时任务执行时间长周期短，可能本周期执行时，上个周期的任务还没有执行完，这样便会造成相同的任务同一时间有过个任务进</description>
+    </item>
+    
+    <item>
+      <title>Linux基础系列 - 磁盘Raid相关总结</title>
+      <link>https://pylixm.top/posts/2019-04-01-Linux-disk-raid.html</link>
+      <pubDate>Mon, 01 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2019-04-01-Linux-disk-raid.html</guid>
+      <description>Raid, 是 Redundant Array of Independent Disks 的缩写，中文译为“廉价磁盘冗余阵列”。是一种用普通磁盘来提供快速、高效、安全的磁盘存储技术。 分类 Raid，分为硬件 Raid 和 软件Ra</description>
+    </item>
+    
+    <item>
+      <title>无法添加crontab 解决 No space left on device</title>
+      <link>https://pylixm.top/2019/01/Linux-crontab-q/</link>
+      <pubDate>Tue, 15 Jan 2019 16:04:08 +0800</pubDate>
+      
+      <guid>https://pylixm.top/2019/01/Linux-crontab-q/</guid>
+      <description>Q &amp;amp; A： 今天在添加Linux 计划任务时，遇到如下问题， /var/spool/cron/IBM11070003.tmp.XXXXQxX3UB: No space left on device 从错误信息看应该是磁盘空间满了，但是通过 df -h查看 /var 占用78%并没有满。 继</description>
+    </item>
+    
+    <item>
+      <title>Ngrok 服务搭建完全手册</title>
+      <link>https://pylixm.top/2019/01/How-to-build-ngrok-server/</link>
+      <pubDate>Wed, 09 Jan 2019 16:04:08 +0800</pubDate>
+      
+      <guid>https://pylixm.top/2019/01/How-to-build-ngrok-server/</guid>
+      <description>最近需要开发个微信公众号后台，需要内网穿透工具，之前使用过sunny-ngrok，这个现在也变成付费的了。这次决定自己搭建一个，顺便学习下。</description>
+    </item>
+    
+    <item>
+      <title>记一次 Linux OOM-killer 分析过程</title>
+      <link>https://pylixm.top/posts/2018-11-28-Linux-oom-killer.html</link>
+      <pubDate>Wed, 28 Nov 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2018-11-28-Linux-oom-killer.html</guid>
+      <description>问题现象 最近发现线上服务的服务节点经常性的挂掉，我们业务的线上服务使用docker跑的Tomcat服务。服务业务现象收集如下： tomcat的</description>
+    </item>
+    
+  </channel>
+</rss>

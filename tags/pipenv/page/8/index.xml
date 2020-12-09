@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>pipenv on DeanWu</title>
+    <link>https://pylixm.top/tags/pipenv/</link>
+    <description>Recent content in pipenv on DeanWu</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sat, 13 Jan 2018 00:00:00 +0000</lastBuildDate>
+    
+        <atom:link href="https://pylixm.top/tags/pipenv/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>《Best.Practices.for.Django.1.8.3rd》 读书笔记-索引</title>
+      <link>https://pylixm.top/posts/2016-05-22-best.practices.for.django.1.8.3rd-index.html</link>
+      <pubDate>Sun, 22 May 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-05-22-best.practices.for.django.1.8.3rd-index.html</guid>
+      <description>《Two.Scoops.Press.Two.Scoops.of.Django.Best.Practices.for.Django.1.8.3</description>
+    </item>
+    
+    <item>
+      <title>Django 文章整理- 学习路径总结</title>
+      <link>https://pylixm.top/posts/2016-05-16-django-lean-map.html</link>
+      <pubDate>Mon, 16 May 2016 22:24:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-05-16-django-lean-map.html</guid>
+      <description>最近将自己的 Django 学习笔记整理了下便于查阅，整理如下： 基础篇 1、Django学习笔记-模型(1)模型的定义 2、Django学习笔记-模型(2)模</description>
+    </item>
+    
+    <item>
+      <title>Django 简单入门及最佳实践</title>
+      <link>https://pylixm.top/posts/2016-05-08-django-tutorial.html</link>
+      <pubDate>Sun, 08 May 2016 18:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-05-08-django-tutorial.html</guid>
+      <description>自己使用纯django 开发项目，也有1年多了。在使用django的过程中，也抱怨过django的各种问题。比如，各种模块的约定过于死板，不够</description>
+    </item>
+    
+    <item>
+      <title>Django自定义管理器（objects）后遇到的问题</title>
+      <link>https://pylixm.top/posts/2016-04-20-django-model-qt.html</link>
+      <pubDate>Wed, 20 Apr 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-04-20-django-model-qt.html</guid>
+      <description>管理器自定义简介 django model 的管理器 objects 允许我们自定义，这大大的扩展了model的可用性。 例如，使用这个特性来软删除。设置一个状态字段，在自定义的ob</description>
+    </item>
+    
+    <item>
+      <title>mongodb 启动报错</title>
+      <link>https://pylixm.top/posts/2016-04-06-Mongodb-start.html</link>
+      <pubDate>Wed, 06 Apr 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-04-06-Mongodb-start.html</guid>
+      <description>Q &amp;amp; A： 错误信息： [root@localhost master]# mongod -f master.conf about to fork child process, waiting until server is ready for connections. forked process: 6040 ERROR: child process failed, exited with error number 100 日志信息： 2016-04-06T09:37:19.411+0200 I CONTROL [main] ***** SERVER RESTARTED ***** 2016-04-06T09:37:19.421+0200 I CONTROL [initandlisten] MongoDB starting : pid=5281 port=27017 dbpath=/var/lib/mongo 64-bit host=localhost 2016-04-06T09:37:19.421+0200 I CONTROL [initandlisten] db version v3.2.4</description>
+    </item>
+    
+    <item>
+      <title>高可用的MongoDB集群</title>
+      <link>https://pylixm.top/posts/2016-04-06-Mongodb-relica.html</link>
+      <pubDate>Wed, 06 Apr 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-04-06-Mongodb-relica.html</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;原文链接：http://www.jianshu.com/p/2825a66d6aed&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;刚接触MongoDB，就要用到它的集群，只能硬着头皮短时间去看文档和尝试自行搭建。迁移历史数据更是让人恼火，近100G的数据文件，导入、清理垃圾数据执行的速度蜗牛一样的慢。趁着这个时间，把这几天关于Mongod集群相关的内容整理一下。大概介绍一下MongoDB集群的几种方式：Master-Slave、Relica Set、Sharding，并做简单的演示。&lt;/p&gt;
+&lt;p&gt;使用集群的目的就是提高可用性。高可用性H.A.（High Availability）指的是通过尽量缩短因日常维护操作（计划）和突发的系统崩溃（非计划）所导致的停机时间，以提高系统和应用的可用性。它与被认为是不间断操作的容错技术有所不同。HA系统是目前企业防止核心计算机系统因故障停机的最有效手段。&lt;/p&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;p&gt;HA的三种工作方式：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;主从方式 （非对称方式）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;工作原理：主机工作，备机处于监控准备状况；当主机宕机时，备机接管主机的一切工作，待主机恢复正常后，按使用者的设定以自动或手动方式将服务切换到主机上运行，数据的一致性通过共享存储系统解决。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;双机双工方式（互备互援）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;工作原理：两台主机同时运行各自的服务工作且相互监测情况，当任一台主机宕机时，另一台主机立即接管它的一切工作，保证工作实时，应用服务系统的关键数据存放在共享存储系统中。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;集群工作方式（多服务器互备方式）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;工作原理：多台主机一起工作，各自运行一个或几个服务，各为服务定义一个或多个备用主机，当某个主机故障时，运行在其上的服务就可以被其它主机接管&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Django学习笔记- Class View</title>
+      <link>https://pylixm.top/posts/2016-03-24-django-class-views.html</link>
+      <pubDate>Thu, 24 Mar 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-03-24-django-class-views.html</guid>
+      <description>提示：文章概念性语句比较多，建议先看 Classview 的官方文档或1.8 中文翻译文档。 之前使用 django 开发都是使用 func-view ，对Classview一直是向往的。 最近有些时</description>
+    </item>
+    
+    <item>
+      <title>SaltStack学习笔记3 -- salt returner 的使用</title>
+      <link>https://pylixm.top/posts/2016-03-10-salt-returner.html</link>
+      <pubDate>Thu, 10 Mar 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-03-10-salt-returner.html</guid>
+      <description>SaltStack 2014.7之前, Minion端的执行结果想存储在外部系统中, 通过使用Returners，我们可以将返回结果存放到我们指定的存储系统中，但</description>
+    </item>
+    
+    <item>
+      <title>python的MySQLdb模块 连接 mysql 错误</title>
+      <link>https://pylixm.top/posts/2016-03-08-Mysql-python.html</link>
+      <pubDate>Tue, 08 Mar 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-03-08-Mysql-python.html</guid>
+      <description>Q &amp;amp; A： 今天在使用python直接链接数据库时报错 _mysql_exceptions.OperationalError: (2002, &amp;quot;Can&#39;t connect to local MySQL server through socket &#39;/var/lib/mysql/mysql.sock&#39; (2)&amp;quot;) 代码： db = MySQLdb.connect(host=&#39;localhost&#39;, port=3306, user=&#39;root&#39;, passwd=&#39;root&#39;, db=&#39;mydb&#39;) 错误： Traceback (most recent call last): File &amp;quot;./data_db.py&amp;quot;, line 5, in &amp;lt; module&amp;gt; db=&#39;mydb&#39;) File &amp;quot;/usr/local/env/lib/python2.7/site-packages/MySQLdb/__init__.py&amp;quot;, line 81, in Connect File</description>
+    </item>
+    
+    <item>
+      <title>「译」使用 celery 时的 3 个坑</title>
+      <link>https://pylixm.top/posts/2016-03-08-celery-gotchas.html</link>
+      <pubDate>Tue, 08 Mar 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-03-08-celery-gotchas.html</guid>
+      <description>原文地址：https://wiredcraft.com/blog/3-gotchas-for-celery Celery is our go-to task manager when working with Python. It is feature rich, stable, fast and</description>
+    </item>
+    
+    <item>
+      <title>Linux基础系列 - curl 命令详解</title>
+      <link>https://pylixm.top/posts/2016-03-07-Curl.html</link>
+      <pubDate>Mon, 07 Mar 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-03-07-Curl.html</guid>
+      <description>对于windows用户如果用Cygwin模拟unix环境的话，里面没有带curl命令，要自己装，所以建议用Gow来模拟，它已经自带了curl</description>
+    </item>
+    
+    <item>
+      <title>2015总结，2016计划</title>
+      <link>https://pylixm.top/posts/2016-02-22-summary.html</link>
+      <pubDate>Mon, 22 Feb 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-02-22-summary.html</guid>
+      <description>2015年算是自己的互联网元年。 正式进入互联网行业，虽然是偏运维，但是自己学的python能继续用得上，也是找到了除了web的一条新方向。 2015</description>
+    </item>
+    
+    <item>
+      <title>django 相关命令总结</title>
+      <link>https://pylixm.top/posts/2016-01-29-django-cmd.html</link>
+      <pubDate>Fri, 29 Jan 2016 18:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-01-29-django-cmd.html</guid>
+      <description>django 常用命令 创建一个web站点： django-admin.py startproject mysite 创建apps： python manage.py startapp blog 数据库模板检测： python manage.py validate 生成数据库表创建语句： python manage.py sqlall books（app名字） 创建数据</description>
+    </item>
+    
+    <item>
+      <title>rabbitmq 安装配置记录</title>
+      <link>https://pylixm.top/posts/2016-01-19-Rabbitmq-install.html</link>
+      <pubDate>Tue, 19 Jan 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-01-19-Rabbitmq-install.html</guid>
+      <description>最近做系统迁移，搭建环境时遇到了rabbitmq的搭建。在此记录，备查。 环境： centos 6.5 官方centos安装文档：http://www.rabbi</description>
+    </item>
+    
+    <item>
+      <title>使用 supervisor 来监控 django celery</title>
+      <link>https://pylixm.top/posts/2016-01-19-django-supervisor-celery.html</link>
+      <pubDate>Tue, 19 Jan 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-01-19-django-supervisor-celery.html</guid>
+      <description>之前启动celery时，使用nohup 方式启动。这种方式是不安全的，今天使者使用supervisor来管理监控celery，记录如下，备查。</description>
+    </item>
+    
+    <item>
+      <title>Django uwsgi 启动问题 unavailable modifier requested 0</title>
+      <link>https://pylixm.top/posts/2016-01-18-django-uwsgi-wt.html</link>
+      <pubDate>Mon, 18 Jan 2016 19:55:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-01-18-django-uwsgi-wt.html</guid>
+      <description>Q &amp;amp; A： mapped 1263744 bytes (1234 KB) for 16 cores *** Operational MODE: preforking+threaded *** *** no app loaded. going in full dynamic mode *** *** uWSGI is running in multiple interpreter mode *** spawned uWSGI master process (pid: 2343) spawned uWSGI worker 1 (pid: 2345, cores: 2) spawned uWSGI worker 2 (pid: 2346, cores: 2) spawned uWSGI worker 3 (pid: 2348, cores: 2) spawned uWSGI worker 4</description>
+    </item>
+    
+    <item>
+      <title>salt minion 启动问题</title>
+      <link>https://pylixm.top/posts/2016-01-18-salt-minion.html</link>
+      <pubDate>Mon, 18 Jan 2016 19:55:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-01-18-salt-minion.html</guid>
+      <description>Q &amp;amp; A： 修改minion 的配置文件中master 的值后，启动报错，如下： Traceback (most recent call last): File &amp;quot;/usr/lib/python2.6/site-packages/salt/scripts.py&amp;quot;, line 81, in minion_process minion.start() File &amp;quot;/usr/lib/python2.6/site-packages/salt/cli/daemons.py&amp;quot;, line 277, in start self.minion.tune_in() File &amp;quot;/usr/lib/python2.6/site-packages/salt/minion.py&amp;quot;, line 1648, in tune_in self.sync_connect_master() File &amp;quot;/usr/lib/python2.6/site-packages/salt/minion.py&amp;quot;, line 720, in sync_connect_master self.io_loop.start() File</description>
+    </item>
+    
+    <item>
+      <title>使用virtualenv 部署django应用问题记录</title>
+      <link>https://pylixm.top/posts/2016-01-18-virtualenv-user.html</link>
+      <pubDate>Mon, 18 Jan 2016 19:50:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-01-18-virtualenv-user.html</guid>
+      <description>使用virtualenv来部署django应用，大大缩减了我们搭建环境的时间。初次使用，以为创建好的env可以直接复制使用。实际使用时，确遇</description>
+    </item>
+    
+    <item>
+      <title>Django restful framework 学习使用总结-权限相关</title>
+      <link>https://pylixm.top/posts/2016-01-08-django-restfull-framework-review.html</link>
+      <pubDate>Fri, 08 Jan 2016 21:15:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-01-08-django-restfull-framework-review.html</guid>
+      <description>0X00 默认权限 permissions 的配置说明： AllowAny 允许任何人调用 Allow any access. IsAuthenticated 只允许认证用户调用（在django auth表中注册的用户） Allows access only to authenticated users. IsAdminUser 只允许管理员（即可以</description>
+    </item>
+    
+    <item>
+      <title>Django admin 定制案例</title>
+      <link>https://pylixm.top/posts/2016-01-05-django-admin.html</link>
+      <pubDate>Tue, 05 Jan 2016 20:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-01-05-django-admin.html</guid>
+      <description>原文地址：http://www.cnblogs.com/linxiyue/p/4075048.html?utm_source=tuicool</description>
+    </item>
+    
+  </channel>
+</rss>

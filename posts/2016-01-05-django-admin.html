@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <title>
+        Django admin 定制案例 - DeanWu
+      </title>
+        <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    
+    <meta name="theme-color" content="#000000" />
+    
+    <meta http-equiv="window-target" content="_top" />
+    
+    
+    <meta name="description" content="原文地址：http://www.cnblogs.com/linxiyue/p/4075048.html?utm_source=tuicool" />
+    <meta name="generator" content="Hugo 0.73.0 with theme pure" />
+    <title>Django admin 定制案例 - DeanWu</title>
+    
+    
+    <link rel="stylesheet" href="https://pylixm.top/css/style.min.f70e8e0df9ea6aeb37dac252b17ca98082073ff1663b24118baaaa84ee8ae7e8.css">
+    
+    <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.15.10/styles/github.min.css" async>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css" async>
+    <meta property="og:title" content="Django admin 定制案例" />
+<meta property="og:description" content="原文地址：http://www.cnblogs.com/linxiyue/p/4075048.html?utm_source=tuicool" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://pylixm.top/posts/2016-01-05-django-admin.html" />
+<meta property="article:published_time" content="2016-01-05T20:00:00+00:00" />
+<meta property="article:modified_time" content="2016-01-05T20:00:00+00:00" />
+<meta itemprop="name" content="Django admin 定制案例">
+<meta itemprop="description" content="原文地址：http://www.cnblogs.com/linxiyue/p/4075048.html?utm_source=tuicool">
+<meta itemprop="datePublished" content="2016-01-05T20:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2016-01-05T20:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="1789">
+
+
+
+<meta itemprop="keywords" content="Django,Django-admin," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Django admin 定制案例"/>
+<meta name="twitter:description" content="原文地址：http://www.cnblogs.com/linxiyue/p/4075048.html?utm_source=tuicool"/>
+
+    <!--[if lte IE 9]>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+      <![endif]-->
+
+    <!--[if lt IE 9]>
+        <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+      <![endif]-->
+  </head>
+
+  
+  
+
+  <body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage"><header class="header" itemscope itemtype="http://schema.org/WPHeader">
+    <div class="slimContent">
+      <div class="navbar-header">
+        <div class="profile-block text-center">
+          <a id="avatar" href="https://pylixm.top" target="_blank">
+            <img class="img-circle img-rotate" src="https://pylixm.top/static/imgs/avatar.png" width="200" height="200">
+          </a>
+          <h2 id="name" class="hidden-xs hidden-sm">DeanWu</h2>
+          <h3 id="title" class="hidden-xs hidden-sm hidden-md">程序员</h3>
+          <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i>Beijing, China</small>
+        </div><div class="search" id="search-form-wrap">
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i
+                        class="icon icon-search"></i></button>
+            </span>
+        </div>
+        <div class="ins-search">
+            <div class="ins-search-mask"></div>
+            <div class="ins-search-container">
+                <div class="ins-input-wrapper">
+                    <input type="text" class="ins-search-input" placeholder="想要查找什么..."
+                        x-webkit-speech />
+                    <button type="button" class="close ins-close ins-selectable" data-dismiss="modal"
+                        aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="ins-section-wrapper">
+                    <div class="ins-section-container"></div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+        <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+        <ul class="nav navbar-nav main-nav">
+            <li class="menu-item menu-item-home">
+                <a href="/">
+                    <i class="icon icon-home-fill"></i>
+                  <span class="menu-title">首页</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-series">
+                <a href="/series/">
+                    <i class="icon icon-folder"></i>
+                  <span class="menu-title">专题</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-repository">
+                <a href="/project/">
+                    <i class="icon icon-project"></i>
+                  <span class="menu-title">项目</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-archives">
+                <a href="/posts/">
+                    <i class="icon icon-archives-fill"></i>
+                  <span class="menu-title">归档</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-about">
+                <a href="/about/">
+                    <i class="icon icon-cup-fill"></i>
+                  <span class="menu-title">关于</span>
+                </a>
+            </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+<aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content"><div>欢迎关注微信公众号「码农吴先生」：专注python/golang/devops等技术的学习经验及资源分享！</br>回复关键字：go或python 获取我收集的资料，也可回复关键字：小二，加我wx，一块聊技术，聊人生~  </br><img src="/static/imgs/wx/wx_gzh.png" width="140" height="140"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+      
+<div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+        <ul class="recent-post-list list-unstyled no-thumbnail">
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2020-12-08-django-async-views-example.html" class="title">Django 三个异步使用的案例</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-12-08 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-08</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2020-12-05-go-from-python-structure-base.html" class="title">「对比Python学习Go」- 基本数据结构</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-12-05 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-05</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2020-12-03-go-from-python-start.html" class="title">「对比Python学习Go」- 环境篇</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-12-03 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-03</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2020-12-02-go-from-python-intro.html" class="title">「对比Python学习Go」- 开篇</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-12-02 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-02</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2020-12-01-for-range-point.html" class="title">「Go Tips」for range 遍历时变量取值的问题分析</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-12-01 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-01</time>
+                    </p>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+      <div class="widget">
+    <h3 class="widget-title"> 分类</h3>
+    <div class="widget-body">
+        <ul class="category-list">
+            <li class="category-list-item"><a href="https://pylixm.top/categories/ATS/" class="category-list-link">ATS</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/DevOps/" class="category-list-link">DevOps</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Devlopment-Demo/" class="category-list-link">Devlopment-Demo</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Django/" class="category-list-link">Django</a><span class="category-list-count">39</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Docker/" class="category-list-link">Docker</a><span class="category-list-count">4</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Flask/" class="category-list-link">Flask</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Git/" class="category-list-link">Git</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Golang/" class="category-list-link">Golang</a><span class="category-list-count">12</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/HTTPS/" class="category-list-link">HTTPS</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Javascript/" class="category-list-link">Javascript</a><span class="category-list-count">3</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Kubernetes/" class="category-list-link">Kubernetes</a><span class="category-list-count">4</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/LVS/" class="category-list-link">LVS</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Linux/" class="category-list-link">Linux</a><span class="category-list-count">15</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Mongodb/" class="category-list-link">Mongodb</a><span class="category-list-count">3</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Mysql/" class="category-list-link">Mysql</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/NoSQL/" class="category-list-link">NoSQL</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/PostgreSQL/" class="category-list-link">PostgreSQL</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Puppet/" class="category-list-link">Puppet</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Python/" class="category-list-link">Python</a><span class="category-list-count">19</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/QA/" class="category-list-link">QA</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Rabbitmq/" class="category-list-link">Rabbitmq</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Restful/" class="category-list-link">Restful</a><span class="category-list-count">6</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/SaltStack/" class="category-list-link">SaltStack</a><span class="category-list-count">7</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Software_Architect/" class="category-list-link">Software_Architect</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Supervisor/" class="category-list-link">Supervisor</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Tornado/" class="category-list-link">Tornado</a><span class="category-list-count">3</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Vagrant/" class="category-list-link">Vagrant</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Vue/" class="category-list-link">Vue</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/kafka/" class="category-list-link">kafka</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/zookeeper/" class="category-list-link">zookeeper</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E4%B8%AA%E4%BA%BA%E7%AE%A1%E7%90%86/" class="category-list-link">个人管理</a><span class="category-list-count">5</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB/" class="category-list-link">前后端分离</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" class="category-list-link">数据结构与算法</a><span class="category-list-count">13</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E6%9C%9D%E8%8A%B1%E5%A4%95%E6%8B%BE/" class="category-list-link">朝花夕拾</a><span class="category-list-count">10</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" class="category-list-link">机器学习</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" class="category-list-link">环境搭建</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E7%A8%8B%E5%BA%8F%E5%91%98%E8%87%AA%E6%88%91%E4%BF%AE%E5%85%BB/" class="category-list-link">程序员自我修养</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E8%B5%84%E6%BA%90%E5%88%86%E4%BA%AB%E8%AE%A1%E5%88%92/" class="category-list-link">资源分享计划</a><span class="category-list-count">10</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E8%BF%90%E7%BB%B4%E7%9F%A5%E8%AF%86%E5%BA%93/" class="category-list-link">运维知识库</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86/" class="category-list-link">项目管理</a><span class="category-list-count">1</span></li>
+        </ul>
+    </div>
+</div>
+  </div>
+</aside>
+
+    
+    
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <h4 class="toc-title">文章目录</h4>
+    <nav id="toc" class="js-toc toc">
+
+    </nav>
+  </div>
+</aside>
+<main class="main" role="main"><div class="content">
+  
+  <article id="article-container" class="article article-type-" itemscope
+    itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      <h1 itemprop="name">
+  <a
+    class="article-title"
+    href="/posts/2016-01-05-django-admin.html"
+    >Django admin 定制案例</a
+  >
+</h1>
+
+      <div class="article-meta">
+        
+<span class="article-date">
+  <i class="icon icon-calendar-check"></i>&nbsp;
+<a href="https://pylixm.top/posts/2016-01-05-django-admin.html" class="article-date">
+  <time datetime="2016-01-05 20:00:00 &#43;0000 UTC" itemprop="datePublished">2016-01-05</time>
+</a>
+</span>
+<span class="article-category">
+  <i class="icon icon-folder"></i>&nbsp;
+  <a class="article-category-link" href="/categories/Django/"> Django </a>
+</span>  
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>&nbsp;
+    <a class="article-tag-link" href="/tags/Django/"> Django </a>
+    <a class="article-tag-link" href="/tags/Django-admin/"> Django-admin </a>
+  </span>
+
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+        <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="/posts/2016-01-05-django-admin.html#comments"
+            class="article-comment-link">评论</a></span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 1789字</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 4分 </span>
+      </div>
+    </div>
+    <div class="article-entry marked-body js-toc-content" itemprop="articleBody">
+      <blockquote>
+<blockquote>
+<blockquote>
+<p>原文地址：http://www.cnblogs.com/linxiyue/p/4075048.html?utm_source=tuicool&amp;utm_medium=referral</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<p>总体思路：重写<code>admin.ModelAdmin</code>中的某些方法。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> django.db <span style="color:#f92672">import</span> models
+ 
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Blog</span>(models<span style="color:#f92672">.</span>Model):
+    name <span style="color:#f92672">=</span> models<span style="color:#f92672">.</span>CharField(max_length<span style="color:#f92672">=</span><span style="color:#ae81ff">100</span>)
+    tagline <span style="color:#f92672">=</span> models<span style="color:#f92672">.</span>TextField()
+  
+    <span style="color:#75715e"># On Python 3: def __str__(self):</span>
+    <span style="color:#66d9ef">def</span> __unicode__(self):
+        <span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>name
+  
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Author</span>(models<span style="color:#f92672">.</span>Model):
+    name <span style="color:#f92672">=</span> models<span style="color:#f92672">.</span>CharField(max_length<span style="color:#f92672">=</span><span style="color:#ae81ff">50</span>)
+    email <span style="color:#f92672">=</span> models<span style="color:#f92672">.</span>EmailField()
+  
+    <span style="color:#75715e"># On Python 3: def __str__(self):</span>
+    <span style="color:#66d9ef">def</span> __unicode__(self):
+        <span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>name
+  
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Entry</span>(models<span style="color:#f92672">.</span>Model):
+    blog <span style="color:#f92672">=</span> models<span style="color:#f92672">.</span>ForeignKey(Blog)
+    headline <span style="color:#f92672">=</span> models<span style="color:#f92672">.</span>CharField(max_length<span style="color:#f92672">=</span><span style="color:#ae81ff">255</span>)
+    body_text <span style="color:#f92672">=</span> models<span style="color:#f92672">.</span>TextField()
+    pub_date <span style="color:#f92672">=</span> models<span style="color:#f92672">.</span>DateField()
+    mod_date <span style="color:#f92672">=</span> models<span style="color:#f92672">.</span>DateField()
+    authors <span style="color:#f92672">=</span> models<span style="color:#f92672">.</span>ManyToManyField(Author)
+    n_comments <span style="color:#f92672">=</span> models<span style="color:#f92672">.</span>IntegerField()
+    n_pingbacks <span style="color:#f92672">=</span> models<span style="color:#f92672">.</span>IntegerField()
+    rating <span style="color:#f92672">=</span> models<span style="color:#f92672">.</span>IntegerField()
+  
+    <span style="color:#75715e"># On Python 3: def __str__(self):</span>
+    <span style="color:#66d9ef">def</span> __unicode__(self):
+        <span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>headline
+
+</code></pre></div><!-- raw HTML omitted -->
+<h3 id="类级别权限">类级别权限</h3>
+<p>默认情况下，superuser可以访问admin界面的所有Model，但有时候只想让一些用户只能访问一些特定的Model。</p>
+<p>可以定制自己的User对象的has_perm()方法：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MyUser</span>(AbstractBaseUser):
+    <span style="color:#f92672">...</span>
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">has_perm</span>(self, perm, obj<span style="color:#f92672">=</span>None):
+        <span style="color:#66d9ef">if</span> self<span style="color:#f92672">.</span>is_superuser:
+            <span style="color:#66d9ef">return</span> True
+        <span style="color:#66d9ef">elif</span> self<span style="color:#f92672">.</span>can_edit:
+            <span style="color:#66d9ef">if</span> perm<span style="color:#f92672">==</span><span style="color:#e6db74">&#39;myapp.add_entry&#39;</span>:
+                <span style="color:#66d9ef">return</span> True
+            <span style="color:#66d9ef">else</span>:
+                <span style="color:#66d9ef">return</span> False
+        <span style="color:#66d9ef">else</span>:
+            <span style="color:#66d9ef">return</span> False
+            
+</code></pre></div><p>这样superuser具有全部权限。普通user的can_edit属性为True时，就具有了创建Entry实例的权限，其余用户无权限。</p>
+<p>也可以定制ModelAdmin的has_add_permission(),has_change_permission(),has_delete_permission()方法：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">has_add_permission</span>(self, request):
+    <span style="color:#e6db74">&#34;&#34;&#34;
+</span><span style="color:#e6db74">    Returns True if the given request has permission to add an object.
+</span><span style="color:#e6db74">    Can be overridden by the user in subclasses.
+</span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
+    opts <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>opts
+    codename <span style="color:#f92672">=</span> get_permission_codename(<span style="color:#e6db74">&#39;add&#39;</span>, opts)
+    <span style="color:#66d9ef">if</span> request<span style="color:#f92672">.</span>user<span style="color:#f92672">.</span>can_edit:
+        <span style="color:#66d9ef">return</span> True
+    <span style="color:#66d9ef">else</span>:
+        <span style="color:#66d9ef">return</span> request<span style="color:#f92672">.</span>user<span style="color:#f92672">.</span>has_perm(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">%s</span><span style="color:#e6db74">.</span><span style="color:#e6db74">%s</span><span style="color:#e6db74">&#34;</span> <span style="color:#f92672">%</span> (opts<span style="color:#f92672">.</span>app_label, codename))
+
+</code></pre></div><h3 id="字段级别的权限">字段级别的权限</h3>
+<p>不同权限的可以编辑不同的内容，可以通过get_readonly_fileds()来添加字段只读权限。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">EntryAdmin</span>(admin<span style="color:#f92672">.</span>ModelAdmin):
+    list_display<span style="color:#f92672">=</span>(<span style="color:#f92672">...</span>)
+    search_fields<span style="color:#f92672">=</span>(<span style="color:#f92672">...</span>)
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">get_readonly_fields</span>(self,request,obj<span style="color:#f92672">=</span>None):
+        <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> request<span style="color:#f92672">.</span>user<span style="color:#f92672">.</span>is_superuser <span style="color:#f92672">and</span> <span style="color:#f92672">not</span> request<span style="color:#f92672">.</span>user<span style="color:#f92672">.</span>can_edit:
+            <span style="color:#66d9ef">return</span> [f<span style="color:#f92672">.</span>name <span style="color:#66d9ef">for</span> f <span style="color:#f92672">in</span> self<span style="color:#f92672">.</span>model<span style="color:#f92672">.</span>_meta<span style="color:#f92672">.</span>fields]
+        <span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>readonly_fields
+        
+</code></pre></div><h3 id="重写model的save行为">重写Model的save行为</h3>
+<p>可以直接重写model的save()方法：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">
+<span style="color:#f92672">from</span> django.db <span style="color:#f92672">import</span> models
+ 
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Blog</span>(models<span style="color:#f92672">.</span>Model):
+    name <span style="color:#f92672">=</span> models<span style="color:#f92672">.</span>CharField(max_length<span style="color:#f92672">=</span><span style="color:#ae81ff">100</span>)
+    tagline <span style="color:#f92672">=</span> models<span style="color:#f92672">.</span>TextField()
+ 
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">save</span>(self, <span style="color:#f92672">*</span>args, <span style="color:#f92672">**</span>kwargs):
+        do_something()
+        super(Blog, self)<span style="color:#f92672">.</span>save(<span style="color:#f92672">*</span>args, <span style="color:#f92672">**</span>kwargs) <span style="color:#75715e"># Call the &#34;real&#34; save() method.</span>
+        do_something_else()
+        
+</code></pre></div><p>阻止save()：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">
+<span style="color:#f92672">from</span> django.db <span style="color:#f92672">import</span> models
+ 
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Blog</span>(models<span style="color:#f92672">.</span>Model):
+    name <span style="color:#f92672">=</span> models<span style="color:#f92672">.</span>CharField(max_length<span style="color:#f92672">=</span><span style="color:#ae81ff">100</span>)
+    tagline <span style="color:#f92672">=</span> models<span style="color:#f92672">.</span>TextField()
+ 
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">save</span>(self, <span style="color:#f92672">*</span>args, <span style="color:#f92672">**</span>kwargs):
+        <span style="color:#66d9ef">if</span> self<span style="color:#f92672">.</span>name <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;Yoko Ono&#39;s blog&#34;</span>:
+            <span style="color:#66d9ef">return</span> <span style="color:#75715e"># Yoko shall never have her own blog!</span>
+        <span style="color:#66d9ef">else</span>:
+            super(Blog, self)<span style="color:#f92672">.</span>save(<span style="color:#f92672">*</span>args, <span style="color:#f92672">**</span>kwargs) <span style="color:#75715e"># Call the &#34;real&#34; save() method.</span>
+        
+</code></pre></div><p>也可以重写ModelAdmin的save_model()方法，根据不同的用户定制不同的save行为：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">
+<span style="color:#f92672">from</span> django.contrib <span style="color:#f92672">import</span> admin
+ 
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ArticleAdmin</span>(admin<span style="color:#f92672">.</span>ModelAdmin):
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">save_model</span>(self, request, obj, form, change):
+        obj<span style="color:#f92672">.</span>user <span style="color:#f92672">=</span> request<span style="color:#f92672">.</span>user
+        obj<span style="color:#f92672">.</span>save()
+        
+</code></pre></div><p>其中obj是修改后的对象，当新建一个对象时 change = False, 当修改一个对象时 change = True，可以获得修改前的对象：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">
+<span style="color:#f92672">from</span> django.contrib <span style="color:#f92672">import</span> admin
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ArticleAdmin</span>(admin<span style="color:#f92672">.</span>ModelAdmin):
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">save_model</span>(self, request, obj, form, change):
+        <span style="color:#66d9ef">if</span> change:
+            obj_old <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>model<span style="color:#f92672">.</span>objects<span style="color:#f92672">.</span>get(pk<span style="color:#f92672">=</span>obj<span style="color:#f92672">.</span>pk)
+        <span style="color:#66d9ef">else</span>:
+            obj_old <span style="color:#f92672">=</span> None
+        obj<span style="color:#f92672">.</span>user <span style="color:#f92672">=</span> request<span style="color:#f92672">.</span>user
+        obj<span style="color:#f92672">.</span>save()
+        
+</code></pre></div><h3 id="不同的用户显示不同的数据行重写列表页面返回的查询集">不同的用户显示不同的数据行，重写列表页面返回的查询集</h3>
+<p>ModelAdmin提供了一个钩子程序 —— 它有一个名为queryset() 的方法，该方法可以确定任何列表页面返回的默认查询集。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MyModelAdmin</span>(admin<span style="color:#f92672">.</span>ModelAdmin):
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">get_queryset</span>(self, request):
+        qs <span style="color:#f92672">=</span> super(MyModelAdmin, self)<span style="color:#f92672">.</span>get_queryset(request)
+        <span style="color:#66d9ef">if</span> request<span style="color:#f92672">.</span>user<span style="color:#f92672">.</span>is_superuser:
+            <span style="color:#66d9ef">return</span> qs
+        <span style="color:#66d9ef">return</span> qs<span style="color:#f92672">.</span>filter(author<span style="color:#f92672">=</span>request<span style="color:#f92672">.</span>user)
+        
+</code></pre></div><h3 id="定制过滤器list_filter">定制过滤器list_filter</h3>
+<p>从django.contrib.admin.SimpleListFilter继承一个子类，提供title和parameter_name属性，并重写 lookups和queryset方法。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">
+<span style="color:#f92672">from</span> datetime <span style="color:#f92672">import</span> date
+ 
+<span style="color:#f92672">from</span> django.contrib <span style="color:#f92672">import</span> admin
+<span style="color:#f92672">from</span> django.utils.translation <span style="color:#f92672">import</span> ugettext_lazy <span style="color:#66d9ef">as</span> _
+ 
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">DecadeBornListFilter</span>(admin<span style="color:#f92672">.</span>SimpleListFilter):
+    <span style="color:#75715e"># Human-readable title which will be displayed in the</span>
+    <span style="color:#75715e"># right admin sidebar just above the filter options.</span>
+    title <span style="color:#f92672">=</span> _(<span style="color:#e6db74">&#39;decade born&#39;</span>)
+ 
+    <span style="color:#75715e"># Parameter for the filter that will be used in the URL query.</span>
+    parameter_name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;decade&#39;</span>
+ 
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">lookups</span>(self, request, model_admin):
+        <span style="color:#e6db74">&#34;&#34;&#34;
+</span><span style="color:#e6db74">        Returns a list of tuples. The first element in each
+</span><span style="color:#e6db74">        tuple is the coded value for the option that will
+</span><span style="color:#e6db74">        appear in the URL query. The second element is the
+</span><span style="color:#e6db74">        human-readable name for the option that will appear
+</span><span style="color:#e6db74">        in the right sidebar.
+</span><span style="color:#e6db74">        &#34;&#34;&#34;</span>
+        <span style="color:#66d9ef">return</span> (
+            (<span style="color:#e6db74">&#39;80s&#39;</span>, _(<span style="color:#e6db74">&#39;in the eighties&#39;</span>)),
+            (<span style="color:#e6db74">&#39;90s&#39;</span>, _(<span style="color:#e6db74">&#39;in the nineties&#39;</span>)),
+        )
+ 
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">queryset</span>(self, request, queryset):
+        <span style="color:#e6db74">&#34;&#34;&#34;
+</span><span style="color:#e6db74">        Returns the filtered queryset based on the value
+</span><span style="color:#e6db74">        provided in the query string and retrievable via
+</span><span style="color:#e6db74">        `self.value()`.
+</span><span style="color:#e6db74">        &#34;&#34;&#34;</span>
+        <span style="color:#75715e"># Compare the requested value (either &#39;80s&#39; or &#39;90s&#39;)</span>
+        <span style="color:#75715e"># to decide how to filter the queryset.</span>
+        <span style="color:#66d9ef">if</span> self<span style="color:#f92672">.</span>value() <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;80s&#39;</span>:
+            <span style="color:#66d9ef">return</span> queryset<span style="color:#f92672">.</span>filter(birthday__gte<span style="color:#f92672">=</span>date(<span style="color:#ae81ff">1980</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>),
+                                    birthday__lte<span style="color:#f92672">=</span>date(<span style="color:#ae81ff">1989</span>, <span style="color:#ae81ff">12</span>, <span style="color:#ae81ff">31</span>))
+        <span style="color:#66d9ef">if</span> self<span style="color:#f92672">.</span>value() <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;90s&#39;</span>:
+            <span style="color:#66d9ef">return</span> queryset<span style="color:#f92672">.</span>filter(birthday__gte<span style="color:#f92672">=</span>date(<span style="color:#ae81ff">1990</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>),
+                                    birthday__lte<span style="color:#f92672">=</span>date(<span style="color:#ae81ff">1999</span>, <span style="color:#ae81ff">12</span>, <span style="color:#ae81ff">31</span>))
+ 
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">PersonAdmin</span>(admin<span style="color:#f92672">.</span>ModelAdmin):
+    list_filter <span style="color:#f92672">=</span> (DecadeBornListFilter,)
+
+</code></pre></div><p>parameter_name和title是必须的。look_up方法返回出现在列表页右侧过滤器中的选项和描述。parameter_name为附加在url后面get请求的参数名，self.value()返回该参数对应的值。</p>
+<p>根据不同的用户定制：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">AuthDecadeBornListFilter</span>(DecadeBornListFilter):
+ 
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">lookups</span>(self, request, model_admin):
+        <span style="color:#66d9ef">if</span> request<span style="color:#f92672">.</span>user<span style="color:#f92672">.</span>is_superuser:
+            <span style="color:#66d9ef">return</span> super(AuthDecadeBornListFilter,
+                self)<span style="color:#f92672">.</span>lookups(request, model_admin)
+ 
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">queryset</span>(self, request, queryset):
+        <span style="color:#66d9ef">if</span> request<span style="color:#f92672">.</span>user<span style="color:#f92672">.</span>is_superuser:
+            <span style="color:#66d9ef">return</span> super(AuthDecadeBornListFilter,
+                self)<span style="color:#f92672">.</span>queryset(request, queryset)
+</code></pre></div><p>model_admin为ModelAdmin实例：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">AdvancedDecadeBornListFilter</span>(DecadeBornListFilter):
+ 
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">lookups</span>(self, request, model_admin):
+        <span style="color:#e6db74">&#34;&#34;&#34;
+</span><span style="color:#e6db74">        Only show the lookups if there actually is
+</span><span style="color:#e6db74">        anyone born in the corresponding decades.
+</span><span style="color:#e6db74">        &#34;&#34;&#34;</span>
+        qs <span style="color:#f92672">=</span> model_admin<span style="color:#f92672">.</span>get_queryset(request)
+        <span style="color:#66d9ef">if</span> qs<span style="color:#f92672">.</span>filter(birthday__gte<span style="color:#f92672">=</span>date(<span style="color:#ae81ff">1980</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>),
+                      birthday__lte<span style="color:#f92672">=</span>date(<span style="color:#ae81ff">1989</span>, <span style="color:#ae81ff">12</span>, <span style="color:#ae81ff">31</span>))<span style="color:#f92672">.</span>exists():
+            <span style="color:#66d9ef">yield</span> (<span style="color:#e6db74">&#39;80s&#39;</span>, _(<span style="color:#e6db74">&#39;in the eighties&#39;</span>))
+        <span style="color:#66d9ef">if</span> qs<span style="color:#f92672">.</span>filter(birthday__gte<span style="color:#f92672">=</span>date(<span style="color:#ae81ff">1990</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>),
+                      birthday__lte<span style="color:#f92672">=</span>date(<span style="color:#ae81ff">1999</span>, <span style="color:#ae81ff">12</span>, <span style="color:#ae81ff">31</span>))<span style="color:#f92672">.</span>exists():
+            <span style="color:#66d9ef">yield</span> (<span style="color:#e6db74">&#39;90s&#39;</span>, _(<span style="color:#e6db74">&#39;in the nineties&#39;</span>))
+            
+</code></pre></div><h3 id="定制搜索功能">定制搜索功能</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">PersonAdmin</span>(admin<span style="color:#f92672">.</span>ModelAdmin):
+    list_display <span style="color:#f92672">=</span> (<span style="color:#e6db74">&#39;name&#39;</span>, <span style="color:#e6db74">&#39;age&#39;</span>)
+    search_fields <span style="color:#f92672">=</span> (<span style="color:#e6db74">&#39;name&#39;</span>,)
+ 
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">get_search_results</span>(self, request, queryset, search_term):
+        queryset, use_distinct <span style="color:#f92672">=</span> super(PersonAdmin, self)<span style="color:#f92672">.</span>get_search_results(request, queryset, search_term)
+        <span style="color:#66d9ef">try</span>:
+            search_term_as_int <span style="color:#f92672">=</span> int(search_term)
+        <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">ValueError</span>:
+            <span style="color:#66d9ef">pass</span>
+        <span style="color:#66d9ef">else</span>:
+            queryset <span style="color:#f92672">|=</span> self<span style="color:#f92672">.</span>model<span style="color:#f92672">.</span>objects<span style="color:#f92672">.</span>filter(age<span style="color:#f92672">=</span>search_term_as_int)
+        <span style="color:#66d9ef">return</span> queryset, use_distinct
+
+</code></pre></div><p>queryset是查询集，search_term是搜索词。</p>
+<h3 id="外键字段过滤">外键字段过滤</h3>
+<p>在添加对象时显示外键选项时，太多的选项不太友好，这时候需要过滤出符合要求的对象供选择。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MyModelAdmin</span>(admin<span style="color:#f92672">.</span>ModelAdmin):
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">formfield_for_foreignkey</span>(self, db_field, request, <span style="color:#f92672">**</span>kwargs):
+        <span style="color:#66d9ef">if</span> db_field<span style="color:#f92672">.</span>name <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;car&#34;</span>:
+            kwargs[<span style="color:#e6db74">&#34;queryset&#34;</span>] <span style="color:#f92672">=</span> Car<span style="color:#f92672">.</span>objects<span style="color:#f92672">.</span>filter(owner<span style="color:#f92672">=</span>request<span style="color:#f92672">.</span>user)
+        <span style="color:#66d9ef">return</span> super(MyModelAdmin, self)<span style="color:#f92672">.</span>formfield_for_foreignkey(db_field, request, <span style="color:#f92672">**</span>kwargs)
+
+</code></pre></div><h3 id="外键改为查询方式">外键改为查询方式</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">EntryAdmin</span>(admin<span style="color:#f92672">.</span>ModelAdmin):
+    raw_id_fields <span style="color:#f92672">=</span> (<span style="color:#e6db74">&#39;blog&#39;</span>,)
+
+</code></pre></div><h3 id="启用在列表页编辑功能">启用在列表页编辑功能</h3>
+<p><code>list_editable = ('is_active',)</code></p>
+<h3 id="自定义编辑页面展示">自定义编辑页面展示</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">fieldsets<span style="color:#f92672">=</span>(
+    (<span style="color:#e6db74">&#39;user&#39;</span>, {<span style="color:#e6db74">&#39;fields&#39;</span>:(<span style="color:#e6db74">&#39;username&#39;</span>, <span style="color:#e6db74">&#39;slug&#39;</span>, <span style="color:#e6db74">&#39;email&#39;</span>, <span style="color:#e6db74">&#39;password&#39;</span>)}),
+    (<span style="color:#e6db74">&#39;Personal info&#39;</span>, {<span style="color:#e6db74">&#39;fields&#39;</span>:(<span style="color:#e6db74">&#39;name&#39;</span>, <span style="color:#e6db74">&#39;mobile&#39;</span>)}),
+    (<span style="color:#e6db74">&#39;Permissions&#39;</span>, {<span style="color:#e6db74">&#39;fields&#39;</span>:(<span style="color:#e6db74">&#39;is_active&#39;</span>, <span style="color:#e6db74">&#39;is_staff&#39;</span>, <span style="color:#e6db74">&#39;is_superuser&#39;</span>, <span style="color:#e6db74">&#39;groups&#39;</span>, <span style="color:#e6db74">&#39;user_permissions&#39;</span>)}),
+    )
+</code></pre></div><p>&mdash;&mdash;&mdash;&mdash;&mdash;&mdash; update 2016-9-22 &mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;</p>
+<h3 id="自定义admin验证">自定义admin验证</h3>
+<p>方法一：
+<a href="http://stackoverflow.com/questions/24802244/custom-validation-in-django-admin">详见</a></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> models <span style="color:#f92672">import</span> Lecture
+<span style="color:#f92672">from</span> django.contrib <span style="color:#f92672">import</span> admin
+<span style="color:#f92672">from</span> django <span style="color:#f92672">import</span> forms
+
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">LectureForm</span>(forms<span style="color:#f92672">.</span>ModelForm):
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">clean</span>(self):
+        start_date <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>cleaned_data<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;start_date&#39;</span>)
+        end_date <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>cleaned_data<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;end_date&#39;</span>)
+        <span style="color:#66d9ef">if</span> start_date <span style="color:#f92672">&gt;</span> end_date:
+            <span style="color:#66d9ef">raise</span> forms<span style="color:#f92672">.</span>ValidationError(<span style="color:#e6db74">&#34;Dates are fucked up&#34;</span>)
+        <span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>cleaned_data
+
+    <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Meta</span>:
+        model <span style="color:#f92672">=</span> Lecture
+
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">LectureAdmin</span>(admin<span style="color:#f92672">.</span>ModelAdmin):
+    form <span style="color:#f92672">=</span> LectureForm
+    list_display <span style="color:#f92672">=</span> (<span style="color:#e6db74">&#39;topic&#39;</span>, <span style="color:#e6db74">&#39;speaker&#39;</span>, <span style="color:#e6db74">&#39;start_date&#39;</span>, <span style="color:#e6db74">&#39;end_date&#39;</span>)
+
+admin<span style="color:#f92672">.</span>site<span style="color:#f92672">.</span>register(Lecture, LectureAdmin)
+</code></pre></div><p>方法二：
+<a href="https://docs.djangoproject.com/en/1.7/ref/models/instances/#validating-objects">详见</a></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> datetime
+<span style="color:#f92672">from</span> django.core.exceptions <span style="color:#f92672">import</span> ValidationError
+<span style="color:#f92672">from</span> django.db <span style="color:#f92672">import</span> models
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Article</span>(models<span style="color:#f92672">.</span>Model):
+    <span style="color:#f92672">...</span>
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">clean</span>(self):
+        <span style="color:#75715e"># Don&#39;t allow draft entries to have a pub_date.</span>
+        <span style="color:#66d9ef">if</span> self<span style="color:#f92672">.</span>status <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;draft&#39;</span> <span style="color:#f92672">and</span> self<span style="color:#f92672">.</span>pub_date <span style="color:#f92672">is</span> <span style="color:#f92672">not</span> None:
+            <span style="color:#66d9ef">raise</span> ValidationError(<span style="color:#e6db74">&#39;Draft entries may not have a publication date.&#39;</span>)
+        <span style="color:#75715e"># Set the pub_date for published items if it hasn&#39;t been set already.</span>
+        <span style="color:#66d9ef">if</span> self<span style="color:#f92672">.</span>status <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;published&#39;</span> <span style="color:#f92672">and</span> self<span style="color:#f92672">.</span>pub_date <span style="color:#f92672">is</span> None:
+            self<span style="color:#f92672">.</span>pub_date <span style="color:#f92672">=</span> datetime<span style="color:#f92672">.</span>date<span style="color:#f92672">.</span>today()
+</code></pre></div><h4 id="参考">参考</h4>
+<ul>
+<li><a href="http://www.cnblogs.com/linxiyue/p/4075048.html">http://www.cnblogs.com/linxiyue/p/4075048.html</a></li>
+</ul>
+
+    </div>
+    <div class="article-footer">
+<blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://pylixm.top/posts/2016-01-05-django-admin.html" title="Django admin 定制案例" target="_blank" rel="external">https://pylixm.top/posts/2016-01-05-django-admin.html</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>许可协议：</strong>
+      <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN</a>
+    </li>
+  </ul>
+</blockquote>
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://pylixm.top" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="https://pylixm.top/static/imgs/avatar.png" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://pylixm.top" target="_blank"><span class="text-dark">DeanWu</span><small class="ml-1x">程序员</small></a></h3>
+        <div>努力成为真正的SRE</div>
+      </div>
+    </figure>
+  </div>
+</div>
+    </div>
+  </article>
+<section id="comments">
+    <div id="vcomments"></div>
+</section>
+
+</div><nav class="bar bar-footer clearfix" data-stick-bottom>
+    <div class="bar-inner">
+        <ul class="pager pull-left">
+            <li class="prev">
+                <a href="https://pylixm.top/posts/2015-12-17-salt-install.html" title="SaltStack学习笔记1-salt安装配置"><i
+                        class="icon icon-angle-left"
+                        aria-hidden="true"></i><span>&nbsp;&nbsp;下一篇</span></a>
+            </li>
+            <li class="next">
+                <a href="https://pylixm.top/posts/2016-01-08-django-restfull-framework-review.html"
+                    title="Django restful framework 学习使用总结-权限相关"><span>上一篇&nbsp;&nbsp;</span><i
+                        class="icon icon-angle-right" aria-hidden="true"></i></a>
+            </li>
+            
+            <li class="toggle-toc">
+                <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false"
+                    title="文章目录" role="button">
+                    <span>[&nbsp;</span><span>文章目录</span>
+                    <i class="text-collapsed icon icon-anchor"></i>
+                    <i class="text-in icon icon-close"></i>
+                    <span>]</span>
+                </a>
+            </li>
+        </ul>
+        <div class="bar-right">
+        </div>
+    </div>
+</nav>
+
+
+<script src="https://my.openwrite.cn/js/readmore.js" type="text/javascript"></script>
+<script>
+    const btw = new BTWPlugin();
+    btw.init({
+        id: 'article-container',
+        blogId: '24944-1607090547459-485',
+        name: '码农吴先生',
+        qrcode: 'https://gitee.com/pylixm/picture/raw/master/2020-12-4/1607089812769-image.png',
+        keyword: 'vip',
+    });
+</script>
+</main><footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+<ul class="social-links">
+    <li><a href="https://github.com/pylixm" target="_blank" title="github" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-github"></i></a></li>
+    <li><a href="https://pylixm.top/index.xml" target="_blank" title="rss" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-rss"></i></a></li>
+    <li><a href="http://weibo.com/2258086637" target="_blank" title="weibo" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-weibo"></i></a></li>
+</ul>
+  <div class="copyright">
+    &copy;2015  -
+    2020
+    <div class="publishby">
+      hugo驱动，Theme by <a href="https://github.com/xiaoheiAh/hugo-theme-pure" target="_blank"> pure</a>.
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_SVG"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+            showMathMenu: false, //disables context menu
+            tex2jax: {
+            inlineMath: [ ['$','$'], ['\\(','\\)'] ]
+           }
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+<script>
+    window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/highlight.min.js"></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/python.min.js" defer></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/javascript.min.js" defer></script><script>
+    hljs.configure({
+        tabReplace: '    ', 
+        classPrefix: ''     
+        
+    })
+    hljs.initHighlightingOnLoad();
+</script>
+<script src="https://pylixm.top/js/application.min.bdeb64b910570b6c41badc6a05b7afb0c8ad9efd8525de3c7257d59e786326a3.js"></script>
+<script src="https://pylixm.top/js/plugin.min.51ff8c7317566f82259170fa36e09c4493adc9b9378b427a01ad3f017ebac7dd.js"></script>
+
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(未命名)',
+            },
+            ROOT_URL: 'https:\/\/pylixm.top',
+            CONTENT_URL: 'https:\/\/pylixm.top\/searchindex.json ',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script type="text/javascript" src="https://pylixm.top/js/insight.min.a343cd9a5a7698336b28ef3a7c16a3a1b1d2d5fb17dc8ed04022bbe08cc5459073a15bdafa3a8a58cdd56080784bdd69fa70b1ae8597565c799c57ed00f0e120.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script>
+<script>
+    tocbot.init({
+        
+        tocSelector: '.js-toc',
+        
+        contentSelector: '.js-toc-content',
+        
+        headingSelector: 'h1, h2, h3',
+        
+        hasInnerContainers: true,
+    });
+</script>
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="https://cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine"></script>
+<script type="text/javascript">
+    var GUEST = ['nick', 'mail', 'link'];
+    var meta = 'nick,mail';
+    meta = meta.split(',').filter(function (item) {
+        return GUEST.indexOf(item) > -1;
+    });
+    new Valine({
+        el: '#vcomments',
+        verify: null ,
+        notify: null ,
+        appId: 'OBJcj4PU8JI0zDfu0HJSrG6W-gzGzoHsz',
+        appKey: 'tBtFzC72xIlgo2UFbA33nqmU',
+        placeholder: '来做第一个发言人吧',
+        avatar: 'mm',
+        meta: meta,
+        pageSize: '10' || 10,
+        visitor: false 
+});
+</script>
+
+  </body>
+</html>

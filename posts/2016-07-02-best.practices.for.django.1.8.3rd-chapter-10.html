@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <title>
+        Django 最佳实践-读书笔记 - 第十三章 模板最佳实践 - DeanWu
+      </title>
+        <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    
+    <meta name="theme-color" content="#000000" />
+    
+    <meta http-equiv="window-target" content="_top" />
+    
+    
+    <meta name="description" content="其他章节索引页 笔记以要点形式展开，如有疑问欢迎留言！ 第十三章 模板最佳实践 django 的模板的局限性，限制了我们将复杂的逻辑放在了 python 端，这何尝不是一件好" />
+    <meta name="generator" content="Hugo 0.73.0 with theme pure" />
+    <title>Django 最佳实践-读书笔记 - 第十三章 模板最佳实践 - DeanWu</title>
+    
+    
+    <link rel="stylesheet" href="https://pylixm.top/css/style.min.f70e8e0df9ea6aeb37dac252b17ca98082073ff1663b24118baaaa84ee8ae7e8.css">
+    
+    <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.15.10/styles/github.min.css" async>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css" async>
+    <meta property="og:title" content="Django 最佳实践-读书笔记 - 第十三章 模板最佳实践" />
+<meta property="og:description" content="其他章节索引页 笔记以要点形式展开，如有疑问欢迎留言！ 第十三章 模板最佳实践 django 的模板的局限性，限制了我们将复杂的逻辑放在了 python 端，这何尝不是一件好" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://pylixm.top/posts/2016-07-02-best.practices.for.django.1.8.3rd-chapter-10.html" />
+<meta property="article:published_time" content="2016-07-02T00:00:00+00:00" />
+<meta property="article:modified_time" content="2016-07-02T00:00:00+00:00" />
+
+<meta itemprop="name" content="Django 最佳实践-读书笔记 - 第十三章 模板最佳实践">
+<meta itemprop="description" content="其他章节索引页 笔记以要点形式展开，如有疑问欢迎留言！ 第十三章 模板最佳实践 django 的模板的局限性，限制了我们将复杂的逻辑放在了 python 端，这何尝不是一件好">
+<meta itemprop="datePublished" content="2016-07-02T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2016-07-02T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="1785">
+
+
+
+<meta itemprop="keywords" content="Django,Django最佳实践," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Django 最佳实践-读书笔记 - 第十三章 模板最佳实践"/>
+<meta name="twitter:description" content="其他章节索引页 笔记以要点形式展开，如有疑问欢迎留言！ 第十三章 模板最佳实践 django 的模板的局限性，限制了我们将复杂的逻辑放在了 python 端，这何尝不是一件好"/>
+
+    <!--[if lte IE 9]>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+      <![endif]-->
+
+    <!--[if lt IE 9]>
+        <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+      <![endif]-->
+  </head>
+
+  
+  
+
+  <body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage"><header class="header" itemscope itemtype="http://schema.org/WPHeader">
+    <div class="slimContent">
+      <div class="navbar-header">
+        <div class="profile-block text-center">
+          <a id="avatar" href="https://pylixm.top" target="_blank">
+            <img class="img-circle img-rotate" src="https://pylixm.top/static/imgs/avatar.png" width="200" height="200">
+          </a>
+          <h2 id="name" class="hidden-xs hidden-sm">DeanWu</h2>
+          <h3 id="title" class="hidden-xs hidden-sm hidden-md">程序员</h3>
+          <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i>Beijing, China</small>
+        </div><div class="search" id="search-form-wrap">
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i
+                        class="icon icon-search"></i></button>
+            </span>
+        </div>
+        <div class="ins-search">
+            <div class="ins-search-mask"></div>
+            <div class="ins-search-container">
+                <div class="ins-input-wrapper">
+                    <input type="text" class="ins-search-input" placeholder="想要查找什么..."
+                        x-webkit-speech />
+                    <button type="button" class="close ins-close ins-selectable" data-dismiss="modal"
+                        aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="ins-section-wrapper">
+                    <div class="ins-section-container"></div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+        <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+        <ul class="nav navbar-nav main-nav">
+            <li class="menu-item menu-item-home">
+                <a href="/">
+                    <i class="icon icon-home-fill"></i>
+                  <span class="menu-title">首页</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-series">
+                <a href="/series/">
+                    <i class="icon icon-folder"></i>
+                  <span class="menu-title">专题</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-repository">
+                <a href="/project/">
+                    <i class="icon icon-project"></i>
+                  <span class="menu-title">项目</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-archives">
+                <a href="/posts/">
+                    <i class="icon icon-archives-fill"></i>
+                  <span class="menu-title">归档</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-about">
+                <a href="/about/">
+                    <i class="icon icon-cup-fill"></i>
+                  <span class="menu-title">关于</span>
+                </a>
+            </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+<aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content"><div>欢迎关注微信公众号「码农吴先生」：专注python/golang/devops等技术的学习经验及资源分享！</br>回复关键字：go或python 获取我收集的资料，也可回复关键字：小二，加我wx，一块聊技术，聊人生~  </br><img src="/static/imgs/wx/wx_gzh.png" width="140" height="140"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+      
+<div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+        <ul class="recent-post-list list-unstyled no-thumbnail">
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2020-12-08-django-async-views-example.html" class="title">Django 三个异步使用的案例</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-12-08 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-08</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2020-12-05-go-from-python-structure-base.html" class="title">「对比Python学习Go」- 基本数据结构</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-12-05 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-05</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2020-12-03-go-from-python-start.html" class="title">「对比Python学习Go」- 环境篇</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-12-03 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-03</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2020-12-02-go-from-python-intro.html" class="title">「对比Python学习Go」- 开篇</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-12-02 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-02</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2020-12-01-for-range-point.html" class="title">「Go Tips」for range 遍历时变量取值的问题分析</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-12-01 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-01</time>
+                    </p>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+      <div class="widget">
+    <h3 class="widget-title"> 分类</h3>
+    <div class="widget-body">
+        <ul class="category-list">
+            <li class="category-list-item"><a href="https://pylixm.top/categories/ATS/" class="category-list-link">ATS</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/DevOps/" class="category-list-link">DevOps</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Devlopment-Demo/" class="category-list-link">Devlopment-Demo</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Django/" class="category-list-link">Django</a><span class="category-list-count">39</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Docker/" class="category-list-link">Docker</a><span class="category-list-count">4</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Flask/" class="category-list-link">Flask</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Git/" class="category-list-link">Git</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Golang/" class="category-list-link">Golang</a><span class="category-list-count">12</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/HTTPS/" class="category-list-link">HTTPS</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Javascript/" class="category-list-link">Javascript</a><span class="category-list-count">3</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Kubernetes/" class="category-list-link">Kubernetes</a><span class="category-list-count">4</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/LVS/" class="category-list-link">LVS</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Linux/" class="category-list-link">Linux</a><span class="category-list-count">15</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Mongodb/" class="category-list-link">Mongodb</a><span class="category-list-count">3</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Mysql/" class="category-list-link">Mysql</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/NoSQL/" class="category-list-link">NoSQL</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/PostgreSQL/" class="category-list-link">PostgreSQL</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Puppet/" class="category-list-link">Puppet</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Python/" class="category-list-link">Python</a><span class="category-list-count">19</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/QA/" class="category-list-link">QA</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Rabbitmq/" class="category-list-link">Rabbitmq</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Restful/" class="category-list-link">Restful</a><span class="category-list-count">6</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/SaltStack/" class="category-list-link">SaltStack</a><span class="category-list-count">7</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Software_Architect/" class="category-list-link">Software_Architect</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Supervisor/" class="category-list-link">Supervisor</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Tornado/" class="category-list-link">Tornado</a><span class="category-list-count">3</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Vagrant/" class="category-list-link">Vagrant</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Vue/" class="category-list-link">Vue</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/kafka/" class="category-list-link">kafka</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/zookeeper/" class="category-list-link">zookeeper</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E4%B8%AA%E4%BA%BA%E7%AE%A1%E7%90%86/" class="category-list-link">个人管理</a><span class="category-list-count">5</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB/" class="category-list-link">前后端分离</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" class="category-list-link">数据结构与算法</a><span class="category-list-count">13</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E6%9C%9D%E8%8A%B1%E5%A4%95%E6%8B%BE/" class="category-list-link">朝花夕拾</a><span class="category-list-count">10</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" class="category-list-link">机器学习</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" class="category-list-link">环境搭建</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E7%A8%8B%E5%BA%8F%E5%91%98%E8%87%AA%E6%88%91%E4%BF%AE%E5%85%BB/" class="category-list-link">程序员自我修养</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E8%B5%84%E6%BA%90%E5%88%86%E4%BA%AB%E8%AE%A1%E5%88%92/" class="category-list-link">资源分享计划</a><span class="category-list-count">10</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E8%BF%90%E7%BB%B4%E7%9F%A5%E8%AF%86%E5%BA%93/" class="category-list-link">运维知识库</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86/" class="category-list-link">项目管理</a><span class="category-list-count">1</span></li>
+        </ul>
+    </div>
+</div>
+  </div>
+</aside>
+
+    
+    
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <h4 class="toc-title">文章目录</h4>
+    <nav id="toc" class="js-toc toc">
+
+    </nav>
+  </div>
+</aside>
+<main class="main" role="main"><div class="content">
+  
+  <article id="article-container" class="article article-type-" itemscope
+    itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      <h1 itemprop="name">
+  <a
+    class="article-title"
+    href="/posts/2016-07-02-best.practices.for.django.1.8.3rd-chapter-10.html"
+    >Django 最佳实践-读书笔记 - 第十三章 模板最佳实践</a
+  >
+</h1>
+
+      <div class="article-meta">
+        
+<span class="article-date">
+  <i class="icon icon-calendar-check"></i>&nbsp;
+<a href="https://pylixm.top/posts/2016-07-02-best.practices.for.django.1.8.3rd-chapter-10.html" class="article-date">
+  <time datetime="2016-07-02 00:00:00 &#43;0000 UTC" itemprop="datePublished">2016-07-02</time>
+</a>
+</span>
+<span class="article-category">
+  <i class="icon icon-folder"></i>&nbsp;
+  <a class="article-category-link" href="/categories/Django/"> Django </a>
+</span>  
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>&nbsp;
+    <a class="article-tag-link" href="/tags/Django/"> Django </a>
+    <a class="article-tag-link" href="/tags/Django%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/"> Django最佳实践 </a>
+  </span>
+
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+        <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="/posts/2016-07-02-best.practices.for.django.1.8.3rd-chapter-10.html#comments"
+            class="article-comment-link">评论</a></span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 1785字</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 4分 </span>
+      </div>
+    </div>
+    <div class="article-entry marked-body js-toc-content" itemprop="articleBody">
+      <p><a href="2016-05-22-Best.Practices.for.Django.1.8.3rd-Index.html">其他章节索引页</a></p>
+<p>笔记以要点形式展开，如有疑问欢迎留言！</p>
+<h1 id="第十三章-模板最佳实践">第十三章 模板最佳实践</h1>
+<p>django 的模板的局限性，限制了我们将复杂的逻辑放在了 <code>python</code> 端，这何尝不是一件好事。</p>
+<p>从 django 1.8 开始，django 原生支持了 jinjia2 模板。</p>
+<h2 id="尽量保持大多数的模板文件在目录-templates-下">尽量保持大多数的模板文件在目录 <code>templates/</code> 下</h2>
+<pre><code>templates/
+    base.html
+    ... (other sitewide templates in here)
+    freezers/ (&quot;freezers&quot; app templates in here)
+</code></pre><p>将模板放在 app 下 templates 是没有必要的，因为当app 作为可拔插的包拿来使用的时候，它的模板会被重新设计。
+索性将所有app 模板放到templates 下，好维护些。</p>
+<!-- raw HTML omitted -->
+<h2 id="模板的架构模式">模板的架构模式</h2>
+<h3 id="2-层嵌套模式">2 层嵌套模式</h3>
+<p>2 层嵌套模式适合于全站统一布局的情况。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">templates<span style="color:#f92672">/</span>
+base<span style="color:#f92672">.</span>html
+dashboard<span style="color:#f92672">.</span>html <span style="color:#75715e"># extends base.html</span>
+    profiles<span style="color:#f92672">/</span>
+        profile_detail<span style="color:#f92672">.</span>html <span style="color:#75715e"># extends base.html</span>
+</code></pre></div><h3 id="3-层嵌套模式">3 层嵌套模式</h3>
+<p>3 层嵌套适合于每个app 需要自己的布局的情况。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">templates<span style="color:#f92672">/</span>
+base<span style="color:#f92672">.</span>html
+dashboard<span style="color:#f92672">.</span>html <span style="color:#75715e"># extends base.html</span>
+    profiles<span style="color:#f92672">/</span>
+        base_profiles<span style="color:#f92672">.</span>html <span style="color:#75715e"># extends base.html</span>
+        profile_detail<span style="color:#f92672">.</span>html <span style="color:#75715e"># extends base_profiles.html</span>
+        profile_form<span style="color:#f92672">.</span>html <span style="color:#75715e"># extends base_profiles.html</span>
+</code></pre></div><h3 id="扁平比嵌套好">扁平比嵌套好</h3>
+<h2 id="在模板中限制逻辑处理">在模板中限制逻辑处理</h2>
+<h3 id="当在模板中遍历结果集时注意的问题">当在模板中遍历结果集时注意的问题：</h3>
+<ul>
+<li>不要在模板中遍历巨大的结果集</li>
+<li>检索的对象多大，是不是所有的对象在模板中都需要</li>
+<li>将逻辑处理移出循环，不要重复处理，拖慢循环处理。</li>
+</ul>
+<h3 id="在使用-cache-之前尝试优化重构你的代码">在使用 cache 之前，尝试优化，重构你的代码</h3>
+<h3 id="保持模板简单尽量少使用-js-或-filter-来处理数据这样会拖慢你的页面">保持模板简单，尽量少使用 js 或 filter 来处理数据，这样会拖慢你的页面</h3>
+<h3 id="不要在模板中的结果集中遍历查询对象">不要在模板中的结果集中遍历查询对象</h3>
+<p>Bad Example :</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">h2</span>&gt;Greenfelds Who Want Ice Cream&lt;/<span style="color:#f92672">h2</span>&gt;
+&lt;<span style="color:#f92672">ul</span>&gt;
+{% for voucher in voucher_list %}
+    {# Don&#39;t do this: conditional filtering in templates #}
+    {% if &#34;greenfeld&#34; in voucher.name.lower %}
+        &lt;<span style="color:#f92672">li</span>&gt;{{ voucher.name }}&lt;/<span style="color:#f92672">li</span>&gt;
+    {% endif %}
+{% endfor %}
+&lt;/<span style="color:#f92672">ul</span>&gt;
+&lt;<span style="color:#f92672">h2</span>&gt;Roys Who Want Ice Cream&lt;/<span style="color:#f92672">h2</span>&gt;
+&lt;<span style="color:#f92672">ul</span>&gt;
+{% for voucher in voucher_list %}
+    {# Don&#39;t do this: conditional filtering in templates #}
+    {% if &#34;roy&#34; in voucher.name.lower %}
+        &lt;<span style="color:#f92672">li</span>&gt;{{ voucher.name }}&lt;/<span style="color:#f92672">li</span>&gt;
+    {% endif %}
+{% endfor %}
+&lt;/<span style="color:#f92672">ul</span>&gt;
+
+
+</code></pre></div><p>Right Exemple:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># vouchers/views.py</span>
+<span style="color:#f92672">from</span> django.views.generic <span style="color:#f92672">import</span> TemplateView
+<span style="color:#f92672">from</span> .models <span style="color:#f92672">import</span> Voucher
+
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">GreenfeldRoyView</span>(TemplateView):
+    template_name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;vouchers/views_conditional.html&#34;</span>
+    
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">get_context_data</span>(self, <span style="color:#f92672">**</span>kwargs):
+        context <span style="color:#f92672">=</span> super(GreenfeldRoyView, self)<span style="color:#f92672">.</span>get_context_data(<span style="color:#f92672">**</span>kwargs)
+        context[<span style="color:#e6db74">&#34;greenfelds&#34;</span>] <span style="color:#f92672">=</span> \
+        Voucher<span style="color:#f92672">.</span>objects<span style="color:#f92672">.</span>filter(name__icontains<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;greenfeld&#34;</span>)
+        context[<span style="color:#e6db74">&#34;roys&#34;</span>] <span style="color:#f92672">=</span> Voucher<span style="color:#f92672">.</span>objects<span style="color:#f92672">.</span>filter(name__icontains<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;roy&#34;</span>)
+        <span style="color:#66d9ef">return</span> context
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">h2</span>&gt;Greenfelds Who Want Ice Cream&lt;/<span style="color:#f92672">h2</span>&gt;
+&lt;<span style="color:#f92672">ul</span>&gt;
+{% for voucher in greenfelds %}
+    &lt;<span style="color:#f92672">li</span>&gt;{{ voucher.name }}&lt;/<span style="color:#f92672">li</span>&gt;
+{% endfor %}
+&lt;/<span style="color:#f92672">ul</span>&gt;
+&lt;<span style="color:#f92672">h2</span>&gt;Roys Who Want Ice Cream&lt;/<span style="color:#f92672">h2</span>&gt;
+&lt;<span style="color:#f92672">ul</span>&gt;
+{% for voucher in roys %}
+    &lt;<span style="color:#f92672">li</span>&gt;{{ voucher.name }}&lt;/<span style="color:#f92672">li</span>&gt;
+{% endfor %}
+</code></pre></div><h3 id="不要在模板中隐含复杂的查询">不要在模板中隐含复杂的查询</h3>
+<p>Bad exemple:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">{# list generated via User.object.all() #}
+&lt;<span style="color:#f92672">h1</span>&gt;Ice Cream Fans and their favorite flavors.&lt;/<span style="color:#f92672">h1</span>&gt;
+&lt;<span style="color:#f92672">ul</span>&gt;
+{% for user in user_list %}
+    &lt;<span style="color:#f92672">li</span>&gt;
+    {{ user.name }}:
+    {# DON&#39;T DO THIS: Generated implicit query per user #}
+    {{ user.flavor.title }}
+    {# DON&#39;T DO THIS: Second implicit query per user!!! #}
+    {{ user.flavor.scoops_remaining }}
+    &lt;/<span style="color:#f92672">li</span>&gt;
+{% endfor %}
+&lt;/<span style="color:#f92672">ul</span>&gt;
+</code></pre></div><p>Right Exemple:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">{# 生成列表的时使用： User.object.all().select_related(&#34;flavors&#34;) #}
+
+&lt;<span style="color:#f92672">h1</span>&gt;Ice Cream Fans and their favorite flavors.&lt;/<span style="color:#f92672">h1</span>&gt;
+&lt;<span style="color:#f92672">ul</span>&gt;
+{% for user in user_list %}
+    &lt;<span style="color:#f92672">li</span>&gt;
+    {{ user.name }}:
+    {{ user.flavor.title }}
+    {{ user.flavor.scoops_remaining }}
+    &lt;/<span style="color:#f92672">li</span>&gt;
+{% endfor %}
+&lt;/<span style="color:#f92672">ul</span>&gt;
+</code></pre></div><h3 id="模板尽量避免加载导致cpu使用过高的对象">模板尽量避免加载导致cpu使用过高的对象</h3>
+<p>例如图片的加载，尽量使用模板外部的工具。</p>
+<p>详见：13.3.4 Gotcha 4: Hidden CPU Load in Templates</p>
+<h3 id="不要在模板中调用-rest-api">不要在模板中调用 rest api</h3>
+<p>当我们在模板中调用 rest api 时，注意：</p>
+<ul>
+<li>在js请求数据，加载时，你需要分散你客户的注意力。</li>
+<li>python 处理缓慢的进程方式更多：消息队列，多线程，多进程等。</li>
+</ul>
+<h2 id="使用缩进来使你的模板更加易读">使用缩进来使你的模板更加易读</h2>
+<h2 id="blocksuper-的使用来更好的使用继承特性">block.super 的使用,来更好的使用继承特性</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">{# simple base.html #}
+{% load staticfiles %}
+&lt;<span style="color:#f92672">html</span>&gt;
+&lt;<span style="color:#f92672">head</span>&gt;
+&lt;<span style="color:#f92672">title</span>&gt;
+    {% block title %}Two Scoops of Django{% endblock title %}
+&lt;/<span style="color:#f92672">title</span>&gt;
+    {% block stylesheets %}
+        &lt;<span style="color:#f92672">link</span> <span style="color:#a6e22e">rel</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;stylesheet&#34;</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/css&#34;</span>
+        <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{% static &#34;</span><span style="color:#a6e22e">css</span><span style="color:#960050;background-color:#1e0010">/</span><span style="color:#a6e22e">project</span><span style="color:#960050;background-color:#1e0010">.</span><span style="color:#a6e22e">css</span><span style="color:#960050;background-color:#1e0010">&#34;</span> <span style="color:#960050;background-color:#1e0010">%}&#34;</span>&gt;
+    {% endblock stylesheets %}
+&lt;/<span style="color:#f92672">head</span>&gt;
+&lt;<span style="color:#f92672">body</span>&gt;
+    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;content&#34;</span>&gt;
+        {% block content %}
+            &lt;<span style="color:#f92672">h1</span>&gt;Two Scoops&lt;/<span style="color:#f92672">h1</span>&gt;
+        {% endblock content %}
+    &lt;/<span style="color:#f92672">div</span>&gt;
+&lt;/<span style="color:#f92672">body</span>&gt;
+&lt;/<span style="color:#f92672">html</span>&gt;
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">{% extends &#34;base.html&#34; %}
+{% load staticfiles %}
+{% block title %}About Audrey and Daniel{% endblock title %}
+{% block stylesheets %}
+    {{ block.super }}
+    &lt;<span style="color:#f92672">link</span> <span style="color:#a6e22e">rel</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;stylesheet&#34;</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/css&#34;</span>
+    <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{% static &#34;</span><span style="color:#a6e22e">css</span><span style="color:#960050;background-color:#1e0010">/</span><span style="color:#a6e22e">about</span><span style="color:#960050;background-color:#1e0010">.</span><span style="color:#a6e22e">css</span><span style="color:#960050;background-color:#1e0010">&#34;</span> <span style="color:#960050;background-color:#1e0010">%}&#34;</span>&gt;
+{% endblock stylesheets %}
+{% block content %}
+    {{ block.super }}
+    &lt;<span style="color:#f92672">h2</span>&gt;About Audrey and Daniel&lt;/<span style="color:#f92672">h2</span>&gt;
+    &lt;<span style="color:#f92672">p</span>&gt;They enjoy eating ice cream&lt;/<span style="color:#f92672">p</span>&gt;
+{% endblock content %}
+</code></pre></div><h2 id="一些有用的技巧">一些有用的技巧</h2>
+<h3 id="样式的控制和-python的要松耦合">样式的控制和 python的要松耦合</h3>
+<h3 id="一些通用的约定">一些通用的约定</h3>
+<ul>
+<li>
+<p>使用下划线来命名模板名称，block 名称。</p>
+</li>
+<li>
+<p>block 的名字要清晰，如{% block javascript %}`</p>
+</li>
+<li>
+<p>在 block 结束时，也要写上名称，如 <code>{% endblock javascript %}</code>.</p>
+</li>
+</ul>
+<h3 id="使用具体的-model-对象名来命名模板对象列表">使用具体的 model 对象名来命名模板对象列表</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">{# toppings/topping_list.html #}
+{# Using implicit names #}
+&lt;<span style="color:#f92672">ol</span>&gt;
+    {% for object in object_list %}
+        &lt;<span style="color:#f92672">li</span>&gt;{{ object }} &lt;/<span style="color:#f92672">li</span>&gt;
+    {% endfor %}
+&lt;/<span style="color:#f92672">ol</span>&gt;
+
+{# Using explicit names #}
+&lt;<span style="color:#f92672">ol</span>&gt;
+    {% for topping in topping_list %}
+        &lt;<span style="color:#f92672">li</span>&gt;{{ topping }} &lt;/<span style="color:#f92672">li</span>&gt;
+    {% endfor %}
+&lt;/<span style="color:#f92672">ol</span>&gt;
+
+</code></pre></div><h3 id="使用-url-名字来代替硬编码的url">使用 url 名字来代替硬编码的url</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">Bad exemple:
+&lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/flavors/&#34;</span>&gt;
+
+Right exemple:
+&lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{% url &#39;flavors_list&#39; %}&#34;</span>&gt;
+</code></pre></div><h3 id="debug-的时候可以开启页面详细错误">debug 的时候可以开启，页面详细错误</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># settings/local.py</span>
+TEMPLATES <span style="color:#f92672">=</span> [{
+        <span style="color:#e6db74">&#39;BACKEND&#39;</span>: <span style="color:#e6db74">&#39;django.template.backends.django.DjangoTemplates&#39;</span>,
+        <span style="color:#e6db74">&#39;APP_DIRS&#39;</span>: True,
+        <span style="color:#e6db74">&#39;OPTIONS&#39;</span>:
+        <span style="color:#e6db74">&#39;string_if_invalid&#39;</span>: <span style="color:#e6db74">&#39;INVALID EXPRESSION: </span><span style="color:#e6db74">%s</span><span style="color:#e6db74">&#39;</span>
+    },
+]
+</code></pre></div><h2 id="错误模板的设置">错误模板的设置</h2>
+<p>在生产环境中，一定要设置错误页面，但不要过使页面复杂。</p>
+<h1 id="第十四章-模板的-tags-和-filters">第十四章 模板的 tags 和 filters</h1>
+<h2 id="filter-什么时候使用">filter 什么时候使用</h2>
+<ul>
+<li>格式化模板中数据</li>
+<li>rest api 中数据的格式化</li>
+</ul>
+<h2 id="自定义-tags">自定义 tags</h2>
+<p>尽量书写少的tags ：</p>
+<ul>
+<li>tags 比较难调试</li>
+<li>使代码不容易重用</li>
+<li>性能消耗比较大</li>
+</ul>
+<h2 id="命名-tags-类库">命名 tags 类库</h2>
+<p><!-- raw HTML omitted --> tags.py</p>
+<h2 id="在-template-页面中加载-tags">在 template 页面中加载 tags</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">{% extends &#34;base.html&#34; %}
+{% load flavors_tags %}
+
+# Don&#39;t use this code!
+# It&#39;s an evil anti-pattern!
+from django import template
+template.add_to_builtins(
+    &#34;flavors.templatetags.flavors_tags&#34;
+)
+</code></pre></div><h1 id="第十五章-django-模板dtl-和-jinja2">第十五章 Django 模板（DTL） 和 jinja2</h1>
+<h2 id="不同之处">不同之处</h2>
+<p><img src="/static/imgs/df.png" alt=""></p>
+<h2 id="我们应该如何选择">我们应该如何选择</h2>
+<h3 id="dtl-的优点">DTL 的优点</h3>
+<ul>
+<li>django 的所有官方文档使用 DTL，便于理解。</li>
+<li>django + DTL 的组合更成熟。</li>
+<li>大多数的django 三方包使用的是 DTL。</li>
+<li>转化 DTL到jinja2需要大量的工作。</li>
+</ul>
+<h3 id="jinjia2-的优点">jinjia2 的优点</h3>
+<ul>
+<li>在django中可以被单独使用。</li>
+<li>jinja2 的语法更接近 python的语法。</li>
+<li>jinja2 更明确，例如函数的调用带有括号。</li>
+<li>jinja2 有更少的限制，例如可以给一个filter传递无限个参数。而DTL 只能传一个。</li>
+<li>jinja2 渲染更快。</li>
+</ul>
+<h3 id="如何选择">如何选择</h3>
+<ul>
+<li>新手建议使用 DTL</li>
+<li>页面简单的使用 DTL ，复杂的使用 jinja2</li>
+<li>一个项目中，我们可以2个都使用。一个作为主要的模板，另一个为辅。</li>
+</ul>
+<h2 id="jinja2-部分使用举例">jinja2 部分使用举例</h2>
+<h3 id="csrf">CSRF</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">style</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;display:none&#34;</span>&gt;
+&lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;hidden&#34;</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;csrfmiddlewaretoken&#34;</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{{ csrf_token }}&#34;</span>&gt;
+&lt;/<span style="color:#f92672">div</span>&gt;
+</code></pre></div><h3 id="jinja2-无法使用-自定义-tags的">jinja2 无法使用 自定义 tags的</h3>
+<h3 id="jinja2-中使用-django-style-的--filter">jinja2 中使用 django-style 的  filter</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># core/jinja2.py</span>
+<span style="color:#f92672">from</span> __future__ <span style="color:#f92672">import</span> absolute_import <span style="color:#75715e"># Python 2 only</span>
+<span style="color:#f92672">from</span> django.contrib.staticfiles.storage <span style="color:#f92672">import</span> staticfiles_storage
+<span style="color:#f92672">from</span> django.core.urlresolvers <span style="color:#f92672">import</span> reverse
+<span style="color:#f92672">from</span> django.template <span style="color:#f92672">import</span> defaultfilters
+
+<span style="color:#f92672">from</span> jinja2 <span style="color:#f92672">import</span> Environment
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">environment</span>(<span style="color:#f92672">**</span>options):
+    env <span style="color:#f92672">=</span> Environment(<span style="color:#f92672">**</span>options)
+    env<span style="color:#f92672">.</span>globals<span style="color:#f92672">.</span>update({
+    <span style="color:#e6db74">&#39;static&#39;</span>: staticfiles_storage<span style="color:#f92672">.</span>url,
+    <span style="color:#e6db74">&#39;url&#39;</span>: reverse,
+    <span style="color:#e6db74">&#39;dj&#39;</span>: defaultfilters
+    })
+    <span style="color:#66d9ef">return</span> env
+
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">table</span>&gt;&lt;<span style="color:#f92672">tbody</span>&gt;
+{% for purchase in purchase_list %}
+    &lt;<span style="color:#f92672">tr</span>&gt;
+    &lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{{ url(&#34;</span><span style="color:#a6e22e">purchase:detail</span><span style="color:#960050;background-color:#1e0010">&#34;,</span> <span style="color:#a6e22e">pk</span><span style="color:#f92672">=</span><span style="color:#e6db74">purchase.pk)</span> <span style="color:#960050;background-color:#1e0010">}}&#34;</span>&gt;
+        {{ purchase.title }}
+    &lt;/<span style="color:#f92672">a</span>&gt;
+    &lt;/<span style="color:#f92672">tr</span>&gt;
+    &lt;<span style="color:#f92672">tr</span>&gt;{{ dj.date(purchase.created, &#34;SHORT_DATE_FORMAT&#34;) }}&lt;/<span style="color:#f92672">tr</span>&gt;
+    &lt;<span style="color:#f92672">tr</span>&gt;{{ dj.floatformat(purchase.amount, 2) }}&lt;/<span style="color:#f92672">tr</span>&gt;
+{% endfor %}
+&lt;/<span style="color:#f92672">tbody</span>&gt;&lt;/<span style="color:#f92672">table</span>&gt;
+</code></pre></div><h3 id="上下文-context-不能在-jinja2-中使用">上下文 context 不能在 jinja2 中使用</h3>
+<p>我们可以自定义中间件</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># advertisements/middleware.py</span>
+<span style="color:#f92672">import</span> random
+<span style="color:#f92672">from</span> advertisements.models <span style="color:#f92672">import</span> Advertisement <span style="color:#66d9ef">as</span> Ad
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">AdvertisementMiddleware</span>(object):
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">process_request</span>(request):
+        count <span style="color:#f92672">=</span> Advertisement<span style="color:#f92672">.</span>objects<span style="color:#f92672">.</span>filter(subject<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;ice-cream&#39;</span>)<span style="color:#f92672">.</span>count()
+        ads <span style="color:#f92672">=</span> Advertisement<span style="color:#f92672">.</span>objects<span style="color:#f92672">.</span>filter(subject<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;ice-cream&#39;</span>)
+        <span style="color:#75715e"># If necessary, add a context variable to the request object.</span>
+        <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> hasattr(request, <span style="color:#e6db74">&#39;context&#39;</span>):
+        request<span style="color:#f92672">.</span>context <span style="color:#f92672">=</span> {}
+        <span style="color:#75715e"># Don&#39;t overwrite the context, instead we build on it.</span>
+        request<span style="color:#f92672">.</span>context<span style="color:#f92672">.</span>update({<span style="color:#e6db74">&#39;ad&#39;</span>: ads[random<span style="color:#f92672">.</span>randrange(<span style="color:#ae81ff">0</span>, count)]})
+
+<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">!</span><span style="color:#f92672">--</span> base<span style="color:#f92672">.</span>html <span style="color:#f92672">--&gt;</span>
+{<span style="color:#f92672">%</span> set ctx <span style="color:#f92672">=</span> request<span style="color:#f92672">.</span>context <span style="color:#f92672">%</span>}
+<span style="color:#f92672">...</span>
+<span style="color:#f92672">&lt;</span>div class<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;ice-cream-advertisement&#34;</span><span style="color:#f92672">&gt;</span>
+    <span style="color:#f92672">&lt;</span>a href<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{{ ctx.ad.url }}&#34;</span><span style="color:#f92672">&gt;</span>
+        <span style="color:#f92672">&lt;</span>img src<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;ctx.ad.image.url&#34;</span> <span style="color:#f92672">/&gt;</span>
+    <span style="color:#f92672">&lt;/</span>a<span style="color:#f92672">&gt;</span>
+<span style="color:#f92672">&lt;/</span>div<span style="color:#f92672">&gt;</span>
+</code></pre></div>
+    </div>
+    <div class="article-footer">
+<blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://pylixm.top/posts/2016-07-02-best.practices.for.django.1.8.3rd-chapter-10.html" title="Django 最佳实践-读书笔记 - 第十三章 模板最佳实践" target="_blank" rel="external">https://pylixm.top/posts/2016-07-02-best.practices.for.django.1.8.3rd-chapter-10.html</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>许可协议：</strong>
+      <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN</a>
+    </li>
+  </ul>
+</blockquote>
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://pylixm.top" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="https://pylixm.top/static/imgs/avatar.png" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://pylixm.top" target="_blank"><span class="text-dark">DeanWu</span><small class="ml-1x">程序员</small></a></h3>
+        <div>努力成为真正的SRE</div>
+      </div>
+    </figure>
+  </div>
+</div>
+    </div>
+  </article>
+<section id="comments">
+    <div id="vcomments"></div>
+</section>
+
+</div><nav class="bar bar-footer clearfix" data-stick-bottom>
+    <div class="bar-inner">
+        <ul class="pager pull-left">
+            <li class="prev">
+                <a href="https://pylixm.top/posts/2016-06-26-best.practices.for.django.1.8.3rd-chapter-9.html" title="Django 最佳实践-读书笔记 - 第十一章、第十二章 Form"><i
+                        class="icon icon-angle-left"
+                        aria-hidden="true"></i><span>&nbsp;&nbsp;下一篇</span></a>
+            </li>
+            <li class="next">
+                <a href="https://pylixm.top/posts/2016-08-21-salt-plugin.html"
+                    title="Saltstack学习笔记-组件篇"><span>上一篇&nbsp;&nbsp;</span><i
+                        class="icon icon-angle-right" aria-hidden="true"></i></a>
+            </li>
+            
+            <li class="toggle-toc">
+                <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false"
+                    title="文章目录" role="button">
+                    <span>[&nbsp;</span><span>文章目录</span>
+                    <i class="text-collapsed icon icon-anchor"></i>
+                    <i class="text-in icon icon-close"></i>
+                    <span>]</span>
+                </a>
+            </li>
+        </ul>
+        <div class="bar-right">
+        </div>
+    </div>
+</nav>
+
+
+<script src="https://my.openwrite.cn/js/readmore.js" type="text/javascript"></script>
+<script>
+    const btw = new BTWPlugin();
+    btw.init({
+        id: 'article-container',
+        blogId: '24944-1607090547459-485',
+        name: '码农吴先生',
+        qrcode: 'https://gitee.com/pylixm/picture/raw/master/2020-12-4/1607089812769-image.png',
+        keyword: 'vip',
+    });
+</script>
+</main><footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+<ul class="social-links">
+    <li><a href="https://github.com/pylixm" target="_blank" title="github" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-github"></i></a></li>
+    <li><a href="https://pylixm.top/index.xml" target="_blank" title="rss" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-rss"></i></a></li>
+    <li><a href="http://weibo.com/2258086637" target="_blank" title="weibo" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-weibo"></i></a></li>
+</ul>
+  <div class="copyright">
+    &copy;2015  -
+    2020
+    <div class="publishby">
+      hugo驱动，Theme by <a href="https://github.com/xiaoheiAh/hugo-theme-pure" target="_blank"> pure</a>.
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_SVG"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+            showMathMenu: false, //disables context menu
+            tex2jax: {
+            inlineMath: [ ['$','$'], ['\\(','\\)'] ]
+           }
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+<script>
+    window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/highlight.min.js"></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/python.min.js" defer></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/javascript.min.js" defer></script><script>
+    hljs.configure({
+        tabReplace: '    ', 
+        classPrefix: ''     
+        
+    })
+    hljs.initHighlightingOnLoad();
+</script>
+<script src="https://pylixm.top/js/application.min.bdeb64b910570b6c41badc6a05b7afb0c8ad9efd8525de3c7257d59e786326a3.js"></script>
+<script src="https://pylixm.top/js/plugin.min.51ff8c7317566f82259170fa36e09c4493adc9b9378b427a01ad3f017ebac7dd.js"></script>
+
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(未命名)',
+            },
+            ROOT_URL: 'https:\/\/pylixm.top',
+            CONTENT_URL: 'https:\/\/pylixm.top\/searchindex.json ',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script type="text/javascript" src="https://pylixm.top/js/insight.min.a343cd9a5a7698336b28ef3a7c16a3a1b1d2d5fb17dc8ed04022bbe08cc5459073a15bdafa3a8a58cdd56080784bdd69fa70b1ae8597565c799c57ed00f0e120.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script>
+<script>
+    tocbot.init({
+        
+        tocSelector: '.js-toc',
+        
+        contentSelector: '.js-toc-content',
+        
+        headingSelector: 'h1, h2, h3',
+        
+        hasInnerContainers: true,
+    });
+</script>
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="https://cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine"></script>
+<script type="text/javascript">
+    var GUEST = ['nick', 'mail', 'link'];
+    var meta = 'nick,mail';
+    meta = meta.split(',').filter(function (item) {
+        return GUEST.indexOf(item) > -1;
+    });
+    new Valine({
+        el: '#vcomments',
+        verify: null ,
+        notify: null ,
+        appId: 'OBJcj4PU8JI0zDfu0HJSrG6W-gzGzoHsz',
+        appKey: 'tBtFzC72xIlgo2UFbA33nqmU',
+        placeholder: '来做第一个发言人吧',
+        avatar: 'mm',
+        meta: meta,
+        pageSize: '10' || 10,
+        visitor: false 
+});
+</script>
+
+  </body>
+</html>

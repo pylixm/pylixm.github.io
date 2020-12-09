@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>mac on DeanWu</title>
+    <link>https://pylixm.top/tags/mac/</link>
+    <description>Recent content in mac on DeanWu</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Thu, 02 Jul 2020 00:00:00 +0000</lastBuildDate>
+    
+        <atom:link href="https://pylixm.top/tags/mac/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>如何开技术方案选型会议</title>
+      <link>https://pylixm.top/posts/2017-03-04-How-to-meetting.html</link>
+      <pubDate>Sat, 04 Mar 2017 16:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2017-03-04-How-to-meetting.html</guid>
+      <description>前端时间有幸组织一个技术方案的选型会议，有些感悟总结如下： 会前的准备 会前的准备是非常必要的，可以是组织者做到心中有数。讨论方案时，更有针对性</description>
+    </item>
+    
+    <item>
+      <title>django signal 使用总结</title>
+      <link>https://pylixm.top/posts/2017-01-24-django-signal.html</link>
+      <pubDate>Tue, 24 Jan 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2017-01-24-django-signal.html</guid>
+      <description>最近在已经开发好的项目上加功能，想到了django的signal，整理记录如下备查。 什么是django的signal 官方文档描述如下： Django includes a</description>
+    </item>
+    
+    <item>
+      <title>2016 总结， 2017 计划</title>
+      <link>https://pylixm.top/posts/2017-01-03-summary_2017.html</link>
+      <pubDate>Tue, 03 Jan 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2017-01-03-summary_2017.html</guid>
+      <description>此时再看去年的总结，貌似完成的是少之又少。发现自己最大的问题是缺乏执行力，我想懒散应该是每个人最大的敌人了吧。 看了许多人的2016总结，自己</description>
+    </item>
+    
+    <item>
+      <title>Django restful framework 使用笔记 -- 踩坑记录</title>
+      <link>https://pylixm.top/posts/2016-11-30-Django-restfull-framework-gotcha.html</link>
+      <pubDate>Wed, 30 Nov 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-11-30-Django-restfull-framework-gotcha.html</guid>
+      <description>在使用django restful 时，遇到的几个不好发现的问题，记录如下备查。 一、 缓存问题 在系统与外部系统以http接口的方式做交互时，发现我们使用drf</description>
+    </item>
+    
+    <item>
+      <title>Linux基础系列 - SSH 原理与运用</title>
+      <link>https://pylixm.top/posts/2016-11-16-Linux-ssh-how-to-use.html</link>
+      <pubDate>Wed, 16 Nov 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-11-16-Linux-ssh-how-to-use.html</guid>
+      <description>一直对ssh的概念比较模糊，看到阮一峰大神的博客有说明，果断转来记录备查。 原文：阮一峰的网络日志 SSH是每一台Linux电脑的标准配置。 随着</description>
+    </item>
+    
+    <item>
+      <title>Vue.js 初尝试</title>
+      <link>https://pylixm.top/posts/2016-11-16-vue-first.html</link>
+      <pubDate>Wed, 16 Nov 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-11-16-vue-first.html</guid>
+      <description>最近看了阮一峰的全站培训教材这里，感叹现如今前端发展之迅猛。 今天特尝试了下 Vue（2.0） 框架，记录如下备查。 一、基本概念 1.1 Vue Vue.js 。它提供了 MVVM</description>
+    </item>
+    
+    <item>
+      <title>转-saltstack 中Grains 与pillar的区别</title>
+      <link>https://pylixm.top/posts/2016-09-04-salt-grains-pillar.html</link>
+      <pubDate>Sun, 04 Sep 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-09-04-salt-grains-pillar.html</guid>
+      <description>原文地址：http://www.aikaiyuan.com/9728.html grains类似于puppet的facter！facter是用</description>
+    </item>
+    
+    <item>
+      <title>Saltstack学习笔记-组件篇</title>
+      <link>https://pylixm.top/posts/2016-08-21-salt-plugin.html</link>
+      <pubDate>Sun, 21 Aug 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-08-21-salt-plugin.html</guid>
+      <description>saltstack 架构 saltstack 是基于python开发的一套 c/s架构配置管理工具。底层使用ZeraMQ消息队列的发布与订阅（pub/sub）方式通信，使用SSL证</description>
+    </item>
+    
+    <item>
+      <title>Django 最佳实践-读书笔记 - 第十三章 模板最佳实践</title>
+      <link>https://pylixm.top/posts/2016-07-02-best.practices.for.django.1.8.3rd-chapter-10.html</link>
+      <pubDate>Sat, 02 Jul 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-07-02-best.practices.for.django.1.8.3rd-chapter-10.html</guid>
+      <description>其他章节索引页 笔记以要点形式展开，如有疑问欢迎留言！ 第十三章 模板最佳实践 django 的模板的局限性，限制了我们将复杂的逻辑放在了 python 端，这何尝不是一件好</description>
+    </item>
+    
+    <item>
+      <title>Django 最佳实践-读书笔记 - 第十一章、第十二章 Form</title>
+      <link>https://pylixm.top/posts/2016-06-26-best.practices.for.django.1.8.3rd-chapter-9.html</link>
+      <pubDate>Sun, 26 Jun 2016 20:16:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-06-26-best.practices.for.django.1.8.3rd-chapter-9.html</guid>
+      <description>其他章节索引页 第十一章 Form 所有录入的数据使用form 来进行校验 面对复杂多变的需求，我们自行校验是比较困难的。将校验集中在form层，利用这久经</description>
+    </item>
+    
+    <item>
+      <title>Django 最佳实践-读书笔记 - 第八、九、十章 FBVS &amp; CBVS</title>
+      <link>https://pylixm.top/posts/2016-06-19-best.practices.for.django.1.8.3rd-chapter-8.html</link>
+      <pubDate>Sun, 19 Jun 2016 22:30:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-06-19-best.practices.for.django.1.8.3rd-chapter-8.html</guid>
+      <description>其他章节索引页 第八章 FBVS &amp;amp; CBVS 如何选择 function - views 和 class - views 见流程图： urlconf 中不要包含 views 的逻辑 Bad example : from django.conf.urls import url from django.views.generic import DetailView from tastings.models import Tasting urlpatterns = [ url(r&amp;quot;^(?P&amp;lt;pk&amp;gt;\d+)/$&amp;quot;, DetailView.as_view( model=Tasting, template_name=&amp;quot;tastings/detail.html&amp;quot;), name=&amp;quot;detail&amp;quot;), url(r&amp;quot;^(?P&amp;lt;pk&amp;gt;\d+)/results/$&amp;quot;, DetailView.as_view( model=Tasting, template_name=&amp;quot;tastings/results.html&amp;quot;), name=&amp;quot;results&amp;quot;), ] 优点</description>
+    </item>
+    
+    <item>
+      <title>Django 最佳实践-读书笔记 - 第七章 查询与数据库层</title>
+      <link>https://pylixm.top/posts/2016-06-19-best.practices.for.django.1.8.3rd-chapter-7.html</link>
+      <pubDate>Sun, 19 Jun 2016 22:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-06-19-best.practices.for.django.1.8.3rd-chapter-7.html</guid>
+      <description>其他章节索引页 第七章 查询与数据库层 查询单个对象时，使用 get_object_or_404() 注意，此函数仅在你的 views 中使用。切勿在 helper functions, forms, model methods or anything that is not a view or directly view related 使用。 在可能报错</description>
+    </item>
+    
+    <item>
+      <title>使用 pyenv &#43; virtualenv 打造多版本python开发环境</title>
+      <link>https://pylixm.top/posts/2016-06-19-virtualenv-install.html</link>
+      <pubDate>Sun, 19 Jun 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-06-19-virtualenv-install.html</guid>
+      <description>配置环境： CentOS release 6.8 pyenv 20160509 在工作开发中，一直使用 virtualenv 来管理python的包环境。很好的解决了不同项目使用不同python包的需求。对于多python</description>
+    </item>
+    
+    <item>
+      <title>mongodb 3.2 用户权限管理配置</title>
+      <link>https://pylixm.top/posts/2016-06-03-Mongodb-user-admin.html</link>
+      <pubDate>Fri, 03 Jun 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-06-03-Mongodb-user-admin.html</guid>
+      <description>使用mongodb 有段时间了，由于是在内网使用，便没有设置权限，一直是裸奔。 最近有时间，研究了下mongodb 3.2 的用户权限配置，网上有许多用</description>
+    </item>
+    
+    <item>
+      <title>Django 最佳实践-读书笔记 - 第一章 代码规范</title>
+      <link>https://pylixm.top/posts/2016-05-22-best.practices.for.django.1.8.3rd-chapter-1.html</link>
+      <pubDate>Sun, 22 May 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-05-22-best.practices.for.django.1.8.3rd-chapter-1.html</guid>
+      <description>其他章节索引页 核心理念 Keep It Simple, Stupid Fat Models, Utility Modules, Thin Views, Stupid Templates Start With Django by Default Be Familiar with Django&amp;rsquo;s Design Philosophies The Twelve-Factor App 第一章 代码规范 常规： 变量名，避免缩写 写出你的函数参数名 编写类和方法</description>
+    </item>
+    
+    <item>
+      <title>Django 最佳实践-读书笔记 - 第三章 如何布局 django 项目</title>
+      <link>https://pylixm.top/posts/2016-05-22-best.practices.for.django.1.8.3rd-chapter-3.html</link>
+      <pubDate>Sun, 22 May 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-05-22-best.practices.for.django.1.8.3rd-chapter-3.html</guid>
+      <description>其他章节索引页 第三章 如何布局 django 项目 建议布局 &amp;lt;repository_root&amp;gt;/ &amp;lt;django_project_root&amp;gt;/ &amp;lt;configuration_root&amp;gt;/ repository_root 本层放置文件： README.rst docs/ directory .gitignore requirements.txt django_project_root 本目录是django项目根目录 configuration_root django项目配置目录 icecreamratings_project/ .gitignore Makefile docs/</description>
+    </item>
+    
+    <item>
+      <title>Django 最佳实践-读书笔记 - 第二章  django 环境配置</title>
+      <link>https://pylixm.top/posts/2016-05-22-best.practices.for.django.1.8.3rd-chapter-2.html</link>
+      <pubDate>Sun, 22 May 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-05-22-best.practices.for.django.1.8.3rd-chapter-2.html</guid>
+      <description>其他章节索引页 第二章 django 环境配置 使用相同的数据库引擎配置 在不同的环境下使用不同的数据库，而希望其行为一致。这种做法是很危险的，会带来不可预知的</description>
+    </item>
+    
+    <item>
+      <title>Django 最佳实践-读书笔记 - 第五章 Settings 和 Requirements</title>
+      <link>https://pylixm.top/posts/2016-05-22-best.practices.for.django.1.8.3rd-chapter-5.html</link>
+      <pubDate>Sun, 22 May 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-05-22-best.practices.for.django.1.8.3rd-chapter-5.html</guid>
+      <description>其他章节索引页 第五章 Settings 和 Requirements 避免本地未受控的 settings 文件 代码维护困难 多人开发时，勿提交local settings 文件，造成配置混乱。 使用多分配置文件 settings/ __init__.py base.py local.py staging.py test.py production.py</description>
+    </item>
+    
+    <item>
+      <title>Django 最佳实践-读书笔记 - 第六章 model 最佳实践</title>
+      <link>https://pylixm.top/posts/2016-05-22-best.practices.for.django.1.8.3rd-chapter-6.html</link>
+      <pubDate>Sun, 22 May 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-05-22-best.practices.for.django.1.8.3rd-chapter-6.html</guid>
+      <description>其他章节索引页 第六章 model 最佳实践 当app的model过多时，拆分app 当app的model过多时，说明这个app的功能够大，此时就需要我们拆分</description>
+    </item>
+    
+    <item>
+      <title>Django 最佳实践-读书笔记 - 第四章 django app的设计</title>
+      <link>https://pylixm.top/posts/2016-05-22-best.practices.for.django.1.8.3rd-chapter-4.html</link>
+      <pubDate>Sun, 22 May 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-05-22-best.practices.for.django.1.8.3rd-chapter-4.html</guid>
+      <description>其他章节索引页 第四章 django app的设计 Django的 app 设计的黄金法则 each app should be tightly focused on its task. （每个 app 的功能任务尽量的独立分开，这样能更好的重用。） 如何</description>
+    </item>
+    
+  </channel>
+</rss>

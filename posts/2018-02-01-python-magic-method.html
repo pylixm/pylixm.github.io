@@ -1,0 +1,1241 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <title>
+        「Python Tips」- python 魔法方法 - DeanWu
+      </title>
+        <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    
+    <meta name="theme-color" content="#000000" />
+    
+    <meta http-equiv="window-target" content="_top" />
+    
+    
+    <meta name="description" content="本文参考 pycoder&amp;rsquo;s weekly 的文章，做了下python 魔术方法的使用总结，记录备查。 介绍 魔术方法，英文 Magic Methods。顾名思义，它的使用方式不同于一般py" />
+    <meta name="generator" content="Hugo 0.73.0 with theme pure" />
+    <title>「Python Tips」- python 魔法方法 - DeanWu</title>
+    
+    
+    <link rel="stylesheet" href="https://pylixm.top/css/style.min.f70e8e0df9ea6aeb37dac252b17ca98082073ff1663b24118baaaa84ee8ae7e8.css">
+    
+    <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.15.10/styles/github.min.css" async>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css" async>
+    <meta property="og:title" content="「Python Tips」- python 魔法方法" />
+<meta property="og:description" content="本文参考 pycoder&rsquo;s weekly 的文章，做了下python 魔术方法的使用总结，记录备查。 介绍 魔术方法，英文 Magic Methods。顾名思义，它的使用方式不同于一般py" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://pylixm.top/posts/2018-02-01-python-magic-method.html" />
+<meta property="article:published_time" content="2018-02-01T00:00:00+00:00" />
+<meta property="article:modified_time" content="2018-02-01T00:00:00+00:00" /><meta property="og:see_also" content="https://pylixm.top/posts/2020-10-21-python-string.html" /><meta property="og:see_also" content="https://pylixm.top/posts/2020-10-18-namedtuple.html" /><meta property="og:see_also" content="https://pylixm.top/posts/2020-08-05-10-One-liners.html" /><meta property="og:see_also" content="https://pylixm.top/posts/2020-07-02-python-uninstall-for-mac.html" /><meta property="og:see_also" content="https://pylixm.top/posts/2018-02-02-python-pickle.html" />
+
+<meta itemprop="name" content="「Python Tips」- python 魔法方法">
+<meta itemprop="description" content="本文参考 pycoder&rsquo;s weekly 的文章，做了下python 魔术方法的使用总结，记录备查。 介绍 魔术方法，英文 Magic Methods。顾名思义，它的使用方式不同于一般py">
+<meta itemprop="datePublished" content="2018-02-01T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2018-02-01T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="5314">
+
+
+
+<meta itemprop="keywords" content="Python,Magic Method," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="「Python Tips」- python 魔法方法"/>
+<meta name="twitter:description" content="本文参考 pycoder&rsquo;s weekly 的文章，做了下python 魔术方法的使用总结，记录备查。 介绍 魔术方法，英文 Magic Methods。顾名思义，它的使用方式不同于一般py"/>
+
+    <!--[if lte IE 9]>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+      <![endif]-->
+
+    <!--[if lt IE 9]>
+        <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+      <![endif]-->
+  </head>
+
+  
+  
+
+  <body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage"><header class="header" itemscope itemtype="http://schema.org/WPHeader">
+    <div class="slimContent">
+      <div class="navbar-header">
+        <div class="profile-block text-center">
+          <a id="avatar" href="https://pylixm.top" target="_blank">
+            <img class="img-circle img-rotate" src="https://pylixm.top/static/imgs/avatar.png" width="200" height="200">
+          </a>
+          <h2 id="name" class="hidden-xs hidden-sm">DeanWu</h2>
+          <h3 id="title" class="hidden-xs hidden-sm hidden-md">程序员</h3>
+          <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i>Beijing, China</small>
+        </div><div class="search" id="search-form-wrap">
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i
+                        class="icon icon-search"></i></button>
+            </span>
+        </div>
+        <div class="ins-search">
+            <div class="ins-search-mask"></div>
+            <div class="ins-search-container">
+                <div class="ins-input-wrapper">
+                    <input type="text" class="ins-search-input" placeholder="想要查找什么..."
+                        x-webkit-speech />
+                    <button type="button" class="close ins-close ins-selectable" data-dismiss="modal"
+                        aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="ins-section-wrapper">
+                    <div class="ins-section-container"></div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+        <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+        <ul class="nav navbar-nav main-nav">
+            <li class="menu-item menu-item-home">
+                <a href="/">
+                    <i class="icon icon-home-fill"></i>
+                  <span class="menu-title">首页</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-series">
+                <a href="/series/">
+                    <i class="icon icon-folder"></i>
+                  <span class="menu-title">专题</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-repository">
+                <a href="/project/">
+                    <i class="icon icon-project"></i>
+                  <span class="menu-title">项目</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-archives">
+                <a href="/posts/">
+                    <i class="icon icon-archives-fill"></i>
+                  <span class="menu-title">归档</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-about">
+                <a href="/about/">
+                    <i class="icon icon-cup-fill"></i>
+                  <span class="menu-title">关于</span>
+                </a>
+            </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+<aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content"><div>欢迎关注微信公众号「码农吴先生」：专注python/golang/devops等技术的学习经验及资源分享！</br>回复关键字：go或python 获取我收集的资料，也可回复关键字：小二，加我wx，一块聊技术，聊人生~  </br><img src="/static/imgs/wx/wx_gzh.png" width="140" height="140"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+      
+<div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+        <ul class="recent-post-list list-unstyled no-thumbnail">
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2020-12-08-django-async-views-example.html" class="title">Django 三个异步使用的案例</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-12-08 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-08</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2020-12-05-go-from-python-structure-base.html" class="title">「对比Python学习Go」- 基本数据结构</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-12-05 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-05</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2020-12-03-go-from-python-start.html" class="title">「对比Python学习Go」- 环境篇</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-12-03 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-03</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2020-12-02-go-from-python-intro.html" class="title">「对比Python学习Go」- 开篇</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-12-02 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-02</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2020-12-01-for-range-point.html" class="title">「Go Tips」for range 遍历时变量取值的问题分析</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-12-01 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-01</time>
+                    </p>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+      <div class="widget">
+    <h3 class="widget-title"> 分类</h3>
+    <div class="widget-body">
+        <ul class="category-list">
+            <li class="category-list-item"><a href="https://pylixm.top/categories/ATS/" class="category-list-link">ATS</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/DevOps/" class="category-list-link">DevOps</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Devlopment-Demo/" class="category-list-link">Devlopment-Demo</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Django/" class="category-list-link">Django</a><span class="category-list-count">39</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Docker/" class="category-list-link">Docker</a><span class="category-list-count">4</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Flask/" class="category-list-link">Flask</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Git/" class="category-list-link">Git</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Golang/" class="category-list-link">Golang</a><span class="category-list-count">12</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/HTTPS/" class="category-list-link">HTTPS</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Javascript/" class="category-list-link">Javascript</a><span class="category-list-count">3</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Kubernetes/" class="category-list-link">Kubernetes</a><span class="category-list-count">4</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/LVS/" class="category-list-link">LVS</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Linux/" class="category-list-link">Linux</a><span class="category-list-count">15</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Mongodb/" class="category-list-link">Mongodb</a><span class="category-list-count">3</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Mysql/" class="category-list-link">Mysql</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/NoSQL/" class="category-list-link">NoSQL</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/PostgreSQL/" class="category-list-link">PostgreSQL</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Puppet/" class="category-list-link">Puppet</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Python/" class="category-list-link">Python</a><span class="category-list-count">19</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/QA/" class="category-list-link">QA</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Rabbitmq/" class="category-list-link">Rabbitmq</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Restful/" class="category-list-link">Restful</a><span class="category-list-count">6</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/SaltStack/" class="category-list-link">SaltStack</a><span class="category-list-count">7</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Software_Architect/" class="category-list-link">Software_Architect</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Supervisor/" class="category-list-link">Supervisor</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Tornado/" class="category-list-link">Tornado</a><span class="category-list-count">3</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Vagrant/" class="category-list-link">Vagrant</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Vue/" class="category-list-link">Vue</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/kafka/" class="category-list-link">kafka</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/zookeeper/" class="category-list-link">zookeeper</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E4%B8%AA%E4%BA%BA%E7%AE%A1%E7%90%86/" class="category-list-link">个人管理</a><span class="category-list-count">5</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB/" class="category-list-link">前后端分离</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" class="category-list-link">数据结构与算法</a><span class="category-list-count">13</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E6%9C%9D%E8%8A%B1%E5%A4%95%E6%8B%BE/" class="category-list-link">朝花夕拾</a><span class="category-list-count">10</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" class="category-list-link">机器学习</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" class="category-list-link">环境搭建</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E7%A8%8B%E5%BA%8F%E5%91%98%E8%87%AA%E6%88%91%E4%BF%AE%E5%85%BB/" class="category-list-link">程序员自我修养</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E8%B5%84%E6%BA%90%E5%88%86%E4%BA%AB%E8%AE%A1%E5%88%92/" class="category-list-link">资源分享计划</a><span class="category-list-count">10</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E8%BF%90%E7%BB%B4%E7%9F%A5%E8%AF%86%E5%BA%93/" class="category-list-link">运维知识库</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86/" class="category-list-link">项目管理</a><span class="category-list-count">1</span></li>
+        </ul>
+    </div>
+</div>
+  </div>
+</aside>
+
+    
+    
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <h4 class="toc-title">文章目录</h4>
+    <nav id="toc" class="js-toc toc">
+
+    </nav>
+  </div>
+</aside>
+<main class="main" role="main"><div class="content">
+  
+  <article id="article-container" class="article article-type-" itemscope
+    itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      <h1 itemprop="name">
+  <a
+    class="article-title"
+    href="/posts/2018-02-01-python-magic-method.html"
+    >「Python Tips」- python 魔法方法</a
+  >
+</h1>
+
+      <div class="article-meta">
+        
+<span class="article-date">
+  <i class="icon icon-calendar-check"></i>&nbsp;
+<a href="https://pylixm.top/posts/2018-02-01-python-magic-method.html" class="article-date">
+  <time datetime="2018-02-01 00:00:00 &#43;0000 UTC" itemprop="datePublished">2018-02-01</time>
+</a>
+</span>
+<span class="article-category">
+  <i class="icon icon-folder"></i>&nbsp;
+  <a class="article-category-link" href="/categories/Python/"> Python </a>
+</span>  
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>&nbsp;
+    <a class="article-tag-link" href="/tags/Python/"> Python </a>
+    <a class="article-tag-link" href="/tags/Magic-Method/"> Magic Method </a>
+  </span>
+
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+        <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="/posts/2018-02-01-python-magic-method.html#comments"
+            class="article-comment-link">评论</a></span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 5314字</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 11分 </span>
+      </div>
+    </div>
+    <div class="article-entry marked-body js-toc-content" itemprop="articleBody">
+      <p>本文参考 pycoder&rsquo;s weekly 的文章，做了下python 魔术方法的使用总结，记录备查。</p>
+<h2 id="介绍">介绍</h2>
+<p>魔术方法，英文 Magic Methods。顾名思义，它的使用方式不同于一般python方法的使用，它们的使用显得让人捉摸不透，就像魔法一样。在某些场景下python会隐式的调用相应的魔术方法，来完成对应的功能。我们可以重新这些方法来实现与python内建类型相同的对象，或改变python内建类型的相关行为。</p>
+<p>魔术方法，通常以双下划线包围，例如我们最熟悉的 <code>__init__</code> 就是一个魔术方法。</p>
+<!-- raw HTML omitted -->
+<p><strong>扩展：python 下划线</strong></p>
+<ul>
+<li>单下划线开头（例：_test）: 为符合编码惯例，通常认为是私有变量，无法使用 <code>from &lt;模块&gt; import *</code> 引入，除非在 <code>__all__</code>中包含了。类及实例均可访问。</li>
+<li>双下划线开头，例: __test : 类的私有属性, 只有类及其方法内可以访问。</li>
+<li>前后双下划线：python 内置函数，如魔法函数 <code>__init__</code></li>
+</ul>
+<p>下面分类别记录下python中的魔术方法，方便使用备查。</p>
+<h2 id="常用魔术方法">常用魔术方法</h2>
+<h3 id="类初始化">类初始化</h3>
+<ul>
+<li>
+<p><code>__new__</code> 类初始化时执行，在 <code>__init__</code> 函数之前,它的第一个参数是这个类，其他的参数是用来直接传递给 <strong>init</strong> 方法。详解，<a href="https://www.python.org/download/releases/2.2/descrintro/#__new__">python文档</a></p>
+</li>
+<li>
+<p><code>__init__</code> 类的初始化方法。new 和 init 可以理解为构造函数。</p>
+</li>
+<li>
+<p><code>__del__</code> 析构器，它不实现语句 del x ，定义的是当一个对象进行垃圾回收时候的行为。</p>
+</li>
+</ul>
+<p><strong>new vs init</strong></p>
+<ul>
+<li><code>__new__</code>是用来创建类并返回这个类的实例, 而<code>__init__</code>只是将传入的参数来初始化该实例.</li>
+<li><code>__new__</code>在创建一个实例的过程中必定会被调用,但<code>__init__</code>就不一定，比如通过pickle.load的方式反序列化一个实例时就不会调用<code>__init__</code>。</li>
+<li><code>__new__</code>方法总是需要返回该类的一个实例，而<code>__init__</code>不能返回除了None的任何值。</li>
+</ul>
+<h3 id="类的表现">类的表现</h3>
+<ul>
+<li><code>__str__</code> 定义当 str() 调用的时候的返回值。</li>
+<li><code>__repr__</code> 定义 repr() 被调用的时候的返回值, str() 和 repr() 的主要区别在于 repr() 返回的是机器可读的输出，而 str() 返回的是人类可读的。</li>
+<li><code>__unicode__(self)</code> 定义当 unicode() 调用的时候的返回值, unicode() 和 str() 很相似，但是返回的是unicode字符串</li>
+<li><code>__hash__(self)</code> 定义当 hash() 调用的时候的返回值,它返回一个整形。</li>
+</ul>
+<h3 id="属性控制访问">属性控制访问</h3>
+<ul>
+<li><code>__getarr__(self, name)</code> 你可以定义当用户试图获取一个不存在的属性时的行为 这适用于对普通拼写错误的获取和重定向，对获取一些不建议的属性时候给出警告(如果你愿意你也可以计算并且给出一个值)或者处理一个 AttributeError</li>
+<li><code>__setatt__(self, name, value)</code> 定义了你对属性进行赋值和修改操作时的行为, 避免&quot;无限递归&quot;的错误</li>
+<li><code>__delattr__(self, name)</code> 定义了删除属性时的行为</li>
+<li><code>__getattribute__(self, name)</code> 定义了你的属性被访问时的行为，同样要避免&quot;无限递归&quot;的错误。需要提醒的是，最好不要尝试去实现<code>__getattribute__</code>,因为很少见到这种做法，而且很容易出bug</li>
+</ul>
+<h3 id="容器类">容器类</h3>
+<ul>
+<li><code>__len__(self)</code> 需要返回数值类型，以表示容器的长度。该方法在可变容器和不可变容器中必须实现。</li>
+<li><code>__getitem__(self, key)</code> 当你执行self[key]的时候，调用的就是该方法。该方法在可变容器和不可变容器中也都必须实现。调用的时候,如果key的类型错误，该方法应该抛出TypeError；如果没法返回key对应的数值时,该方法应该抛出ValueError。</li>
+<li><code>__setitem__(self, key, value)</code> 当你执行self[key] = value时，调用的是该方法。</li>
+<li><code>__delitem__(self, key)</code> 当你执行del self[key]的时候，调用的是该方法。</li>
+<li><code>__iter__(self)</code> 该方法需要返回一个迭代器(iterator)。当你执行for x in container: 或者使用iter(container)时，该方法被调用。</li>
+<li><code>__reversed__(self)</code> 如果想要该数据结构被內建函数reversed()支持,就还需要实现该方法。</li>
+<li><code>__contains__(self, item)</code> 如果定义了该方法，那么在执行item in container 或者 item not in container时该方法就会被调用。如果没有定义，那么Python会迭代容器中的元素来一个一个比较，从而决定返回True或者False。</li>
+<li><code>__missing__(self, key)</code> dict字典类型会有该方法，它定义了key如果在容器中找不到时触发的行为。比如d = {&lsquo;a&rsquo;: 1}, 当你执行d[notexist]时，d.<strong>missing</strong>[&lsquo;notexist&rsquo;]就会被调用。</li>
+<li><code>__concat__(self, other) </code> 来定义当用其他的来连接两个序列时候的行为, 当 + 操作符被调用时候会返回一个 self 和 other.<strong>concat</strong> 被调用后的结果产生的新序列。</li>
+</ul>
+<h3 id="调用对象">调用对象</h3>
+<ul>
+<li><code>__call__(self, [args...])</code> 允许一个类的实例像函数一样被调用。在那些类的实例经常改变状态的时候会非常有效。调用这个实例是一种改变这个对象状态的直接和优雅的做法</li>
+</ul>
+<h3 id="回话管理">回话管理</h3>
+<ul>
+<li><code>__enter__(self)</code> 定义当使用 with 语句的时候会话管理器应该初始块被创建的时候的行为.返回值被 with 语句的目标或者 as 后的名字绑定;</li>
+<li><code> __exit__(self, exception_type, exception_value, traceback)</code> 定义当一个代码块被执行或者终止后会话管理器应该做什么,它可以被用来处理异常，清除工作或者做一些代码块执行完毕之后的日常工作;如果代码块执行成功， exception_type , exception_value , 和 traceback 将会是 None 。否则的话你可以选择处理这个异常或者是直接交给用户处理。如果你想处理这个异常的话，确认 <strong>exit</strong> 在所有结束之后会返回 True 。</li>
+</ul>
+<h3 id="描述器">描述器</h3>
+<p>描述器对象不能独立存在, 它需要被另一个所有者类所持有。描述器对象可以访问到其拥有者实例的属性，在面向对象编程时，如果一个类的属性有相互依赖的关系时，使用描述器来编写代码可以很巧妙的组织逻辑。
+如 Django的ORM中, models.Model中的InterField等字段, 就是通过描述器来实现功能的。</p>
+<p>为了构建一个描述器，一个类必须有至少 <strong>get</strong> 或者 <strong>set</strong> 其中一个，并且 <strong>delete</strong> 被实现。</p>
+<ul>
+<li><code>__get__(self, instance, owner)</code> 参数instance是拥有者类的实例。参数owner是拥有者类本身。__get__在其拥有者对其读值的时候调用。</li>
+<li><code>__set__(self, instance, value)</code> 在其拥有者对其进行修改值的时候调用。</li>
+<li><code>__delete__(self, instance)</code> 在其拥有者对其进行删除的时候调用。</li>
+</ul>
+<h2 id="代码实例">代码实例</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># -*- coding:utf-8 -*-</span>
+<span style="color:#f92672">from</span> os.path <span style="color:#f92672">import</span> join
+
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">FileObject</span>(object):
+    <span style="color:#e6db74">&#34;&#34;&#34;给文件对象进行包装从而确认在删除时文件流关闭&#34;&#34;&#34;</span>
+
+    <span style="color:#66d9ef">def</span> __init__(self, filepath<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;&#39;</span>, filename<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;sample.txt&#39;</span>):
+        <span style="color:#75715e"># 读写模式打开一个文件</span>
+        self<span style="color:#f92672">.</span>file <span style="color:#f92672">=</span> open(join(filepath, filename), <span style="color:#e6db74">&#39;r+&#39;</span>)
+        <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;打开文件&#34;</span>)
+
+    <span style="color:#66d9ef">def</span> __del__(self):
+        self<span style="color:#f92672">.</span>file<span style="color:#f92672">.</span>close()
+        <span style="color:#66d9ef">del</span> self<span style="color:#f92672">.</span>file
+        <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#39;销毁文件&#39;</span>)
+
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Word</span>(str):
+    <span style="color:#e6db74">&#34;&#34;&#34;存储单词的类，定义比较单词的几种方法&#34;&#34;&#34;</span>
+
+    <span style="color:#66d9ef">def</span> __new__(cls, word):
+        <span style="color:#75715e"># 注意我们必须要用到__new__方法，因为str是不可变类型</span>
+        <span style="color:#75715e"># 所以我们必须在创建的时候将它初始化</span>
+        <span style="color:#66d9ef">if</span> <span style="color:#e6db74">&#39; &#39;</span> <span style="color:#f92672">in</span> word:
+            <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;Value contains spaces. Truncating to first space.&#34;</span>)
+            word <span style="color:#f92672">=</span> word[:word<span style="color:#f92672">.</span>index(<span style="color:#e6db74">&#39; &#39;</span>)]  <span style="color:#75715e"># 单词是第一个空格之前的所有字符</span>
+        <span style="color:#66d9ef">return</span> str<span style="color:#f92672">.</span>__new__(cls, word)
+
+    <span style="color:#66d9ef">def</span> __init__(self, word):
+        self<span style="color:#f92672">.</span>word <span style="color:#f92672">=</span> word
+
+    <span style="color:#66d9ef">def</span> __gt__(self, other):
+        <span style="color:#66d9ef">return</span> len(self) <span style="color:#f92672">&gt;</span> len(other)
+
+    <span style="color:#66d9ef">def</span> __lt__(self, other):
+        <span style="color:#66d9ef">return</span> len(self) <span style="color:#f92672">&lt;</span> len(other)
+
+    <span style="color:#66d9ef">def</span> __ge__(self, other):
+        <span style="color:#66d9ef">return</span> len(self) <span style="color:#f92672">&gt;=</span> len(other)
+
+    <span style="color:#66d9ef">def</span> __le__(self, other):
+        <span style="color:#66d9ef">return</span> len(self) <span style="color:#f92672">&lt;=</span> len(other)
+
+    <span style="color:#66d9ef">def</span> __str__(self):
+        <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#39;call str func &#39;</span>)
+        <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;Word: </span><span style="color:#e6db74">%s</span><span style="color:#e6db74">&#34;</span> <span style="color:#f92672">%</span> self<span style="color:#f92672">.</span>word
+
+    <span style="color:#66d9ef">def</span> __repr__(self):
+        <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#39;class repr func&#39;</span>)
+        <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;&lt;Word:</span><span style="color:#e6db74">%s</span><span style="color:#e6db74">&gt;&#34;</span> <span style="color:#f92672">%</span> self<span style="color:#f92672">.</span>word
+
+    <span style="color:#66d9ef">def</span> __unicode__(self):
+        <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#39;call unicode&#39;</span>)
+        <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#39;Word:</span><span style="color:#e6db74">%s</span><span style="color:#e6db74">&#39;</span> <span style="color:#f92672">%</span> self<span style="color:#f92672">.</span>word
+
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MyCounter</span>(object):
+    <span style="color:#e6db74">&#34;&#34;&#34;一个包含计数器的控制权限的类每当值被改变时计数器会加一&#34;&#34;&#34;</span>
+
+    <span style="color:#66d9ef">def</span> __init__(self, val):
+        <span style="color:#75715e"># 使用 super 因为不是所有的类都有 __dict__ 属性</span>
+        super(MyCounter, self)<span style="color:#f92672">.</span>__setattr__(<span style="color:#e6db74">&#39;counter&#39;</span>, <span style="color:#ae81ff">0</span>)
+        super(MyCounter, self)<span style="color:#f92672">.</span>__setattr__(<span style="color:#e6db74">&#39;value&#39;</span>, val)
+
+    <span style="color:#66d9ef">def</span> __getattr__(self, item):
+        <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#39;call  getattr &#39;</span>)
+        <span style="color:#66d9ef">return</span> super(MyCounter, self)<span style="color:#f92672">.</span>__getattr__(item)
+
+    <span style="color:#66d9ef">def</span> __getattribute__(self, item):
+        <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#39;call getattribute&#39;</span>)
+        <span style="color:#66d9ef">return</span> super(MyCounter, self)<span style="color:#f92672">.</span>__getattribute__(item)
+
+    <span style="color:#66d9ef">def</span> __setattr__(self, name, value):
+        <span style="color:#75715e"># self.key = value  # 会隐式的再次调用self.__setattr__ 引起递归</span>
+        <span style="color:#75715e"># self.__dict__[key] = value</span>
+        <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#39;call setattr&#39;</span>)
+        <span style="color:#66d9ef">if</span> name <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;value&#39;</span>:
+            super(MyCounter, self)<span style="color:#f92672">.</span>__setattr__(<span style="color:#e6db74">&#39;counter&#39;</span>, self<span style="color:#f92672">.</span>counter <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>)
+            <span style="color:#75715e"># 如果你不想让其他属性被访问的话，那么可以抛出 AttributeError(name) 异常</span>
+        super(MyCounter, self)<span style="color:#f92672">.</span>__setattr__(name, value)
+
+    <span style="color:#66d9ef">def</span> __delattr__(self, name):
+        <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#39;call del attr&#39;</span>)
+        <span style="color:#66d9ef">if</span> name <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;value&#39;</span>:
+            super(MyCounter, self)<span style="color:#f92672">.</span>__setattr__(<span style="color:#e6db74">&#39;counter&#39;</span>, self<span style="color:#f92672">.</span>counter <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>)
+        super(MyCounter, self)<span style="color:#f92672">.</span>__delattr__(name)
+
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Container</span>(object):
+    <span style="color:#e6db74">&#34;&#34;&#34; 容器基类 &#34;&#34;&#34;</span>
+
+    <span style="color:#66d9ef">def</span> __len__(self):
+        <span style="color:#66d9ef">return</span> len(self)
+
+    <span style="color:#66d9ef">def</span> __setitem__(self, key, value):
+        <span style="color:#66d9ef">pass</span>
+
+    <span style="color:#66d9ef">def</span> __getitem__(self, item):
+        <span style="color:#66d9ef">pass</span>
+
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">DynamicContainer</span>(Container):
+    <span style="color:#e6db74">&#34;&#34;&#34; 可变容器 &#34;&#34;&#34;</span>
+
+    <span style="color:#66d9ef">def</span> __delitem__(self, key):
+        <span style="color:#66d9ef">pass</span>
+
+    <span style="color:#66d9ef">def</span> __iter__(self):
+        <span style="color:#66d9ef">pass</span>
+
+    <span style="color:#66d9ef">def</span> __reversed__(self):
+        <span style="color:#66d9ef">pass</span>
+
+    <span style="color:#66d9ef">def</span> __contains__(self):
+        <span style="color:#66d9ef">pass</span>
+
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">NoDynamicContainer</span>(Container):
+    <span style="color:#e6db74">&#34;&#34;&#34; 不可变容器 &#34;&#34;&#34;</span>
+
+    <span style="color:#66d9ef">def</span> __iter__(self):
+        <span style="color:#66d9ef">pass</span>
+
+    <span style="color:#66d9ef">def</span> __contains__(self):
+        <span style="color:#66d9ef">pass</span>
+
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MyList</span>(Container):
+    <span style="color:#e6db74">&#34;&#34;&#34; 一个封装了一些附加魔术方法比如 head, tail, init, last, drop, 和take的列表类。 &#34;&#34;&#34;</span>
+
+    <span style="color:#66d9ef">def</span> __init__(self, values<span style="color:#f92672">=</span>None):
+        <span style="color:#66d9ef">if</span> values <span style="color:#f92672">is</span> None:
+            self<span style="color:#f92672">.</span>values <span style="color:#f92672">=</span> []
+        <span style="color:#66d9ef">else</span>:
+            self<span style="color:#f92672">.</span>values <span style="color:#f92672">=</span> values
+
+    <span style="color:#66d9ef">def</span> __len__(self):
+        <span style="color:#66d9ef">return</span> len(self<span style="color:#f92672">.</span>values)
+
+    <span style="color:#66d9ef">def</span> __getitem__(self, key):
+        <span style="color:#75715e"># 如果键的类型或者值无效，列表值将会抛出错误</span>
+        <span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>values[key]
+
+    <span style="color:#66d9ef">def</span> __setitem__(self, key, value):
+        self<span style="color:#f92672">.</span>values[key] <span style="color:#f92672">=</span> value
+
+    <span style="color:#66d9ef">def</span> __delitem__(self, key):
+        <span style="color:#66d9ef">del</span> self<span style="color:#f92672">.</span>values[key]
+
+    <span style="color:#66d9ef">def</span> __iter__(self):
+        <span style="color:#66d9ef">return</span> iter(self<span style="color:#f92672">.</span>values)
+
+    <span style="color:#66d9ef">def</span> __reversed__(self):
+        <span style="color:#66d9ef">return</span> reversed(self<span style="color:#f92672">.</span>values)
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">append</span>(self, value):
+        self<span style="color:#f92672">.</span>values<span style="color:#f92672">.</span>append(value)
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">head</span>(self):
+        <span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>values[<span style="color:#ae81ff">0</span>]
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">tail</span>(self):
+        <span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>values[<span style="color:#ae81ff">1</span>:]
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">init</span>(self):
+        <span style="color:#75715e"># 返回一直到末尾的所有元素</span>
+        <span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>values[:<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">last</span>(self):
+        <span style="color:#75715e"># 返回末尾元素</span>
+        <span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>values[<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">drop</span>(self, n):
+        <span style="color:#75715e"># 返回除前n个外的所有元素</span>
+        <span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>values[n:]
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">take</span>(self, n):
+        <span style="color:#75715e"># 返回前n个元素</span>
+        <span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>values[:n]
+
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Entity</span>(object):
+    <span style="color:#e6db74">&#34;&#34;&#34;调用实体来改变实体的位置。&#34;&#34;&#34;</span>
+
+    <span style="color:#66d9ef">def</span> __init__(self, size, x, y):
+        self<span style="color:#f92672">.</span>x, self<span style="color:#f92672">.</span>y <span style="color:#f92672">=</span> x, y
+        self<span style="color:#f92672">.</span>size <span style="color:#f92672">=</span> size
+
+    <span style="color:#66d9ef">def</span> __call__(self, x, y):
+        <span style="color:#e6db74">&#34;&#34;&#34;改变实体的位置&#34;&#34;&#34;</span>
+        self<span style="color:#f92672">.</span>x, self<span style="color:#f92672">.</span>y <span style="color:#f92672">=</span> x, y
+
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Closer</span>:
+    <span style="color:#e6db74">&#34;&#34;&#34;通过with语句和一个close方法来关闭一个对象的会话管理器&#34;&#34;&#34;</span>
+
+    <span style="color:#66d9ef">def</span> __init__(self, obj):
+        self<span style="color:#f92672">.</span>obj <span style="color:#f92672">=</span> obj
+
+    <span style="color:#66d9ef">def</span> __enter__(self):
+        <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#39;call enter&#39;</span>)
+        <span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>obj  <span style="color:#75715e"># bound to target</span>
+
+    <span style="color:#66d9ef">def</span> __exit__(self, exception_type, exception_val, trace):
+        <span style="color:#66d9ef">print</span>(exception_type, exception_val, trace)
+        <span style="color:#66d9ef">try</span>:
+            self<span style="color:#f92672">.</span>obj<span style="color:#f92672">.</span>close()
+        <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">AttributeError</span>:  <span style="color:#75715e"># obj isn&#39;t closable</span>
+            <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#39;Not closable.&#39;</span>)
+            <span style="color:#66d9ef">return</span> True  <span style="color:#75715e"># exception handled successfully</span>
+
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Meter</span>(object):
+    <span style="color:#e6db74">&#34;&#34;&#34;Descriptor for a meter.&#34;&#34;&#34;</span>
+
+    <span style="color:#66d9ef">def</span> __init__(self, value<span style="color:#f92672">=</span><span style="color:#ae81ff">0.0</span>):
+        self<span style="color:#f92672">.</span>value <span style="color:#f92672">=</span> float(value)
+
+    <span style="color:#66d9ef">def</span> __get__(self, instance, owner):
+        <span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>value
+
+    <span style="color:#66d9ef">def</span> __set__(self, instance, value):
+        self<span style="color:#f92672">.</span>value <span style="color:#f92672">=</span> float(value)
+
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Foot</span>(object):
+    <span style="color:#e6db74">&#34;&#34;&#34;Descriptor for a foot.&#34;&#34;&#34;</span>
+
+    <span style="color:#66d9ef">def</span> __get__(self, instance, owner):
+        <span style="color:#66d9ef">return</span> instance<span style="color:#f92672">.</span>meter <span style="color:#f92672">*</span> <span style="color:#ae81ff">3.2808</span>
+
+    <span style="color:#66d9ef">def</span> __set__(self, instance, value):
+        instance<span style="color:#f92672">.</span>meter <span style="color:#f92672">=</span> float(value) <span style="color:#f92672">/</span> <span style="color:#ae81ff">3.2808</span>
+
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Distance</span>(object):
+    meter <span style="color:#f92672">=</span> Meter()
+    foot <span style="color:#f92672">=</span> Foot()
+
+
+<span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;__main__&#39;</span>:
+    <span style="color:#75715e"># fileobj = FileObject()</span>
+    <span style="color:#75715e">#</span>
+    <span style="color:#75715e"># foo = Word(&#39;foo&#39;)</span>
+    <span style="color:#75715e"># bara = Word(&#39;bara&#39;)</span>
+    <span style="color:#75715e"># print(foo &gt; bara)  # False</span>
+    <span style="color:#75715e"># print(foo &lt; bara)  # True</span>
+    <span style="color:#75715e"># print(str(&#39;foo&#39;) == str(&#39;bar&#39;))  # False 利用了 string 内置魔法函数 __eq__</span>
+
+    <span style="color:#75715e"># print(str(foo))  # Word: foo</span>
+    <span style="color:#75715e"># print(repr(foo))  # &lt;Word:foo&gt;</span>
+    <span style="color:#75715e"># # print(unicode(foo))  # only in python2</span>
+
+    <span style="color:#75715e"># inst = MyCounter(&#39;Test&#39;)</span>
+    <span style="color:#75715e"># inst.value = &#39;test&#39;</span>
+    <span style="color:#75715e"># print(inst.counter)  # 1</span>
+    <span style="color:#75715e"># print(inst.value)  # test</span>
+    <span style="color:#75715e"># inst.value = &#39;test1&#39;</span>
+    <span style="color:#75715e"># print(inst.counter)  # 2</span>
+    <span style="color:#75715e"># print(inst.value)  # test1  属性存在,只有__getattribute__调用</span>
+    <span style="color:#75715e"># try:</span>
+    <span style="color:#75715e">#     inst.value2  # 属性不存在, 先调用__getattribute__, 后调用__getattr__</span>
+    <span style="color:#75715e"># except AttributeError:</span>
+    <span style="color:#75715e">#     pass</span>
+    <span style="color:#75715e"># del inst.value  # call del attr</span>
+
+    <span style="color:#75715e"># mylist = MyList([1, 2, 3, 4, 5, 6])</span>
+    <span style="color:#75715e"># print(mylist.head())</span>
+    <span style="color:#75715e"># print(list(mylist.__reversed__()))</span>
+
+    <span style="color:#75715e"># entiry = Entity(10, 1, 2)</span>
+    <span style="color:#75715e"># entiry(2, 1)</span>
+    <span style="color:#75715e"># print(entiry.x, entiry.y)  # 2 1</span>
+
+    <span style="color:#75715e"># with Closer(int(5)) as i:</span>
+    <span style="color:#75715e">#     i += 1</span>
+    <span style="color:#75715e"># print(i)</span>
+    <span style="color:#75715e"># with Closer(open(&#39;sample.txt&#39;)) as file:</span>
+    <span style="color:#75715e">#     print(&#39;file&gt;&gt;&gt;&gt;:&#39;, file.read())</span>
+
+    d <span style="color:#f92672">=</span> Distance()
+    <span style="color:#66d9ef">print</span>(d<span style="color:#f92672">.</span>meter, d<span style="color:#f92672">.</span>foot)  <span style="color:#75715e"># 0.0, 0.0</span>
+    d<span style="color:#f92672">.</span>meter <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+    <span style="color:#66d9ef">print</span>(d<span style="color:#f92672">.</span>meter, d<span style="color:#f92672">.</span>foot)  <span style="color:#75715e"># 1.0 3.2808</span>
+    d<span style="color:#f92672">.</span>meter <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>
+    <span style="color:#66d9ef">print</span>(d<span style="color:#f92672">.</span>meter, d<span style="color:#f92672">.</span>foot)  <span style="color:#75715e"># 2.0 6.5616</span>
+
+</code></pre></div><h2 id="魔术方法列表">魔术方法列表</h2>
+<table>
+<thead>
+<tr>
+<th>魔术方法</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>基本的魔法方法</td>
+<td></td>
+</tr>
+<tr>
+<td><code>__new__(cls[, ...])</code></td>
+<td>1. <strong>new</strong> 是在一个对象实例化的时候所调用的第一个方法 2. 它的第一个参数是这个类，其他的参数是用来直接传递给 <strong>init</strong> 方法；3. <strong>new</strong> 决定是否要使用该 <strong>init</strong> 方法，因为 <strong>new</strong> 可以调用其他类的构造方法或者直接返回别的实例对象来作为本类的实例，如果 <strong>new</strong> 没有返回实例对象，则 <strong>init</strong> 不会被调用；4. <strong>new</strong> 主要是用于继承一个不可变的类型比如一个 tuple 或者 string</td>
+</tr>
+<tr>
+<td><code>__init__(self[, ...])</code></td>
+<td>构造器，当一个实例被创建的时候调用的初始化方法</td>
+</tr>
+<tr>
+<td><code>__del__(self)</code></td>
+<td>析构器，当一个实例被销毁的时候调用的方法</td>
+</tr>
+<tr>
+<td><code>__call__(self[, args...])</code></td>
+<td>允许一个类的实例像函数一样被调用：x(a, b) 调用 x.<strong>call</strong>(a, b)</td>
+</tr>
+<tr>
+<td><code>__len__(self)</code></td>
+<td>定义当被 len() 调用时的行为</td>
+</tr>
+<tr>
+<td><code>__repr__(self)</code></td>
+<td>定义当被 repr() 调用时的行为</td>
+</tr>
+<tr>
+<td><code>__str__(self)</code></td>
+<td>定义当被 str() 调用时的行为</td>
+</tr>
+<tr>
+<td><code>__bytes__(self)</code></td>
+<td>定义当被 bytes() 调用时的行为</td>
+</tr>
+<tr>
+<td><code>__hash__(self)</code></td>
+<td>定义当被 hash() 调用时的行为</td>
+</tr>
+<tr>
+<td><code>__bool__(self)</code></td>
+<td>定义当被 bool() 调用时的行为，应该返回 True 或 False</td>
+</tr>
+<tr>
+<td><code>__format__(self, format_spec)</code></td>
+<td>定义当被 format() 调用时的行为</td>
+</tr>
+<tr>
+<td>有关属性</td>
+<td></td>
+</tr>
+<tr>
+<td><code>__getattr__(self, name)</code></td>
+<td>定义当用户试图获取一个不存在的属性时的行为</td>
+</tr>
+<tr>
+<td><code>__getattribute__(self, name)</code></td>
+<td>定义当该类的属性被访问时的行为</td>
+</tr>
+<tr>
+<td><code>__setattr__(self, name, value)</code></td>
+<td>定义当一个属性被设置时的行为</td>
+</tr>
+<tr>
+<td><code>__delattr__(self, name)</code></td>
+<td>定义当一个属性被删除时的行为</td>
+</tr>
+<tr>
+<td><code>__dir__(self)</code></td>
+<td>定义当 dir() 被调用时的行为</td>
+</tr>
+<tr>
+<td><code>__get__(self, instance, owner)</code></td>
+<td>定义当描述符的值被取得时的行为</td>
+</tr>
+<tr>
+<td><code>__set__(self, instance, value)</code></td>
+<td>定义当描述符的值被改变时的行为</td>
+</tr>
+<tr>
+<td><code>__delete__(self, instance)</code></td>
+<td>定义当描述符的值被删除时的行为</td>
+</tr>
+<tr>
+<td>比较操作符</td>
+<td></td>
+</tr>
+<tr>
+<td><code>__lt__(self, other)</code></td>
+<td>定义小于号的行为：x &lt; y 调用 x.<strong>lt</strong>(y)</td>
+</tr>
+<tr>
+<td><code>__le__(self, other)</code></td>
+<td>定义小于等于号的行为：x &lt;= y 调用 x.<strong>le</strong>(y)</td>
+</tr>
+<tr>
+<td><code>__eq__(self, other)</code></td>
+<td>定义等于号的行为：x == y 调用 x.<strong>eq</strong>(y)</td>
+</tr>
+<tr>
+<td><code>__ne__(self, other)</code></td>
+<td>定义不等号的行为：x != y 调用 x.<strong>ne</strong>(y)</td>
+</tr>
+<tr>
+<td><code>__gt__(self, other)</code></td>
+<td>定义大于号的行为：x &gt; y 调用 x.<strong>gt</strong>(y)</td>
+</tr>
+<tr>
+<td><code>__ge__(self, other)</code></td>
+<td>定义大于等于号的行为：x &gt;= y 调用 x.<strong>ge</strong>(y)</td>
+</tr>
+<tr>
+<td>算数运算符</td>
+<td></td>
+</tr>
+<tr>
+<td><code>__add__(self, other)</code></td>
+<td>定义加法的行为：+</td>
+</tr>
+<tr>
+<td><code>__sub__(self, other)</code></td>
+<td>定义减法的行为：-</td>
+</tr>
+<tr>
+<td><code>__mul__(self, other)</code></td>
+<td>定义乘法的行为：*</td>
+</tr>
+<tr>
+<td><code>__truediv__(self, other)</code></td>
+<td>定义真除法的行为：/</td>
+</tr>
+<tr>
+<td><code>__floordiv__(self, other)</code></td>
+<td>定义整数除法的行为：//</td>
+</tr>
+<tr>
+<td><code>__mod__(self, other)</code></td>
+<td>定义取模算法的行为：%</td>
+</tr>
+<tr>
+<td><code>__divmod__(self, other)</code></td>
+<td>定义当被 divmod() 调用时的行为</td>
+</tr>
+<tr>
+<td><code>__pow__(self, other[, modulo])</code></td>
+<td>定义当被 power() 调用或 ** 运算时的行为</td>
+</tr>
+<tr>
+<td><code>__lshift__(self, other)</code></td>
+<td>定义按位左移位的行为：&laquo;</td>
+</tr>
+<tr>
+<td><code>__rshift__(self, other)</code></td>
+<td>定义按位右移位的行为：&raquo;</td>
+</tr>
+<tr>
+<td><code>__and__(self, other)</code></td>
+<td>定义按位与操作的行为：&amp;</td>
+</tr>
+<tr>
+<td><code>__xor__(self, other)</code></td>
+<td>定义按位异或操作的行为：^</td>
+</tr>
+<tr>
+<td><code>__or__(self, other)</code></td>
+<td>定义按位或操作的行为：</td>
+</tr>
+<tr>
+<td>反运算</td>
+<td></td>
+</tr>
+<tr>
+<td><code>__radd__(self, other)</code></td>
+<td>（与上方相同，当左操作数不支持相应的操作时被调用）</td>
+</tr>
+<tr>
+<td><code>__rsub__(self, other)</code></td>
+<td>（与上方相同，当左操作数不支持相应的操作时被调用）</td>
+</tr>
+<tr>
+<td><code>__rmul__(self, other)</code></td>
+<td>（与上方相同，当左操作数不支持相应的操作时被调用）</td>
+</tr>
+<tr>
+<td><code>__rtruediv__(self, other)</code></td>
+<td>（与上方相同，当左操作数不支持相应的操作时被调用）</td>
+</tr>
+<tr>
+<td><code>__rfloordiv__(self, other)</code></td>
+<td>（与上方相同，当左操作数不支持相应的操作时被调用）</td>
+</tr>
+<tr>
+<td><code>__rmod__(self, other)</code></td>
+<td>（与上方相同，当左操作数不支持相应的操作时被调用）</td>
+</tr>
+<tr>
+<td><code>__rdivmod__(self, other)</code></td>
+<td>（与上方相同，当左操作数不支持相应的操作时被调用）</td>
+</tr>
+<tr>
+<td><code>__rpow__(self, other)</code></td>
+<td>（与上方相同，当左操作数不支持相应的操作时被调用）</td>
+</tr>
+<tr>
+<td><code>__rlshift__(self, other)</code></td>
+<td>（与上方相同，当左操作数不支持相应的操作时被调用）</td>
+</tr>
+<tr>
+<td><code>__rrshift__(self, other)</code></td>
+<td>（与上方相同，当左操作数不支持相应的操作时被调用）</td>
+</tr>
+<tr>
+<td><code>__rxor__(self, other)</code></td>
+<td>（与上方相同，当左操作数不支持相应的操作时被调用）</td>
+</tr>
+<tr>
+<td><code>__ror__(self, other)</code></td>
+<td>（与上方相同，当左操作数不支持相应的操作时被调用）</td>
+</tr>
+<tr>
+<td>增量赋值运算</td>
+<td></td>
+</tr>
+<tr>
+<td><code>__iadd__(self, other)</code></td>
+<td>定义赋值加法的行为：+=</td>
+</tr>
+<tr>
+<td><code>__isub__(self, other)</code></td>
+<td>定义赋值减法的行为：-=</td>
+</tr>
+<tr>
+<td><code>__imul__(self, other)</code></td>
+<td>定义赋值乘法的行为：*=</td>
+</tr>
+<tr>
+<td><code>__itruediv__(self, other)</code></td>
+<td>定义赋值真除法的行为：/=</td>
+</tr>
+<tr>
+<td><code>__ifloordiv__(self, other)</code></td>
+<td>定义赋值整数除法的行为：//=</td>
+</tr>
+<tr>
+<td><code>__imod__(self, other)</code></td>
+<td>定义赋值取模算法的行为：%=</td>
+</tr>
+<tr>
+<td><code>__ipow__(self, other[, modulo])</code></td>
+<td>定义赋值幂运算的行为：**=</td>
+</tr>
+<tr>
+<td><code>__ilshift__(self, other)</code></td>
+<td>定义赋值按位左移位的行为：&laquo;=</td>
+</tr>
+<tr>
+<td><code>__irshift__(self, other)</code></td>
+<td>定义赋值按位右移位的行为：&raquo;=</td>
+</tr>
+<tr>
+<td><code>__iand__(self, other)</code></td>
+<td>定义赋值按位与操作的行为：&amp;=</td>
+</tr>
+<tr>
+<td><code>__ixor__(self, other)</code></td>
+<td>定义赋值按位异或操作的行为：^=</td>
+</tr>
+<tr>
+<td><code>__ior__(self, other)</code></td>
+<td>定义赋值按位或操作的行为：</td>
+</tr>
+<tr>
+<td>一元操作符</td>
+<td></td>
+</tr>
+<tr>
+<td><code>__neg__(self)</code></td>
+<td>定义正号的行为：+x</td>
+</tr>
+<tr>
+<td><code>__pos__(self)</code></td>
+<td>定义负号的行为：-x</td>
+</tr>
+<tr>
+<td><code>__abs__(self)</code></td>
+<td>定义当被 abs() 调用时的行为</td>
+</tr>
+<tr>
+<td><code>__invert__(self)</code></td>
+<td>定义按位求反的行为：~x</td>
+</tr>
+<tr>
+<td>类型转换</td>
+<td></td>
+</tr>
+<tr>
+<td><code>__complex__(self)</code></td>
+<td>定义当被 complex() 调用时的行为（需要返回恰当的值）</td>
+</tr>
+<tr>
+<td><code>__int__(self)</code></td>
+<td>定义当被 int() 调用时的行为（需要返回恰当的值）</td>
+</tr>
+<tr>
+<td><code>__float__(self)</code></td>
+<td>定义当被 float() 调用时的行为（需要返回恰当的值）</td>
+</tr>
+<tr>
+<td><code>__round__(self[, n])</code></td>
+<td>定义当被 round() 调用时的行为（需要返回恰当的值）</td>
+</tr>
+<tr>
+<td><code>__index__(self)</code></td>
+<td>1. 当对象是被应用在切片表达式中时，实现整形强制转换；2. 如果你定义了一个可能在切片时用到的定制的数值型,你应该定义 <strong>index</strong>；3. 如果 <strong>index</strong> 被定义，则 <strong>int</strong> 也需要被定义，且返回相同的值</td>
+</tr>
+<tr>
+<td>上下文管理（with 语句）</td>
+<td></td>
+</tr>
+<tr>
+<td><code>__enter__(self)</code></td>
+<td>1. 定义当使用 with 语句时的初始化行为；2. <strong>enter</strong> 的返回值被 with 语句的目标或者 as 后的名字绑定</td>
+</tr>
+<tr>
+<td><code>__exit__(self, exc_type, exc_value, traceback)</code></td>
+<td>1. 定义当一个代码块被执行或者终止后上下文管理器应该做什么；2. 一般被用来处理异常，清除工作或者做一些代码块执行完毕之后的日常工作</td>
+</tr>
+<tr>
+<td>容器类型</td>
+<td></td>
+</tr>
+<tr>
+<td><code>__len__(self)</code></td>
+<td>定义当被 len() 调用时的行为（返回容器中元素的个数）</td>
+</tr>
+<tr>
+<td><code>__getitem__(self, key)</code></td>
+<td>定义获取容器中指定元素的行为，相当于 self[key]</td>
+</tr>
+<tr>
+<td><code>__setitem__(self, key, value)</code></td>
+<td>定义设置容器中指定元素的行为，相当于 self[key] = value</td>
+</tr>
+<tr>
+<td><code>__delitem__(self, key)</code></td>
+<td>定义删除容器中指定元素的行为，相当于 del self[key]</td>
+</tr>
+<tr>
+<td><code>__iter__(self)</code></td>
+<td>定义当迭代容器中的元素的行为</td>
+</tr>
+<tr>
+<td><code>__reversed__(self)</code></td>
+<td>定义当被 reversed() 调用时的行为</td>
+</tr>
+<tr>
+<td><code>__contains__(self, item)</code></td>
+<td>定义当使用成员测试运算符（in 或 not in）时的行为</td>
+</tr>
+</tbody>
+</table>
+<h2 id="延伸阅读">延伸阅读</h2>
+<ul>
+<li><a href="http://www.diveintopython3.net/special-method-names.html">Dive into Python3:Special Method Names</a></li>
+</ul>
+<h2 id="参考">参考</h2>
+<ul>
+<li><a href="http://pycoders-weekly-chinese.readthedocs.io/en/latest/issue6/a-guide-to-pythons-magic-methods.html#id22">Python 魔术方法指南</a></li>
+</ul>
+
+    </div>
+    <div class="article-footer">
+<blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://pylixm.top/posts/2018-02-01-python-magic-method.html" title="「Python Tips」- python 魔法方法" target="_blank" rel="external">https://pylixm.top/posts/2018-02-01-python-magic-method.html</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>许可协议：</strong>
+      <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN</a>
+    </li>
+  </ul>
+</blockquote>
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://pylixm.top" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="https://pylixm.top/static/imgs/avatar.png" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://pylixm.top" target="_blank"><span class="text-dark">DeanWu</span><small class="ml-1x">程序员</small></a></h3>
+        <div>努力成为真正的SRE</div>
+      </div>
+    </figure>
+  </div>
+</div>
+    </div>
+  </article>
+<section id="comments">
+    <div id="vcomments"></div>
+</section>
+
+</div><nav class="bar bar-footer clearfix" data-stick-bottom>
+    <div class="bar-inner">
+        <ul class="pager pull-left">
+            <li class="prev">
+                <a href="https://pylixm.top/posts/2018-01-30-go-commond.html" title="「Go语言学习笔记四」- Golang 命令"><i
+                        class="icon icon-angle-left"
+                        aria-hidden="true"></i><span>&nbsp;&nbsp;下一篇</span></a>
+            </li>
+            <li class="next">
+                <a href="https://pylixm.top/posts/2018-02-02-python-pickle.html"
+                    title="「Python Tips」 Pickle 的使用"><span>上一篇&nbsp;&nbsp;</span><i
+                        class="icon icon-angle-right" aria-hidden="true"></i></a>
+            </li>
+            
+            <li class="toggle-toc">
+                <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false"
+                    title="文章目录" role="button">
+                    <span>[&nbsp;</span><span>文章目录</span>
+                    <i class="text-collapsed icon icon-anchor"></i>
+                    <i class="text-in icon icon-close"></i>
+                    <span>]</span>
+                </a>
+            </li>
+        </ul>
+        <div class="bar-right">
+        </div>
+    </div>
+</nav>
+
+
+<script src="https://my.openwrite.cn/js/readmore.js" type="text/javascript"></script>
+<script>
+    const btw = new BTWPlugin();
+    btw.init({
+        id: 'article-container',
+        blogId: '24944-1607090547459-485',
+        name: '码农吴先生',
+        qrcode: 'https://gitee.com/pylixm/picture/raw/master/2020-12-4/1607089812769-image.png',
+        keyword: 'vip',
+    });
+</script>
+</main><footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+<ul class="social-links">
+    <li><a href="https://github.com/pylixm" target="_blank" title="github" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-github"></i></a></li>
+    <li><a href="https://pylixm.top/index.xml" target="_blank" title="rss" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-rss"></i></a></li>
+    <li><a href="http://weibo.com/2258086637" target="_blank" title="weibo" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-weibo"></i></a></li>
+</ul>
+  <div class="copyright">
+    &copy;2015  -
+    2020
+    <div class="publishby">
+      hugo驱动，Theme by <a href="https://github.com/xiaoheiAh/hugo-theme-pure" target="_blank"> pure</a>.
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_SVG"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+            showMathMenu: false, //disables context menu
+            tex2jax: {
+            inlineMath: [ ['$','$'], ['\\(','\\)'] ]
+           }
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+<script>
+    window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/highlight.min.js"></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/python.min.js" defer></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/javascript.min.js" defer></script><script>
+    hljs.configure({
+        tabReplace: '    ', 
+        classPrefix: ''     
+        
+    })
+    hljs.initHighlightingOnLoad();
+</script>
+<script src="https://pylixm.top/js/application.min.bdeb64b910570b6c41badc6a05b7afb0c8ad9efd8525de3c7257d59e786326a3.js"></script>
+<script src="https://pylixm.top/js/plugin.min.51ff8c7317566f82259170fa36e09c4493adc9b9378b427a01ad3f017ebac7dd.js"></script>
+
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(未命名)',
+            },
+            ROOT_URL: 'https:\/\/pylixm.top',
+            CONTENT_URL: 'https:\/\/pylixm.top\/searchindex.json ',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script type="text/javascript" src="https://pylixm.top/js/insight.min.a343cd9a5a7698336b28ef3a7c16a3a1b1d2d5fb17dc8ed04022bbe08cc5459073a15bdafa3a8a58cdd56080784bdd69fa70b1ae8597565c799c57ed00f0e120.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script>
+<script>
+    tocbot.init({
+        
+        tocSelector: '.js-toc',
+        
+        contentSelector: '.js-toc-content',
+        
+        headingSelector: 'h1, h2, h3',
+        
+        hasInnerContainers: true,
+    });
+</script>
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="https://cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine"></script>
+<script type="text/javascript">
+    var GUEST = ['nick', 'mail', 'link'];
+    var meta = 'nick,mail';
+    meta = meta.split(',').filter(function (item) {
+        return GUEST.indexOf(item) > -1;
+    });
+    new Valine({
+        el: '#vcomments',
+        verify: null ,
+        notify: null ,
+        appId: 'OBJcj4PU8JI0zDfu0HJSrG6W-gzGzoHsz',
+        appKey: 'tBtFzC72xIlgo2UFbA33nqmU',
+        placeholder: '来做第一个发言人吧',
+        avatar: 'mm',
+        meta: meta,
+        pageSize: '10' || 10,
+        visitor: false 
+});
+</script>
+
+  </body>
+</html>

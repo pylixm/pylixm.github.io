@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <title>
+        我心中的 tornado 最佳实践 - DeanWu
+      </title>
+        <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    
+    <meta name="theme-color" content="#000000" />
+    
+    <meta http-equiv="window-target" content="_top" />
+    
+    
+    <meta name="description" content="最新开发新项目一直在学习tornado的知识，在前人的基础上找了些最佳实践，记录如下，备查。 tornado 新人一枚，欢迎大神拍砖~ 项目目录结构 import tornado.ioloop import tornado.web ##" />
+    <meta name="generator" content="Hugo 0.73.0 with theme pure" />
+    <title>我心中的 tornado 最佳实践 - DeanWu</title>
+    
+    
+    <link rel="stylesheet" href="https://pylixm.top/css/style.min.f70e8e0df9ea6aeb37dac252b17ca98082073ff1663b24118baaaa84ee8ae7e8.css">
+    
+    <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.15.10/styles/github.min.css" async>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css" async>
+    <meta property="og:title" content="我心中的 tornado 最佳实践" />
+<meta property="og:description" content="最新开发新项目一直在学习tornado的知识，在前人的基础上找了些最佳实践，记录如下，备查。 tornado 新人一枚，欢迎大神拍砖~ 项目目录结构 import tornado.ioloop import tornado.web ##" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://pylixm.top/posts/2017-03-10-tornado-best-practices.html" />
+<meta property="article:published_time" content="2017-03-10T20:00:00+00:00" />
+<meta property="article:modified_time" content="2017-03-10T20:00:00+00:00" />
+<meta itemprop="name" content="我心中的 tornado 最佳实践">
+<meta itemprop="description" content="最新开发新项目一直在学习tornado的知识，在前人的基础上找了些最佳实践，记录如下，备查。 tornado 新人一枚，欢迎大神拍砖~ 项目目录结构 import tornado.ioloop import tornado.web ##">
+<meta itemprop="datePublished" content="2017-03-10T20:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2017-03-10T20:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="2336">
+
+
+
+<meta itemprop="keywords" content="Tornado,Best practices," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="我心中的 tornado 最佳实践"/>
+<meta name="twitter:description" content="最新开发新项目一直在学习tornado的知识，在前人的基础上找了些最佳实践，记录如下，备查。 tornado 新人一枚，欢迎大神拍砖~ 项目目录结构 import tornado.ioloop import tornado.web ##"/>
+
+    <!--[if lte IE 9]>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+      <![endif]-->
+
+    <!--[if lt IE 9]>
+        <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+      <![endif]-->
+  </head>
+
+  
+  
+
+  <body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage"><header class="header" itemscope itemtype="http://schema.org/WPHeader">
+    <div class="slimContent">
+      <div class="navbar-header">
+        <div class="profile-block text-center">
+          <a id="avatar" href="https://pylixm.top" target="_blank">
+            <img class="img-circle img-rotate" src="https://pylixm.top/static/imgs/avatar.png" width="200" height="200">
+          </a>
+          <h2 id="name" class="hidden-xs hidden-sm">DeanWu</h2>
+          <h3 id="title" class="hidden-xs hidden-sm hidden-md">程序员</h3>
+          <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i>Beijing, China</small>
+        </div><div class="search" id="search-form-wrap">
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i
+                        class="icon icon-search"></i></button>
+            </span>
+        </div>
+        <div class="ins-search">
+            <div class="ins-search-mask"></div>
+            <div class="ins-search-container">
+                <div class="ins-input-wrapper">
+                    <input type="text" class="ins-search-input" placeholder="想要查找什么..."
+                        x-webkit-speech />
+                    <button type="button" class="close ins-close ins-selectable" data-dismiss="modal"
+                        aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="ins-section-wrapper">
+                    <div class="ins-section-container"></div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+        <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+        <ul class="nav navbar-nav main-nav">
+            <li class="menu-item menu-item-home">
+                <a href="/">
+                    <i class="icon icon-home-fill"></i>
+                  <span class="menu-title">首页</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-series">
+                <a href="/series/">
+                    <i class="icon icon-folder"></i>
+                  <span class="menu-title">专题</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-repository">
+                <a href="/project/">
+                    <i class="icon icon-project"></i>
+                  <span class="menu-title">项目</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-archives">
+                <a href="/posts/">
+                    <i class="icon icon-archives-fill"></i>
+                  <span class="menu-title">归档</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-about">
+                <a href="/about/">
+                    <i class="icon icon-cup-fill"></i>
+                  <span class="menu-title">关于</span>
+                </a>
+            </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+<aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content"><div>欢迎关注微信公众号「码农吴先生」：专注python/golang/devops等技术的学习经验及资源分享！</br>回复关键字：go或python 获取我收集的资料，也可回复关键字：小二，加我wx，一块聊技术，聊人生~  </br><img src="/static/imgs/wx/wx_gzh.png" width="140" height="140"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+      
+<div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+        <ul class="recent-post-list list-unstyled no-thumbnail">
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2020-12-08-django-async-views-example.html" class="title">Django 三个异步使用的案例</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-12-08 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-08</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2020-12-05-go-from-python-structure-base.html" class="title">「对比Python学习Go」- 基本数据结构</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-12-05 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-05</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2020-12-03-go-from-python-start.html" class="title">「对比Python学习Go」- 环境篇</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-12-03 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-03</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2020-12-02-go-from-python-intro.html" class="title">「对比Python学习Go」- 开篇</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-12-02 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-02</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2020-12-01-for-range-point.html" class="title">「Go Tips」for range 遍历时变量取值的问题分析</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-12-01 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-01</time>
+                    </p>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+      <div class="widget">
+    <h3 class="widget-title"> 分类</h3>
+    <div class="widget-body">
+        <ul class="category-list">
+            <li class="category-list-item"><a href="https://pylixm.top/categories/ATS/" class="category-list-link">ATS</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/DevOps/" class="category-list-link">DevOps</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Devlopment-Demo/" class="category-list-link">Devlopment-Demo</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Django/" class="category-list-link">Django</a><span class="category-list-count">39</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Docker/" class="category-list-link">Docker</a><span class="category-list-count">4</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Flask/" class="category-list-link">Flask</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Git/" class="category-list-link">Git</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Golang/" class="category-list-link">Golang</a><span class="category-list-count">12</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/HTTPS/" class="category-list-link">HTTPS</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Javascript/" class="category-list-link">Javascript</a><span class="category-list-count">3</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Kubernetes/" class="category-list-link">Kubernetes</a><span class="category-list-count">4</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/LVS/" class="category-list-link">LVS</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Linux/" class="category-list-link">Linux</a><span class="category-list-count">15</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Mongodb/" class="category-list-link">Mongodb</a><span class="category-list-count">3</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Mysql/" class="category-list-link">Mysql</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/NoSQL/" class="category-list-link">NoSQL</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/PostgreSQL/" class="category-list-link">PostgreSQL</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Puppet/" class="category-list-link">Puppet</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Python/" class="category-list-link">Python</a><span class="category-list-count">19</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/QA/" class="category-list-link">QA</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Rabbitmq/" class="category-list-link">Rabbitmq</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Restful/" class="category-list-link">Restful</a><span class="category-list-count">6</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/SaltStack/" class="category-list-link">SaltStack</a><span class="category-list-count">7</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Software_Architect/" class="category-list-link">Software_Architect</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Supervisor/" class="category-list-link">Supervisor</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Tornado/" class="category-list-link">Tornado</a><span class="category-list-count">3</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Vagrant/" class="category-list-link">Vagrant</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Vue/" class="category-list-link">Vue</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/kafka/" class="category-list-link">kafka</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/zookeeper/" class="category-list-link">zookeeper</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E4%B8%AA%E4%BA%BA%E7%AE%A1%E7%90%86/" class="category-list-link">个人管理</a><span class="category-list-count">5</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB/" class="category-list-link">前后端分离</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" class="category-list-link">数据结构与算法</a><span class="category-list-count">13</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E6%9C%9D%E8%8A%B1%E5%A4%95%E6%8B%BE/" class="category-list-link">朝花夕拾</a><span class="category-list-count">10</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" class="category-list-link">机器学习</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" class="category-list-link">环境搭建</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E7%A8%8B%E5%BA%8F%E5%91%98%E8%87%AA%E6%88%91%E4%BF%AE%E5%85%BB/" class="category-list-link">程序员自我修养</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E8%B5%84%E6%BA%90%E5%88%86%E4%BA%AB%E8%AE%A1%E5%88%92/" class="category-list-link">资源分享计划</a><span class="category-list-count">10</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E8%BF%90%E7%BB%B4%E7%9F%A5%E8%AF%86%E5%BA%93/" class="category-list-link">运维知识库</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86/" class="category-list-link">项目管理</a><span class="category-list-count">1</span></li>
+        </ul>
+    </div>
+</div>
+  </div>
+</aside>
+
+    
+    
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <h4 class="toc-title">文章目录</h4>
+    <nav id="toc" class="js-toc toc">
+
+    </nav>
+  </div>
+</aside>
+<main class="main" role="main"><div class="content">
+  
+  <article id="article-container" class="article article-type-" itemscope
+    itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      <h1 itemprop="name">
+  <a
+    class="article-title"
+    href="/posts/2017-03-10-tornado-best-practices.html"
+    >我心中的 tornado 最佳实践</a
+  >
+</h1>
+
+      <div class="article-meta">
+        
+<span class="article-date">
+  <i class="icon icon-calendar-check"></i>&nbsp;
+<a href="https://pylixm.top/posts/2017-03-10-tornado-best-practices.html" class="article-date">
+  <time datetime="2017-03-10 20:00:00 &#43;0000 UTC" itemprop="datePublished">2017-03-10</time>
+</a>
+</span>
+<span class="article-category">
+  <i class="icon icon-folder"></i>&nbsp;
+  <a class="article-category-link" href="/categories/Tornado/"> Tornado </a>
+</span>  
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>&nbsp;
+    <a class="article-tag-link" href="/tags/Tornado/"> Tornado </a>
+    <a class="article-tag-link" href="/tags/Best-practices/"> Best practices </a>
+  </span>
+
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+        <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="/posts/2017-03-10-tornado-best-practices.html#comments"
+            class="article-comment-link">评论</a></span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 2336字</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 5分 </span>
+      </div>
+    </div>
+    <div class="article-entry marked-body js-toc-content" itemprop="articleBody">
+      <p>最新开发新项目一直在学习tornado的知识，在前人的基础上找了些最佳实践，记录如下，备查。</p>
+<p>tornado 新人一枚，欢迎大神拍砖~</p>
+<!-- raw HTML omitted -->
+<h2 id="项目目录结构">项目目录结构</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> tornado.ioloop
+<span style="color:#f92672">import</span> tornado.web
+
+<span style="color:#75715e">## 业务处理层</span>
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MainHandler</span>(tornado<span style="color:#f92672">.</span>web<span style="color:#f92672">.</span>RequestHandler):
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">get</span>(self):
+        self<span style="color:#f92672">.</span>write(<span style="color:#e6db74">&#34;Hello, world&#34;</span>)
+
+<span style="color:#75715e">## 系统入口app 及 路由层</span>
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">make_app</span>():
+    <span style="color:#66d9ef">return</span> tornado<span style="color:#f92672">.</span>web<span style="color:#f92672">.</span>Application([
+        (<span style="color:#e6db74">r</span><span style="color:#e6db74">&#34;/&#34;</span>, MainHandler),
+    ])
+
+<span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;__main__&#34;</span>:
+    app <span style="color:#f92672">=</span> make_app()
+    app<span style="color:#f92672">.</span>listen(<span style="color:#ae81ff">8888</span>)
+    tornado<span style="color:#f92672">.</span>ioloop<span style="color:#f92672">.</span>IOLoop<span style="color:#f92672">.</span>current()<span style="color:#f92672">.</span>start()
+</code></pre></div><p>上边是tornado 官网的hello world的实例，tornado做为web框架使用时，只需要处理逻辑的handler和系统入口application及路由即可启动系统，只提供了框架
+最核心的部分，使系统更加灵活。这样我们在开发的时候便拥有了自主选择权，可以选择自己喜欢的模板语言，可以选择是否使用orm，根据自己的需求任意组装。
+这样问题便来了，我们只能凭借我们有限的开发经验来组织我们的项目结构，路由层、业务层、数据库层等。有没有一个tornado的项目结构的最佳实践呢？
+经同事介绍，我从github 上找到了这个项目<a href="https://github.com/bueda/tornado-boilerplate">tornado-boilerplate</a>,虽说6年没有更新了，但是这个目录结构对
+我这个初学者足够了。</p>
+<pre><code>tornado-boilerplate/
+    handlers/  # handler 处理逻辑
+        foo.py
+        base.py  # 在其中重写 RequestHandler 的部分方法，或自定义方法完成自己的功能。
+    lib/  # 其他python的模块 
+    logconfig/  # 日志相关配置
+    media/  # 静态文件
+        css/
+            vendor/
+        js/
+            vendor/
+        images/
+    requirements/  # 环境依赖
+        common.txt
+        dev.txt
+        production.txt
+    templates/  # 模板文件
+    vendor/  # python的依赖包
+    environment.py  # 修改python path 增加 lib vender等目录的包
+    fabfile.py  # 远程部署文件
+    app.py  # app 启动文件
+    settings.py  # 项目配置文件 
+</code></pre><h2 id="sqlalchemy-和-tornado的结合">sqlalchemy 和 tornado的结合</h2>
+<p>sqlalchemy 是python系用的最多的orm，我们的项目也选用了sqlalchemy 。在结合sqlalchemy 和tornado过程中，查阅了大量资料。
+sqlalchemy 执行各种操作时，最基本的单元为session。sqlalchemy 官方文档建议，尽量适用框架的第三方扩展包来集成sqlalchemy，可以自动的管理session范围。根据sqlalchemy 文档，session的管理放在了每次的request请求中处理为最佳，及每次请求进来时，实例化session，请求结束后，将session关闭，见<a href="http://docs.sqlalchemy.org/en/latest/orm/contextual.html#using-thread-local-scope-with-web-applications">这里</a>和 <a href="https://github.com/tornadoweb/tornado/issues/1675">tornado的一个相关issues</a>。</p>
+<p>结合如下：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> sqlalchemy.orm <span style="color:#f92672">import</span> scoped_session, sessionmaker
+<span style="color:#f92672">from</span> models <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>  <span style="color:#75715e"># import the engine to bind</span>
+<span style="color:#75715e"># engine = create_engine(connect_str, pool_size=1, pool_recycle=3600, echo=False, max_overflow=10, echo_pool=True)</span>
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Application</span>(tornado<span style="color:#f92672">.</span>web<span style="color:#f92672">.</span>Application):
+    <span style="color:#66d9ef">def</span> __init__(self):
+        handlers <span style="color:#f92672">=</span> [
+            (<span style="color:#e6db74">r</span><span style="color:#e6db74">&#34;/users&#34;</span>, UsersHandler),
+        ]
+        settings <span style="color:#f92672">=</span> dict(
+            cookie_secret<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;some_long_secret_and_other_settins&#34;</span>
+        )
+        tornado<span style="color:#f92672">.</span>web<span style="color:#f92672">.</span>Application<span style="color:#f92672">.</span>__init__(self, handlers, <span style="color:#f92672">**</span>settings)
+        <span style="color:#75715e"># Have one global connection.</span>
+        self<span style="color:#f92672">.</span>session <span style="color:#f92672">=</span> scoped_session(sessionmaker(bind<span style="color:#f92672">=</span>engine))
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">BaseHandler</span>(tornado<span style="color:#f92672">.</span>web<span style="color:#f92672">.</span>RequestHandler):
+
+	<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">prepare</span>(self):
+        self<span style="color:#f92672">.</span>session <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>application<span style="color:#f92672">.</span>session
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">get_current_user</span>(self):
+        user_id <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>get_secure_cookie(<span style="color:#e6db74">&#34;user&#34;</span>)
+        <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> user_id: <span style="color:#66d9ef">return</span> None
+        <span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>db<span style="color:#f92672">.</span>query(User)<span style="color:#f92672">.</span>get(user_id)
+	
+	<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">on_finish</span>(self):
+		self<span style="color:#f92672">.</span>session<span style="color:#f92672">.</span>remove()
+</code></pre></div><p>此处的scoped_session, 可理解为session的注册表，从中取用和交还，并保证多次取用的为统一session。详见官方文档，<a href="http://docs.sqlalchemy.org/en/latest/orm/contextual.html#sqlalchemy.orm.scoping.scoped_session">这里</a></p>
+<p>另外需要注意，此处的sqlalchemy的数据库查询，并不是异步，当使用tornado 的异步特性时，遇到查询数据库慢时，还是会阻塞的，此时我们更多的需要考虑的
+是去优化我们的sql，而不是异步查询数据库。因为，当数据库的查询慢到可以阻塞进程时，说明确实是有问题了。除非我们确实是有这种长时间查询数据库的需求。
+tornado 本身并没有提供数据库层的异步，看了许多异步查询数据库的三方库，都不是特别成熟。还有另一种解决方案，是使用其他异步任务库来完成长时间查询数据库的</p>
+<p>需求，如celery。</p>
+<p><strong>update 2017-05-03</strong></p>
+<p>1、tornado 本身还提供了一种通用的异步解决方案，即使用线程池的方式，见官方文档<a href="http://www.tornadoweb.org/en/stable/faq.html#why-isn-t-this-example-with-time-sleep-running-in-parallel">这里</a>。
+总结下来，实现异步有3中方式：</p>
+<ul>
+<li>使用gen方式</li>
+<li>使用线程池方式</li>
+<li>使用第3放库方式</li>
+</ul>
+<p>2、如上结合tornado 和sqlalchemy 时，所有的资源都是tornado进程独有的。例如，在application中生成的session。</p>
+<p>3、<code>pool_size</code>为进程池常驻进程数量，等到回收时间到时回收。 <code>max_overflow</code> 为最大超出<code>pool_size</code>的链接数量，此链接可以被<code>remove</code>回收。得出以上结论依据如下：</p>
+<ul>
+<li>在连续请求的情况下，数据库链接不断上升，达到最大值后，有可能报 <code>TimeoutError: QueuePool limit of size 5 overflow 10 reached, connection timed out, timeout 30</code>。原因如下：
+<ul>
+<li>scoped_session 每次请求尝试新的session（推断，有待验证）</li>
+<li>老的session被占用</li>
+</ul>
+</li>
+<li>将<code>pool_size</code> 和 <code>max_overflow</code>的值互换后，以上错误没有出现，且链接池链接数量有减少的情况。</li>
+</ul>
+<h2 id="tornado-日志使用">tornado 日志使用</h2>
+<p>tornado 的日志模块使用了python的logging模块实现。tornado 文档日志部分说的比较简单，<a href="http://www.tornadoweb.org/en/stable/log.html">这里</a>.
+让人读了，比较糊涂，文中说了，3个内部的 logger: <code>access</code> 、<code>application</code> 和 <code>general</code>。一开始我以为是使用这3个logger来记录tornado中的日志信息，
+其实不是，他们只是tornado自己内部使用的。我们完全可以自己获取我们的logger,即使用root logger 。tornado 作者建议如此，可见<a href="https://groups.google.com/forum/#!topic/python-tornado/QSKNn4_l0Oo">这里</a></p>
+<p>可如下使用，在py中直接获取logger:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> logging 
+
+logger <span style="color:#f92672">=</span> logging<span style="color:#f92672">.</span>getLogger(__name__)
+
+logger<span style="color:#f92672">.</span>info(<span style="color:#e6db74">&#39;...&#39;</span>)
+</code></pre></div><p>同时tornado提供了，logger的配置项，提供了日志的文件的命名，路径，切分等功能。均在在<code>tornado.log.py</code>里定义。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># tornado/log.py </span>
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">define_logging_options</span>(options<span style="color:#f92672">=</span>None):
+    <span style="color:#e6db74">&#34;&#34;&#34;Add logging-related flags to ``options``.
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">    These options are present automatically on the default options instance;
+</span><span style="color:#e6db74">    this method is only necessary if you have created your own `.OptionParser`.
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">    .. versionadded:: 4.2
+</span><span style="color:#e6db74">        This function existed in prior versions but was broken and undocumented until 4.2.
+</span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
+    <span style="color:#66d9ef">if</span> options <span style="color:#f92672">is</span> None:
+        <span style="color:#75715e"># late import to prevent cycle</span>
+        <span style="color:#f92672">import</span> tornado.options
+        options <span style="color:#f92672">=</span> tornado<span style="color:#f92672">.</span>options<span style="color:#f92672">.</span>options
+    options<span style="color:#f92672">.</span>define(<span style="color:#e6db74">&#34;logging&#34;</span>, default<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;info&#34;</span>,
+                   help<span style="color:#f92672">=</span>(<span style="color:#e6db74">&#34;Set the Python log level. If &#39;none&#39;, tornado won&#39;t touch the &#34;</span>
+                         <span style="color:#e6db74">&#34;logging configuration.&#34;</span>),
+                   metavar<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;debug|info|warning|error|none&#34;</span>)
+    options<span style="color:#f92672">.</span>define(<span style="color:#e6db74">&#34;log_to_stderr&#34;</span>, type<span style="color:#f92672">=</span>bool, default<span style="color:#f92672">=</span>None,
+                   help<span style="color:#f92672">=</span>(<span style="color:#e6db74">&#34;Send log output to stderr (colorized if possible). &#34;</span>
+                         <span style="color:#e6db74">&#34;By default use stderr if --log_file_prefix is not set and &#34;</span>
+                         <span style="color:#e6db74">&#34;no other logging is configured.&#34;</span>))
+    options<span style="color:#f92672">.</span>define(<span style="color:#e6db74">&#34;log_file_prefix&#34;</span>, type<span style="color:#f92672">=</span>str, default<span style="color:#f92672">=</span>None, metavar<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;PATH&#34;</span>,
+                   help<span style="color:#f92672">=</span>(<span style="color:#e6db74">&#34;Path prefix for log files. &#34;</span>
+                         <span style="color:#e6db74">&#34;Note that if you are running multiple tornado processes, &#34;</span>
+                         <span style="color:#e6db74">&#34;log_file_prefix must be different for each of them (e.g. &#34;</span>
+                         <span style="color:#e6db74">&#34;include the port number)&#34;</span>))
+    options<span style="color:#f92672">.</span>define(<span style="color:#e6db74">&#34;log_file_max_size&#34;</span>, type<span style="color:#f92672">=</span>int, default<span style="color:#f92672">=</span><span style="color:#ae81ff">100</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">1000</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">1000</span>,
+                   help<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;max size of log files before rollover&#34;</span>)
+    options<span style="color:#f92672">.</span>define(<span style="color:#e6db74">&#34;log_file_num_backups&#34;</span>, type<span style="color:#f92672">=</span>int, default<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>,
+                   help<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;number of log files to keep&#34;</span>)
+
+    options<span style="color:#f92672">.</span>define(<span style="color:#e6db74">&#34;log_rotate_when&#34;</span>, type<span style="color:#f92672">=</span>str, default<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;midnight&#39;</span>,
+                   help<span style="color:#f92672">=</span>(<span style="color:#e6db74">&#34;specify the type of TimedRotatingFileHandler interval &#34;</span>
+                         <span style="color:#e6db74">&#34;other options:(&#39;S&#39;, &#39;M&#39;, &#39;H&#39;, &#39;D&#39;, &#39;W0&#39;-&#39;W6&#39;)&#34;</span>))
+    options<span style="color:#f92672">.</span>define(<span style="color:#e6db74">&#34;log_rotate_interval&#34;</span>, type<span style="color:#f92672">=</span>int, default<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>,
+                   help<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;The interval value of timed rotating&#34;</span>)
+
+    options<span style="color:#f92672">.</span>define(<span style="color:#e6db74">&#34;log_rotate_mode&#34;</span>, type<span style="color:#f92672">=</span>str, default<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;size&#39;</span>,
+                   help<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;The mode of rotating files(time or size)&#34;</span>)
+
+    options<span style="color:#f92672">.</span>add_parse_callback(<span style="color:#66d9ef">lambda</span>: enable_pretty_logging(options))
+
+</code></pre></div><p>当<code>parse_command_line()</code>执行时，日志默认值被初始化，通知格式化了root logger，相关代码均在<code>tornado.log.py</code>中。</p>
+<p>有关root logger 的理解，可阅读这篇博客<a href="https://my.oschina.net/leejun2005/blog/126713">《python日志logging详解》</a></p>
+<p>如何修改tornado日志格式，可参考这里，<a href="http://stackoverflow.com/questions/30764666/can-you-change-the-log-output-format-for-a-tornado-app">change the log outpu format for a tornado app</a></p>
+<h2 id="其他找到的最佳实践的资料">其他找到的最佳实践的资料</h2>
+<ul>
+<li>
+<p><a href="https://github.com/tornadoweb/tornado/wiki/Deployment">tornado wiki</a> 你可以从tornado的wiki找到一些生产和开发中的最佳实践。</p>
+</li>
+<li>
+<p><a href="http://demo.pythoner.com/itt2zh/">Intoduction tornado</a> 虽然此文档的tornado版本是老的，但是介绍的知识点，比较全面且通俗易懂。</p>
+</li>
+</ul>
+<blockquote>
+<p>todo 持续更新</p>
+</blockquote>
+
+    </div>
+    <div class="article-footer">
+<blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://pylixm.top/posts/2017-03-10-tornado-best-practices.html" title="我心中的 tornado 最佳实践" target="_blank" rel="external">https://pylixm.top/posts/2017-03-10-tornado-best-practices.html</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>许可协议：</strong>
+      <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN</a>
+    </li>
+  </ul>
+</blockquote>
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://pylixm.top" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="https://pylixm.top/static/imgs/avatar.png" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://pylixm.top" target="_blank"><span class="text-dark">DeanWu</span><small class="ml-1x">程序员</small></a></h3>
+        <div>努力成为真正的SRE</div>
+      </div>
+    </figure>
+  </div>
+</div>
+    </div>
+  </article>
+<section id="comments">
+    <div id="vcomments"></div>
+</section>
+
+</div><nav class="bar bar-footer clearfix" data-stick-bottom>
+    <div class="bar-inner">
+        <ul class="pager pull-left">
+            <li class="prev">
+                <a href="https://pylixm.top/posts/2017-03-07-get-things-done.html" title="《尽管去做》读书笔记"><i
+                        class="icon icon-angle-left"
+                        aria-hidden="true"></i><span>&nbsp;&nbsp;下一篇</span></a>
+            </li>
+            <li class="next">
+                <a href="https://pylixm.top/posts/2017-04-04-tornado-qps-optimization.html"
+                    title="记一次tornado QPS 优化"><span>上一篇&nbsp;&nbsp;</span><i
+                        class="icon icon-angle-right" aria-hidden="true"></i></a>
+            </li>
+            
+            <li class="toggle-toc">
+                <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false"
+                    title="文章目录" role="button">
+                    <span>[&nbsp;</span><span>文章目录</span>
+                    <i class="text-collapsed icon icon-anchor"></i>
+                    <i class="text-in icon icon-close"></i>
+                    <span>]</span>
+                </a>
+            </li>
+        </ul>
+        <div class="bar-right">
+        </div>
+    </div>
+</nav>
+
+
+<script src="https://my.openwrite.cn/js/readmore.js" type="text/javascript"></script>
+<script>
+    const btw = new BTWPlugin();
+    btw.init({
+        id: 'article-container',
+        blogId: '24944-1607090547459-485',
+        name: '码农吴先生',
+        qrcode: 'https://gitee.com/pylixm/picture/raw/master/2020-12-4/1607089812769-image.png',
+        keyword: 'vip',
+    });
+</script>
+</main><footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+<ul class="social-links">
+    <li><a href="https://github.com/pylixm" target="_blank" title="github" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-github"></i></a></li>
+    <li><a href="https://pylixm.top/index.xml" target="_blank" title="rss" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-rss"></i></a></li>
+    <li><a href="http://weibo.com/2258086637" target="_blank" title="weibo" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-weibo"></i></a></li>
+</ul>
+  <div class="copyright">
+    &copy;2015  -
+    2020
+    <div class="publishby">
+      hugo驱动，Theme by <a href="https://github.com/xiaoheiAh/hugo-theme-pure" target="_blank"> pure</a>.
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_SVG"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+            showMathMenu: false, //disables context menu
+            tex2jax: {
+            inlineMath: [ ['$','$'], ['\\(','\\)'] ]
+           }
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+<script>
+    window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/highlight.min.js"></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/python.min.js" defer></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/javascript.min.js" defer></script><script>
+    hljs.configure({
+        tabReplace: '    ', 
+        classPrefix: ''     
+        
+    })
+    hljs.initHighlightingOnLoad();
+</script>
+<script src="https://pylixm.top/js/application.min.bdeb64b910570b6c41badc6a05b7afb0c8ad9efd8525de3c7257d59e786326a3.js"></script>
+<script src="https://pylixm.top/js/plugin.min.51ff8c7317566f82259170fa36e09c4493adc9b9378b427a01ad3f017ebac7dd.js"></script>
+
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(未命名)',
+            },
+            ROOT_URL: 'https:\/\/pylixm.top',
+            CONTENT_URL: 'https:\/\/pylixm.top\/searchindex.json ',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script type="text/javascript" src="https://pylixm.top/js/insight.min.a343cd9a5a7698336b28ef3a7c16a3a1b1d2d5fb17dc8ed04022bbe08cc5459073a15bdafa3a8a58cdd56080784bdd69fa70b1ae8597565c799c57ed00f0e120.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script>
+<script>
+    tocbot.init({
+        
+        tocSelector: '.js-toc',
+        
+        contentSelector: '.js-toc-content',
+        
+        headingSelector: 'h1, h2, h3',
+        
+        hasInnerContainers: true,
+    });
+</script>
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="https://cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine"></script>
+<script type="text/javascript">
+    var GUEST = ['nick', 'mail', 'link'];
+    var meta = 'nick,mail';
+    meta = meta.split(',').filter(function (item) {
+        return GUEST.indexOf(item) > -1;
+    });
+    new Valine({
+        el: '#vcomments',
+        verify: null ,
+        notify: null ,
+        appId: 'OBJcj4PU8JI0zDfu0HJSrG6W-gzGzoHsz',
+        appKey: 'tBtFzC72xIlgo2UFbA33nqmU',
+        placeholder: '来做第一个发言人吧',
+        avatar: 'mm',
+        meta: meta,
+        pageSize: '10' || 10,
+        visitor: false 
+});
+</script>
+
+  </body>
+</html>
