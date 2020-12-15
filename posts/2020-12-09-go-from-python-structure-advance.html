@@ -2,7 +2,7 @@
 <html lang="zh">
   <head>
     <title>
-        「对比Python学习Go」- 高级数据结构 - DeanWu
+        「对比Python学习Go」- 高级数据结构上篇 - DeanWu
       </title>
         <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -22,30 +22,30 @@
     
     <meta name="description" content="本篇是「对比Python学习Go」 系列的第四篇，本篇文章我们来看下Go的高级数据结构。本系列的其他文章可到 「对比Python学习Go」- 开篇" />
     <meta name="generator" content="Hugo 0.73.0 with theme pure" />
-    <title>「对比Python学习Go」- 高级数据结构 - DeanWu</title>
+    <title>「对比Python学习Go」- 高级数据结构上篇 - DeanWu</title>
     
     
     <link rel="stylesheet" href="https://pylixm.top/css/style.min.f70e8e0df9ea6aeb37dac252b17ca98082073ff1663b24118baaaa84ee8ae7e8.css">
     
     <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.15.10/styles/github.min.css" async>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css" async>
-    <meta property="og:title" content="「对比Python学习Go」- 高级数据结构" />
+    <meta property="og:title" content="「对比Python学习Go」- 高级数据结构上篇" />
 <meta property="og:description" content="本篇是「对比Python学习Go」 系列的第四篇，本篇文章我们来看下Go的高级数据结构。本系列的其他文章可到 「对比Python学习Go」- 开篇" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://pylixm.top/posts/2020-12-09-go-from-python-structure-advance.html" />
 <meta property="article:published_time" content="2020-12-09T00:00:00+00:00" />
 <meta property="article:modified_time" content="2020-12-09T00:00:00+00:00" /><meta property="og:see_also" content="https://pylixm.top/posts/2020-12-05-go-from-python-structure-base.html" /><meta property="og:see_also" content="https://pylixm.top/posts/2020-12-03-go-from-python-start.html" /><meta property="og:see_also" content="https://pylixm.top/posts/2020-12-02-go-from-python-intro.html" />
 
-<meta itemprop="name" content="「对比Python学习Go」- 高级数据结构">
+<meta itemprop="name" content="「对比Python学习Go」- 高级数据结构上篇">
 <meta itemprop="description" content="本篇是「对比Python学习Go」 系列的第四篇，本篇文章我们来看下Go的高级数据结构。本系列的其他文章可到 「对比Python学习Go」- 开篇">
 <meta itemprop="datePublished" content="2020-12-09T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2020-12-09T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="3085">
+<meta itemprop="wordCount" content="3927">
 
 
 
 <meta itemprop="keywords" content="Golang,对比Python学习Go," /><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="「对比Python学习Go」- 高级数据结构"/>
+<meta name="twitter:title" content="「对比Python学习Go」- 高级数据结构上篇"/>
 <meta name="twitter:description" content="本篇是「对比Python学习Go」 系列的第四篇，本篇文章我们来看下Go的高级数据结构。本系列的其他文章可到 「对比Python学习Go」- 开篇"/>
 
     <!--[if lte IE 9]>
@@ -161,7 +161,7 @@
             <li>
                 <div class="item-inner">
                     <p class="item-title">
-                        <a href="https://pylixm.top/posts/2020-12-09-go-from-python-structure-advance.html" class="title">「对比Python学习Go」- 高级数据结构</a>
+                        <a href="https://pylixm.top/posts/2020-12-09-go-from-python-structure-advance.html" class="title">「对比Python学习Go」- 高级数据结构上篇</a>
                     </p>
                     <p class="item-date">
                         <time datetime="2020-12-09 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-09</time>
@@ -281,7 +281,7 @@
   <a
     class="article-title"
     href="/posts/2020-12-09-go-from-python-structure-advance.html"
-    >「对比Python学习Go」- 高级数据结构</a
+    >「对比Python学习Go」- 高级数据结构上篇</a
   >
 </h1>
 
@@ -311,8 +311,8 @@
 	</span>
         <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="/posts/2020-12-09-go-from-python-structure-advance.html#comments"
             class="article-comment-link">评论</a></span>
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 3085字</span>
-		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 7分 </span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 3927字</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 8分 </span>
       </div>
     </div>
     <div class="article-entry marked-body js-toc-content" itemprop="articleBody">
@@ -320,7 +320,7 @@
 <blockquote>
 <p>Python数据结构底层完全依赖解释器的实现方式，没有特殊说明文中数据结构对应默认解释器CPython。</p>
 </blockquote>
-<p>从数据结构上来讲，底层结构有「数组」和「链表」，还有很多基于他们的高级数据结构如栈、队列、散列表等等。作为编程语言，Go和Python 是如何定义自己的数据结构的呢？根据数据结构的特性，我们大致可以将Go和Python的高级数据结构分如下几个类型：</p>
+<p>从数据结构上来讲，有「数组」和「链表」两种基本的数据结构，还有很多基于他们的高级数据结构如栈、队列、散列表等等。作为编程语言，Go和Python 是如何定义自己的数据结构的呢？根据数据结构的特性，我们大致可以将Go和Python的数据结构分如下几个类型：</p>
 <ul>
 <li>「类数组的结构」，具有数组的一些特性，但不完全是数组。</li>
 <li>「哈希类型」，即key-value类型或叫map类型。</li>
@@ -337,10 +337,10 @@
 <h3 id="go">Go</h3>
 <p>在Go语言中，有「数组」和「切片」两个类数组数据结构。</p>
 <p><strong>数组</strong></p>
-<p>在Go语言中，数组的特性可总结如下：</p>
+<p>Go的数组特性可总结如下：</p>
 <ul>
 <li><strong>固定长度</strong>：这意味着数组不可增长、不可缩减。想要扩展数组，只能创建新数组，将原数组的元素复制到新数组。</li>
-<li><strong>内存连续</strong>：这意味可以在缓存中保留的时间更长，搜索速度更快，是一种非常高效的数据结构，同时还意味着可以通过数值的方式(arr[index])索引数组中的元素。</li>
+<li><strong>内存连续</strong>：意味着可以通过下标的方式(arr[index])索引数组中的元素。</li>
 <li><strong>固定类型</strong>：固定类型意味着限制了每个数组元素可以存放什么样的数据，以及每个元素可以存放多少字节的数据。</li>
 </ul>
 <p>数组的初始化和操作如下：</p>
@@ -415,7 +415,7 @@
 </code></pre></div><p>数组中未被初始化的元素，会自动初始化为各类型对应的「零值」。</p>
 <p><strong>切片</strong></p>
 <p>Go的数组长度是固定的，内存空间中存储了数据值，当存储的量特别大的时候，使用起来极不方便。在Go语言中，除了数组还定义了一个类数组结构，叫做「切片（slice）」。</p>
-<p>切片是数组段的描述符。它由一个指向<strong>数组的指针</strong>，数组段<strong>长度</strong>及其<strong>容量</strong>（段的最大长度）组成。切片更像是数据的引用类型，而数组则是值类型。</p>
+<p>切片是数组段的描述符。它由一个指向底层<strong>数组的指针</strong>，数组段<strong>长度</strong>及其<strong>容量</strong>（段的最大长度）组成。切片更像是数组的引用类型，而数组则是值类型。其结构如下：</p>
 <p><img src="https://gitee.com/pylixm/picture/raw/master/2020-12-14/1607933189325-slice.png" alt="slice"></p>
 <p>在Go的编程中，由于数组的各种局限性，对数据集合类型的操作处理时，切片是首选的数据结构。切片的底层数据存储还是数组，所以数组的一些特性切片也有。</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang"><span style="color:#75715e">// 切片使用make(slice, len, cap) 声明, cap可省略，省略时，等于len
@@ -486,7 +486,7 @@
 </span><span style="color:#75715e"></span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%p %v %v \n&#34;</span>, <span style="color:#a6e22e">sli</span>, len(<span style="color:#a6e22e">sli</span>), cap(<span style="color:#a6e22e">sli</span>)) <span style="color:#75715e">// 0xc00001a0c0 5 6
 </span><span style="color:#75715e"></span>
 </code></pre></div><p>上边代码中sli长度为3，容量为3。append 元素之后，因为容量已经被占满，所以自动扩容了一倍的容量，经过两次append之后，长度变为5，容量为6。除了长度和容量外，大家可能发现了，数组地址变了，这说明append函数在扩容的时候，会创建一个新的底层数组，而并非在原数组上进行直接追加扩容。</p>
-<p>append 函数扩容创建新数组，这时候再通过下标来修改数据或继续执行append是不会覆盖原底层数组的，因为已经不是一个数组了。这个特点经常被用在从一个切片创建另一个切片时使用，防止切片的相互影响。</p>
+<p>append 函数扩容创建新数组，这时候再通过下标来修改数据或继续执行append是不会覆盖原底层数组的，因为已经不是一个数组了。这个特点经常被用在从一个切片创建另一个切片时，防止切片赋值相互影响。</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang"><span style="color:#a6e22e">sli</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">3</span>)  <span style="color:#75715e">// 定义一个长度，大小都为3的切片
 </span><span style="color:#75715e"></span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">sli</span>)  <span style="color:#75715e">// [0 0 0]
 </span><span style="color:#75715e"></span><span style="color:#a6e22e">sli1</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">sli</span>[:<span style="color:#ae81ff">3</span>:<span style="color:#ae81ff">3</span>]  <span style="color:#75715e">// sli1 长度3-0=3，容量为3-0=3 
@@ -505,14 +505,16 @@
     PyObject <span style="color:#f92672">**</span>ob_item;
     Py_ssize_t allocated;
 } PyListObject;
-</code></pre></div><p>抛去公共的头部变量<code>PyObject_VAR_HEAD</code>，列表由一个指针数组<code>ob_item</code>，和一个容量<code>allocated</code>组成。</p>
+</code></pre></div><p>抛去公共的头部变量<code>PyObject_VAR_HEAD</code>，列表由一个指针数组<code>ob_item</code>，和一个容量<code>allocated</code>组成。结构如下：</p>
 <p><img src="https://gitee.com/pylixm/picture/raw/master/2020-12-14/1607946372784-list.png" alt="list"></p>
-<p>参考 <a href="https://docs.python.org/3/faq/design.html#how-are-lists-implemented-in-cpython">How are lists implemented in CPython?</a> 总结List有如下特性：</p>
+<p>列表中，并未存储实际的数值，而是存储了数值的引用地址，引用地址可以指向任意类型的数据，也就可以理解为什么列表中可以有任意类型的元素了。另一个，列表中引用地址的大小相同，保存在一个连续的存储空间，也就有了数组的一些特性，可以通过下标快速定位。</p>
+<p>根据列表底层结构和 Python 官方文档 <a href="https://docs.python.org/3/faq/design.html#how-are-lists-implemented-in-cpython">How are lists implemented in CPython?</a> 总结List有如下特性：</p>
 <ul>
 <li>列表元素可以使用下标索引取值，各元素是有位置顺序的，底层为连续的存储空间。</li>
 <li>列表中存储的是数据的内存地址，并非真实数据。所以从上层结构看，list列表可以存储任意类型，即列表元素中的内存地址可以是指向任意类型的。</li>
-<li>可以任意添加新元素，要能不断地添加新元素，其使用了「动态扩充」的策略。</li>
+<li>可以任意添加新元素，要能不断地添加新元素，其使用了「动态扩充」的策略。扩容策略的增长倍数大致是这样的：0, 4, 8, 16, 24, 32, 40, 52, 64, 76&hellip;，参考源码 <a href="https://github.com/python/cpython/blob/master/Objects/listobject.c#L67">listobject.c</a>。</li>
 </ul>
+<p>列表的初始化及操作如下：</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># 列表的初始化</span>
 l1 <span style="color:#f92672">=</span> []  <span style="color:#75715e"># 推荐，更快速</span>
 l2 <span style="color:#f92672">=</span> list()
@@ -536,7 +538,6 @@ l3 <span style="color:#f92672">+=</span> l1
 
 <span style="color:#75715e"># 删除索引为3的元素</span>
 <span style="color:#66d9ef">del</span> l1[<span style="color:#ae81ff">3</span>] 
-
 
 </code></pre></div><p>Python 的列表作为内建的高级数据结构，实现了一系列的操作功能函数。</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">dir(list)
@@ -594,19 +595,79 @@ l2<span style="color:#f92672">.</span>reverse()
 l21 <span style="color:#f92672">=</span> sorted(l2, key<span style="color:#f92672">=</span><span style="color:#66d9ef">lambda</span> x: x, reverse<span style="color:#f92672">=</span>False)
 <span style="color:#66d9ef">print</span>(l21)
 
-</code></pre></div><h2 id="key-value-结构">key-value 结构</h2>
-<p><a href="https://zhuanlan.zhihu.com/p/33496977">https://zhuanlan.zhihu.com/p/33496977</a></p>
-<h2 id="独有数据结构">独有数据结构</h2>
-<h3 id="go---指针">Go - 指针</h3>
-<h3 id="go---结构体">Go - 结构体</h3>
-<h3 id="python---集合元组">Python - 集合/元组</h3>
-<h3 id="python---迭代器生成器">Python - 迭代器/生成器</h3>
+</code></pre></div><p><strong>元组</strong></p>
+<p>Python 中除了列表，还有元组比较像数组。元组和列表相似，只是不能增加、删除、修改。底层结构如下：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span> {
+    PyObject_VAR_HEAD
+    PyObject <span style="color:#f92672">*</span>ob_item[<span style="color:#ae81ff">1</span>];
+} PyTupleObject;
+</code></pre></div><p>除了头字段，只有一个指针数组。没有想列表一样的容量字段<code>allocated</code>，这正映了元组的不可变特性。除了元素的不可变特性外，其他和列表一样，是列表类型的一个子集。</p>
+<p>你可能会有这样的疑问，都有列表了，元组存在的意义在哪里？元组相比于列表，有以下几点优势：</p>
+<ul>
+<li>
+<ol>
+<li>因为元素不可变性，它可以作为哈希类型的key值。这样使的key的描述意义更丰富，更易理解。</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>对于元组，解释器会缓存一些小的静态变量使用的内存，这样在初始化时，就比列表快。</li>
+</ol>
+</li>
+</ul>
+<p>元组的初始化及常用操作：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">
+<span style="color:#75715e"># 元组的初始化</span>
+a <span style="color:#f92672">=</span> (<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>)
+b <span style="color:#f92672">=</span> (<span style="color:#e6db74">&#39;1&#39;</span>, [<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>])
+c <span style="color:#f92672">=</span> (<span style="color:#e6db74">&#39;1&#39;</span>, <span style="color:#e6db74">&#39;2&#39;</span>, (<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>))
+d <span style="color:#f92672">=</span> ()
+e <span style="color:#f92672">=</span> (<span style="color:#ae81ff">1</span>,)  <span style="color:#75715e"># 元组中只有一个元素时，需要使用逗号结尾</span>
+
+<span style="color:#66d9ef">print</span>(a, b, c, d, e)
+<span style="color:#75715e"># (1, 2, 3) (&#39;1&#39;, [2, 3]) (&#39;1&#39;, &#39;2&#39;, (3, 4)) () (1,)</span>
+
+<span style="color:#75715e"># 下标获取值</span>
+<span style="color:#66d9ef">print</span>(a[<span style="color:#ae81ff">1</span>])  <span style="color:#75715e"># 2</span>
+
+<span style="color:#75715e"># 元组合并</span>
+<span style="color:#66d9ef">print</span>(a<span style="color:#f92672">+</span>b)  <span style="color:#75715e"># (1, 2, 3, &#39;1&#39;, [2, 3])</span>
+
+<span style="color:#75715e"># 内建函数使用</span>
+<span style="color:#75715e"># 元组长度</span>
+<span style="color:#66d9ef">print</span>(len(a))  <span style="color:#75715e"># 3</span>
+
+<span style="color:#75715e"># 使用 * 是复制指针</span>
+f <span style="color:#f92672">=</span> a<span style="color:#f92672">*</span><span style="color:#ae81ff">2</span>
+<span style="color:#66d9ef">print</span>(f)  <span style="color:#75715e"># (1, 2, 3, 1, 2, 3)</span>
+<span style="color:#66d9ef">print</span>(id(f[<span style="color:#ae81ff">0</span>]))  <span style="color:#75715e"># 4376435920</span>
+<span style="color:#66d9ef">print</span>(id(a[<span style="color:#ae81ff">0</span>]))  <span style="color:#75715e"># 4376435920</span>
+<span style="color:#66d9ef">print</span>(id(f[<span style="color:#ae81ff">3</span>]))  <span style="color:#75715e"># 4376435920</span>
+
+
+<span style="color:#75715e"># 无法更新编辑</span>
+<span style="color:#75715e"># a[0] = 1</span>
+<span style="color:#75715e"># Traceback (most recent call last):</span>
+<span style="color:#75715e">#   File &#34;/Users/deanwu/projects/01_LearnDocs/learn_codes/python/python_list.py&#34;, line 15, in &lt;module&gt;</span>
+<span style="color:#75715e">#     a[0] = 1</span>
+<span style="color:#75715e"># TypeError: &#39;tuple&#39; object does not support item assignment</span>
+
+<span style="color:#75715e"># 无法删除</span>
+<span style="color:#75715e"># del a[0]</span>
+<span style="color:#75715e"># Traceback (most recent call last):</span>
+<span style="color:#75715e">#   File &#34;/Users/deanwu/projects/01_LearnDocs/learn_codes/python/python_list.py&#34;, line 21, in &lt;module&gt;</span>
+<span style="color:#75715e">#     del a[0]</span>
+<span style="color:#75715e"># TypeError: &#39;tuple&#39; object doesn&#39;t support item deletion</span>
+
+</code></pre></div><h2 id="总结">总结</h2>
+<p>本篇我们我学习了Go和Python的高级数据结构中类数组的结构，它们都有一些数组的特性，但又都有自己语言的特点。Go的切片和Python的列表，底层都基于数组，但Go的切片更像是数组的描述符指针，而Python的列表，则是使用地址和数据分开存储，引用地址使用连续空间存储，继承数组快速查找的优点，外部存储实现任意类型元素的存储。整体下来，甚是巧妙。</p>
+<p>不管何种语言，我们在使用时，既要了解结构的基本用法，还要了解其底层的逻辑结构，才能避免在使用时的一些莫名的坑。</p>
 <h2 id="扩展阅读">扩展阅读</h2>
 <ul>
 <li><a href="https://www.cnblogs.com/sparkdev/p/10704614.html">Golang slice</a></li>
 <li><a href="https://www.cnblogs.com/yifeixu/p/8893823.html">python中的list类型</a></li>
 <li><a href="https://www.laurentluce.com/posts/python-list-implementation/">CPython中list的实现</a></li>
-<li><a href="https://svn.python.org/projects/python/trunk/Objects/listobject.c">listObject.c</a></li>
+<li><a href="https://github.com/python/cpython/blob/master/Objects/listobject.c">listobject.c</a></li>
 </ul>
 
     </div>
@@ -615,7 +676,7 @@ l21 <span style="color:#f92672">=</span> sorted(l2, key<span style="color:#f9267
   <ul class="post-copyright list-unstyled">
     <li class="post-copyright-link hidden-xs">
       <strong>本文链接：</strong>
-      <a href="https://pylixm.top/posts/2020-12-09-go-from-python-structure-advance.html" title="「对比Python学习Go」- 高级数据结构" target="_blank" rel="external">https://pylixm.top/posts/2020-12-09-go-from-python-structure-advance.html</a>
+      <a href="https://pylixm.top/posts/2020-12-09-go-from-python-structure-advance.html" title="「对比Python学习Go」- 高级数据结构上篇" target="_blank" rel="external">https://pylixm.top/posts/2020-12-09-go-from-python-structure-advance.html</a>
     </li>
     <li class="post-copyright-license">
       <strong>许可协议：</strong>
