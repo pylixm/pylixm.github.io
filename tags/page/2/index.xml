@@ -5,10 +5,19 @@
     <link>https://pylixm.top/tags/</link>
     <description>Recent content in Tags on DeanWu</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Tue, 08 Dec 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 09 Dec 2020 00:00:00 +0000</lastBuildDate>
     
         <atom:link href="https://pylixm.top/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>「朝花夕拾」- 0703期，总第十期</title>
+      <link>https://pylixm.top/posts/2020-07-03-zhxs-0703.html</link>
+      <pubDate>Fri, 03 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2020-07-03-zhxs-0703.html</guid>
+      <description>「朝花夕拾」周刊总目录: https://pylixm.cc/posts/2020-04-30-zhxs-index.html 资讯 7月1日，Redis 项目的创始人@antirez 宣布退出代码的日常开发，以后只充当该项目的顾问。理由是“我写代</description>
+    </item>
     
     <item>
       <title>「Python Tips」 - 卸载通过pkg安装的python</title>
@@ -179,15 +188,6 @@
       
       <guid>https://pylixm.top/posts/2019-12-26-python-trick.html</guid>
       <description>现象 今天在升级一个Python虚拟环境的时候，出现了这种错误 OSError - setuptools pip wheel failed with error code -11。我的操作步骤是这样的，先删除虚拟环境rm -rf env，再创</description>
-    </item>
-    
-    <item>
-      <title>数据结构与算法 - 算法 - 递归</title>
-      <link>https://pylixm.top/posts/2019-12-26-recursion.html</link>
-      <pubDate>Thu, 26 Dec 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2019-12-26-recursion.html</guid>
-      <description>《数据结构与算法-王争》学习笔记，记录备查 可用递归解决的问题的三个条件 一个问题的解可以分解为几个子问题的解 这个问题和子问题之后的子问题，除了</description>
     </item>
     
   </channel>

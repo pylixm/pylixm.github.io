@@ -5,10 +5,19 @@
     <link>https://pylixm.top/categories/Golang/</link>
     <description>Recent content in Golang on DeanWu</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sat, 05 Dec 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 09 Dec 2020 00:00:00 +0000</lastBuildDate>
     
         <atom:link href="https://pylixm.top/categories/Golang/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>「译」Puppet 简单入门 - 理论篇</title>
+      <link>https://pylixm.top/posts/2019-07-23-Puppet-tutorial-one.html</link>
+      <pubDate>Tue, 23 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2019-07-23-Puppet-tutorial-one.html</guid>
+      <description>本文为译文，原文Puppet Tutorial for Beginners: Resources, Classes, Manifest, Modules，主要讲解了Puppet工具的基本概念和用法。作为快速了解和备忘正合适，翻译记录，希望</description>
+    </item>
     
     <item>
       <title>Django 中如何使用 sass</title>
@@ -179,15 +188,6 @@
       
       <guid>https://pylixm.top/2019/01/How-to-build-ngrok-server/</guid>
       <description>最近需要开发个微信公众号后台，需要内网穿透工具，之前使用过sunny-ngrok，这个现在也变成付费的了。这次决定自己搭建一个，顺便学习下。</description>
-    </item>
-    
-    <item>
-      <title>记一次 Linux OOM-killer 分析过程</title>
-      <link>https://pylixm.top/posts/2018-11-28-Linux-oom-killer.html</link>
-      <pubDate>Wed, 28 Nov 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2018-11-28-Linux-oom-killer.html</guid>
-      <description>问题现象 最近发现线上服务的服务节点经常性的挂掉，我们业务的线上服务使用docker跑的Tomcat服务。服务业务现象收集如下： tomcat的</description>
     </item>
     
   </channel>

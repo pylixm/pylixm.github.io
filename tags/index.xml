@@ -5,10 +5,19 @@
     <link>https://pylixm.top/tags/</link>
     <description>Recent content in Tags on DeanWu</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Tue, 08 Dec 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 09 Dec 2020 00:00:00 +0000</lastBuildDate>
     
         <atom:link href="https://pylixm.top/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>「对比Python学习Go」- 高级数据结构</title>
+      <link>https://pylixm.top/posts/2020-12-09-go-from-python-structure-advance.html</link>
+      <pubDate>Wed, 09 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2020-12-09-go-from-python-structure-advance.html</guid>
+      <description>本篇是「对比Python学习Go」 系列的第四篇，本篇文章我们来看下Go的高级数据结构。本系列的其他文章可到 「对比Python学习Go」- 开篇</description>
+    </item>
     
     <item>
       <title>Django 三个异步使用的案例</title>
@@ -25,7 +34,7 @@
       <pubDate>Sat, 05 Dec 2020 00:00:00 +0000</pubDate>
       
       <guid>https://pylixm.top/posts/2020-12-05-go-from-python-structure-base.html</guid>
-      <description>本篇是「对比Python学习Go」 系列的第三篇，本篇文章我们来看下Go的基本数据结构。Go的环境搭建，可参考之前的文章「对比Python学习</description>
+      <description>update 2020-12-13 本篇是「对比Python学习Go」 系列的第三篇，本篇文章我们来看下Go的基本数据结构。Go的环境搭建，可参考之前的文章「对比Python</description>
     </item>
     
     <item>
@@ -179,15 +188,6 @@
       
       <guid>https://pylixm.top/posts/2020-07-14-python-selenium.html</guid>
       <description>Selenium 库不必多说，是Python 生态中的神器，在动态网页爬取和自动化测试中有广泛的应用。之前公司前辈，用它搞了个抢会议室的脚本，今天加了点功能，</description>
-    </item>
-    
-    <item>
-      <title>「朝花夕拾」- 0703期，总第十期</title>
-      <link>https://pylixm.top/posts/2020-07-03-zhxs-0703.html</link>
-      <pubDate>Fri, 03 Jul 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2020-07-03-zhxs-0703.html</guid>
-      <description>「朝花夕拾」周刊总目录: https://pylixm.cc/posts/2020-04-30-zhxs-index.html 资讯 7月1日，Redis 项目的创始人@antirez 宣布退出代码的日常开发，以后只充当该项目的顾问。理由是“我写代</description>
     </item>
     
   </channel>

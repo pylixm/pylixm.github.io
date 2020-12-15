@@ -5,10 +5,19 @@
     <link>https://pylixm.top/series/</link>
     <description>Recent content in Series on DeanWu</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sat, 05 Dec 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 09 Dec 2020 00:00:00 +0000</lastBuildDate>
     
         <atom:link href="https://pylixm.top/series/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>《尽管去做》读书笔记</title>
+      <link>https://pylixm.top/posts/2017-03-07-get-things-done.html</link>
+      <pubDate>Tue, 07 Mar 2017 21:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2017-03-07-get-things-done.html</guid>
+      <description>通过践行这本书中方法，可以慢慢进入一种心如止水的状态，工作、学习、生活、身体各方面达到相对的平衡Balance GTD到底是什么？用一句话来说</description>
+    </item>
     
     <item>
       <title>如何开技术方案选型会议</title>
@@ -179,15 +188,6 @@
       
       <guid>https://pylixm.top/posts/2016-05-22-best.practices.for.django.1.8.3rd-chapter-6.html</guid>
       <description>其他章节索引页 第六章 model 最佳实践 当app的model过多时，拆分app 当app的model过多时，说明这个app的功能够大，此时就需要我们拆分</description>
-    </item>
-    
-    <item>
-      <title>Django 最佳实践-读书笔记 - 第四章 django app的设计</title>
-      <link>https://pylixm.top/posts/2016-05-22-best.practices.for.django.1.8.3rd-chapter-4.html</link>
-      <pubDate>Sun, 22 May 2016 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2016-05-22-best.practices.for.django.1.8.3rd-chapter-4.html</guid>
-      <description>其他章节索引页 第四章 django app的设计 Django的 app 设计的黄金法则 each app should be tightly focused on its task. （每个 app 的功能任务尽量的独立分开，这样能更好的重用。） 如何</description>
     </item>
     
   </channel>

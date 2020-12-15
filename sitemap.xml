@@ -4,14 +4,70 @@
   
   <url>
     <loc>https://pylixm.top/categories/</loc>
-    <lastmod>2020-12-08T00:00:00+00:00</lastmod>
+    <lastmod>2020-12-09T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://pylixm.top/</loc>
-    <lastmod>2020-12-08T00:00:00+00:00</lastmod>
+    <lastmod>2020-12-09T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://pylixm.top/tags/Golang/</loc>
+    <lastmod>2020-12-09T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://pylixm.top/categories/Golang/</loc>
+    <lastmod>2020-12-09T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://pylixm.top/posts/</loc>
+    <lastmod>2020-12-09T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://pylixm.top/series/</loc>
+    <lastmod>2020-12-09T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://pylixm.top/tags/</loc>
+    <lastmod>2020-12-09T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://pylixm.top/posts/2020-12-09-go-from-python-structure-advance.html</loc>
+    <lastmod>2020-12-09T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://pylixm.top/tags/%E5%AF%B9%E6%AF%94Python%E5%AD%A6%E4%B9%A0Go/</loc>
+    <lastmod>2020-12-09T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://pylixm.top/series/%E5%AF%B9%E6%AF%94Python%E5%AD%A6%E4%B9%A0Go/</loc>
+    <lastmod>2020-12-09T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -45,56 +101,7 @@
   </url>
   
   <url>
-    <loc>https://pylixm.top/posts/</loc>
-    <lastmod>2020-12-08T00:00:00+00:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://pylixm.top/tags/</loc>
-    <lastmod>2020-12-08T00:00:00+00:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://pylixm.top/tags/Golang/</loc>
-    <lastmod>2020-12-05T00:00:00+00:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://pylixm.top/categories/Golang/</loc>
-    <lastmod>2020-12-05T00:00:00+00:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://pylixm.top/series/</loc>
-    <lastmod>2020-12-05T00:00:00+00:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
     <loc>https://pylixm.top/posts/2020-12-05-go-from-python-structure-base.html</loc>
-    <lastmod>2020-12-05T00:00:00+00:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://pylixm.top/tags/%E5%AF%B9%E6%AF%94Python%E5%AD%A6%E4%B9%A0Go/</loc>
-    <lastmod>2020-12-05T00:00:00+00:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://pylixm.top/series/%E5%AF%B9%E6%AF%94Python%E5%AD%A6%E4%B9%A0Go/</loc>
     <lastmod>2020-12-05T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>

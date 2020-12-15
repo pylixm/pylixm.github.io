@@ -5,10 +5,19 @@
     <link>https://pylixm.top/series/%E5%AF%B9%E6%AF%94Python%E5%AD%A6%E4%B9%A0Go/</link>
     <description>Recent content in 对比Python学习Go on DeanWu</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sat, 05 Dec 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 09 Dec 2020 00:00:00 +0000</lastBuildDate>
     
         <atom:link href="https://pylixm.top/series/%E5%AF%B9%E6%AF%94Python%E5%AD%A6%E4%B9%A0Go/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>记一次 Linux OOM-killer 分析过程</title>
+      <link>https://pylixm.top/posts/2018-11-28-Linux-oom-killer.html</link>
+      <pubDate>Wed, 28 Nov 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2018-11-28-Linux-oom-killer.html</guid>
+      <description>问题现象 最近发现线上服务的服务节点经常性的挂掉，我们业务的线上服务使用docker跑的Tomcat服务。服务业务现象收集如下： tomcat的</description>
+    </item>
     
     <item>
       <title>DNS 相关知识记录</title>
@@ -183,15 +192,6 @@
       
       <guid>https://pylixm.top/posts/2018-01-30-go-commond.html</guid>
       <description>安装好 golang 后，在任意目录运行 go 可看到 Golang 的所有命令，如下： build compile packages and dependencies clean remove object files doc show documentation for package or symbol env print Go environment information bug start a bug report fix run go tool fix on packages fmt run gofmt on package sources generate generate Go files</description>
-    </item>
-    
-    <item>
-      <title>「Go语言学习笔记三」- Golang 语法入门</title>
-      <link>https://pylixm.top/posts/2018-01-26-Go-start.html</link>
-      <pubDate>Fri, 26 Jan 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2018-01-26-Go-start.html</guid>
-      <description>本文出处Go编程语言，由Tuberose整理。原文地址：https://www.jianshu.com/p/bed39de53087。转载到</description>
     </item>
     
   </channel>
