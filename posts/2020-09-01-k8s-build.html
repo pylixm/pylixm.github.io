@@ -39,7 +39,7 @@
 <meta itemprop="description" content="本篇记录我集群搭建的过程和问题，目标是可以根据本篇文章搭建自己生产可用的K8S集群。对于K8S的一些概念理解，可参考我之前的笔记Kubern">
 <meta itemprop="datePublished" content="2020-09-01T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2020-09-01T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="9122">
+<meta itemprop="wordCount" content="9170">
 
 
 
@@ -160,7 +160,7 @@
             <li>
                 <div class="item-inner">
                     <p class="item-title">
-                        <a href="https://pylixm.top/posts/2020-12-09-go-from-python-structure-advance.html" class="title">「对比Python学习Go」- 高级数据结构</a>
+                        <a href="https://pylixm.top/posts/2020-12-09-go-from-python-structure-advance-1.html" class="title">「对比Python学习Go」- 高级数据结构</a>
                     </p>
                     <p class="item-date">
                         <time datetime="2020-12-09 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-09</time>
@@ -310,7 +310,7 @@
 	</span>
         <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="/posts/2020-09-01-k8s-build.html#comments"
             class="article-comment-link">评论</a></span>
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 9122字</span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 9170字</span>
 		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 19分 </span>
       </div>
     </div>
@@ -1118,6 +1118,26 @@ cfssl gencert -ca<span style="color:#f92672">=</span>ca.pem -ca-key<span style="
 
 ls kube-proxy*pem
 kube-proxy-key.pem  kube-proxy.pem
+
+<span style="color:#75715e"># 生成 kubeconfig 文件</span>
+
+kubectl config set-cluster kubernetes <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  --certificate-authority<span style="color:#f92672">=</span>/opt/kubernetes/ssl/ca.pem <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  --embed-certs<span style="color:#f92672">=</span>true <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  --server<span style="color:#f92672">=</span>https://192.168.10.12:6443 <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  --kubeconfig<span style="color:#f92672">=</span>kube-proxy.kubeconfig
+kubectl config set-credentials kube-proxy <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  --client-certificate<span style="color:#f92672">=</span>./kube-proxy.pem <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  --client-key<span style="color:#f92672">=</span>./kube-proxy-key.pem <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  --embed-certs<span style="color:#f92672">=</span>true <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  --kubeconfig<span style="color:#f92672">=</span>kube-proxy.kubeconfig
+kubectl config set-context default <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  --cluster<span style="color:#f92672">=</span>kubernetes <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  --user<span style="color:#f92672">=</span>kube-proxy <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  --kubeconfig<span style="color:#f92672">=</span>kube-proxy.kubeconfig
+kubectl config use-context default --kubeconfig<span style="color:#f92672">=</span>kube-proxy.kubeconfig
+
+cp kube-proxy.kubeconfig /opt/kubernetes/cfg/
 </code></pre></div><p>环境变量配置文件</p>
 <pre><code># 环境变量配置文件
 cat &gt; /opt/kubernetes/cfg/kube-proxy.conf &lt;&lt; EOF
