@@ -40,7 +40,7 @@
 <meta itemprop="description" content="本篇是「对比Python学习Go」 系列的第四篇，本篇文章我们来看下Go的高级数据结构。本系列的其他文章可到 「对比Python学习Go」- 开篇">
 <meta itemprop="datePublished" content="2020-12-09T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2020-12-09T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="3963">
+<meta itemprop="wordCount" content="7256">
 
 
 
@@ -311,8 +311,8 @@
 	</span>
         <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="/posts/2020-12-09-go-from-python-structure-advance-1.html#comments"
             class="article-comment-link">评论</a></span>
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 3963字</span>
-		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 8分 </span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 7256字</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 15分 </span>
       </div>
     </div>
     <div class="article-entry marked-body js-toc-content" itemprop="articleBody">
@@ -660,21 +660,212 @@ f <span style="color:#f92672">=</span> a<span style="color:#f92672">*</span><spa
 <span style="color:#75715e"># TypeError: &#39;tuple&#39; object doesn&#39;t support item deletion</span>
 
 </code></pre></div><h2 id="哈希结构">哈希结构</h2>
-<p><a href="https://zhuanlan.zhihu.com/p/33496977">https://zhuanlan.zhihu.com/p/33496977</a></p>
-<h2 id="独有数据结构">独有数据结构</h2>
+<p>哈希结构又叫做散列表（hash table），它是数组的一种扩展。它通过<strong>散列函数</strong>把元素的键值映射为数组的下标，然后将数据存储在数组中对应下标的位置。当我们按照键值查询元素时，我们用同样的散列函数，将键值转化数组下标，从对应的数组下标的位置取数据。通过散列函数，我们可以类似数组下标一样直接定位数据，时间复杂度可以到O(1)。</p>
+<p>哈希结构中，最重要的两个知识点是「哈希函数的构建」和「散列冲突的解决」。</p>
+<p><strong>哈希函数</strong>构建的好坏直接影响到数据结构的性能，哈希的key 分布均匀的话，会减少散列冲突的发生。
+<strong>散列冲突</strong>是哈希结构不可避免的，解决散列冲突的方法主要有两种，是「开放寻址法(open addressing)」和「列表法(chaining)」。</p>
+<p>开发寻址法，即利用一些算法查找下一个为空的数组位置。列表法，是在当前key的数组位置，以链表的形式，增加额外空间。</p>
+<p>更多哈希知识，可参考我整理的有关散列表的笔记 <a href="https://pylixm.top/posts/2019-12-25-hash-table.html">数据结构与算法 - 散列表</a>。</p>
+<p>了解了上边列出的哈希结构的基本知识后，我们来看看Go和Python的哈希结构是如何的。</p>
+<h3 id="go-1">Go</h3>
+<p>Go语言的中的哈希结构为 map 结构，根据<a href="https://github.com/golang/go/blob/master/src/runtime/map.go">map的源码</a>分析，map的底层结构大致如下：</p>
+<p><img src="https://gitee.com/pylixm/picture/raw/master/2020-12-20/1608453778434-image.png" alt=""></p>
+<p>最外层为一个hmap的结构体，使用一个[]bmap数组存放了bmap的地址，bmap用来存储数据，每个bmap最多可存储8个kv对，另外还有一个overflow，存储后一个bmap的地址。
+oldbuckets 用来存放老的buckets数组地址，在扩容的时候会使用来暂存还没有移到新buckets数组的bmap地址。mapextra 用来存放非指针数据，用于优化存储和访问。</p>
+<p>关于map内存的增长扩容，则主要是[]bmap数组的扩容。当数据越来越多时，[]bmap数组后边挂的bmap也会越来越多，bmap的数量越多，在查找时，则大部分时间会花费在链表的查找上。这里有个标准，通常是在装填因子(填入表中的元素个数/散列表的长度)<a href="https://github.com/golang/go/blob/master/src/runtime/map.go#L68">大于6.5</a>时，会触发[]bmap数组的扩容，通常是源数组的两倍。扩容后，并不会立即迁移数据，而是先将老的[]bmap数组挂在olebuckets上，待有新的更新或插入操作时，才进行bmap的迁移。</p>
+<p>根据我们对Go map内存结构的分析，结合散列表的知识，我们可以知道，Go使用了「链表法」来解决散列冲突。只不过，链表中的节点并非是值，而是一个bmap结构的存储块，这样可以减少单个链上的对象块，方便内存管理，利于GC操作。</p>
+<p>在哈希函数方面，采用哈希低位确定bmap，高位对比确定是否有存储的key，提高了哈希比对搜索的效率。</p>
+<p>另一个在bmap中，并没有key-value结对存储，而是将相对占用空间小的key放一块，value按相同的顺序放一块。这样利用内存对齐，节省空间。</p>
+<p>Go map的设计处处透露着对性能的极致追求，强烈建议好好研究一番。</p>
+<p>下面我们来看看Go map的一些常用操作：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang">
+<span style="color:#75715e">// 初始化
+</span><span style="color:#75715e">// 使用make函数
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">myMap</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">int</span>)
+<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">myMap</span>) <span style="color:#75715e">// map[]
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">// 使用字面量
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">myResume</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">string</span>{<span style="color:#e6db74">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;DeanWu&#34;</span>, <span style="color:#e6db74">&#34;job&#34;</span>: <span style="color:#e6db74">&#34;SRE&#34;</span>}
+<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">myResume</span>)  <span style="color:#75715e">// map[job:SRE name:DeanWu]
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">// 声明一个空map
+</span><span style="color:#75715e">//var myResume1 map[string]string
+</span><span style="color:#75715e">//myResume1[&#34;name&#34;] = &#34;DeanWu&#34;  //panic: assignment to entry in nil map
+</span><span style="color:#75715e">// 空的map，系统并没有分配内存，并能赋值。
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">// 键值的类型可以是内置的类型，也可以是结构类型，只要这个值可以使用 == 运算符做比较
+</span><span style="color:#75715e">// 切片、函数以及包含切片的结构类型，这些类型由于具有引用语义，可被其他引用改变原值，不能作为映射的键。
+</span><span style="color:#75715e">//myMap1 := map[[]string]int{}
+</span><span style="color:#75715e">//fmt.Println(myMap1)  // invalid map key type []string
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">// 更新、赋值key
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">myResume</span>[<span style="color:#e6db74">&#34;job&#34;</span>] = <span style="color:#e6db74">&#34;web deployment&#34;</span>
+<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">myResume</span>)  <span style="color:#75715e">// map[job:web deployment name:DeanWu]
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">// 获取某个key的值
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">value</span>, <span style="color:#a6e22e">exists</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">myResume</span>[<span style="color:#e6db74">&#34;name&#34;</span>]
+<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">exists</span> {
+  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">value</span>) <span style="color:#75715e">// DeanWu
+</span><span style="color:#75715e"></span>}
+<span style="color:#a6e22e">value1</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">myResume</span>[<span style="color:#e6db74">&#34;name&#34;</span>]
+<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">value1</span> <span style="color:#f92672">!=</span> <span style="color:#e6db74">&#34;&#34;</span>{
+  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">value1</span>) <span style="color:#75715e">// DeanWu
+</span><span style="color:#75715e"></span>  <span style="color:#75715e">// 推荐上边的写法，因为即使map无此key也会返回对应的零值。需要根据数据类型，做相应的判断，不如上边的统一，方便。
+</span><span style="color:#75715e"></span>}
+
+<span style="color:#75715e">// 删除键值对
+</span><span style="color:#75715e"></span>delete(<span style="color:#a6e22e">myResume</span>, <span style="color:#e6db74">&#34;job&#34;</span>)
+delete(<span style="color:#a6e22e">myResume</span>, <span style="color:#e6db74">&#34;year&#34;</span>)  <span style="color:#75715e">// 当map中没有这个key时，什么都不执行。
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">myResume</span>)  <span style="color:#75715e">// map[name:DeanWu]
+</span><span style="color:#75715e"></span>
+
+</code></pre></div><p>map 也可以嵌套。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang"><span style="color:#75715e">// map嵌套
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">myNewResume</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">string</span>{
+  <span style="color:#e6db74">&#34;name&#34;</span>: {
+    <span style="color:#e6db74">&#34;first&#34;</span>: <span style="color:#e6db74">&#34;Dean&#34;</span>,
+    <span style="color:#e6db74">&#34;last&#34;</span>:<span style="color:#e6db74">&#34;Wu&#34;</span>,
+  },
+}
+<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">myNewResume</span>) <span style="color:#75715e">// map[name:map[first:Dean last:Wu]]
+</span></code></pre></div><h3 id="python-1">Python</h3>
+<p>Python 中的哈希结构，有字典和集合两种。</p>
+<p><strong>字典</strong></p>
+<p>字典根据<a href="https://github.com/python/cpython/blob/master/Objects/dictobject.c">Python3的源码</a>，底层结构大致如下：</p>
+<p><img src="https://gitee.com/pylixm/picture/raw/master/2020-12-20/1608478122767-image.png" alt=""></p>
+<p>其中最外层是<a href="https://github.com/python/cpython/blob/fb5db7ec58624cab0797b4050735be865d380823/Include/cpython/dictobject.h#L10">PyDictObject</a>，其中定义了一些字典的全局控制字段。其中有个<a href="https://github.com/python/cpython/blob/master/Objects/dict-common.h">PyDictKeysObject</a>定义了字典哈希表的一些字段。其中有两个数组 <code>dk_indices[]</code> 和 <code>dk_entries[]</code>，这两个便是真正的存储数据的数组。kv数据保存在<code>dk_entries[]</code>数组中，<code>dk_indices[]</code>来存储kv数据在<code>dk_enties</code>数组中保存的索引。其中每个kv数据以<code>entry</code>的数据结构来存储，如下：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span> {
+    <span style="color:#75715e">/* Cached hash code of me_key. */</span>
+    Py_hash_t me_hash;
+    PyObject <span style="color:#f92672">*</span>me_key;
+    PyObject <span style="color:#f92672">*</span>me_value; <span style="color:#75715e">/* This field is only meaningful for combined tables */</span>
+} PyDictKeyEntry;
+</code></pre></div><p><code>me_hash</code>缓存存key的哈希值，防止哈希值的重复计算。<code>me_key</code>和<code>me_value</code>便是key和value的真正数据了。</p>
+<p>哈希表的扩容，从源码中可以看出，一个字典的最小容量为<a href="https://github.com/python/cpython/blob/master/Objects/dictobject.c#L111">8</a>，Python 采用了&quot;翻倍扩容&quot;的策略。根据经验值得出，哈希表数组中，装填因子为2/3时，是一个哈希冲突的临界值。所以，当哈希数组<code>dk_entries</code>装填因子到2/3时，便会扩容。</p>
+<p>这里Python为了节省内存，将索引和哈希表数组分开，分为<code>dk_indices</code>和<code>dk_entries</code>。前者保存的是数据的索引，占空间小，可申请所有元素个数的空间。后者可以只申请原大小的2/3空间。因为到2/3之后，便会扩容，这个2/3可以根据<code>dk_indices</code>获得。</p>
+<p>分析了Python 字典的底层结构，根据哈希表的知识，我们可以知道Python 是用「开放寻址法」来解决哈希冲突的。</p>
+<p>Python 字典的常用操作：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Python" data-lang="Python"><span style="color:#75715e"># 初始化</span>
+myDict1 <span style="color:#f92672">=</span> dict()
+myDict2 <span style="color:#f92672">=</span> {}   <span style="color:#75715e"># 推荐使用</span>
+<span style="color:#66d9ef">print</span>(myDict1, myDict2)  <span style="color:#75715e"># {} {}</span>
+
+<span style="color:#75715e"># 赋值</span>
+myDict3 <span style="color:#f92672">=</span> {<span style="color:#e6db74">&#39;name&#39;</span>: <span style="color:#e6db74">&#39;Tim&#39;</span>, <span style="color:#e6db74">&#39;age&#39;</span>: <span style="color:#ae81ff">18</span>}
+myDict3[<span style="color:#e6db74">&#39;job&#39;</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;student&#39;</span>
+<span style="color:#66d9ef">print</span>(myDict3)  <span style="color:#75715e"># {&#39;name&#39;: &#39;Tim&#39;, &#39;age&#39;: 18, &#39;job&#39;: &#39;student&#39;}</span>
+
+<span style="color:#75715e"># 取值</span>
+<span style="color:#66d9ef">print</span>(myDict3[<span style="color:#e6db74">&#39;name&#39;</span>])  <span style="color:#75715e"># Tim</span>
+<span style="color:#75715e"># print(myDict3[&#39;phone&#39;])  # KeyError: &#39;phone&#39;</span>
+<span style="color:#66d9ef">print</span>(myDict3<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;phone&#39;</span>))  <span style="color:#75715e"># None 若没有key，使用get 方法不会抛出错误</span>
+<span style="color:#66d9ef">print</span>(myDict3<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;phone&#39;</span>, <span style="color:#e6db74">&#39;136xxxxxxx&#39;</span>))  <span style="color:#75715e"># 136xxxxxxx  给没有key的，附默认值</span>
+
+<span style="color:#75715e"># 删除</span>
+<span style="color:#66d9ef">del</span>[myDict3[<span style="color:#e6db74">&#39;job&#39;</span>]]
+<span style="color:#66d9ef">print</span>(myDict3)  <span style="color:#75715e"># {&#39;name&#39;: &#39;Tim&#39;, &#39;age&#39;: 18}</span>
+
+<span style="color:#75715e"># 字典提供丰富的内建方法</span>
+<span style="color:#75715e"># radiansdict.clear() 删除字典内所有元素</span>
+<span style="color:#75715e"># radiansdict.copy() 返回一个字典的浅复制，返回原字典的引用</span>
+<span style="color:#75715e"># radiansdict.fromkeys() 创建一个新字典，以序列seq中元素做字典的键，val为字典所有键对应的初始值</span>
+<span style="color:#75715e"># radiansdict.get(key, default=None) 返回指定键的值，如果值不在字典中返回default值</span>
+<span style="color:#75715e"># key in dict 如果键在字典dict里返回true，否则返回false</span>
+<span style="color:#75715e"># radiansdict.items() 以列表返回可遍历的(键, 值) 元组数组</span>
+<span style="color:#75715e"># radiansdict.keys() 以列表返回一个字典所有的键</span>
+<span style="color:#75715e"># radiansdict.setdefault(key, default=None) 和get()类似, 但如果键不存在于字典中，将会添加键并将值设为default</span>
+<span style="color:#75715e"># radiansdict.update(dict2) 把字典dict2的键/值对更新到dict里</span>
+<span style="color:#75715e"># radiansdict.values() 以列表返回字典中的所有值</span>
+<span style="color:#75715e"># pop(key[,default]) 删除字典给定键 key 所对应的值，返回值为被删除的值。key值必须给出。 否则，返回default值。</span>
+<span style="color:#75715e"># popitem() 随机返回并删除字典中的一对键和值(一般删除末尾对)。</span>
+</code></pre></div><p><strong>集合</strong></p>
+<p>集合和字典一样，底层也是哈希结构，和字典相比，可理解为只有key，没有values。根据<a href="https://github.com/python/cpython/blob/63298930fb531ba2bb4f23bc3b915dbf1e17e9e1/Include/setobject.h">Python3源码</a>，大致结构如下：</p>
+<p><img src="https://gitee.com/pylixm/picture/raw/master/2020-12-21/1608483008360-image.png" alt="image"></p>
+<p>相比字典，集合简单了不少。在<code>PySetObject</code>中直接保存了存储数据的数组。</p>
+<p>根据集合的底层数据结构分析，它解决哈希冲突也是使用的「开发寻址法」。</p>
+<p>集合的一些常用操作：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Python" data-lang="Python"><span style="color:#75715e"># 初始化</span>
+s1 <span style="color:#f92672">=</span> {<span style="color:#e6db74">&#39;1&#39;</span>, <span style="color:#e6db74">&#39;2&#39;</span>, <span style="color:#e6db74">&#39;3&#39;</span>}  <span style="color:#75715e"># 不推荐，当元素中有字典时，会报错</span>
+s2 <span style="color:#f92672">=</span> set([<span style="color:#e6db74">&#39;1&#39;</span>, <span style="color:#e6db74">&#39;4&#39;</span>, <span style="color:#e6db74">&#39;5&#39;</span>])
+<span style="color:#66d9ef">print</span>(s1)  <span style="color:#75715e"># {&#39;3&#39;, &#39;1&#39;, &#39;2&#39;}</span>
+<span style="color:#66d9ef">print</span>(s2)  <span style="color:#75715e"># {&#39;3&#39;, &#39;1&#39;, &#39;2&#39;}</span>
+
+<span style="color:#75715e"># 交集</span>
+<span style="color:#66d9ef">print</span>(s1<span style="color:#f92672">&amp;</span>s2)  <span style="color:#75715e"># {&#39;1&#39;}</span>
+<span style="color:#75715e"># 并集</span>
+<span style="color:#66d9ef">print</span>(s1<span style="color:#f92672">|</span>s2)  <span style="color:#75715e"># {&#39;3&#39;, &#39;5&#39;, &#39;4&#39;, &#39;2&#39;, &#39;1&#39;}</span>
+<span style="color:#75715e"># 差集</span>
+<span style="color:#66d9ef">print</span>(s1 <span style="color:#f92672">-</span> s2)  <span style="color:#75715e"># {&#39;3&#39;, &#39;2&#39;}</span>
+<span style="color:#75715e"># 判断子集和超集</span>
+s2<span style="color:#f92672">.</span>issubset(s1)   <span style="color:#75715e"># s2 是否为s1 的子集</span>
+s1<span style="color:#f92672">.</span>issuperset(s2)  <span style="color:#75715e"># s1 是否为 s2 的超集</span>
+
+<span style="color:#75715e"># 集合的一些内建方法</span>
+<span style="color:#75715e"># set.add(obj) 添加集合元素</span>
+<span style="color:#75715e"># set.remove(obj) 删除集合元素</span>
+<span style="color:#75715e"># set.update(set) 合并集合</span>
+<span style="color:#75715e"># set.pop() 随机删除一个元素，并返回该元素</span>
+</code></pre></div><h2 id="独有数据结构">独有数据结构</h2>
+<p>除了类数组和哈希结构外，Go还有自己独有的一些结构。</p>
 <h3 id="go---指针">Go - 指针</h3>
+<p>Go 语言具有指针。 指针保存了变量的内存地址。类型 *T是指向类型 T的值的指针。其零值是 nil。</p>
+<ul>
+<li>&amp;符号会生成一个指向其作用对象的指针。</li>
+<li>*符号表示指针指向的底层的值。</li>
+</ul>
+<p>与 C 不同，Go 没有指针运算。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang"><span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">j</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">42</span>, <span style="color:#ae81ff">2701</span>
+
+<span style="color:#a6e22e">p</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">i</span>         <span style="color:#75715e">// point to i
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#f92672">*</span><span style="color:#a6e22e">p</span>) <span style="color:#75715e">// read i through the pointer
+</span><span style="color:#75715e"></span><span style="color:#f92672">*</span><span style="color:#a6e22e">p</span> = <span style="color:#ae81ff">21</span>         <span style="color:#75715e">// set i through the pointer
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">i</span>)  <span style="color:#75715e">// see the new value of i
+</span><span style="color:#75715e"></span>
+<span style="color:#a6e22e">p</span> = <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">j</span>         <span style="color:#75715e">// point to j
+</span><span style="color:#75715e"></span><span style="color:#f92672">*</span><span style="color:#a6e22e">p</span> = <span style="color:#f92672">*</span><span style="color:#a6e22e">p</span> <span style="color:#f92672">/</span> <span style="color:#ae81ff">37</span>   <span style="color:#75715e">// divide j through the pointer
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">j</span>) <span style="color:#75715e">// see the new value of j
+</span></code></pre></div><p>Python 中并没有指针的概念，内存的地址被叫做“引用”。和这里的指针有异曲同工之妙，但仅仅是体现在逻辑分析上，并没有语法支持。</p>
 <h3 id="go---结构体">Go - 结构体</h3>
-<h3 id="python---集合元组">Python - 集合/元组</h3>
-<h3 id="python---迭代器生成器">Python - 迭代器/生成器</h3>
+<p>Go语言中，结构体（struct）就是一个字段的集合，结构体字段可以通过结构体指针来访问。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang"><span style="color:#75715e">// 定义结构体，自动名必须大写开头，作为公共变量
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Vertex</span> <span style="color:#66d9ef">struct</span> {
+  <span style="color:#a6e22e">X</span> <span style="color:#66d9ef">int</span>
+  <span style="color:#a6e22e">Y</span> <span style="color:#66d9ef">int</span>
+}
+<span style="color:#75715e">// 初始化
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">ver</span> <span style="color:#a6e22e">Vertex</span>
+<span style="color:#a6e22e">ver</span>.<span style="color:#a6e22e">X</span> = <span style="color:#ae81ff">4</span>  <span style="color:#75715e">// 可使用. 来赋值和访问结构体
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">ver</span>.<span style="color:#a6e22e">X</span>)  <span style="color:#75715e">// 4
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">// 可使用指针来访问
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">v</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">Vertex</span>{<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>}
+<span style="color:#a6e22e">p</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">v</span>
+<span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">X</span> = <span style="color:#ae81ff">1e9</span>
+<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">v</span>)  <span style="color:#75715e">// {1000000000 2}
+</span><span style="color:#75715e"></span>
+</code></pre></div><p>结构体可以实现嵌套，当嵌套时，会继承嵌套结构体的所有字段。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">NewVertex</span> <span style="color:#66d9ef">struct</span> {
+  <span style="color:#a6e22e">Vertex</span>
+  <span style="color:#a6e22e">Z</span> <span style="color:#66d9ef">int</span>
+}
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">v1</span> <span style="color:#a6e22e">NewVertex</span>
+<span style="color:#a6e22e">v1</span>.<span style="color:#a6e22e">X</span> = <span style="color:#ae81ff">12</span>
+<span style="color:#a6e22e">v1</span>.<span style="color:#a6e22e">Z</span> = <span style="color:#ae81ff">13</span>
+<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">v1</span>.<span style="color:#a6e22e">X</span>) <span style="color:#75715e">// 12
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">v1</span>)  <span style="color:#75715e">// {{12 0} 13}
+</span></code></pre></div><p>正因为结构体的上边的这些特性，加之Go语言中并没有类的概念，结构体在很多Web框架中，被当做“类”来使用。</p>
 <h2 id="总结">总结</h2>
-<p>本篇我们我学习了Go和Python的高级数据结构中类数组的结构，它们都有一些数组的特性，但又都有自己语言的特点。Go的切片和Python的列表，底层都基于数组，但Go的切片更像是数组的描述符指针，而Python的列表，则是使用地址和数据分开存储，引用地址使用连续空间存储，继承数组快速查找的优点，外部存储实现任意类型元素的存储。整体下来，甚是巧妙。</p>
-<p>不管何种语言，我们在使用时，既要了解结构的基本用法，还要了解其底层的逻辑结构，才能避免在使用时的一些莫名的坑。</p>
+<p>本篇我们我学习了Go和Python的高级数据结构，他们底层都遵循了一定的数据结构，但又都有自己的特色。集合自己语言的特性，设计巧妙。总之，不管何种语言，我们在使用时，既要了解结构的基本用法，还要了解其底层的逻辑结构，才能避免在使用时的一些莫名的坑。</p>
 <h2 id="扩展阅读">扩展阅读</h2>
 <ul>
 <li><a href="https://www.cnblogs.com/sparkdev/p/10704614.html">Golang slice</a></li>
 <li><a href="https://www.cnblogs.com/yifeixu/p/8893823.html">python中的list类型</a></li>
 <li><a href="https://www.laurentluce.com/posts/python-list-implementation/">CPython中list的实现</a></li>
 <li><a href="https://github.com/python/cpython/blob/master/Objects/listobject.c">listobject.c</a></li>
+<li><a href="https://github.com/cch123/golang-notes/blob/master/map.md">Golang map</a></li>
+<li><a href="https://draveness.me/golang/docs/part2-foundation/ch03-datastructure/golang-hashmap/">Go语言设计与实现-哈希表</a></li>
+<li><a href="https://golang.design/under-the-hood/zh-cn/part1basic/ch03lang/map/">Go语言原本-散列表</a></li>
+<li><a href="https://github.com/qcrao/Go-Questions/blob/master/map/map%20%E7%9A%84%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86%E6%98%AF%E4%BB%80%E4%B9%88.md">什么是map</a></li>
 </ul>
 
     </div>
