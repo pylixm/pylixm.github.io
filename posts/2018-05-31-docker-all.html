@@ -39,7 +39,7 @@
 <meta itemprop="description" content="原文地址：https://blog.opskumu.com/docker.html 本文对原文进行了更新和补充，转载备查。 一、Docker 简介">
 <meta itemprop="datePublished" content="2018-05-31T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2018-05-31T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="13544">
+<meta itemprop="wordCount" content="13634">
 
 
 
@@ -310,7 +310,7 @@
 	</span>
         <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="/posts/2018-05-31-docker-all.html#comments"
             class="article-comment-link">评论</a></span>
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 13544字</span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 13634字</span>
 		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 28分 </span>
       </div>
     </div>
@@ -323,13 +323,8 @@
 <p>Docker 是一种轻量级的虚拟化技术，是一种Linux容器（Linux Containers，缩写为 LXC）技术的封装。</p>
 <p>大多数人可能知道虚拟机，可以在一台硬件机器上虚拟出另一台计算机，有它自己的cpu、硬盘等各种虚拟的硬件。而 Linux 容器技术也是一种虚拟技术，但是它并非直接从硬件上来虚拟，而是通过软件技术对进程及资源进行隔离，从而达到虚拟化的目的。Docker 就是一种这样隔离虚拟化技术。</p>
 <!-- raw HTML omitted -->
-<p>Docker的发展由来大致如下：</p>
-<p><img src="https://ws1.sinaimg.cn/large/8697aaedly1frtdhgj1ilj20k00dxaaj.jpg" alt=""></p>
-<p>（图片来源：https://zhuanlan.zhihu.com/p/34732608）</p>
-<p>Docker 与传统虚拟化技术不同如下：</p>
-<p><img src="https://ws1.sinaimg.cn/large/8697aaedly1frtfbkjvuxj211i0e0k14.jpg" alt=""></p>
-<p><img src="https://ws1.sinaimg.cn/large/8697aaedly1frtfbjwwm5j211g0aek1r.jpg" alt=""></p>
-<p>(图片来源：Docker 从入门到实践)</p>
+<p>　Docker 使用 Google 公司推出的 Go 语言 进行开发实现，基于 Linux 内核的 cgroup，namespace，以及 AUFS 类的 Union FS 等技术，对进程进行封装隔离，属于 操作系统层面的虚拟化技术。由于隔离的进程独立于宿主和其它的隔离的进程，因此也称其为容器。最初实现是基于 LXC，从 0.7 版本以后开始去除 LXC，转而使用自行开发的 libcontainer，从 1.11 开始，则进一步演进为使用 runC 和 containerd。</p>
+<p><img src="https://gitee.com/pylixm/picture/raw/master/2020-12-25/1608877395861-docker-on-linux.png" alt="docker_arch"></p>
 <p>Docker 发展之迅速，除了分布式和微服务的大潮外，还得益于其优秀的特性。</p>
 <p><strong>更高效的利用系统资源</strong></p>
 <p>Docker 容器不需要进行硬件虚拟以及运行完整操作系统等额外开销，Docker 对系统资源的利用率更高。</p>
@@ -344,14 +339,12 @@
 <p><strong>更轻松的维护和扩展</strong></p>
 <p>Docker 使用分层存储和镜像技术，使得镜像可重复使用，维护和扩展更轻松。</p>
 <p><strong>Docker相较虚拟机优势明显</strong></p>
-<p><img src="https://ws1.sinaimg.cn/large/8697aaedly1frtffbs8p2j21540aqq58.jpg" alt=""></p>
 <p>Docker 两个主要部件：</p>
 <ul>
 <li>Docker: 开源的容器虚拟化平台</li>
 <li>Docker Hub: 用于分享、管理 Docker 容器镜像的 Docker SaaS 平台 – Docker Hub</li>
 </ul>
 <p>Docker 使用客户端-服务器 (C/S) 架构模式。Docker 客户端会与 Docker 守护进程进行通信。Docker 守护进程会处理复杂繁重的任务，例如建立、运行、发布你的 Docker 容器。Docker 客户端和守护进程可以运行在同一个系统上，当然你也可以使用 Docker 客户端去连接一个远程的 Docker 守护进程。Docker 客户端和守护进程之间通过 socket 或者 RESTful API 进行通信。</p>
-<p><img src="https://ws1.sinaimg.cn/large/8697aaedly1frul61gqzvj20g10djaac.jpg" alt=""></p>
 <h3 id="11-docker-守护进程">1.1 Docker 守护进程</h3>
 <p>如上图所示，Docker 守护进程运行在一台主机上。用户并不直接和守护进程进行交互，而是通过 Docker 客户端间接和其通信。</p>
 <h3 id="12-docker-客户端">1.2 Docker 客户端</h3>
