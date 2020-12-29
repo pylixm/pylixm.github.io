@@ -5,10 +5,28 @@
     <link>https://pylixm.top/series/%E5%AF%B9%E6%AF%94Python%E5%AD%A6%E4%B9%A0Go/</link>
     <description>Recent content in 对比Python学习Go on DeanWu</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Wed, 09 Dec 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 29 Dec 2020 00:00:00 +0000</lastBuildDate>
     
         <atom:link href="https://pylixm.top/series/%E5%AF%B9%E6%AF%94Python%E5%AD%A6%E4%B9%A0Go/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>项目和教程</title>
+      <link>https://pylixm.top/project/</link>
+      <pubDate>Thu, 23 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/project/</guid>
+      <description>项目 1/ Django-mdeditor Django-mdeditor 是基于 Editor.md 的一个 django Markdown 文本编辑插件应用。 2/ liBlog 一个基于Django1.11TLS版本的博客系统。自己的练手周边项目，会随时尝试新技术。 教</description>
+    </item>
+    
+    <item>
+      <title>CentOS 7 部署Selenium相关脚本</title>
+      <link>https://pylixm.top/posts/2020-07-14-python-selenium.html</link>
+      <pubDate>Tue, 14 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2020-07-14-python-selenium.html</guid>
+      <description>Selenium 库不必多说，是Python 生态中的神器，在动态网页爬取和自动化测试中有广泛的应用。之前公司前辈，用它搞了个抢会议室的脚本，今天加了点功能，</description>
+    </item>
     
     <item>
       <title>「朝花夕拾」- 0703期，总第十期</title>
@@ -170,24 +188,6 @@
       
       <guid>https://pylixm.top/posts/2019-12-29-linear-sort.html</guid>
       <description>《数据结构与算法-王争》学习笔记，记录备查 线性排序，桶排序、计数排序、基数排序。 因为他们的时间复杂度都为O(n)，所以叫做线性排序。 桶排序（</description>
-    </item>
-    
-    <item>
-      <title>数据结构与算法 - 算法 - 经典排序</title>
-      <link>https://pylixm.top/posts/2019-12-27-sort.html</link>
-      <pubDate>Fri, 27 Dec 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2019-12-27-sort.html</guid>
-      <description>《数据结构与算法-王争》学习笔记，记录备查 排序是我们最常用接触最早的算法，经典常用的排序算法有： O(n^2): 冒泡排序、插入排序、选择排序 O(nlogn): 快速排序、归</description>
-    </item>
-    
-    <item>
-      <title>Python 段错误（Segmentation fault）排查</title>
-      <link>https://pylixm.top/posts/2019-12-26-python-trick.html</link>
-      <pubDate>Thu, 26 Dec 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2019-12-26-python-trick.html</guid>
-      <description>现象 今天在升级一个Python虚拟环境的时候，出现了这种错误 OSError - setuptools pip wheel failed with error code -11。我的操作步骤是这样的，先删除虚拟环境rm -rf env，再创</description>
     </item>
     
   </channel>

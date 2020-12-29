@@ -10,6 +10,24 @@
     
     
     <item>
+      <title>无法添加crontab 解决 No space left on device</title>
+      <link>https://pylixm.top/2019/01/Linux-crontab-q/</link>
+      <pubDate>Tue, 15 Jan 2019 16:04:08 +0800</pubDate>
+      
+      <guid>https://pylixm.top/2019/01/Linux-crontab-q/</guid>
+      <description>Q &amp;amp; A： 今天在添加Linux 计划任务时，遇到如下问题， /var/spool/cron/IBM11070003.tmp.XXXXQxX3UB: No space left on device 从错误信息看应该是磁盘空间满了，但是通过 df -h查看 /var 占用78%并没有满。 继</description>
+    </item>
+    
+    <item>
+      <title>Ngrok 服务搭建完全手册</title>
+      <link>https://pylixm.top/2019/01/How-to-build-ngrok-server/</link>
+      <pubDate>Wed, 09 Jan 2019 16:04:08 +0800</pubDate>
+      
+      <guid>https://pylixm.top/2019/01/How-to-build-ngrok-server/</guid>
+      <description>最近需要开发个微信公众号后台，需要内网穿透工具，之前使用过sunny-ngrok，这个现在也变成付费的了。这次决定自己搭建一个，顺便学习下。</description>
+    </item>
+    
+    <item>
       <title>记一次 Linux OOM-killer 分析过程</title>
       <link>https://pylixm.top/posts/2018-11-28-Linux-oom-killer.html</link>
       <pubDate>Wed, 28 Nov 2018 00:00:00 +0000</pubDate>
@@ -173,24 +191,6 @@
       
       <guid>https://pylixm.top/posts/2018-02-02-python-pickle.html</guid>
       <description>原文：储存你的对象 如果你接触过其他的 python 开发者，你可能已经听说过 Pickle 了， Pickle 是用来序列化 Python 数据结构的模块，在你需要暂时存储一个对象的时候（比如缓存</description>
-    </item>
-    
-    <item>
-      <title>「Python Tips」- python 魔法方法</title>
-      <link>https://pylixm.top/posts/2018-02-01-python-magic-method.html</link>
-      <pubDate>Thu, 01 Feb 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2018-02-01-python-magic-method.html</guid>
-      <description>本文参考 pycoder&amp;rsquo;s weekly 的文章，做了下python 魔术方法的使用总结，记录备查。 介绍 魔术方法，英文 Magic Methods。顾名思义，它的使用方式不同于一般py</description>
-    </item>
-    
-    <item>
-      <title>「Go语言学习笔记四」- Golang 命令</title>
-      <link>https://pylixm.top/posts/2018-01-30-go-commond.html</link>
-      <pubDate>Tue, 30 Jan 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2018-01-30-go-commond.html</guid>
-      <description>安装好 golang 后，在任意目录运行 go 可看到 Golang 的所有命令，如下： build compile packages and dependencies clean remove object files doc show documentation for package or symbol env print Go environment information bug start a bug report fix run go tool fix on packages fmt run gofmt on package sources generate generate Go files</description>
     </item>
     
   </channel>

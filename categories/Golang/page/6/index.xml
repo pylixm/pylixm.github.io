@@ -5,10 +5,28 @@
     <link>https://pylixm.top/categories/Golang/</link>
     <description>Recent content in Golang on DeanWu</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Wed, 09 Dec 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 29 Dec 2020 00:00:00 +0000</lastBuildDate>
     
         <atom:link href="https://pylixm.top/categories/Golang/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>「Python Tips」- python 魔法方法</title>
+      <link>https://pylixm.top/posts/2018-02-01-python-magic-method.html</link>
+      <pubDate>Thu, 01 Feb 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2018-02-01-python-magic-method.html</guid>
+      <description>本文参考 pycoder&amp;rsquo;s weekly 的文章，做了下python 魔术方法的使用总结，记录备查。 介绍 魔术方法，英文 Magic Methods。顾名思义，它的使用方式不同于一般py</description>
+    </item>
+    
+    <item>
+      <title>「Go语言学习笔记四」- Golang 命令</title>
+      <link>https://pylixm.top/posts/2018-01-30-go-commond.html</link>
+      <pubDate>Tue, 30 Jan 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2018-01-30-go-commond.html</guid>
+      <description>安装好 golang 后，在任意目录运行 go 可看到 Golang 的所有命令，如下： build compile packages and dependencies clean remove object files doc show documentation for package or symbol env print Go environment information bug start a bug report fix run go tool fix on packages fmt run gofmt on package sources generate generate Go files</description>
+    </item>
     
     <item>
       <title>「Go语言学习笔记三」- Golang 语法入门</title>
@@ -170,24 +188,6 @@
       
       <guid>https://pylixm.top/posts/2017-04-24-django-restfull-framework-version.html</guid>
       <description>原文：https://gearheart.io/blog/api-versioning-with-django-rest-framework</description>
-    </item>
-    
-    <item>
-      <title>记一次tornado QPS 优化</title>
-      <link>https://pylixm.top/posts/2017-04-04-tornado-qps-optimization.html</link>
-      <pubDate>Tue, 04 Apr 2017 20:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2017-04-04-tornado-qps-optimization.html</guid>
-      <description>应项目的需求，我们使用tornado开发了一个api系统，系统开发完后，在8核16G的虚机上经过压测qps只有200+。与我们当初定的QPS</description>
-    </item>
-    
-    <item>
-      <title>我心中的 tornado 最佳实践</title>
-      <link>https://pylixm.top/posts/2017-03-10-tornado-best-practices.html</link>
-      <pubDate>Fri, 10 Mar 2017 20:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2017-03-10-tornado-best-practices.html</guid>
-      <description>最新开发新项目一直在学习tornado的知识，在前人的基础上找了些最佳实践，记录如下，备查。 tornado 新人一枚，欢迎大神拍砖~ 项目目录结构 import tornado.ioloop import tornado.web ##</description>
     </item>
     
   </channel>

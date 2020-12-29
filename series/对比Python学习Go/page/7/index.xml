@@ -5,10 +5,28 @@
     <link>https://pylixm.top/series/%E5%AF%B9%E6%AF%94Python%E5%AD%A6%E4%B9%A0Go/</link>
     <description>Recent content in 对比Python学习Go on DeanWu</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Wed, 09 Dec 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 29 Dec 2020 00:00:00 +0000</lastBuildDate>
     
         <atom:link href="https://pylixm.top/series/%E5%AF%B9%E6%AF%94Python%E5%AD%A6%E4%B9%A0Go/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>记一次tornado QPS 优化</title>
+      <link>https://pylixm.top/posts/2017-04-04-tornado-qps-optimization.html</link>
+      <pubDate>Tue, 04 Apr 2017 20:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2017-04-04-tornado-qps-optimization.html</guid>
+      <description>应项目的需求，我们使用tornado开发了一个api系统，系统开发完后，在8核16G的虚机上经过压测qps只有200+。与我们当初定的QPS</description>
+    </item>
+    
+    <item>
+      <title>我心中的 tornado 最佳实践</title>
+      <link>https://pylixm.top/posts/2017-03-10-tornado-best-practices.html</link>
+      <pubDate>Fri, 10 Mar 2017 20:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2017-03-10-tornado-best-practices.html</guid>
+      <description>最新开发新项目一直在学习tornado的知识，在前人的基础上找了些最佳实践，记录如下，备查。 tornado 新人一枚，欢迎大神拍砖~ 项目目录结构 import tornado.ioloop import tornado.web ##</description>
+    </item>
     
     <item>
       <title>《尽管去做》读书笔记</title>
@@ -170,24 +188,6 @@
       
       <guid>https://pylixm.top/posts/2016-05-22-best.practices.for.django.1.8.3rd-chapter-2.html</guid>
       <description>其他章节索引页 第二章 django 环境配置 使用相同的数据库引擎配置 在不同的环境下使用不同的数据库，而希望其行为一致。这种做法是很危险的，会带来不可预知的</description>
-    </item>
-    
-    <item>
-      <title>Django 最佳实践-读书笔记 - 第五章 Settings 和 Requirements</title>
-      <link>https://pylixm.top/posts/2016-05-22-best.practices.for.django.1.8.3rd-chapter-5.html</link>
-      <pubDate>Sun, 22 May 2016 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2016-05-22-best.practices.for.django.1.8.3rd-chapter-5.html</guid>
-      <description>其他章节索引页 第五章 Settings 和 Requirements 避免本地未受控的 settings 文件 代码维护困难 多人开发时，勿提交local settings 文件，造成配置混乱。 使用多分配置文件 settings/ __init__.py base.py local.py staging.py test.py production.py</description>
-    </item>
-    
-    <item>
-      <title>Django 最佳实践-读书笔记 - 第六章 model 最佳实践</title>
-      <link>https://pylixm.top/posts/2016-05-22-best.practices.for.django.1.8.3rd-chapter-6.html</link>
-      <pubDate>Sun, 22 May 2016 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2016-05-22-best.practices.for.django.1.8.3rd-chapter-6.html</guid>
-      <description>其他章节索引页 第六章 model 最佳实践 当app的model过多时，拆分app 当app的model过多时，说明这个app的功能够大，此时就需要我们拆分</description>
     </item>
     
   </channel>

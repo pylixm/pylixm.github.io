@@ -11,6 +11,24 @@
     
     
     <item>
+      <title>使用docker部署django技术栈项目</title>
+      <link>https://pylixm.top/posts/2019-08-30-docker-django.html</link>
+      <pubDate>Fri, 30 Aug 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2019-08-30-docker-django.html</guid>
+      <description>随着Docker的普及成熟，已经逐渐成为部署项目的首选，今天来和大家分享下如何使用docker部署django技术栈项目。 我们这里说的Dja</description>
+    </item>
+    
+    <item>
+      <title>使用Let&#39;s Encrypt免费证书实现Nginx站点的HTTPS化</title>
+      <link>https://pylixm.top/posts/2019-08-12-letencrypt.html</link>
+      <pubDate>Mon, 12 Aug 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2019-08-12-letencrypt.html</guid>
+      <description>这篇文章，向大家分享如何使用Let&#39;s Encrypt的免费证书来实现Nginx网站的HTTPS化。 在开始之前，先让我们来了解下，什么是HTT</description>
+    </item>
+    
+    <item>
       <title>「译」Puppet 简单入门 - 理论篇</title>
       <link>https://pylixm.top/posts/2019-07-23-Puppet-tutorial-one.html</link>
       <pubDate>Tue, 23 Jul 2019 00:00:00 +0000</pubDate>
@@ -170,24 +188,6 @@
       
       <guid>https://pylixm.top/posts/2019-04-01-Linux-disk-raid.html</guid>
       <description>Raid, 是 Redundant Array of Independent Disks 的缩写，中文译为“廉价磁盘冗余阵列”。是一种用普通磁盘来提供快速、高效、安全的磁盘存储技术。 分类 Raid，分为硬件 Raid 和 软件Ra</description>
-    </item>
-    
-    <item>
-      <title>无法添加crontab 解决 No space left on device</title>
-      <link>https://pylixm.top/2019/01/Linux-crontab-q/</link>
-      <pubDate>Tue, 15 Jan 2019 16:04:08 +0800</pubDate>
-      
-      <guid>https://pylixm.top/2019/01/Linux-crontab-q/</guid>
-      <description>Q &amp;amp; A： 今天在添加Linux 计划任务时，遇到如下问题， /var/spool/cron/IBM11070003.tmp.XXXXQxX3UB: No space left on device 从错误信息看应该是磁盘空间满了，但是通过 df -h查看 /var 占用78%并没有满。 继</description>
-    </item>
-    
-    <item>
-      <title>Ngrok 服务搭建完全手册</title>
-      <link>https://pylixm.top/2019/01/How-to-build-ngrok-server/</link>
-      <pubDate>Wed, 09 Jan 2019 16:04:08 +0800</pubDate>
-      
-      <guid>https://pylixm.top/2019/01/How-to-build-ngrok-server/</guid>
-      <description>最近需要开发个微信公众号后台，需要内网穿透工具，之前使用过sunny-ngrok，这个现在也变成付费的了。这次决定自己搭建一个，顺便学习下。</description>
     </item>
     
   </channel>

@@ -10,6 +10,24 @@
     
     
     <item>
+      <title>「对比Python学习Go」- 流程控制</title>
+      <link>https://pylixm.top/posts/2020-12-29-go-from-python-flow.html</link>
+      <pubDate>Tue, 29 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2020-12-29-go-from-python-flow.html</guid>
+      <description>本篇是「对比Python学习Go」 系列的第五篇，本篇文章我们来看下Go的流程控制语法。本系列的其他文章可到 「对比Python学习Go」- 开篇</description>
+    </item>
+    
+    <item>
+      <title>Kubernetes 学习笔记 - rancher</title>
+      <link>https://pylixm.top/posts/2020-12-25-k8s-rancher.html</link>
+      <pubDate>Fri, 25 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2020-12-25-k8s-rancher.html</guid>
+      <description>rancher 简介 Rancher是一个开源的企业级容器管理平台。通过Rancher，企业再也不必自己使用一系列的开源软件去从头搭建容器服务平台。Ranc</description>
+    </item>
+    
+    <item>
       <title>「对比Python学习Go」- 高级数据结构</title>
       <link>https://pylixm.top/posts/2020-12-09-go-from-python-structure-advance-1.html</link>
       <pubDate>Wed, 09 Dec 2020 00:00:00 +0000</pubDate>
@@ -42,7 +60,7 @@
       <pubDate>Thu, 03 Dec 2020 00:00:00 +0000</pubDate>
       
       <guid>https://pylixm.top/posts/2020-12-03-go-from-python-start.html</guid>
-      <description>环境搭建 Go 的安装 Go 的官方网址 https://golang.org， 国内用户可访问国内官网 https://golang.google.cn/。</description>
+      <description>本篇是「对比Python学习Go」 系列的第二篇，本篇文章我们来看下Go的开发环境搭建。本系列的其他文章可到 「对比Python学习Go」- 开篇</description>
     </item>
     
     <item>
@@ -169,24 +187,6 @@
       
       <guid>https://pylixm.top/posts/2020-08-05-10-One-liners.html</guid>
       <description>作者：Andreas Dev.to: https://dev.to/devmount Twitter: https://twitter.com/devmount 原文地址：https://dev.to/devmount/10-awesome-pythonic-one-lin</description>
-    </item>
-    
-    <item>
-      <title>项目和教程</title>
-      <link>https://pylixm.top/project/</link>
-      <pubDate>Thu, 23 Jul 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/project/</guid>
-      <description>项目 1/ Django-mdeditor Django-mdeditor 是基于 Editor.md 的一个 django Markdown 文本编辑插件应用。 2/ liBlog 一个基于Django1.11TLS版本的博客系统。自己的练手周边项目，会随时尝试新技术。 教</description>
-    </item>
-    
-    <item>
-      <title>CentOS 7 部署Selenium相关脚本</title>
-      <link>https://pylixm.top/posts/2020-07-14-python-selenium.html</link>
-      <pubDate>Tue, 14 Jul 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2020-07-14-python-selenium.html</guid>
-      <description>Selenium 库不必多说，是Python 生态中的神器，在动态网页爬取和自动化测试中有广泛的应用。之前公司前辈，用它搞了个抢会议室的脚本，今天加了点功能，</description>
     </item>
     
   </channel>

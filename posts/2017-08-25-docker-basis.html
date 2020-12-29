@@ -39,7 +39,7 @@
 <meta itemprop="description" content="最近几年Docker容器技术已经渗透到各技术领域，在自动化运维领域更胜，因为它对于代码的部署上可以说是革命性的。下面是我学习Docker，记">
 <meta itemprop="datePublished" content="2017-08-25T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2017-08-25T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="2946">
+<meta itemprop="wordCount" content="2838">
 
 
 
@@ -160,6 +160,16 @@
             <li>
                 <div class="item-inner">
                     <p class="item-title">
+                        <a href="https://pylixm.top/posts/2020-12-29-go-from-python-flow.html" class="title">「对比Python学习Go」- 流程控制</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-12-29 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-29</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
                         <a href="https://pylixm.top/posts/2020-12-09-go-from-python-structure-advance-1.html" class="title">「对比Python学习Go」- 高级数据结构</a>
                     </p>
                     <p class="item-date">
@@ -197,16 +207,6 @@
                     </p>
                 </div>
             </li>
-            <li>
-                <div class="item-inner">
-                    <p class="item-title">
-                        <a href="https://pylixm.top/posts/2020-12-02-go-from-python-intro.html" class="title">「对比Python学习Go」- 开篇</a>
-                    </p>
-                    <p class="item-date">
-                        <time datetime="2020-12-02 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-02</time>
-                    </p>
-                </div>
-            </li>
         </ul>
     </div>
 </div>
@@ -221,10 +221,10 @@
             <li class="category-list-item"><a href="https://pylixm.top/categories/Docker/" class="category-list-link">Docker</a><span class="category-list-count">4</span></li>
             <li class="category-list-item"><a href="https://pylixm.top/categories/Flask/" class="category-list-link">Flask</a><span class="category-list-count">1</span></li>
             <li class="category-list-item"><a href="https://pylixm.top/categories/Git/" class="category-list-link">Git</a><span class="category-list-count">1</span></li>
-            <li class="category-list-item"><a href="https://pylixm.top/categories/Golang/" class="category-list-link">Golang</a><span class="category-list-count">13</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Golang/" class="category-list-link">Golang</a><span class="category-list-count">14</span></li>
             <li class="category-list-item"><a href="https://pylixm.top/categories/HTTPS/" class="category-list-link">HTTPS</a><span class="category-list-count">1</span></li>
             <li class="category-list-item"><a href="https://pylixm.top/categories/Javascript/" class="category-list-link">Javascript</a><span class="category-list-count">3</span></li>
-            <li class="category-list-item"><a href="https://pylixm.top/categories/Kubernetes/" class="category-list-link">Kubernetes</a><span class="category-list-count">4</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Kubernetes/" class="category-list-link">Kubernetes</a><span class="category-list-count">5</span></li>
             <li class="category-list-item"><a href="https://pylixm.top/categories/LVS/" class="category-list-link">LVS</a><span class="category-list-count">1</span></li>
             <li class="category-list-item"><a href="https://pylixm.top/categories/Linux/" class="category-list-link">Linux</a><span class="category-list-count">15</span></li>
             <li class="category-list-item"><a href="https://pylixm.top/categories/Mongodb/" class="category-list-link">Mongodb</a><span class="category-list-count">3</span></li>
@@ -310,7 +310,7 @@
 	</span>
         <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="/posts/2017-08-25-docker-basis.html#comments"
             class="article-comment-link">评论</a></span>
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 2946字</span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 2838字</span>
 		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 6分 </span>
       </div>
     </div>
@@ -320,13 +320,6 @@
 <h2 id="docker-是什么">Docker 是什么</h2>
 <p>Docker 是一种轻量级的虚拟化技术，是一种Linux容器（Linux Containers，缩写为 LXC）技术的封装。</p>
 <p>大多数人可能知道虚拟机，可以在一台硬件机器上虚拟出另一台计算机，有它自己的cpu、硬盘等各种虚拟的硬件。而 Linux 容器技术也是一种虚拟技术，但是它并非直接从硬件上来虚拟，而是通过软件技术对进程及资源进行隔离，从而达到虚拟化的目的。Docker 就是一种这样隔离虚拟化技术。</p>
-<p>Docker的发展由来大致如下：</p>
-<p><img src="https://ws1.sinaimg.cn/large/8697aaedly1frtdhgj1ilj20k00dxaaj.jpg" alt=""></p>
-<p>（图片来源：https://zhuanlan.zhihu.com/p/34732608）</p>
-<p>Docker 与传统虚拟化技术不同如下：</p>
-<p><img src="https://ws1.sinaimg.cn/large/8697aaedly1frtfbkjvuxj211i0e0k14.jpg" alt=""></p>
-<p><img src="https://ws1.sinaimg.cn/large/8697aaedly1frtfbjwwm5j211g0aek1r.jpg" alt=""></p>
-<p>(图片来源：Docker 从入门到实践)</p>
 <h2 id="docker-能做什么">Docker 能做什么</h2>
 <p>Docker 可以做什么，从虚拟化角度来说，它可以完成如下功能：</p>
 <ul>
@@ -352,8 +345,6 @@
 <p>Docker 容器封装了软件运行环境，使其不依赖系统，使其更容易移植。</p>
 <p><strong>更轻松的维护和扩展</strong></p>
 <p>Docker 使用分层存储和镜像技术，使得镜像可重复使用，维护和扩展更轻松。</p>
-<p><strong>Docker相较虚拟机优势明显</strong></p>
-<p><img src="https://ws1.sinaimg.cn/large/8697aaedly1frtffbs8p2j21540aqq58.jpg" alt=""></p>
 <h2 id="docker-基本实现原理">Docker 基本实现原理</h2>
 <p>Docker 的进程和资源隔离，基于 Linux 内核的cgroup，namespace，以及 AUFS 类的 Union FS 等技术实现的。</p>
 <h3 id="namespace----资源隔离">NameSpace &ndash; 资源隔离</h3>
