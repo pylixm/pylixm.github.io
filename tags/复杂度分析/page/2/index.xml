@@ -11,6 +11,15 @@
     
     
     <item>
+      <title>「Python Tips」 - 10个一行代码的Python小技巧</title>
+      <link>https://pylixm.top/posts/2020-08-05-10-One-liners.html</link>
+      <pubDate>Wed, 05 Aug 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2020-08-05-10-One-liners.html</guid>
+      <description>作者：Andreas Dev.to: https://dev.to/devmount Twitter: https://twitter.com/devmount 原文地址：https://dev.to/devmount/10-awesome-pythonic-one-lin</description>
+    </item>
+    
+    <item>
       <title>项目和教程</title>
       <link>https://pylixm.top/project/</link>
       <pubDate>Thu, 23 Jul 2020 00:00:00 +0000</pubDate>
@@ -179,15 +188,6 @@
       
       <guid>https://pylixm.top/posts/2019-12-31-zookeeper.html</guid>
       <description>Zookeeper 是Apache开源组织的一款分布式服务框架，常在分布式集群中扮演状态同步、集群管理、配置项管理等重要角色。业内比较流行的竞品软件有 etcd</description>
-    </item>
-    
-    <item>
-      <title>数据结构与算法 - 算法 - 线性排序</title>
-      <link>https://pylixm.top/posts/2019-12-29-linear-sort.html</link>
-      <pubDate>Sun, 29 Dec 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2019-12-29-linear-sort.html</guid>
-      <description>《数据结构与算法-王争》学习笔记，记录备查 线性排序，桶排序、计数排序、基数排序。 因为他们的时间复杂度都为O(n)，所以叫做线性排序。 桶排序（</description>
     </item>
     
   </channel>

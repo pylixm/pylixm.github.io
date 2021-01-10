@@ -10,6 +10,15 @@
     
     
     <item>
+      <title>「译」Django restful framework 中API版本的管理</title>
+      <link>https://pylixm.top/posts/2017-04-24-django-restfull-framework-version.html</link>
+      <pubDate>Mon, 24 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2017-04-24-django-restfull-framework-version.html</guid>
+      <description>原文：https://gearheart.io/blog/api-versioning-with-django-rest-framework</description>
+    </item>
+    
+    <item>
       <title>记一次tornado QPS 优化</title>
       <link>https://pylixm.top/posts/2017-04-04-tornado-qps-optimization.html</link>
       <pubDate>Tue, 04 Apr 2017 20:00:00 +0000</pubDate>
@@ -178,15 +187,6 @@
       
       <guid>https://pylixm.top/posts/2016-05-22-best.practices.for.django.1.8.3rd-chapter-3.html</guid>
       <description>其他章节索引页 第三章 如何布局 django 项目 建议布局 &amp;lt;repository_root&amp;gt;/ &amp;lt;django_project_root&amp;gt;/ &amp;lt;configuration_root&amp;gt;/ repository_root 本层放置文件： README.rst docs/ directory .gitignore requirements.txt django_project_root 本目录是django项目根目录 configuration_root django项目配置目录 icecreamratings_project/ .gitignore Makefile docs/</description>
-    </item>
-    
-    <item>
-      <title>Django 最佳实践-读书笔记 - 第二章  django 环境配置</title>
-      <link>https://pylixm.top/posts/2016-05-22-best.practices.for.django.1.8.3rd-chapter-2.html</link>
-      <pubDate>Sun, 22 May 2016 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2016-05-22-best.practices.for.django.1.8.3rd-chapter-2.html</guid>
-      <description>其他章节索引页 第二章 django 环境配置 使用相同的数据库引擎配置 在不同的环境下使用不同的数据库，而希望其行为一致。这种做法是很危险的，会带来不可预知的</description>
     </item>
     
   </channel>

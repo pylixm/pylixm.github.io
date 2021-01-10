@@ -10,6 +10,15 @@
     
     
     <item>
+      <title>FastApi 入门</title>
+      <link>https://pylixm.top/posts/2021-01-05-start.html</link>
+      <pubDate>Tue, 05 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2021-01-05-start.html</guid>
+      <description>公司内部分享的话术稿 大家好，今天我分享的主题是Python技术栈中一个新崛起的框架FastApi。我们可以用它来快速的构建具有「异步」特性的</description>
+    </item>
+    
+    <item>
       <title>「对比Python学习Go」- 流程控制</title>
       <link>https://pylixm.top/posts/2020-12-29-go-from-python-flow.html</link>
       <pubDate>Tue, 29 Dec 2020 00:00:00 +0000</pubDate>
@@ -178,15 +187,6 @@
       
       <guid>https://pylixm.top/posts/2020-08-11-k8s-start.html</guid>
       <description>原文地址：https://dzone.com/articles/a-beginners-guide-to-kubernetes Kuberne</description>
-    </item>
-    
-    <item>
-      <title>「Python Tips」 - 10个一行代码的Python小技巧</title>
-      <link>https://pylixm.top/posts/2020-08-05-10-One-liners.html</link>
-      <pubDate>Wed, 05 Aug 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2020-08-05-10-One-liners.html</guid>
-      <description>作者：Andreas Dev.to: https://dev.to/devmount Twitter: https://twitter.com/devmount 原文地址：https://dev.to/devmount/10-awesome-pythonic-one-lin</description>
     </item>
     
   </channel>

@@ -10,6 +10,15 @@
     
     
     <item>
+      <title>Django 最佳实践-读书笔记 - 第二章  django 环境配置</title>
+      <link>https://pylixm.top/posts/2016-05-22-best.practices.for.django.1.8.3rd-chapter-2.html</link>
+      <pubDate>Sun, 22 May 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-05-22-best.practices.for.django.1.8.3rd-chapter-2.html</guid>
+      <description>其他章节索引页 第二章 django 环境配置 使用相同的数据库引擎配置 在不同的环境下使用不同的数据库，而希望其行为一致。这种做法是很危险的，会带来不可预知的</description>
+    </item>
+    
+    <item>
       <title>Django 最佳实践-读书笔记 - 第五章 Settings 和 Requirements</title>
       <link>https://pylixm.top/posts/2016-05-22-best.practices.for.django.1.8.3rd-chapter-5.html</link>
       <pubDate>Sun, 22 May 2016 00:00:00 +0000</pubDate>
@@ -196,15 +205,6 @@
       
       <guid>https://pylixm.top/posts/2016-01-18-django-uwsgi-wt.html</guid>
       <description>Q &amp;amp; A： mapped 1263744 bytes (1234 KB) for 16 cores *** Operational MODE: preforking+threaded *** *** no app loaded. going in full dynamic mode *** *** uWSGI is running in multiple interpreter mode *** spawned uWSGI master process (pid: 2343) spawned uWSGI worker 1 (pid: 2345, cores: 2) spawned uWSGI worker 2 (pid: 2346, cores: 2) spawned uWSGI worker 3 (pid: 2348, cores: 2) spawned uWSGI worker 4</description>
-    </item>
-    
-    <item>
-      <title>salt minion 启动问题</title>
-      <link>https://pylixm.top/posts/2016-01-18-salt-minion.html</link>
-      <pubDate>Mon, 18 Jan 2016 19:55:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2016-01-18-salt-minion.html</guid>
-      <description>Q &amp;amp; A： 修改minion 的配置文件中master 的值后，启动报错，如下： Traceback (most recent call last): File &amp;quot;/usr/lib/python2.6/site-packages/salt/scripts.py&amp;quot;, line 81, in minion_process minion.start() File &amp;quot;/usr/lib/python2.6/site-packages/salt/cli/daemons.py&amp;quot;, line 277, in start self.minion.tune_in() File &amp;quot;/usr/lib/python2.6/site-packages/salt/minion.py&amp;quot;, line 1648, in tune_in self.sync_connect_master() File &amp;quot;/usr/lib/python2.6/site-packages/salt/minion.py&amp;quot;, line 720, in sync_connect_master self.io_loop.start() File</description>
     </item>
     
   </channel>

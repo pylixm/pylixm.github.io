@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>FastApi on DeanWu</title>
+    <link>https://pylixm.top/categories/FastApi/</link>
+    <description>Recent content in FastApi on DeanWu</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Tue, 05 Jan 2021 00:00:00 +0000</lastBuildDate>
+    
+        <atom:link href="https://pylixm.top/categories/FastApi/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Linux基础系列 - 磁盘Raid相关总结</title>
+      <link>https://pylixm.top/posts/2019-04-01-Linux-disk-raid.html</link>
+      <pubDate>Mon, 01 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2019-04-01-Linux-disk-raid.html</guid>
+      <description>Raid, 是 Redundant Array of Independent Disks 的缩写，中文译为“廉价磁盘冗余阵列”。是一种用普通磁盘来提供快速、高效、安全的磁盘存储技术。 分类 Raid，分为硬件 Raid 和 软件Ra</description>
+    </item>
+    
+    <item>
+      <title>无法添加crontab 解决 No space left on device</title>
+      <link>https://pylixm.top/2019/01/Linux-crontab-q/</link>
+      <pubDate>Tue, 15 Jan 2019 16:04:08 +0800</pubDate>
+      
+      <guid>https://pylixm.top/2019/01/Linux-crontab-q/</guid>
+      <description>Q &amp;amp; A： 今天在添加Linux 计划任务时，遇到如下问题， /var/spool/cron/IBM11070003.tmp.XXXXQxX3UB: No space left on device 从错误信息看应该是磁盘空间满了，但是通过 df -h查看 /var 占用78%并没有满。 继</description>
+    </item>
+    
+    <item>
+      <title>Ngrok 服务搭建完全手册</title>
+      <link>https://pylixm.top/2019/01/How-to-build-ngrok-server/</link>
+      <pubDate>Wed, 09 Jan 2019 16:04:08 +0800</pubDate>
+      
+      <guid>https://pylixm.top/2019/01/How-to-build-ngrok-server/</guid>
+      <description>最近需要开发个微信公众号后台，需要内网穿透工具，之前使用过sunny-ngrok，这个现在也变成付费的了。这次决定自己搭建一个，顺便学习下。</description>
+    </item>
+    
+    <item>
+      <title>记一次 Linux OOM-killer 分析过程</title>
+      <link>https://pylixm.top/posts/2018-11-28-Linux-oom-killer.html</link>
+      <pubDate>Wed, 28 Nov 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2018-11-28-Linux-oom-killer.html</guid>
+      <description>问题现象 最近发现线上服务的服务节点经常性的挂掉，我们业务的线上服务使用docker跑的Tomcat服务。服务业务现象收集如下： tomcat的</description>
+    </item>
+    
+    <item>
+      <title>DNS 相关知识记录</title>
+      <link>https://pylixm.top/posts/2018-11-13-dnsmasq-start.html</link>
+      <pubDate>Tue, 13 Nov 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2018-11-13-dnsmasq-start.html</guid>
+      <description>最近在处理问题时，看到 dnsmasq 这个工具，经查阅资料知道它是一款轻量级的网络相关的软件，可以配置作为DNS缓存服务器和DHCP服务器使用。 结合之前了</description>
+    </item>
+    
+    <item>
+      <title>Linux基础系列 - 三剑客之 grep 命令使用总结</title>
+      <link>https://pylixm.top/posts/2018-10-23-Linux-grep.html</link>
+      <pubDate>Tue, 23 Oct 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2018-10-23-Linux-grep.html</guid>
+      <description>简介 grep 命令是用来搜索文本的命令行工具，现在大部分Linux发行版本都集成了该命令行工具。该命令行是英文“ globally search a regular expression and print ”的简写，就是可以通过</description>
+    </item>
+    
+    <item>
+      <title>「Go语言学习笔记三」- Golang 语法入门【重排版】</title>
+      <link>https://pylixm.top/2018/10/Go-start-1/</link>
+      <pubDate>Tue, 23 Oct 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/2018/10/Go-start-1/</guid>
+      <description>引子 Golang官方网站的入门教程，更人感觉顺序有些问题，不太适合新手入门。根据我们的惯性思维，应该是类型、变量、基本类型开始，而它一上来便</description>
+    </item>
+    
+    <item>
+      <title>Linux基础系列 - 三剑客之 awk 命令使用总结</title>
+      <link>https://pylixm.top/posts/2018-10-16-Linux-awk.html</link>
+      <pubDate>Tue, 16 Oct 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2018-10-16-Linux-awk.html</guid>
+      <description>简介 awk 是在linux环境下，分析文本的一个利器，与grep、sed被称为linux三剑客。awk功能强大，可以进行正则表达式的匹配，样式装入</description>
+    </item>
+    
+    <item>
+      <title>Linux基础系列 - 磁盘相关知识及操作命令总结</title>
+      <link>https://pylixm.top/posts/2018-09-30-Linux-disk.html</link>
+      <pubDate>Sun, 30 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2018-09-30-Linux-disk.html</guid>
+      <description>Linux 系统中磁盘信息的查看是比较常用的操作，例如，查看磁盘使用情况、查看磁盘分区等待操作。这里总结一些运维中常用到的命令，以备使用查询。 磁盘的接</description>
+    </item>
+    
+    <item>
+      <title>Linux基础系列 - route</title>
+      <link>https://pylixm.top/posts/2018-09-14-Linux-route.html</link>
+      <pubDate>Fri, 14 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2018-09-14-Linux-route.html</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;内容来自&lt;a href=&#34;http://man.linuxde.net/route&#34;&gt;Linux命令大全&lt;/a&gt;，由&lt;a href=&#34;http://pylixm.cc&#34;&gt;pylixm&lt;/a&gt;整理。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;route命令用来显示并设置Linux内核中的网络路由表，route命令设置的路由主要是静态路由。要实现两个不同的子网之间的通信，需要一台连接两个网络的路由器，或者同时位于两个网络的网关来实现。&lt;/p&gt;
+&lt;p&gt;在Linux系统中设置路由通常是为了解决以下问题：该Linux系统在一个局域网中，局域网中有一个网关，能够让机器访问Internet，那么就需要将这台机器的ip地址设置为Linux机器的默认路由。要注意的是，直接在命令行下执行route命令来添加路由，不会永久保存，当网卡重启或者机器重启之后，该路由就失效了；可以在/etc/rc.local中添加route命令来保证该路由设置永久有效。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>nginx&#43;uwsgi 发布django项目常遇到的问题</title>
+      <link>https://pylixm.top/posts/2018-09-11-nginx-uwsgi-django-deploy.html</link>
+      <pubDate>Tue, 11 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2018-09-11-nginx-uwsgi-django-deploy.html</guid>
+      <description>nginx + uwsgi +django 是一种比较常见的django部署方式了，除了此种方式还有使用gunicorn来代替uwsgi的，gunicorn可以开启协程模式，有</description>
+    </item>
+    
+    <item>
+      <title>Python GIL锁的来龙去脉</title>
+      <link>https://pylixm.top/posts/2018-08-10-python-GIL.html</link>
+      <pubDate>Fri, 10 Aug 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2018-08-10-python-GIL.html</guid>
+      <description>Python中GIL锁，一直是一个不大不小的问题。下面这篇文章呢，可以说把它的来龙去脉说的简单易懂，特转载记录备忘。 作者：卢钧轶(cenal</description>
+    </item>
+    
+    <item>
+      <title>Linux基础系列 - jq</title>
+      <link>https://pylixm.top/posts/2018-06-26-Linux-jq.html</link>
+      <pubDate>Tue, 26 Jun 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2018-06-26-Linux-jq.html</guid>
+      <description>介绍 jq 是linux下的一个解析JSON格式字符串的一个命令行工具。可直接使用 yum install jq 来安装。 jq - commandline JSON processor [version 1.5] Usage: jq [options] &amp;lt;jq filter&amp;gt; [file...] jq is a tool for processing JSON inputs, applying the given filter</description>
+    </item>
+    
+    <item>
+      <title>架构师之路 - RPC 理解</title>
+      <link>https://pylixm.top/posts/2018-06-25-chief-software-architect-rpc.html</link>
+      <pubDate>Mon, 25 Jun 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2018-06-25-chief-software-architect-rpc.html</guid>
+      <description>本文是阅读老钱的《深入理解RPC:基于Python自建分布式高并发RPC服务》的笔记及摘录。 最早了解到的系统之间交互有Web service，</description>
+    </item>
+    
+    <item>
+      <title>Flask 目录结构分析</title>
+      <link>https://pylixm.top/posts/2018-06-04-flask-base.html</link>
+      <pubDate>Mon, 04 Jun 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2018-06-04-flask-base.html</guid>
+      <description>到目前为止，Flask 最新版本为1.0.3，我们来以此版本做分析，以便可以快速回忆各组件关系。 基本使用，可参阅官方文档，已非常详尽。 我们知道</description>
+    </item>
+    
+    <item>
+      <title>Docker 知识大全</title>
+      <link>https://pylixm.top/posts/2018-05-31-docker-all.html</link>
+      <pubDate>Thu, 31 May 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2018-05-31-docker-all.html</guid>
+      <description>原文地址：https://blog.opskumu.com/docker.html 本文对原文进行了更新和补充，转载备查。 一、Docker 简介</description>
+    </item>
+    
+    <item>
+      <title>如何整理个人资料</title>
+      <link>https://pylixm.top/posts/2018-05-02-How-to-arrange-note.html</link>
+      <pubDate>Wed, 02 May 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2018-05-02-How-to-arrange-note.html</guid>
+      <description>在现如今信息爆炸的时代，资料整理的方法显得越来越重要。好的资料整理方法可以让收集的资料发挥出它应有的价值，否则便和没有收集无异。 在平时工作学</description>
+    </item>
+    
+    <item>
+      <title>「Go语言学习笔记五」- Golang 语法进阶</title>
+      <link>https://pylixm.top/posts/2018-04-26-go-advance.html</link>
+      <pubDate>Thu, 26 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2018-04-26-go-advance.html</guid>
+      <description>编码 Go 原生支持UTF-8, 可直接打印非ASCII码字符。 package main import &amp;#34;fmt&amp;#34; func main() { fmt.Printf(&amp;#34;Hello, world or 你好，世界 or καλημ ́ρα κóσμ or こんにちはせかい\n&amp;#3</description>
+    </item>
+    
+    <item>
+      <title>Linux基础系列 - 命令ssh-keygen</title>
+      <link>https://pylixm.top/posts/2018-04-24-Linux-ssh-keygen.html</link>
+      <pubDate>Tue, 24 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2018-04-24-Linux-ssh-keygen.html</guid>
+      <description>内容来自网络，由pylixm整理。 命令介绍 ssh-keygen 生成、管理和转换认证密钥，包括 RSA 和 DSA 两种密钥。 参数如下： -a trials 在使用 -T 对 DH-GEX 候选素数进行安全筛选时需</description>
+    </item>
+    
+    <item>
+      <title>Linux基础系列 - 命令ps</title>
+      <link>https://pylixm.top/posts/2018-04-23-Linux-ps.html</link>
+      <pubDate>Mon, 23 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2018-04-23-Linux-ps.html</guid>
+      <description>内容来自网络，由pylixm整理。 命令介绍 ps 是Linux系统自带的查看进程信息的命令。ps 命令支持三种使用的语法格式： UNIX 风格，选项可以组合在</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -5,10 +5,19 @@
     <link>https://pylixm.top/posts/</link>
     <description>Recent content in Posts on DeanWu</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Tue, 29 Dec 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 05 Jan 2021 00:00:00 +0000</lastBuildDate>
     
         <atom:link href="https://pylixm.top/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Mysql 免安装版配置 window环境搭建</title>
+      <link>https://pylixm.top/posts/2015-11-01-Mysql-install.html</link>
+      <pubDate>Sun, 01 Nov 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2015-11-01-Mysql-install.html</guid>
+      <description>下载MySQL Community Server 5.6.13 解压MySQL压缩包 将以下载的MySQL压缩包解压到自定义目录下,我的解压目录是: &amp;ldquo;D:\Program Files\MySQL\mysql-5.6.13-win32&amp;rdquo; 将解压目录下默认文件 my-default.ini 拷贝一份，改</description>
+    </item>
     
     <item>
       <title></title>

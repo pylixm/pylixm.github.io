@@ -5,10 +5,19 @@
     <link>https://pylixm.top/</link>
     <description>Recent content on DeanWu</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Tue, 29 Dec 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 05 Jan 2021 00:00:00 +0000</lastBuildDate>
     
         <atom:link href="https://pylixm.top/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>salt minion 启动问题</title>
+      <link>https://pylixm.top/posts/2016-01-18-salt-minion.html</link>
+      <pubDate>Mon, 18 Jan 2016 19:55:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-01-18-salt-minion.html</guid>
+      <description>Q &amp;amp; A： 修改minion 的配置文件中master 的值后，启动报错，如下： Traceback (most recent call last): File &amp;quot;/usr/lib/python2.6/site-packages/salt/scripts.py&amp;quot;, line 81, in minion_process minion.start() File &amp;quot;/usr/lib/python2.6/site-packages/salt/cli/daemons.py&amp;quot;, line 277, in start self.minion.tune_in() File &amp;quot;/usr/lib/python2.6/site-packages/salt/minion.py&amp;quot;, line 1648, in tune_in self.sync_connect_master() File &amp;quot;/usr/lib/python2.6/site-packages/salt/minion.py&amp;quot;, line 720, in sync_connect_master self.io_loop.start() File</description>
+    </item>
     
     <item>
       <title>使用virtualenv 部署django应用问题记录</title>
@@ -179,15 +188,6 @@
       
       <guid>https://pylixm.top/posts/2015-11-01-git.html</guid>
       <description>一、Git知识点 将发生变化的文件全部保存。为了减少磁盘使用，只保存发生变化的文件。使用sha1算法的20字节（40位）值作为对象的唯一标识。</description>
-    </item>
-    
-    <item>
-      <title>Mysql 免安装版配置 window环境搭建</title>
-      <link>https://pylixm.top/posts/2015-11-01-Mysql-install.html</link>
-      <pubDate>Sun, 01 Nov 2015 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2015-11-01-Mysql-install.html</guid>
-      <description>下载MySQL Community Server 5.6.13 解压MySQL压缩包 将以下载的MySQL压缩包解压到自定义目录下,我的解压目录是: &amp;ldquo;D:\Program Files\MySQL\mysql-5.6.13-win32&amp;rdquo; 将解压目录下默认文件 my-default.ini 拷贝一份，改</description>
     </item>
     
   </channel>

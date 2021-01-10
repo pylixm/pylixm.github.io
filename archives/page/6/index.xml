@@ -10,6 +10,15 @@
     
     
     <item>
+      <title>「Python Tips」 Pickle 的使用</title>
+      <link>https://pylixm.top/posts/2018-02-02-python-pickle.html</link>
+      <pubDate>Fri, 02 Feb 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2018-02-02-python-pickle.html</guid>
+      <description>原文：储存你的对象 如果你接触过其他的 python 开发者，你可能已经听说过 Pickle 了， Pickle 是用来序列化 Python 数据结构的模块，在你需要暂时存储一个对象的时候（比如缓存</description>
+    </item>
+    
+    <item>
       <title>「Python Tips」- python 魔法方法</title>
       <link>https://pylixm.top/posts/2018-02-01-python-magic-method.html</link>
       <pubDate>Thu, 01 Feb 2018 00:00:00 +0000</pubDate>
@@ -178,15 +187,6 @@
       
       <guid>https://pylixm.top/posts/2017-05-11-vue-npm-webpack.html</guid>
       <description>使用 Vue.js 的前端基础知识 如何学习 vue ？最有权威的回答莫过于vue作者的这篇文章了 《新手向：Vue 2.0 的建议学习顺序》。 按照作者建议的思路，先了解vu</description>
-    </item>
-    
-    <item>
-      <title>「译」Django restful framework 中API版本的管理</title>
-      <link>https://pylixm.top/posts/2017-04-24-django-restfull-framework-version.html</link>
-      <pubDate>Mon, 24 Apr 2017 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2017-04-24-django-restfull-framework-version.html</guid>
-      <description>原文：https://gearheart.io/blog/api-versioning-with-django-rest-framework</description>
     </item>
     
   </channel>

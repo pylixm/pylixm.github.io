@@ -5,10 +5,19 @@
     <link>https://pylixm.top/</link>
     <description>Recent content on DeanWu</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Tue, 29 Dec 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 05 Jan 2021 00:00:00 +0000</lastBuildDate>
     
         <atom:link href="https://pylixm.top/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Linux基础系列 - 磁盘Raid相关总结</title>
+      <link>https://pylixm.top/posts/2019-04-01-Linux-disk-raid.html</link>
+      <pubDate>Mon, 01 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2019-04-01-Linux-disk-raid.html</guid>
+      <description>Raid, 是 Redundant Array of Independent Disks 的缩写，中文译为“廉价磁盘冗余阵列”。是一种用普通磁盘来提供快速、高效、安全的磁盘存储技术。 分类 Raid，分为硬件 Raid 和 软件Ra</description>
+    </item>
     
     <item>
       <title>无法添加crontab 解决 No space left on device</title>
@@ -183,15 +192,6 @@
       
       <guid>https://pylixm.top/posts/2018-04-23-Linux-ps.html</guid>
       <description>内容来自网络，由pylixm整理。 命令介绍 ps 是Linux系统自带的查看进程信息的命令。ps 命令支持三种使用的语法格式： UNIX 风格，选项可以组合在</description>
-    </item>
-    
-    <item>
-      <title>「Python Tips」 Pickle 的使用</title>
-      <link>https://pylixm.top/posts/2018-02-02-python-pickle.html</link>
-      <pubDate>Fri, 02 Feb 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2018-02-02-python-pickle.html</guid>
-      <description>原文：储存你的对象 如果你接触过其他的 python 开发者，你可能已经听说过 Pickle 了， Pickle 是用来序列化 Python 数据结构的模块，在你需要暂时存储一个对象的时候（比如缓存</description>
     </item>
     
   </channel>
