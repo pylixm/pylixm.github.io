@@ -33,7 +33,7 @@
 <meta property="og:description" content="" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://pylixm.top/" />
-<meta property="og:updated_time" content="2021-01-05T00:00:00+00:00" />
+<meta property="og:updated_time" content="2021-01-16T00:00:00+00:00" />
 <meta itemprop="name" content="DeanWu">
 <meta itemprop="description" content=""><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="DeanWu"/>
@@ -152,6 +152,16 @@
             <li>
                 <div class="item-inner">
                     <p class="item-title">
+                        <a href="https://pylixm.top/posts/2021-01-16-SRE-lo.html" class="title">「SRE知识总结」lo 网卡到底干什么用的</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2021-01-16 00:00:00 &#43;0000 UTC" itemprop="datePublished">2021-01-16</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
                         <a href="https://pylixm.top/posts/2021-01-05-start.html" class="title">FastApi 简单入门，附生产级脚手架代码</a>
                     </p>
                     <p class="item-date">
@@ -189,16 +199,6 @@
                     </p>
                 </div>
             </li>
-            <li>
-                <div class="item-inner">
-                    <p class="item-title">
-                        <a href="https://pylixm.top/posts/2020-12-05-go-from-python-structure-base.html" class="title">「对比Python学习Go」- 基本数据结构</a>
-                    </p>
-                    <p class="item-date">
-                        <time datetime="2020-12-05 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-12-05</time>
-                    </p>
-                </div>
-            </li>
         </ul>
     </div>
 </div>
@@ -229,6 +229,7 @@
             <li class="category-list-item"><a href="https://pylixm.top/categories/QA/" class="category-list-link">QA</a><span class="category-list-count">1</span></li>
             <li class="category-list-item"><a href="https://pylixm.top/categories/Rabbitmq/" class="category-list-link">Rabbitmq</a><span class="category-list-count">1</span></li>
             <li class="category-list-item"><a href="https://pylixm.top/categories/Restful/" class="category-list-link">Restful</a><span class="category-list-count">6</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/SRE/" class="category-list-link">SRE</a><span class="category-list-count">1</span></li>
             <li class="category-list-item"><a href="https://pylixm.top/categories/SaltStack/" class="category-list-link">SaltStack</a><span class="category-list-count">7</span></li>
             <li class="category-list-item"><a href="https://pylixm.top/categories/Software_Architect/" class="category-list-link">Software_Architect</a><span class="category-list-count">1</span></li>
             <li class="category-list-item"><a href="https://pylixm.top/categories/Supervisor/" class="category-list-link">Supervisor</a><span class="category-list-count">1</span></li>
@@ -262,6 +263,45 @@
     
     
     
+    <article
+      class="article article-type-page"
+      itemscope
+      itemtype="http://schema.org/BlogPosting"
+    >
+      <div class="article-header">
+        <h1 itemprop="name">
+  <a
+    class="article-title"
+    href="/posts/2021-01-16-SRE-lo.html"
+    >「SRE知识总结」lo 网卡到底干什么用的</a
+  >
+</h1>
+
+      </div>
+      <div class="article-entry text-muted" itemprop="description">
+        当我们在Linux系统中执行ip a 或 ifconfig 命令时，我们可以看到系统的网卡信息。如下： [root@pylixm-27-192 ~]# ip a 1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000 link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00 inet 127.0.0.1/8 scope host lo valid_lft forever preferred_lft forever
+      </div>
+      <p class="article-meta">
+<span class="article-date">
+  <i class="icon icon-calendar-check"></i>&nbsp;
+<a href="https://pylixm.top/posts/2021-01-16-SRE-lo.html" class="">
+  <time datetime="2021-01-16 00:00:00 &#43;0000 UTC" itemprop="datePublished">2021-01-16</time>
+</a>
+</span>
+<span class="article-category">
+  <i class="icon icon-folder"></i>&nbsp;
+  <a class="article-category-link" href="/categories/SRE/"> SRE </a>
+</span>  
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>&nbsp;
+    <a class="article-tag-link" href="/tags/SRE%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/"> SRE知识总结 </a>
+  </span>
+
+        <span class="post-comment"><i class="icon icon-comment"></i> &nbsp;<a href="/posts/2021-01-16-SRE-lo.html#comments" class="article-comment-link">评论</a></span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 884字</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 2分 </span>
+      </p>
+    </article>
     <article
       class="article article-type-page"
       itemscope
@@ -819,46 +859,6 @@
         <span class="post-comment"><i class="icon icon-comment"></i> &nbsp;<a href="/posts/2020-09-17-hmac-sha256-base64.html#comments" class="article-comment-link">评论</a></span>
 		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 693字</span>
 		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 2分 </span>
-      </p>
-    </article>
-    <article
-      class="article article-type-page"
-      itemscope
-      itemtype="http://schema.org/BlogPosting"
-    >
-      <div class="article-header">
-        <h1 itemprop="name">
-  <a
-    class="article-title"
-    href="/posts/2020-09-01-k8s-build.html"
-    >Kubernetes 学习笔记-集群搭建篇(二进制方式)</a
-  >
-</h1>
-
-      </div>
-      <div class="article-entry text-muted" itemprop="description">
-        本篇记录我集群搭建的过程和问题，目标是可以根据本篇文章搭建自己生产可用的K8S集群。对于K8S的一些概念理解，可参考我之前的笔记Kubern
-      </div>
-      <p class="article-meta">
-<span class="article-date">
-  <i class="icon icon-calendar-check"></i>&nbsp;
-<a href="https://pylixm.top/posts/2020-09-01-k8s-build.html" class="">
-  <time datetime="2020-09-01 00:00:00 &#43;0000 UTC" itemprop="datePublished">2020-09-01</time>
-</a>
-</span>
-<span class="article-category">
-  <i class="icon icon-folder"></i>&nbsp;
-  <a class="article-category-link" href="/categories/Kubernetes/"> Kubernetes </a>
-</span>  
-  <span class="article-tag">
-    <i class="icon icon-tags"></i>&nbsp;
-    <a class="article-tag-link" href="/tags/Kubernetes/"> Kubernetes </a>
-    <a class="article-tag-link" href="/tags/docker/"> docker </a>
-  </span>
-
-        <span class="post-comment"><i class="icon icon-comment"></i> &nbsp;<a href="/posts/2020-09-01-k8s-build.html#comments" class="article-comment-link">评论</a></span>
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 9170字</span>
-		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 19分 </span>
       </p>
     </article></div>
   

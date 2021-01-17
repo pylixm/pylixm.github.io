@@ -10,6 +10,15 @@
     
     
     <item>
+      <title>「译」Kubernetes新手入门指南</title>
+      <link>https://pylixm.top/posts/2020-08-11-k8s-start.html</link>
+      <pubDate>Tue, 11 Aug 2020 22:26:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2020-08-11-k8s-start.html</guid>
+      <description>原文地址：https://dzone.com/articles/a-beginners-guide-to-kubernetes Kuberne</description>
+    </item>
+    
+    <item>
       <title>「Python Tips」 - 10个一行代码的Python小技巧</title>
       <link>https://pylixm.top/posts/2020-08-05-10-One-liners.html</link>
       <pubDate>Wed, 05 Aug 2020 00:00:00 +0000</pubDate>
@@ -178,15 +187,6 @@
       
       <guid>https://pylixm.top/posts/2020-01-01-sort-optimization.html</guid>
       <description>《数据结构与算法-王争》学习笔记，记录备查 各排序算法情况： 快速排序的优化 快速排序，时间复杂度在 O(nlogn) 和 O(n^2)之间。在极坏的情况的，时间复杂</description>
-    </item>
-    
-    <item>
-      <title>Zookeeper 入门</title>
-      <link>https://pylixm.top/posts/2019-12-31-zookeeper.html</link>
-      <pubDate>Tue, 31 Dec 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2019-12-31-zookeeper.html</guid>
-      <description>Zookeeper 是Apache开源组织的一款分布式服务框架，常在分布式集群中扮演状态同步、集群管理、配置项管理等重要角色。业内比较流行的竞品软件有 etcd</description>
     </item>
     
   </channel>

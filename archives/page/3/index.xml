@@ -10,6 +10,15 @@
     
     
     <item>
+      <title>Zookeeper 入门</title>
+      <link>https://pylixm.top/posts/2019-12-31-zookeeper.html</link>
+      <pubDate>Tue, 31 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2019-12-31-zookeeper.html</guid>
+      <description>Zookeeper 是Apache开源组织的一款分布式服务框架，常在分布式集群中扮演状态同步、集群管理、配置项管理等重要角色。业内比较流行的竞品软件有 etcd</description>
+    </item>
+    
+    <item>
       <title>数据结构与算法 - 算法 - 线性排序</title>
       <link>https://pylixm.top/posts/2019-12-29-linear-sort.html</link>
       <pubDate>Sun, 29 Dec 2019 00:00:00 +0000</pubDate>
@@ -178,15 +187,6 @@
       
       <guid>https://pylixm.top/posts/2019-09-20-complexity.html</guid>
       <description>《数据结构与算法-王争》学习笔记，记录备查 数据结构与算法，说到底是「快」和「省」的问题。那么如何衡量快和省，这就是「复杂度分析」做的事情。 复</description>
-    </item>
-    
-    <item>
-      <title>Linux基础系列 - 网络监测利器 mtr</title>
-      <link>https://pylixm.top/posts/2019-09-19-Linux-mtr.html</link>
-      <pubDate>Thu, 19 Sep 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2019-09-19-Linux-mtr.html</guid>
-      <description>介绍 我们在查看网络的联通性时，常常使用 ping。在查看网络走向路由时，使用 traceroute。除此之外，还有一个网络检测的利器&amp;ndash</description>
     </item>
     
   </channel>

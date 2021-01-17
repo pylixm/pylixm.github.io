@@ -5,10 +5,19 @@
     <link>https://pylixm.top/series/</link>
     <description>Recent content in Series on DeanWu</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Tue, 29 Dec 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 16 Jan 2021 00:00:00 +0000</lastBuildDate>
     
         <atom:link href="https://pylixm.top/series/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Django uwsgi 启动问题 unavailable modifier requested 0</title>
+      <link>https://pylixm.top/posts/2016-01-18-django-uwsgi-wt.html</link>
+      <pubDate>Mon, 18 Jan 2016 19:55:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-01-18-django-uwsgi-wt.html</guid>
+      <description>Q &amp;amp; A： mapped 1263744 bytes (1234 KB) for 16 cores *** Operational MODE: preforking+threaded *** *** no app loaded. going in full dynamic mode *** *** uWSGI is running in multiple interpreter mode *** spawned uWSGI master process (pid: 2343) spawned uWSGI worker 1 (pid: 2345, cores: 2) spawned uWSGI worker 2 (pid: 2346, cores: 2) spawned uWSGI worker 3 (pid: 2348, cores: 2) spawned uWSGI worker 4</description>
+    </item>
     
     <item>
       <title>salt minion 启动问题</title>
@@ -179,15 +188,6 @@
       
       <guid>https://pylixm.top/posts/2015-11-01-django-model-one.html</guid>
       <description>Django也遵循了MVC的分层原则，不过在做法上略有不同。首先模型部分保持不变：Django的模型增只负责把数据传入传出数据库。然而Dja</description>
-    </item>
-    
-    <item>
-      <title>Git使用学习笔记</title>
-      <link>https://pylixm.top/posts/2015-11-01-git.html</link>
-      <pubDate>Sun, 01 Nov 2015 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2015-11-01-git.html</guid>
-      <description>一、Git知识点 将发生变化的文件全部保存。为了减少磁盘使用，只保存发生变化的文件。使用sha1算法的20字节（40位）值作为对象的唯一标识。</description>
     </item>
     
   </channel>

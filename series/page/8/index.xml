@@ -5,10 +5,19 @@
     <link>https://pylixm.top/series/</link>
     <description>Recent content in Series on DeanWu</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Tue, 29 Dec 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 16 Jan 2021 00:00:00 +0000</lastBuildDate>
     
         <atom:link href="https://pylixm.top/series/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Django 最佳实践-读书笔记 - 第三章 如何布局 django 项目</title>
+      <link>https://pylixm.top/posts/2016-05-22-best.practices.for.django.1.8.3rd-chapter-3.html</link>
+      <pubDate>Sun, 22 May 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-05-22-best.practices.for.django.1.8.3rd-chapter-3.html</guid>
+      <description>其他章节索引页 第三章 如何布局 django 项目 建议布局 &amp;lt;repository_root&amp;gt;/ &amp;lt;django_project_root&amp;gt;/ &amp;lt;configuration_root&amp;gt;/ repository_root 本层放置文件： README.rst docs/ directory .gitignore requirements.txt django_project_root 本目录是django项目根目录 configuration_root django项目配置目录 icecreamratings_project/ .gitignore Makefile docs/</description>
+    </item>
     
     <item>
       <title>Django 最佳实践-读书笔记 - 第二章  django 环境配置</title>
@@ -197,15 +206,6 @@
       
       <guid>https://pylixm.top/posts/2016-01-19-django-supervisor-celery.html</guid>
       <description>之前启动celery时，使用nohup 方式启动。这种方式是不安全的，今天使者使用supervisor来管理监控celery，记录如下，备查。</description>
-    </item>
-    
-    <item>
-      <title>Django uwsgi 启动问题 unavailable modifier requested 0</title>
-      <link>https://pylixm.top/posts/2016-01-18-django-uwsgi-wt.html</link>
-      <pubDate>Mon, 18 Jan 2016 19:55:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2016-01-18-django-uwsgi-wt.html</guid>
-      <description>Q &amp;amp; A： mapped 1263744 bytes (1234 KB) for 16 cores *** Operational MODE: preforking+threaded *** *** no app loaded. going in full dynamic mode *** *** uWSGI is running in multiple interpreter mode *** spawned uWSGI master process (pid: 2343) spawned uWSGI worker 1 (pid: 2345, cores: 2) spawned uWSGI worker 2 (pid: 2346, cores: 2) spawned uWSGI worker 3 (pid: 2348, cores: 2) spawned uWSGI worker 4</description>
     </item>
     
   </channel>

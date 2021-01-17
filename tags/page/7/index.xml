@@ -5,10 +5,19 @@
     <link>https://pylixm.top/tags/</link>
     <description>Recent content in Tags on DeanWu</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Tue, 05 Jan 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 16 Jan 2021 00:00:00 +0000</lastBuildDate>
     
         <atom:link href="https://pylixm.top/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Vue 新手使用总结</title>
+      <link>https://pylixm.top/posts/2017-05-11-vue-npm-webpack.html</link>
+      <pubDate>Thu, 11 May 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2017-05-11-vue-npm-webpack.html</guid>
+      <description>使用 Vue.js 的前端基础知识 如何学习 vue ？最有权威的回答莫过于vue作者的这篇文章了 《新手向：Vue 2.0 的建议学习顺序》。 按照作者建议的思路，先了解vu</description>
+    </item>
     
     <item>
       <title>「译」Django restful framework 中API版本的管理</title>
@@ -179,15 +188,6 @@
       
       <guid>https://pylixm.top/posts/2016-05-22-best.practices.for.django.1.8.3rd-chapter-1.html</guid>
       <description>其他章节索引页 核心理念 Keep It Simple, Stupid Fat Models, Utility Modules, Thin Views, Stupid Templates Start With Django by Default Be Familiar with Django&amp;rsquo;s Design Philosophies The Twelve-Factor App 第一章 代码规范 常规： 变量名，避免缩写 写出你的函数参数名 编写类和方法</description>
-    </item>
-    
-    <item>
-      <title>Django 最佳实践-读书笔记 - 第三章 如何布局 django 项目</title>
-      <link>https://pylixm.top/posts/2016-05-22-best.practices.for.django.1.8.3rd-chapter-3.html</link>
-      <pubDate>Sun, 22 May 2016 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2016-05-22-best.practices.for.django.1.8.3rd-chapter-3.html</guid>
-      <description>其他章节索引页 第三章 如何布局 django 项目 建议布局 &amp;lt;repository_root&amp;gt;/ &amp;lt;django_project_root&amp;gt;/ &amp;lt;configuration_root&amp;gt;/ repository_root 本层放置文件： README.rst docs/ directory .gitignore requirements.txt django_project_root 本目录是django项目根目录 configuration_root django项目配置目录 icecreamratings_project/ .gitignore Makefile docs/</description>
     </item>
     
   </channel>

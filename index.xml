@@ -5,10 +5,19 @@
     <link>https://pylixm.top/</link>
     <description>Recent content on DeanWu</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Tue, 05 Jan 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 16 Jan 2021 00:00:00 +0000</lastBuildDate>
     
         <atom:link href="https://pylixm.top/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>「SRE知识总结」lo 网卡到底干什么用的</title>
+      <link>https://pylixm.top/posts/2021-01-16-SRE-lo.html</link>
+      <pubDate>Sat, 16 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2021-01-16-SRE-lo.html</guid>
+      <description>当我们在Linux系统中执行ip a 或 ifconfig 命令时，我们可以看到系统的网卡信息。如下： [root@pylixm-27-192 ~]# ip a 1: lo: &amp;lt;LOOPBACK,UP,LOWER_UP&amp;gt; mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000 link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00 inet 127.0.0.1/8 scope host lo valid_lft forever preferred_lft forever</description>
+    </item>
     
     <item>
       <title>FastApi 简单入门，附生产级脚手架代码</title>
@@ -179,15 +188,6 @@
       
       <guid>https://pylixm.top/posts/2020-08-17-go-basic-time.html</guid>
       <description>time 当前时间 time.Now() 把时间格式化成字符串(time-&amp;gt;string) : time.Now().Format(&amp;ldquo;2006-01-02 15:04:05&amp;rdquo;) 把日期字符串转化为时间(string -&amp;gt; time) : time.Parse(&amp;ldquo;01-02-2006&amp;rdquo;, &amp;ldquo;06-17-2013&amp;rdquo;) 把纳秒转化为时间字符串</description>
-    </item>
-    
-    <item>
-      <title>「译」Kubernetes新手入门指南</title>
-      <link>https://pylixm.top/posts/2020-08-11-k8s-start.html</link>
-      <pubDate>Tue, 11 Aug 2020 22:26:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2020-08-11-k8s-start.html</guid>
-      <description>原文地址：https://dzone.com/articles/a-beginners-guide-to-kubernetes Kuberne</description>
     </item>
     
   </channel>

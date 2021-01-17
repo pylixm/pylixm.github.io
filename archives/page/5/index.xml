@@ -10,6 +10,15 @@
     
     
     <item>
+      <title>Linux基础系列 - flock 命令</title>
+      <link>https://pylixm.top/posts/2019-04-24-flock.html</link>
+      <pubDate>Wed, 24 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2019-04-24-flock.html</guid>
+      <description>最近有这么一个场景，系统的定时任务执行时间长周期短，可能本周期执行时，上个周期的任务还没有执行完，这样便会造成相同的任务同一时间有过个任务进</description>
+    </item>
+    
+    <item>
       <title>Linux基础系列 - 磁盘Raid相关总结</title>
       <link>https://pylixm.top/posts/2019-04-01-Linux-disk-raid.html</link>
       <pubDate>Mon, 01 Apr 2019 00:00:00 +0000</pubDate>
@@ -182,15 +191,6 @@
       
       <guid>https://pylixm.top/posts/2018-04-24-Linux-ssh-keygen.html</guid>
       <description>内容来自网络，由pylixm整理。 命令介绍 ssh-keygen 生成、管理和转换认证密钥，包括 RSA 和 DSA 两种密钥。 参数如下： -a trials 在使用 -T 对 DH-GEX 候选素数进行安全筛选时需</description>
-    </item>
-    
-    <item>
-      <title>Linux基础系列 - 命令ps</title>
-      <link>https://pylixm.top/posts/2018-04-23-Linux-ps.html</link>
-      <pubDate>Mon, 23 Apr 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2018-04-23-Linux-ps.html</guid>
-      <description>内容来自网络，由pylixm整理。 命令介绍 ps 是Linux系统自带的查看进程信息的命令。ps 命令支持三种使用的语法格式： UNIX 风格，选项可以组合在</description>
     </item>
     
   </channel>
