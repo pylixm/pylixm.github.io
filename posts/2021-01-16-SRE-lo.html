@@ -20,7 +20,7 @@
     <meta http-equiv="window-target" content="_top" />
     
     
-    <meta name="description" content="当我们在Linux系统中执行ip a 或 ifconfig 命令时，我们可以看到系统的网卡信息。如下： [root@pylixm-27-192 ~]# ip a 1: lo: &amp;lt;LOOPBACK,UP,LOWER_UP&amp;gt; mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000 link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00 inet 127.0.0.1/8 scope host lo valid_lft forever preferred_lft forever" />
+    <meta name="description" content="当我们在 Linux 系统中执行ip a 或 ifconfig 命令时，我们可以看到系统的网卡信息。如下： [root@pylixm-27-192 ~]# ip a 1: lo: &amp;lt;LOOPBACK,UP,LOWER_UP&amp;gt; mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000 link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00 inet 127.0.0.1/8 scope host lo valid_lft forever preferred_lft forever 2: eth0: &amp;lt;BROADCAST,MULTICAST,UP,LOWER_UP&amp;gt; mtu" />
     <meta name="generator" content="Hugo 0.73.0 with theme pure" />
     <title>「SRE知识总结」lo 网卡到底干什么用的 - DeanWu</title>
     
@@ -30,23 +30,23 @@
     <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.15.10/styles/github.min.css" async>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css" async>
     <meta property="og:title" content="「SRE知识总结」lo 网卡到底干什么用的" />
-<meta property="og:description" content="当我们在Linux系统中执行ip a 或 ifconfig 命令时，我们可以看到系统的网卡信息。如下： [root@pylixm-27-192 ~]# ip a 1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000 link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00 inet 127.0.0.1/8 scope host lo valid_lft forever preferred_lft forever" />
+<meta property="og:description" content="当我们在 Linux 系统中执行ip a 或 ifconfig 命令时，我们可以看到系统的网卡信息。如下： [root@pylixm-27-192 ~]# ip a 1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000 link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00 inet 127.0.0.1/8 scope host lo valid_lft forever preferred_lft forever 2: eth0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://pylixm.top/posts/2021-01-16-SRE-lo.html" />
 <meta property="article:published_time" content="2021-01-16T00:00:00+00:00" />
 <meta property="article:modified_time" content="2021-01-16T00:00:00+00:00" />
 
 <meta itemprop="name" content="「SRE知识总结」lo 网卡到底干什么用的">
-<meta itemprop="description" content="当我们在Linux系统中执行ip a 或 ifconfig 命令时，我们可以看到系统的网卡信息。如下： [root@pylixm-27-192 ~]# ip a 1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000 link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00 inet 127.0.0.1/8 scope host lo valid_lft forever preferred_lft forever">
+<meta itemprop="description" content="当我们在 Linux 系统中执行ip a 或 ifconfig 命令时，我们可以看到系统的网卡信息。如下： [root@pylixm-27-192 ~]# ip a 1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000 link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00 inet 127.0.0.1/8 scope host lo valid_lft forever preferred_lft forever 2: eth0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu">
 <meta itemprop="datePublished" content="2021-01-16T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2021-01-16T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="883">
+<meta itemprop="wordCount" content="845">
 
 
 
 <meta itemprop="keywords" content="SRE知识总结," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="「SRE知识总结」lo 网卡到底干什么用的"/>
-<meta name="twitter:description" content="当我们在Linux系统中执行ip a 或 ifconfig 命令时，我们可以看到系统的网卡信息。如下： [root@pylixm-27-192 ~]# ip a 1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000 link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00 inet 127.0.0.1/8 scope host lo valid_lft forever preferred_lft forever"/>
+<meta name="twitter:description" content="当我们在 Linux 系统中执行ip a 或 ifconfig 命令时，我们可以看到系统的网卡信息。如下： [root@pylixm-27-192 ~]# ip a 1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000 link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00 inet 127.0.0.1/8 scope host lo valid_lft forever preferred_lft forever 2: eth0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu"/>
 
     <!--[if lte IE 9]>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -312,12 +312,12 @@
 	</span>
         <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="/posts/2021-01-16-SRE-lo.html#comments"
             class="article-comment-link">评论</a></span>
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 883字</span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 845字</span>
 		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 2分 </span>
       </div>
     </div>
     <div class="article-entry marked-body js-toc-content" itemprop="articleBody">
-      <p>当我们在Linux系统中执行<code>ip a </code> 或 <code>ifconfig</code> 命令时，我们可以看到系统的网卡信息。如下：</p>
+      <p>当我们在 Linux 系统中执行<code>ip a</code> 或 <code>ifconfig</code> 命令时，我们可以看到系统的网卡信息。如下：</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#f92672">[</span>root@pylixm-27-192 ~<span style="color:#f92672">]</span><span style="color:#75715e"># ip a</span>
 1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu <span style="color:#ae81ff">65536</span> qdisc noqueue state UNKNOWN group default qlen <span style="color:#ae81ff">1000</span>
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
@@ -344,27 +344,27 @@ lo: flags<span style="color:#f92672">=</span>73&lt;UP,LOOPBACK,RUNNING&gt;  mtu 
         TX packets <span style="color:#ae81ff">5440800</span>  bytes <span style="color:#ae81ff">9157089685</span> <span style="color:#f92672">(</span>8.5 GiB<span style="color:#f92672">)</span>
         TX errors <span style="color:#ae81ff">0</span>  dropped <span style="color:#ae81ff">0</span> overruns <span style="color:#ae81ff">0</span>  carrier <span style="color:#ae81ff">0</span>  collisions <span style="color:#ae81ff">0</span>
 </code></pre></div><p>类似<code>eth0</code>的便是物理网卡对应的系统接口，这里只有一个<code>eth0</code> 说明我的机器只有一个物理网卡。<code>lo</code> 大家肯定多少有所耳闻，它是一个虚拟的网络接口，并没有对应的物理网卡，我们知道它的地址是<code>127.0.0.1</code>，主要作为本地地址使用。在程序开发中，我们常常把服务启动在这个地址上，通过浏览器来访问<code>127.0.0.1</code>或其解析的<code>localhost</code> 来访问本地的服务进行调试。</p>
-<p>上面说的这种用法属于本地系统内部的服务交互的一个典型用法。除了内部服务的交互外，还可作为IP的暂存使用。主要应用场景在LVS DR中：</p>
+<p>上面说的这种用法属于本地系统内部服务交互的一个典型用法。<strong>lo除了作为内部服务交互的接口外，还可作为 IP 的暂存接口使用</strong>。一个典型的应用场景「LVS DR模式」：</p>
 <ul>
 <li>
-<p>在DR模式中，RS需要在none-arp的网卡上配置vip，lo即可作为这个non-arp网卡配合内核参数<code>arp_ignore=1</code>将arp包仅限定真实网卡信息本身，即只回答目标IP地址是来访网络接口本地地址的ARP查询请求，说白了，就是只会LVS服务器的ARP包，避免vip冲突。</p>
+<p>在 DR 模式中，RS 需要在 non-arp 的网卡上配置 vip，lo 即可作为这个 non-arp 网卡配合内核参数<code>arp_ignore=1</code>将 ARP 包仅限定真实网卡信息本身，即只回答目标 IP 地址是来访网络接口本地地址的 ARP 查询请求，说白了，就是只回 LVS 服务器的 ARP 包，避免 vip 冲突。</p>
 </li>
 <li>
-<p>RS回报的时候，利用参数<code>arp_announce=2</code>发送ARP报文时使用了本地真实网卡的ip地址，这样顺利拿到客户机的mac地址。IP层并没有变化，还是源地址为VIP，目标地址为客户端IP。</p>
+<p>RS 回包，利用参数<code>arp_announce=2</code>发送 ARP 报文时，使用了本地真实网卡的 ip 地址，这样顺利拿到客户机的 mac 地址。IP 层并没有变化，还是源地址为 VIP，目标地址为客户端 IP。</p>
 </li>
 </ul>
-<p>LVS DR的原理，可阅读下边文章，写的比较清晰明了：</p>
+<p>LVS DR 的原理，可阅读下边文章，写的比较清晰明了：</p>
 <ul>
-<li><a href="https://my.oschina.net/u/2487485/blog/780346">关于LVS-DR中一次数据的完整旅行</a></li>
-<li><a href="http://dockone.io/article/10052">LVS那些你不知道的秘密</a></li>
+<li><a href="https://my.oschina.net/u/2487485/blog/780346" title="关于LVS-DR中一次数据的完整旅行">关于 LVS-DR 中一次数据的完整旅行</a></li>
+<li><a href="http://dockone.io/article/10052" title="LVS那些你不知道的秘密">LVS 那些你不知道的秘密</a></li>
 </ul>
-<p><strong>另外，这个lo绑定ip时有坑，在我们不使用时需要及时清理。否则，当我们访问解析为lo绑定的ip的域名的时候，请求会达到本地的lo网卡，本地有这个ip对应的服务还好，若没有，那请求直接报错。</strong></p>
+<p><strong>另外，这个 lo 绑定 ip 时有坑，在我们不使用时需要及时清理。否则，当我们访问解析为 lo 绑定的 ip 的域名的时候，请求会达到本地的 lo 网卡，本地有这个 ip 对应的服务还好，若没有，那请求直接报错。</strong></p>
 <p>总结下，lo 网卡的主要功能：</p>
 <ul>
 <li>作为本地系统服务的内部交互接口。</li>
-<li>作为ip的暂存虚拟网卡。</li>
+<li>作为 ip 的暂存虚拟网卡。</li>
 </ul>
-<p>欢迎留言，讨论lo的具体作用。</p>
+<p>欢迎留言，讨论 lo 的其他有意思的功能。</p>
 
     </div>
     <div class="article-footer">
