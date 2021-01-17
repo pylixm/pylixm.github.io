@@ -40,7 +40,7 @@
 <meta itemprop="description" content="当我们在Linux系统中执行ip a 或 ifconfig 命令时，我们可以看到系统的网卡信息。如下： [root@pylixm-27-192 ~]# ip a 1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000 link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00 inet 127.0.0.1/8 scope host lo valid_lft forever preferred_lft forever">
 <meta itemprop="datePublished" content="2021-01-16T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2021-01-16T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="884">
+<meta itemprop="wordCount" content="880">
 
 
 
@@ -312,7 +312,7 @@
 	</span>
         <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="/posts/2021-01-16-SRE-lo.html#comments"
             class="article-comment-link">评论</a></span>
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 884字</span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 880字</span>
 		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 2分 </span>
       </div>
     </div>
@@ -353,7 +353,7 @@ lo: flags<span style="color:#f92672">=</span>73&lt;UP,LOOPBACK,RUNNING&gt;  mtu 
 <p>RS回报的时候，利用参数<code>arp_announce=2</code>发送ARP报文时使用了本地真实网卡的ip地址，这样顺利拿到客户机的mac地址。IP层并没有变化，还是源地址为VIP，目标地址为客户端IP。</p>
 </li>
 </ul>
-<p>更多LVS DR的原理，可阅读下边文章，写的比较清晰明了：</p>
+<p>LVS DR的原理，可阅读下边文章，写的比较清晰明了：</p>
 <ul>
 <li><a href="https://my.oschina.net/u/2487485/blog/780346">关于LVS-DR中一次数据的完整旅行</a></li>
 <li><a href="http://dockone.io/article/10052">LVS那些你不知道的秘密</a></li>
