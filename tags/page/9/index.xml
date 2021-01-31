@@ -5,10 +5,19 @@
     <link>https://pylixm.top/tags/</link>
     <description>Recent content in Tags on DeanWu</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sat, 16 Jan 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 26 Jan 2021 00:00:00 +0000</lastBuildDate>
     
         <atom:link href="https://pylixm.top/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>使用 supervisor 来监控 django celery</title>
+      <link>https://pylixm.top/posts/2016-01-19-django-supervisor-celery.html</link>
+      <pubDate>Tue, 19 Jan 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-01-19-django-supervisor-celery.html</guid>
+      <description>之前启动celery时，使用nohup 方式启动。这种方式是不安全的，今天使者使用supervisor来管理监控celery，记录如下，备查。</description>
+    </item>
     
     <item>
       <title>Django uwsgi 启动问题 unavailable modifier requested 0</title>
@@ -179,15 +188,6 @@
       
       <guid>https://pylixm.top/posts/2015-11-01-django-form.html</guid>
       <description>Q &amp;amp; A： 今天在项目中遇到一个问题，有个django增删改查的模板页面,其中的编辑页面使用自定的form来构建的显示内容。表单的数据是从数据库</description>
-    </item>
-    
-    <item>
-      <title>Django学习笔记-模型(1)模型的定义</title>
-      <link>https://pylixm.top/posts/2015-11-01-django-model-one.html</link>
-      <pubDate>Sun, 01 Nov 2015 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2015-11-01-django-model-one.html</guid>
-      <description>Django也遵循了MVC的分层原则，不过在做法上略有不同。首先模型部分保持不变：Django的模型增只负责把数据传入传出数据库。然而Dja</description>
     </item>
     
   </channel>

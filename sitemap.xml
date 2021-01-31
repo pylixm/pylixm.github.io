@@ -4,28 +4,112 @@
   
   <url>
     <loc>https://pylixm.top/categories/</loc>
-    <lastmod>2021-01-16T00:00:00+00:00</lastmod>
+    <lastmod>2021-01-26T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://pylixm.top/</loc>
-    <lastmod>2021-01-16T00:00:00+00:00</lastmod>
+    <lastmod>2021-01-26T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://pylixm.top/tags/ebook/</loc>
+    <lastmod>2021-01-26T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://pylixm.top/posts/</loc>
-    <lastmod>2021-01-16T00:00:00+00:00</lastmod>
+    <lastmod>2021-01-26T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://pylixm.top/series/Python/</loc>
+    <lastmod>2021-01-26T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://pylixm.top/tags/python/</loc>
+    <lastmod>2021-01-26T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://pylixm.top/series/</loc>
-    <lastmod>2021-01-16T00:00:00+00:00</lastmod>
+    <lastmod>2021-01-26T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://pylixm.top/tags/</loc>
+    <lastmod>2021-01-26T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://pylixm.top/categories/%E7%94%B5%E5%AD%90%E4%B9%A6/</loc>
+    <lastmod>2021-01-26T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://pylixm.top/categories/%E7%A8%8B%E5%BA%8F%E5%91%98%E6%9D%82%E8%B0%88/</loc>
+    <lastmod>2021-01-26T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://pylixm.top/posts/2021-01-26-ebook-python.html</loc>
+    <lastmod>2021-01-26T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://pylixm.top/tags/Golang/</loc>
+    <lastmod>2021-01-24T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://pylixm.top/categories/Golang/</loc>
+    <lastmod>2021-01-24T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://pylixm.top/posts/2020-12-29-go-from-python-flow.html</loc>
+    <lastmod>2021-01-24T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://pylixm.top/tags/%E5%AF%B9%E6%AF%94Python%E5%AD%A6%E4%B9%A0Go/</loc>
+    <lastmod>2021-01-24T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://pylixm.top/series/%E5%AF%B9%E6%AF%94Python%E5%AD%A6%E4%B9%A0Go/</loc>
+    <lastmod>2021-01-24T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -52,13 +136,6 @@
   </url>
   
   <url>
-    <loc>https://pylixm.top/tags/</loc>
-    <lastmod>2021-01-16T00:00:00+00:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
     <loc>https://pylixm.top/posts/2021-01-16-SRE-lo.html</loc>
     <lastmod>2021-01-16T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
@@ -66,63 +143,7 @@
   </url>
   
   <url>
-    <loc>https://pylixm.top/tags/FastApi/</loc>
-    <lastmod>2021-01-05T00:00:00+00:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://pylixm.top/categories/FastApi/</loc>
-    <lastmod>2021-01-05T00:00:00+00:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://pylixm.top/posts/2021-01-05-start.html</loc>
-    <lastmod>2021-01-05T00:00:00+00:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://pylixm.top/tags/Python/</loc>
-    <lastmod>2021-01-05T00:00:00+00:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://pylixm.top/tags/Golang/</loc>
-    <lastmod>2020-12-29T00:00:00+00:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://pylixm.top/categories/Golang/</loc>
-    <lastmod>2020-12-29T00:00:00+00:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
     <loc>https://pylixm.top/posts/2020-12-29-go-from-python-flow.html</loc>
-    <lastmod>2020-12-29T00:00:00+00:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://pylixm.top/tags/%E5%AF%B9%E6%AF%94Python%E5%AD%A6%E4%B9%A0Go/</loc>
-    <lastmod>2020-12-29T00:00:00+00:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://pylixm.top/series/%E5%AF%B9%E6%AF%94Python%E5%AD%A6%E4%B9%A0Go/</loc>
     <lastmod>2020-12-29T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -2469,6 +2490,12 @@
   <url>
     <loc>https://pylixm.top/posts/2015-11-01-Mysql-install.html</loc>
     <lastmod>2015-11-01T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://pylixm.top/1/01/FastApi-start/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>

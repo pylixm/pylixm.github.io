@@ -5,10 +5,28 @@
     <link>https://pylixm.top/series/</link>
     <description>Recent content in Series on DeanWu</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sat, 16 Jan 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 26 Jan 2021 00:00:00 +0000</lastBuildDate>
     
         <atom:link href="https://pylixm.top/series/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>谈谈程序员的成长路径</title>
+      <link>https://pylixm.top/posts/2021-01-26-ebook-python.html</link>
+      <pubDate>Tue, 26 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2021-01-26-ebook-python.html</guid>
+      <description>程序员的成长路径，这个话题在我刚参加工作时，模糊有那么几条路可走，叫做职业发展路线可能更合适一些。过完年，自己也已工作8年之久，回想起来有少</description>
+    </item>
+    
+    <item>
+      <title>「对比Python学习Go」- 方法、函数和类</title>
+      <link>https://pylixm.top/posts/2020-12-29-go-from-python-flow.html</link>
+      <pubDate>Sun, 24 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2020-12-29-go-from-python-flow.html</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>「SRE知识总结」lo 网卡到底干什么用的</title>
@@ -17,15 +35,6 @@
       
       <guid>https://pylixm.top/posts/2021-01-16-SRE-lo.html</guid>
       <description>当我们在 Linux 系统中执行ip a 或 ifconfig 命令时，我们可以看到系统的网卡信息。如下： [root@pylixm-27-192 ~]# ip a 1: lo: &amp;lt;LOOPBACK,UP,LOWER_UP&amp;gt; mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000 link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00 inet 127.0.0.1/8 scope host lo valid_lft forever preferred_lft forever 2: eth0: &amp;lt;BROADCAST,MULTICAST,UP,LOWER_UP&amp;gt; mtu</description>
-    </item>
-    
-    <item>
-      <title>FastApi 简单入门，附生产级脚手架代码</title>
-      <link>https://pylixm.top/posts/2021-01-05-start.html</link>
-      <pubDate>Tue, 05 Jan 2021 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2021-01-05-start.html</guid>
-      <description>公司内部分享的话术稿 大家好，今天我分享的主题是Python技术栈中一个新崛起的框架FastApi。我们可以用它来快速的构建具有「异步」特性的</description>
     </item>
     
     <item>
@@ -179,15 +188,6 @@
       
       <guid>https://pylixm.top/posts/2020-08-20-k8s-base.html</guid>
       <description>Kubernetes 学习笔记，是个人学习记录文章，主要内容为摘录、总结和自己实践的记录，希望能帮助到和我一样正在学习的朋友。作为学习笔记，难免有理解不到位的地</description>
-    </item>
-    
-    <item>
-      <title>「Go模块」- time</title>
-      <link>https://pylixm.top/posts/2020-08-17-go-basic-time.html</link>
-      <pubDate>Mon, 17 Aug 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2020-08-17-go-basic-time.html</guid>
-      <description>time 当前时间 time.Now() 把时间格式化成字符串(time-&amp;gt;string) : time.Now().Format(&amp;ldquo;2006-01-02 15:04:05&amp;rdquo;) 把日期字符串转化为时间(string -&amp;gt; time) : time.Parse(&amp;ldquo;01-02-2006&amp;rdquo;, &amp;ldquo;06-17-2013&amp;rdquo;) 把纳秒转化为时间字符串</description>
     </item>
     
   </channel>

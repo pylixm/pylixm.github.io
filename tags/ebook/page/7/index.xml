@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ebook on DeanWu</title>
+    <link>https://pylixm.top/tags/ebook/</link>
+    <description>Recent content in ebook on DeanWu</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Tue, 26 Jan 2021 00:00:00 +0000</lastBuildDate>
+    
+        <atom:link href="https://pylixm.top/tags/ebook/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>自动化运维系列-资产管理系统CMDB</title>
+      <link>https://pylixm.top/posts/2017-07-08-devops-cmdb.html</link>
+      <pubDate>Sat, 08 Jul 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2017-07-08-devops-cmdb.html</guid>
+      <description>自动化运维系列之CMDB CMDB 系统介绍 cmdb 翻译过来是 Configuration Management Database, 即配置管理数据库。从字面意思理解，大家很容易理解即为系统或软件的配置文件或参数的管理。其</description>
+    </item>
+    
+    <item>
+      <title>Vue 新手使用总结</title>
+      <link>https://pylixm.top/posts/2017-05-11-vue-npm-webpack.html</link>
+      <pubDate>Thu, 11 May 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2017-05-11-vue-npm-webpack.html</guid>
+      <description>使用 Vue.js 的前端基础知识 如何学习 vue ？最有权威的回答莫过于vue作者的这篇文章了 《新手向：Vue 2.0 的建议学习顺序》。 按照作者建议的思路，先了解vu</description>
+    </item>
+    
+    <item>
+      <title>「译」Django restful framework 中API版本的管理</title>
+      <link>https://pylixm.top/posts/2017-04-24-django-restfull-framework-version.html</link>
+      <pubDate>Mon, 24 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2017-04-24-django-restfull-framework-version.html</guid>
+      <description>原文：https://gearheart.io/blog/api-versioning-with-django-rest-framework</description>
+    </item>
+    
+    <item>
+      <title>记一次tornado QPS 优化</title>
+      <link>https://pylixm.top/posts/2017-04-04-tornado-qps-optimization.html</link>
+      <pubDate>Tue, 04 Apr 2017 20:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2017-04-04-tornado-qps-optimization.html</guid>
+      <description>应项目的需求，我们使用tornado开发了一个api系统，系统开发完后，在8核16G的虚机上经过压测qps只有200+。与我们当初定的QPS</description>
+    </item>
+    
+    <item>
+      <title>我心中的 tornado 最佳实践</title>
+      <link>https://pylixm.top/posts/2017-03-10-tornado-best-practices.html</link>
+      <pubDate>Fri, 10 Mar 2017 20:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2017-03-10-tornado-best-practices.html</guid>
+      <description>最新开发新项目一直在学习tornado的知识，在前人的基础上找了些最佳实践，记录如下，备查。 tornado 新人一枚，欢迎大神拍砖~ 项目目录结构 import tornado.ioloop import tornado.web ##</description>
+    </item>
+    
+    <item>
+      <title>《尽管去做》读书笔记</title>
+      <link>https://pylixm.top/posts/2017-03-07-get-things-done.html</link>
+      <pubDate>Tue, 07 Mar 2017 21:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2017-03-07-get-things-done.html</guid>
+      <description>通过践行这本书中方法，可以慢慢进入一种心如止水的状态，工作、学习、生活、身体各方面达到相对的平衡Balance GTD到底是什么？用一句话来说</description>
+    </item>
+    
+    <item>
+      <title>如何开技术方案选型会议</title>
+      <link>https://pylixm.top/posts/2017-03-04-How-to-meetting.html</link>
+      <pubDate>Sat, 04 Mar 2017 16:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2017-03-04-How-to-meetting.html</guid>
+      <description>前端时间有幸组织一个技术方案的选型会议，有些感悟总结如下： 会前的准备 会前的准备是非常必要的，可以是组织者做到心中有数。讨论方案时，更有针对性</description>
+    </item>
+    
+    <item>
+      <title>django signal 使用总结</title>
+      <link>https://pylixm.top/posts/2017-01-24-django-signal.html</link>
+      <pubDate>Tue, 24 Jan 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2017-01-24-django-signal.html</guid>
+      <description>最近在已经开发好的项目上加功能，想到了django的signal，整理记录如下备查。 什么是django的signal 官方文档描述如下： Django includes a</description>
+    </item>
+    
+    <item>
+      <title>2016 总结， 2017 计划</title>
+      <link>https://pylixm.top/posts/2017-01-03-summary_2017.html</link>
+      <pubDate>Tue, 03 Jan 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2017-01-03-summary_2017.html</guid>
+      <description>此时再看去年的总结，貌似完成的是少之又少。发现自己最大的问题是缺乏执行力，我想懒散应该是每个人最大的敌人了吧。 看了许多人的2016总结，自己</description>
+    </item>
+    
+    <item>
+      <title>Django restful framework 使用笔记 -- 踩坑记录</title>
+      <link>https://pylixm.top/posts/2016-11-30-Django-restfull-framework-gotcha.html</link>
+      <pubDate>Wed, 30 Nov 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-11-30-Django-restfull-framework-gotcha.html</guid>
+      <description>在使用django restful 时，遇到的几个不好发现的问题，记录如下备查。 一、 缓存问题 在系统与外部系统以http接口的方式做交互时，发现我们使用drf</description>
+    </item>
+    
+    <item>
+      <title>Linux基础系列 - SSH 原理与运用</title>
+      <link>https://pylixm.top/posts/2016-11-16-Linux-ssh-how-to-use.html</link>
+      <pubDate>Wed, 16 Nov 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-11-16-Linux-ssh-how-to-use.html</guid>
+      <description>一直对ssh的概念比较模糊，看到阮一峰大神的博客有说明，果断转来记录备查。 原文：阮一峰的网络日志 SSH是每一台Linux电脑的标准配置。 随着</description>
+    </item>
+    
+    <item>
+      <title>Vue.js 初尝试</title>
+      <link>https://pylixm.top/posts/2016-11-16-vue-first.html</link>
+      <pubDate>Wed, 16 Nov 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-11-16-vue-first.html</guid>
+      <description>最近看了阮一峰的全站培训教材这里，感叹现如今前端发展之迅猛。 今天特尝试了下 Vue（2.0） 框架，记录如下备查。 一、基本概念 1.1 Vue Vue.js 。它提供了 MVVM</description>
+    </item>
+    
+    <item>
+      <title>转-saltstack 中Grains 与pillar的区别</title>
+      <link>https://pylixm.top/posts/2016-09-04-salt-grains-pillar.html</link>
+      <pubDate>Sun, 04 Sep 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-09-04-salt-grains-pillar.html</guid>
+      <description>原文地址：http://www.aikaiyuan.com/9728.html grains类似于puppet的facter！facter是用</description>
+    </item>
+    
+    <item>
+      <title>Saltstack学习笔记-组件篇</title>
+      <link>https://pylixm.top/posts/2016-08-21-salt-plugin.html</link>
+      <pubDate>Sun, 21 Aug 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-08-21-salt-plugin.html</guid>
+      <description>saltstack 架构 saltstack 是基于python开发的一套 c/s架构配置管理工具。底层使用ZeraMQ消息队列的发布与订阅（pub/sub）方式通信，使用SSL证</description>
+    </item>
+    
+    <item>
+      <title>Django 最佳实践-读书笔记 - 第十三章 模板最佳实践</title>
+      <link>https://pylixm.top/posts/2016-07-02-best.practices.for.django.1.8.3rd-chapter-10.html</link>
+      <pubDate>Sat, 02 Jul 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-07-02-best.practices.for.django.1.8.3rd-chapter-10.html</guid>
+      <description>其他章节索引页 笔记以要点形式展开，如有疑问欢迎留言！ 第十三章 模板最佳实践 django 的模板的局限性，限制了我们将复杂的逻辑放在了 python 端，这何尝不是一件好</description>
+    </item>
+    
+    <item>
+      <title>Django 最佳实践-读书笔记 - 第十一章、第十二章 Form</title>
+      <link>https://pylixm.top/posts/2016-06-26-best.practices.for.django.1.8.3rd-chapter-9.html</link>
+      <pubDate>Sun, 26 Jun 2016 20:16:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-06-26-best.practices.for.django.1.8.3rd-chapter-9.html</guid>
+      <description>其他章节索引页 第十一章 Form 所有录入的数据使用form 来进行校验 面对复杂多变的需求，我们自行校验是比较困难的。将校验集中在form层，利用这久经</description>
+    </item>
+    
+    <item>
+      <title>Django 最佳实践-读书笔记 - 第八、九、十章 FBVS &amp; CBVS</title>
+      <link>https://pylixm.top/posts/2016-06-19-best.practices.for.django.1.8.3rd-chapter-8.html</link>
+      <pubDate>Sun, 19 Jun 2016 22:30:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-06-19-best.practices.for.django.1.8.3rd-chapter-8.html</guid>
+      <description>其他章节索引页 第八章 FBVS &amp;amp; CBVS 如何选择 function - views 和 class - views 见流程图： urlconf 中不要包含 views 的逻辑 Bad example : from django.conf.urls import url from django.views.generic import DetailView from tastings.models import Tasting urlpatterns = [ url(r&amp;quot;^(?P&amp;lt;pk&amp;gt;\d+)/$&amp;quot;, DetailView.as_view( model=Tasting, template_name=&amp;quot;tastings/detail.html&amp;quot;), name=&amp;quot;detail&amp;quot;), url(r&amp;quot;^(?P&amp;lt;pk&amp;gt;\d+)/results/$&amp;quot;, DetailView.as_view( model=Tasting, template_name=&amp;quot;tastings/results.html&amp;quot;), name=&amp;quot;results&amp;quot;), ] 优点</description>
+    </item>
+    
+    <item>
+      <title>Django 最佳实践-读书笔记 - 第七章 查询与数据库层</title>
+      <link>https://pylixm.top/posts/2016-06-19-best.practices.for.django.1.8.3rd-chapter-7.html</link>
+      <pubDate>Sun, 19 Jun 2016 22:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-06-19-best.practices.for.django.1.8.3rd-chapter-7.html</guid>
+      <description>其他章节索引页 第七章 查询与数据库层 查询单个对象时，使用 get_object_or_404() 注意，此函数仅在你的 views 中使用。切勿在 helper functions, forms, model methods or anything that is not a view or directly view related 使用。 在可能报错</description>
+    </item>
+    
+    <item>
+      <title>使用 pyenv &#43; virtualenv 打造多版本python开发环境</title>
+      <link>https://pylixm.top/posts/2016-06-19-virtualenv-install.html</link>
+      <pubDate>Sun, 19 Jun 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-06-19-virtualenv-install.html</guid>
+      <description>配置环境： CentOS release 6.8 pyenv 20160509 在工作开发中，一直使用 virtualenv 来管理python的包环境。很好的解决了不同项目使用不同python包的需求。对于多python</description>
+    </item>
+    
+    <item>
+      <title>mongodb 3.2 用户权限管理配置</title>
+      <link>https://pylixm.top/posts/2016-06-03-Mongodb-user-admin.html</link>
+      <pubDate>Fri, 03 Jun 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-06-03-Mongodb-user-admin.html</guid>
+      <description>使用mongodb 有段时间了，由于是在内网使用，便没有设置权限，一直是裸奔。 最近有时间，研究了下mongodb 3.2 的用户权限配置，网上有许多用</description>
+    </item>
+    
+  </channel>
+</rss>

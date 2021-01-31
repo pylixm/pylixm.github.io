@@ -1,14 +1,23 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Python on DeanWu</title>
-    <link>https://pylixm.top/tags/Python/</link>
-    <description>Recent content in Python on DeanWu</description>
+    <title>python on DeanWu</title>
+    <link>https://pylixm.top/tags/python/</link>
+    <description>Recent content in python on DeanWu</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Tue, 05 Jan 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 26 Jan 2021 00:00:00 +0000</lastBuildDate>
     
-        <atom:link href="https://pylixm.top/tags/Python/index.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="https://pylixm.top/tags/python/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>自动化运维系列-资产管理系统CMDB</title>
+      <link>https://pylixm.top/posts/2017-07-08-devops-cmdb.html</link>
+      <pubDate>Sat, 08 Jul 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2017-07-08-devops-cmdb.html</guid>
+      <description>自动化运维系列之CMDB CMDB 系统介绍 cmdb 翻译过来是 Configuration Management Database, 即配置管理数据库。从字面意思理解，大家很容易理解即为系统或软件的配置文件或参数的管理。其</description>
+    </item>
     
     <item>
       <title>Vue 新手使用总结</title>
@@ -179,15 +188,6 @@
       
       <guid>https://pylixm.top/posts/2016-06-03-Mongodb-user-admin.html</guid>
       <description>使用mongodb 有段时间了，由于是在内网使用，便没有设置权限，一直是裸奔。 最近有时间，研究了下mongodb 3.2 的用户权限配置，网上有许多用</description>
-    </item>
-    
-    <item>
-      <title>Django 最佳实践-读书笔记 - 第一章 代码规范</title>
-      <link>https://pylixm.top/posts/2016-05-22-best.practices.for.django.1.8.3rd-chapter-1.html</link>
-      <pubDate>Sun, 22 May 2016 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2016-05-22-best.practices.for.django.1.8.3rd-chapter-1.html</guid>
-      <description>其他章节索引页 核心理念 Keep It Simple, Stupid Fat Models, Utility Modules, Thin Views, Stupid Templates Start With Django by Default Be Familiar with Django&amp;rsquo;s Design Philosophies The Twelve-Factor App 第一章 代码规范 常规： 变量名，避免缩写 写出你的函数参数名 编写类和方法</description>
     </item>
     
   </channel>

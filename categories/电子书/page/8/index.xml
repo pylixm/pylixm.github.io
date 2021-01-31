@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>电子书 on DeanWu</title>
+    <link>https://pylixm.top/categories/%E7%94%B5%E5%AD%90%E4%B9%A6/</link>
+    <description>Recent content in 电子书 on DeanWu</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Tue, 26 Jan 2021 00:00:00 +0000</lastBuildDate>
+    
+        <atom:link href="https://pylixm.top/categories/%E7%94%B5%E5%AD%90%E4%B9%A6/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Django 最佳实践-读书笔记 - 第一章 代码规范</title>
+      <link>https://pylixm.top/posts/2016-05-22-best.practices.for.django.1.8.3rd-chapter-1.html</link>
+      <pubDate>Sun, 22 May 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-05-22-best.practices.for.django.1.8.3rd-chapter-1.html</guid>
+      <description>其他章节索引页 核心理念 Keep It Simple, Stupid Fat Models, Utility Modules, Thin Views, Stupid Templates Start With Django by Default Be Familiar with Django&amp;rsquo;s Design Philosophies The Twelve-Factor App 第一章 代码规范 常规： 变量名，避免缩写 写出你的函数参数名 编写类和方法</description>
+    </item>
+    
+    <item>
+      <title>Django 最佳实践-读书笔记 - 第三章 如何布局 django 项目</title>
+      <link>https://pylixm.top/posts/2016-05-22-best.practices.for.django.1.8.3rd-chapter-3.html</link>
+      <pubDate>Sun, 22 May 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-05-22-best.practices.for.django.1.8.3rd-chapter-3.html</guid>
+      <description>其他章节索引页 第三章 如何布局 django 项目 建议布局 &amp;lt;repository_root&amp;gt;/ &amp;lt;django_project_root&amp;gt;/ &amp;lt;configuration_root&amp;gt;/ repository_root 本层放置文件： README.rst docs/ directory .gitignore requirements.txt django_project_root 本目录是django项目根目录 configuration_root django项目配置目录 icecreamratings_project/ .gitignore Makefile docs/</description>
+    </item>
+    
+    <item>
+      <title>Django 最佳实践-读书笔记 - 第二章  django 环境配置</title>
+      <link>https://pylixm.top/posts/2016-05-22-best.practices.for.django.1.8.3rd-chapter-2.html</link>
+      <pubDate>Sun, 22 May 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-05-22-best.practices.for.django.1.8.3rd-chapter-2.html</guid>
+      <description>其他章节索引页 第二章 django 环境配置 使用相同的数据库引擎配置 在不同的环境下使用不同的数据库，而希望其行为一致。这种做法是很危险的，会带来不可预知的</description>
+    </item>
+    
+    <item>
+      <title>Django 最佳实践-读书笔记 - 第五章 Settings 和 Requirements</title>
+      <link>https://pylixm.top/posts/2016-05-22-best.practices.for.django.1.8.3rd-chapter-5.html</link>
+      <pubDate>Sun, 22 May 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-05-22-best.practices.for.django.1.8.3rd-chapter-5.html</guid>
+      <description>其他章节索引页 第五章 Settings 和 Requirements 避免本地未受控的 settings 文件 代码维护困难 多人开发时，勿提交local settings 文件，造成配置混乱。 使用多分配置文件 settings/ __init__.py base.py local.py staging.py test.py production.py</description>
+    </item>
+    
+    <item>
+      <title>Django 最佳实践-读书笔记 - 第六章 model 最佳实践</title>
+      <link>https://pylixm.top/posts/2016-05-22-best.practices.for.django.1.8.3rd-chapter-6.html</link>
+      <pubDate>Sun, 22 May 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-05-22-best.practices.for.django.1.8.3rd-chapter-6.html</guid>
+      <description>其他章节索引页 第六章 model 最佳实践 当app的model过多时，拆分app 当app的model过多时，说明这个app的功能够大，此时就需要我们拆分</description>
+    </item>
+    
+    <item>
+      <title>Django 最佳实践-读书笔记 - 第四章 django app的设计</title>
+      <link>https://pylixm.top/posts/2016-05-22-best.practices.for.django.1.8.3rd-chapter-4.html</link>
+      <pubDate>Sun, 22 May 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-05-22-best.practices.for.django.1.8.3rd-chapter-4.html</guid>
+      <description>其他章节索引页 第四章 django app的设计 Django的 app 设计的黄金法则 each app should be tightly focused on its task. （每个 app 的功能任务尽量的独立分开，这样能更好的重用。） 如何</description>
+    </item>
+    
+    <item>
+      <title>《Best.Practices.for.Django.1.8.3rd》 读书笔记-索引</title>
+      <link>https://pylixm.top/posts/2016-05-22-best.practices.for.django.1.8.3rd-index.html</link>
+      <pubDate>Sun, 22 May 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-05-22-best.practices.for.django.1.8.3rd-index.html</guid>
+      <description>《Two.Scoops.Press.Two.Scoops.of.Django.Best.Practices.for.Django.1.8.3</description>
+    </item>
+    
+    <item>
+      <title>Django 文章整理- 学习路径总结</title>
+      <link>https://pylixm.top/posts/2016-05-16-django-lean-map.html</link>
+      <pubDate>Mon, 16 May 2016 22:24:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-05-16-django-lean-map.html</guid>
+      <description>最近将自己的 Django 学习笔记整理了下便于查阅，整理如下： 基础篇 1、Django学习笔记-模型(1)模型的定义 2、Django学习笔记-模型(2)模</description>
+    </item>
+    
+    <item>
+      <title>Django 简单入门及最佳实践</title>
+      <link>https://pylixm.top/posts/2016-05-08-django-tutorial.html</link>
+      <pubDate>Sun, 08 May 2016 18:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-05-08-django-tutorial.html</guid>
+      <description>自己使用纯django 开发项目，也有1年多了。在使用django的过程中，也抱怨过django的各种问题。比如，各种模块的约定过于死板，不够</description>
+    </item>
+    
+    <item>
+      <title>Django自定义管理器（objects）后遇到的问题</title>
+      <link>https://pylixm.top/posts/2016-04-20-django-model-qt.html</link>
+      <pubDate>Wed, 20 Apr 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-04-20-django-model-qt.html</guid>
+      <description>管理器自定义简介 django model 的管理器 objects 允许我们自定义，这大大的扩展了model的可用性。 例如，使用这个特性来软删除。设置一个状态字段，在自定义的ob</description>
+    </item>
+    
+    <item>
+      <title>mongodb 启动报错</title>
+      <link>https://pylixm.top/posts/2016-04-06-Mongodb-start.html</link>
+      <pubDate>Wed, 06 Apr 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-04-06-Mongodb-start.html</guid>
+      <description>Q &amp;amp; A： 错误信息： [root@localhost master]# mongod -f master.conf about to fork child process, waiting until server is ready for connections. forked process: 6040 ERROR: child process failed, exited with error number 100 日志信息： 2016-04-06T09:37:19.411+0200 I CONTROL [main] ***** SERVER RESTARTED ***** 2016-04-06T09:37:19.421+0200 I CONTROL [initandlisten] MongoDB starting : pid=5281 port=27017 dbpath=/var/lib/mongo 64-bit host=localhost 2016-04-06T09:37:19.421+0200 I CONTROL [initandlisten] db version v3.2.4</description>
+    </item>
+    
+    <item>
+      <title>高可用的MongoDB集群</title>
+      <link>https://pylixm.top/posts/2016-04-06-Mongodb-relica.html</link>
+      <pubDate>Wed, 06 Apr 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-04-06-Mongodb-relica.html</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;原文链接：http://www.jianshu.com/p/2825a66d6aed&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;刚接触MongoDB，就要用到它的集群，只能硬着头皮短时间去看文档和尝试自行搭建。迁移历史数据更是让人恼火，近100G的数据文件，导入、清理垃圾数据执行的速度蜗牛一样的慢。趁着这个时间，把这几天关于Mongod集群相关的内容整理一下。大概介绍一下MongoDB集群的几种方式：Master-Slave、Relica Set、Sharding，并做简单的演示。&lt;/p&gt;
+&lt;p&gt;使用集群的目的就是提高可用性。高可用性H.A.（High Availability）指的是通过尽量缩短因日常维护操作（计划）和突发的系统崩溃（非计划）所导致的停机时间，以提高系统和应用的可用性。它与被认为是不间断操作的容错技术有所不同。HA系统是目前企业防止核心计算机系统因故障停机的最有效手段。&lt;/p&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;p&gt;HA的三种工作方式：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;主从方式 （非对称方式）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;工作原理：主机工作，备机处于监控准备状况；当主机宕机时，备机接管主机的一切工作，待主机恢复正常后，按使用者的设定以自动或手动方式将服务切换到主机上运行，数据的一致性通过共享存储系统解决。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;双机双工方式（互备互援）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;工作原理：两台主机同时运行各自的服务工作且相互监测情况，当任一台主机宕机时，另一台主机立即接管它的一切工作，保证工作实时，应用服务系统的关键数据存放在共享存储系统中。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;集群工作方式（多服务器互备方式）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;工作原理：多台主机一起工作，各自运行一个或几个服务，各为服务定义一个或多个备用主机，当某个主机故障时，运行在其上的服务就可以被其它主机接管&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Django学习笔记- Class View</title>
+      <link>https://pylixm.top/posts/2016-03-24-django-class-views.html</link>
+      <pubDate>Thu, 24 Mar 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-03-24-django-class-views.html</guid>
+      <description>提示：文章概念性语句比较多，建议先看 Classview 的官方文档或1.8 中文翻译文档。 之前使用 django 开发都是使用 func-view ，对Classview一直是向往的。 最近有些时</description>
+    </item>
+    
+    <item>
+      <title>SaltStack学习笔记3 -- salt returner 的使用</title>
+      <link>https://pylixm.top/posts/2016-03-10-salt-returner.html</link>
+      <pubDate>Thu, 10 Mar 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-03-10-salt-returner.html</guid>
+      <description>SaltStack 2014.7之前, Minion端的执行结果想存储在外部系统中, 通过使用Returners，我们可以将返回结果存放到我们指定的存储系统中，但</description>
+    </item>
+    
+    <item>
+      <title>python的MySQLdb模块 连接 mysql 错误</title>
+      <link>https://pylixm.top/posts/2016-03-08-Mysql-python.html</link>
+      <pubDate>Tue, 08 Mar 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-03-08-Mysql-python.html</guid>
+      <description>Q &amp;amp; A： 今天在使用python直接链接数据库时报错 _mysql_exceptions.OperationalError: (2002, &amp;quot;Can&#39;t connect to local MySQL server through socket &#39;/var/lib/mysql/mysql.sock&#39; (2)&amp;quot;) 代码： db = MySQLdb.connect(host=&#39;localhost&#39;, port=3306, user=&#39;root&#39;, passwd=&#39;root&#39;, db=&#39;mydb&#39;) 错误： Traceback (most recent call last): File &amp;quot;./data_db.py&amp;quot;, line 5, in &amp;lt; module&amp;gt; db=&#39;mydb&#39;) File &amp;quot;/usr/local/env/lib/python2.7/site-packages/MySQLdb/__init__.py&amp;quot;, line 81, in Connect File</description>
+    </item>
+    
+    <item>
+      <title>「译」使用 celery 时的 3 个坑</title>
+      <link>https://pylixm.top/posts/2016-03-08-celery-gotchas.html</link>
+      <pubDate>Tue, 08 Mar 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-03-08-celery-gotchas.html</guid>
+      <description>原文地址：https://wiredcraft.com/blog/3-gotchas-for-celery Celery is our go-to task manager when working with Python. It is feature rich, stable, fast and</description>
+    </item>
+    
+    <item>
+      <title>Linux基础系列 - curl 命令详解</title>
+      <link>https://pylixm.top/posts/2016-03-07-Curl.html</link>
+      <pubDate>Mon, 07 Mar 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-03-07-Curl.html</guid>
+      <description>对于windows用户如果用Cygwin模拟unix环境的话，里面没有带curl命令，要自己装，所以建议用Gow来模拟，它已经自带了curl</description>
+    </item>
+    
+    <item>
+      <title>2015总结，2016计划</title>
+      <link>https://pylixm.top/posts/2016-02-22-summary.html</link>
+      <pubDate>Mon, 22 Feb 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-02-22-summary.html</guid>
+      <description>2015年算是自己的互联网元年。 正式进入互联网行业，虽然是偏运维，但是自己学的python能继续用得上，也是找到了除了web的一条新方向。 2015</description>
+    </item>
+    
+    <item>
+      <title>django 相关命令总结</title>
+      <link>https://pylixm.top/posts/2016-01-29-django-cmd.html</link>
+      <pubDate>Fri, 29 Jan 2016 18:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-01-29-django-cmd.html</guid>
+      <description>django 常用命令 创建一个web站点： django-admin.py startproject mysite 创建apps： python manage.py startapp blog 数据库模板检测： python manage.py validate 生成数据库表创建语句： python manage.py sqlall books（app名字） 创建数据</description>
+    </item>
+    
+    <item>
+      <title>rabbitmq 安装配置记录</title>
+      <link>https://pylixm.top/posts/2016-01-19-Rabbitmq-install.html</link>
+      <pubDate>Tue, 19 Jan 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-01-19-Rabbitmq-install.html</guid>
+      <description>最近做系统迁移，搭建环境时遇到了rabbitmq的搭建。在此记录，备查。 环境： centos 6.5 官方centos安装文档：http://www.rabbi</description>
+    </item>
+    
+  </channel>
+</rss>
