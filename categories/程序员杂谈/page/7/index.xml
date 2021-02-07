@@ -5,10 +5,19 @@
     <link>https://pylixm.top/categories/%E7%A8%8B%E5%BA%8F%E5%91%98%E6%9D%82%E8%B0%88/</link>
     <description>Recent content in 程序员杂谈 on DeanWu</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Tue, 26 Jan 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 07 Feb 2021 00:00:00 +0000</lastBuildDate>
     
         <atom:link href="https://pylixm.top/categories/%E7%A8%8B%E5%BA%8F%E5%91%98%E6%9D%82%E8%B0%88/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>自动化运维系列-前言</title>
+      <link>https://pylixm.top/posts/2017-07-08-devops-index.html</link>
+      <pubDate>Sat, 08 Jul 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2017-07-08-devops-index.html</guid>
+      <description>自动化运维系列之前言 此系列的由来 笔者在自动化运维这个领域工作已2年有余，多参与这个领域的某些环节系统的开发，并没有完整的参与过自动化运维每个</description>
+    </item>
     
     <item>
       <title>自动化运维系列-资产管理系统CMDB</title>
@@ -179,15 +188,6 @@
       
       <guid>https://pylixm.top/posts/2016-06-19-virtualenv-install.html</guid>
       <description>配置环境： CentOS release 6.8 pyenv 20160509 在工作开发中，一直使用 virtualenv 来管理python的包环境。很好的解决了不同项目使用不同python包的需求。对于多python</description>
-    </item>
-    
-    <item>
-      <title>mongodb 3.2 用户权限管理配置</title>
-      <link>https://pylixm.top/posts/2016-06-03-Mongodb-user-admin.html</link>
-      <pubDate>Fri, 03 Jun 2016 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2016-06-03-Mongodb-user-admin.html</guid>
-      <description>使用mongodb 有段时间了，由于是在内网使用，便没有设置权限，一直是裸奔。 最近有时间，研究了下mongodb 3.2 的用户权限配置，网上有许多用</description>
     </item>
     
   </channel>

@@ -5,10 +5,19 @@
     <link>https://pylixm.top/categories/%E7%A8%8B%E5%BA%8F%E5%91%98%E6%9D%82%E8%B0%88/</link>
     <description>Recent content in 程序员杂谈 on DeanWu</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Tue, 26 Jan 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 07 Feb 2021 00:00:00 +0000</lastBuildDate>
     
         <atom:link href="https://pylixm.top/categories/%E7%A8%8B%E5%BA%8F%E5%91%98%E6%9D%82%E8%B0%88/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>mongodb 3.2 用户权限管理配置</title>
+      <link>https://pylixm.top/posts/2016-06-03-Mongodb-user-admin.html</link>
+      <pubDate>Fri, 03 Jun 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-06-03-Mongodb-user-admin.html</guid>
+      <description>使用mongodb 有段时间了，由于是在内网使用，便没有设置权限，一直是裸奔。 最近有时间，研究了下mongodb 3.2 的用户权限配置，网上有许多用</description>
+    </item>
     
     <item>
       <title>Django 最佳实践-读书笔记 - 第一章 代码规范</title>
@@ -197,15 +206,6 @@
       
       <guid>https://pylixm.top/posts/2016-01-29-django-cmd.html</guid>
       <description>django 常用命令 创建一个web站点： django-admin.py startproject mysite 创建apps： python manage.py startapp blog 数据库模板检测： python manage.py validate 生成数据库表创建语句： python manage.py sqlall books（app名字） 创建数据</description>
-    </item>
-    
-    <item>
-      <title>rabbitmq 安装配置记录</title>
-      <link>https://pylixm.top/posts/2016-01-19-Rabbitmq-install.html</link>
-      <pubDate>Tue, 19 Jan 2016 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2016-01-19-Rabbitmq-install.html</guid>
-      <description>最近做系统迁移，搭建环境时遇到了rabbitmq的搭建。在此记录，备查。 环境： centos 6.5 官方centos安装文档：http://www.rabbi</description>
     </item>
     
   </channel>

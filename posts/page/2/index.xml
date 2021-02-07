@@ -5,10 +5,19 @@
     <link>https://pylixm.top/posts/</link>
     <description>Recent content in Posts on DeanWu</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Tue, 26 Jan 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 07 Feb 2021 00:00:00 +0000</lastBuildDate>
     
         <atom:link href="https://pylixm.top/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Kubernetes 学习笔记-基础篇</title>
+      <link>https://pylixm.top/posts/2020-08-20-k8s-base.html</link>
+      <pubDate>Thu, 20 Aug 2020 22:26:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2020-08-20-k8s-base.html</guid>
+      <description>Kubernetes 学习笔记，是个人学习记录文章，主要内容为摘录、总结和自己实践的记录，希望能帮助到和我一样正在学习的朋友。作为学习笔记，难免有理解不到位的地</description>
+    </item>
     
     <item>
       <title>「Go模块」- time</title>
@@ -179,15 +188,6 @@
       
       <guid>https://pylixm.top/posts/2020-04-14-kafka.html</guid>
       <description>Kafka 简介 历史 消息代理，狭义的讲它是一种按照某专递协议进行消息传递的架构模式。常用来解决系统之间的耦合、异步任务调用和瞬时流量的应对问题。随着互</description>
-    </item>
-    
-    <item>
-      <title>数据结构与算法 - 算法 - 二分查找</title>
-      <link>https://pylixm.top/posts/2020-01-02-binary-search.html</link>
-      <pubDate>Thu, 02 Jan 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2020-01-02-binary-search.html</guid>
-      <description>《数据结构与算法-王争》学习笔记，记录备查 二分查找 二分查找针对的是一个有序的数据集合，查找思想有点类似分治思想。每次都通过跟区间的中间元素对</description>
     </item>
     
   </channel>

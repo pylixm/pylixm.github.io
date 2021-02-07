@@ -10,6 +10,15 @@
     
     
     <item>
+      <title>rabbitmq 安装配置记录</title>
+      <link>https://pylixm.top/posts/2016-01-19-Rabbitmq-install.html</link>
+      <pubDate>Tue, 19 Jan 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-01-19-Rabbitmq-install.html</guid>
+      <description>最近做系统迁移，搭建环境时遇到了rabbitmq的搭建。在此记录，备查。 环境： centos 6.5 官方centos安装文档：http://www.rabbi</description>
+    </item>
+    
+    <item>
       <title>使用 supervisor 来监控 django celery</title>
       <link>https://pylixm.top/posts/2016-01-19-django-supervisor-celery.html</link>
       <pubDate>Tue, 19 Jan 2016 00:00:00 +0000</pubDate>
@@ -178,15 +187,6 @@
       
       <guid>https://pylixm.top/posts/2015-11-01-django-restfull-framework.html</guid>
       <description>前几天看到有博文记录的 django-rest-framework的翻译文档。最近正需要，反而找不到了。现记录如下，备查： RESTful API 设计指南 中文译文</description>
-    </item>
-    
-    <item>
-      <title>django form表单的数据 select 值更新问题</title>
-      <link>https://pylixm.top/posts/2015-11-01-django-form.html</link>
-      <pubDate>Sun, 01 Nov 2015 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2015-11-01-django-form.html</guid>
-      <description>Q &amp;amp; A： 今天在项目中遇到一个问题，有个django增删改查的模板页面,其中的编辑页面使用自定的form来构建的显示内容。表单的数据是从数据库</description>
     </item>
     
   </channel>

@@ -5,10 +5,19 @@
     <link>https://pylixm.top/categories/</link>
     <description>Recent content in Categories on DeanWu</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Tue, 26 Jan 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 07 Feb 2021 00:00:00 +0000</lastBuildDate>
     
         <atom:link href="https://pylixm.top/categories/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>实现简单的httpDNS的一种思路</title>
+      <link>https://pylixm.top/posts/2021-02-07-dns-dig.html</link>
+      <pubDate>Sun, 07 Feb 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2021-02-07-dns-dig.html</guid>
+      <description>互联网公司，基本都有针对DNS域名解析的优化处理。有些公司甚至会构建自己的智能 DNS 解析系统，来解决 LocalDNS 存在的一系列问题，如域名劫持、调用精度和实</description>
+    </item>
     
     <item>
       <title>谈谈程序员的成长路径</title>
@@ -179,15 +188,6 @@
       
       <guid>https://pylixm.top/posts/2020-09-01-k8s-build.html</guid>
       <description>本篇记录我集群搭建的过程和问题，目标是可以根据本篇文章搭建自己生产可用的K8S集群。对于K8S的一些概念理解，可参考我之前的笔记Kubern</description>
-    </item>
-    
-    <item>
-      <title>Kubernetes 学习笔记-基础篇</title>
-      <link>https://pylixm.top/posts/2020-08-20-k8s-base.html</link>
-      <pubDate>Thu, 20 Aug 2020 22:26:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2020-08-20-k8s-base.html</guid>
-      <description>Kubernetes 学习笔记，是个人学习记录文章，主要内容为摘录、总结和自己实践的记录，希望能帮助到和我一样正在学习的朋友。作为学习笔记，难免有理解不到位的地</description>
     </item>
     
   </channel>

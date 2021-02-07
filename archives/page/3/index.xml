@@ -10,6 +10,15 @@
     
     
     <item>
+      <title>数据结构与算法 - 算法 - 二分查找</title>
+      <link>https://pylixm.top/posts/2020-01-02-binary-search.html</link>
+      <pubDate>Thu, 02 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2020-01-02-binary-search.html</guid>
+      <description>《数据结构与算法-王争》学习笔记，记录备查 二分查找 二分查找针对的是一个有序的数据集合，查找思想有点类似分治思想。每次都通过跟区间的中间元素对</description>
+    </item>
+    
+    <item>
       <title>数据结构与算法 - 算法 - 排序优化</title>
       <link>https://pylixm.top/posts/2020-01-01-sort-optimization.html</link>
       <pubDate>Wed, 01 Jan 2020 00:00:00 +0000</pubDate>
@@ -178,15 +187,6 @@
       
       <guid>https://pylixm.top/posts/2019-11-05-up-python-or-not.html</guid>
       <description>大家好，我又回来了，这一个多月来除了工作，闲暇时间做了些sideproject，以后会和大家分享。现在有些时间了，是时候重新打理下自己的公众</description>
-    </item>
-    
-    <item>
-      <title>资料库</title>
-      <link>https://pylixm.top/resource/</link>
-      <pubDate>Mon, 04 Nov 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/resource/</guid>
-      <description>英语 程序员工作中常见的英语词汇 人人都能用英语-李笑来 大前端类 Javascript 资源：Airbnb javascript编码规范 Fluter 资源：Fluter样式模板 电子</description>
     </item>
     
   </channel>
