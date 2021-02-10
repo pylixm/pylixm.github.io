@@ -5,10 +5,19 @@
     <link>https://pylixm.top/tags/%E4%B8%AA%E4%BA%BA%E7%AE%A1%E7%90%86/</link>
     <description>Recent content in 个人管理 on DeanWu</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Wed, 02 May 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 10 Feb 2021 00:00:00 +0000</lastBuildDate>
     
         <atom:link href="https://pylixm.top/tags/%E4%B8%AA%E4%BA%BA%E7%AE%A1%E7%90%86/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Docker 知识大全</title>
+      <link>https://pylixm.top/posts/2018-05-31-docker-all.html</link>
+      <pubDate>Thu, 31 May 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2018-05-31-docker-all.html</guid>
+      <description>原文地址：https://blog.opskumu.com/docker.html 本文对原文进行了更新和补充，转载备查。 一、Docker 简介</description>
+    </item>
     
     <item>
       <title>如何整理个人资料</title>
@@ -179,15 +188,6 @@
       
       <guid>https://pylixm.top/posts/2017-08-26-Restfull-Api-Best-Practice.html</guid>
       <description>Web APIs has become an very important topic in the last year. We at M-Way Solutions are working every day with different backend systems and therefore we know about the importance of a clean API design. Typically we use a RESTful design for our web APIs. The concept of REST is to separate the API structure into logical resources. There are used the HTTP methods GET, DELETE, POST and PUT</description>
-    </item>
-    
-    <item>
-      <title>Docker学习笔记（二）--简单使用,搭建python开发环境</title>
-      <link>https://pylixm.top/posts/2017-08-26-docker-use.html</link>
-      <pubDate>Sat, 26 Aug 2017 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2017-08-26-docker-use.html</guid>
-      <description>安装 docker 安装现在已非常简单，具体可参考官方文档. 安装成功后可以使用以下命令检测： $ docker --version Docker version 17.06.2-ce, build cec0b72 更换镜像源 因 Docker 官方仓库地址在国外，速度比较慢。</description>
     </item>
     
   </channel>

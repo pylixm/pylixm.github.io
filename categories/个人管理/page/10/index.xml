@@ -5,10 +5,19 @@
     <link>https://pylixm.top/categories/%E4%B8%AA%E4%BA%BA%E7%AE%A1%E7%90%86/</link>
     <description>Recent content in 个人管理 on DeanWu</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Wed, 02 May 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 10 Feb 2021 00:00:00 +0000</lastBuildDate>
     
         <atom:link href="https://pylixm.top/categories/%E4%B8%AA%E4%BA%BA%E7%AE%A1%E7%90%86/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Django学习笔记-模型(2)模型的操作</title>
+      <link>https://pylixm.top/posts/2015-11-13-django-model-two.html</link>
+      <pubDate>Fri, 13 Nov 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2015-11-13-django-model-two.html</guid>
+      <description>二、模型的操作（QuerySets） 1、模型操作基础 常用接口方法 all(): 返回一个包含模式里所有数据记录的结果集queryset filter():返</description>
+    </item>
     
     <item>
       <title>Django restful framework 文档</title>

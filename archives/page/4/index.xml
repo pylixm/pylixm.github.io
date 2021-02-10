@@ -10,6 +10,15 @@
     
     
     <item>
+      <title>Python中的类属性和实例属性-补充篇</title>
+      <link>https://pylixm.top/posts/2019-11-06-python-class-attribute-2.html</link>
+      <pubDate>Wed, 06 Nov 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2019-11-06-python-class-attribute-2.html</guid>
+      <description>上篇文章Python中的类属性和实例属性，我们探讨了类属性和实例属性引发的一个小坑。总结了类属性和实例属性的区别如下： 类属性可以被类和实例调</description>
+    </item>
+    
+    <item>
       <title>现在是否适合升级到Python3.8</title>
       <link>https://pylixm.top/posts/2019-11-05-up-python-or-not.html</link>
       <pubDate>Tue, 05 Nov 2019 00:00:00 +0000</pubDate>
@@ -178,15 +187,6 @@
       
       <guid>https://pylixm.top/posts/2019-05-16-python-trick.html</guid>
       <description>原文：https://datawhatnow.com/things-you-are-probably-not-using-in-python</description>
-    </item>
-    
-    <item>
-      <title>资源分享计划第三期 0511</title>
-      <link>https://pylixm.top/posts/2019-05-11-share-resource.html</link>
-      <pubDate>Sat, 11 May 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2019-05-11-share-resource.html</guid>
-      <description>「资源分享计划」系列记录本周内我看到的一些好的编程学习资源及优秀的技术文章，在自己学习记录的同时，分享给大家希望对大家有帮助。 资源类 2019 US pycon 演</description>
     </item>
     
   </channel>

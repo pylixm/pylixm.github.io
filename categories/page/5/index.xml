@@ -5,10 +5,19 @@
     <link>https://pylixm.top/categories/</link>
     <description>Recent content in Categories on DeanWu</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Tue, 09 Feb 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 10 Feb 2021 00:00:00 +0000</lastBuildDate>
     
         <atom:link href="https://pylixm.top/categories/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>资源分享计划第三期 0511</title>
+      <link>https://pylixm.top/posts/2019-05-11-share-resource.html</link>
+      <pubDate>Sat, 11 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2019-05-11-share-resource.html</guid>
+      <description>「资源分享计划」系列记录本周内我看到的一些好的编程学习资源及优秀的技术文章，在自己学习记录的同时，分享给大家希望对大家有帮助。 资源类 2019 US pycon 演</description>
+    </item>
     
     <item>
       <title>「译」机器学习简介</title>
@@ -183,15 +192,6 @@
       
       <guid>https://pylixm.top/posts/2018-06-04-flask-base.html</guid>
       <description>到目前为止，Flask 最新版本为1.0.3，我们来以此版本做分析，以便可以快速回忆各组件关系。 基本使用，可参阅官方文档，已非常详尽。 我们知道</description>
-    </item>
-    
-    <item>
-      <title>Docker 知识大全</title>
-      <link>https://pylixm.top/posts/2018-05-31-docker-all.html</link>
-      <pubDate>Thu, 31 May 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2018-05-31-docker-all.html</guid>
-      <description>原文地址：https://blog.opskumu.com/docker.html 本文对原文进行了更新和补充，转载备查。 一、Docker 简介</description>
     </item>
     
   </channel>

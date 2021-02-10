@@ -10,6 +10,15 @@
     
     
     <item>
+      <title>Kubernetes 学习笔记 - 问题记录</title>
+      <link>https://pylixm.top/posts/2020-09-03-k8s-issu.html</link>
+      <pubDate>Thu, 03 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2020-09-03-k8s-issu.html</guid>
+      <description>本篇为k8s学习笔记问题记录。基础概念和搭建可参考之前文章 Kubernetes 学习笔记-基础篇 和 Kubernetes 学习笔记-集群搭建篇(二进制方式)。 问题汇总 上文记录了我搭建</description>
+    </item>
+    
+    <item>
       <title>Kubernetes 学习笔记-集群搭建篇(二进制方式)</title>
       <link>https://pylixm.top/posts/2020-09-01-k8s-build.html</link>
       <pubDate>Tue, 01 Sep 2020 00:00:00 +0000</pubDate>
@@ -178,15 +187,6 @@
       
       <guid>https://pylixm.top/posts/2020-04-30-zhxs-0501.html</guid>
       <description>「朝花夕拾」总目录 Python 资讯 4月20日，Python2 的最后一个版本2.7.18发布。 4月28日，Python 3.9.0a6发布。 文章 数值类型在</description>
-    </item>
-    
-    <item>
-      <title>「朝花夕拾」- 总目录</title>
-      <link>https://pylixm.top/posts/2020-04-30-zhxs-index.html</link>
-      <pubDate>Thu, 30 Apr 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2020-04-30-zhxs-index.html</guid>
-      <description>我把过去一周看到的文章、资源等优秀的信息收集起来备查，希望形成有一定参考价值的资料库。同时分享给大家，希望有帮助，每「周五」发布。因为是个人</description>
     </item>
     
   </channel>

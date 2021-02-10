@@ -5,10 +5,19 @@
     <link>https://pylixm.top/tags/summary/</link>
     <description>Recent content in summary on DeanWu</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Thu, 04 Jan 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 10 Feb 2021 00:00:00 +0000</lastBuildDate>
     
         <atom:link href="https://pylixm.top/tags/summary/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Docker学习笔记（二）--简单使用,搭建python开发环境</title>
+      <link>https://pylixm.top/posts/2017-08-26-docker-use.html</link>
+      <pubDate>Sat, 26 Aug 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2017-08-26-docker-use.html</guid>
+      <description>安装 docker 安装现在已非常简单，具体可参考官方文档. 安装成功后可以使用以下命令检测： $ docker --version Docker version 17.06.2-ce, build cec0b72 更换镜像源 因 Docker 官方仓库地址在国外，速度比较慢。</description>
+    </item>
     
     <item>
       <title>Docker学习笔记（一）--基础知识</title>
@@ -179,15 +188,6 @@
       
       <guid>https://pylixm.top/posts/2016-06-19-best.practices.for.django.1.8.3rd-chapter-8.html</guid>
       <description>其他章节索引页 第八章 FBVS &amp;amp; CBVS 如何选择 function - views 和 class - views 见流程图： urlconf 中不要包含 views 的逻辑 Bad example : from django.conf.urls import url from django.views.generic import DetailView from tastings.models import Tasting urlpatterns = [ url(r&amp;quot;^(?P&amp;lt;pk&amp;gt;\d+)/$&amp;quot;, DetailView.as_view( model=Tasting, template_name=&amp;quot;tastings/detail.html&amp;quot;), name=&amp;quot;detail&amp;quot;), url(r&amp;quot;^(?P&amp;lt;pk&amp;gt;\d+)/results/$&amp;quot;, DetailView.as_view( model=Tasting, template_name=&amp;quot;tastings/results.html&amp;quot;), name=&amp;quot;results&amp;quot;), ] 优点</description>
-    </item>
-    
-    <item>
-      <title>Django 最佳实践-读书笔记 - 第七章 查询与数据库层</title>
-      <link>https://pylixm.top/posts/2016-06-19-best.practices.for.django.1.8.3rd-chapter-7.html</link>
-      <pubDate>Sun, 19 Jun 2016 22:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2016-06-19-best.practices.for.django.1.8.3rd-chapter-7.html</guid>
-      <description>其他章节索引页 第七章 查询与数据库层 查询单个对象时，使用 get_object_or_404() 注意，此函数仅在你的 views 中使用。切勿在 helper functions, forms, model methods or anything that is not a view or directly view related 使用。 在可能报错</description>
     </item>
     
   </channel>

@@ -11,6 +11,15 @@
     
     
     <item>
+      <title>「朝花夕拾」- 总目录</title>
+      <link>https://pylixm.top/posts/2020-04-30-zhxs-index.html</link>
+      <pubDate>Thu, 30 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2020-04-30-zhxs-index.html</guid>
+      <description>我把过去一周看到的文章、资源等优秀的信息收集起来备查，希望形成有一定参考价值的资料库。同时分享给大家，希望有帮助，每「周五」发布。因为是个人</description>
+    </item>
+    
+    <item>
       <title>Kafka 使用总结</title>
       <link>https://pylixm.top/posts/2020-04-14-kafka.html</link>
       <pubDate>Tue, 14 Apr 2020 00:00:00 +0000</pubDate>
@@ -179,15 +188,6 @@
       
       <guid>https://pylixm.top/posts/2019-11-06-python-class-attribute.html</guid>
       <description>问题 今天在项目中遇到了个奇怪的问题，实例的一个时间属性并没有根据时间变化而变化，分析之后恍然大悟，总结下分享给大家。大家先看一段代码： import datetime import</description>
-    </item>
-    
-    <item>
-      <title>Python中的类属性和实例属性-补充篇</title>
-      <link>https://pylixm.top/posts/2019-11-06-python-class-attribute-2.html</link>
-      <pubDate>Wed, 06 Nov 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2019-11-06-python-class-attribute-2.html</guid>
-      <description>上篇文章Python中的类属性和实例属性，我们探讨了类属性和实例属性引发的一个小坑。总结了类属性和实例属性的区别如下： 类属性可以被类和实例调</description>
     </item>
     
   </channel>

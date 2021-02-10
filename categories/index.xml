@@ -5,10 +5,19 @@
     <link>https://pylixm.top/categories/</link>
     <description>Recent content in Categories on DeanWu</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Tue, 09 Feb 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 10 Feb 2021 00:00:00 +0000</lastBuildDate>
     
         <atom:link href="https://pylixm.top/categories/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>2020 成长记录</title>
+      <link>https://pylixm.top/posts/2021-02-10-summary-2021.html</link>
+      <pubDate>Wed, 10 Feb 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2021-02-10-summary-2021.html</guid>
+      <description>去年并没有写年终总结，感觉流水账似的记录并没有什么实际的意义，不如直接「干」。今年不同，连续互联网行业的不景气，加之突入起来的新冠疫情，又给</description>
+    </item>
     
     <item>
       <title>Ansible 快速入门</title>
@@ -179,15 +188,6 @@
       
       <guid>https://pylixm.top/posts/2020-09-17-hmac-sha256-base64.html</guid>
       <description>实例来源网络，语言版本可能略有差异，请验证后使用。 Javascript HMAC SHA256 &amp;lt;script src=&amp;#34;http://crypto-js.googlecode.com/svn/tags/3.0.2/build/rollups/hmac-sha256.js&amp;#34;&amp;gt;&amp;lt;/script&amp;gt; &amp;lt;script src=&amp;#34;http://crypto-js.googlecode.com/svn/tags/3.0.2/build/components/enc-base64-min.js&amp;#34;&amp;gt;&amp;lt;/script&amp;gt; &amp;lt;script&amp;gt; var hash = CryptoJS.HmacSHA256(&amp;#34;Message&amp;#34;, &amp;#34;secret&amp;#34;); var hashInBase64 = CryptoJS.enc.Base64.stringify(hash); document.write(hashInBase64); &amp;lt;/script&amp;gt; PHP HMAC SHA256 $s = hash_hmac(&amp;#39;sha256&amp;#39;, &amp;#39;Message&amp;#39;, &amp;#39;secret&amp;#39;, true); echo base64_encode($s); Java HMAC SHA256 Dependent on Apache Commons Codec to encode in base64. import javax.crypto.Mac; import</description>
-    </item>
-    
-    <item>
-      <title>Kubernetes 学习笔记 - 问题记录</title>
-      <link>https://pylixm.top/posts/2020-09-03-k8s-issu.html</link>
-      <pubDate>Thu, 03 Sep 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2020-09-03-k8s-issu.html</guid>
-      <description>本篇为k8s学习笔记问题记录。基础概念和搭建可参考之前文章 Kubernetes 学习笔记-基础篇 和 Kubernetes 学习笔记-集群搭建篇(二进制方式)。 问题汇总 上文记录了我搭建</description>
     </item>
     
   </channel>

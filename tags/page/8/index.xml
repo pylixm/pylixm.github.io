@@ -5,10 +5,19 @@
     <link>https://pylixm.top/tags/</link>
     <description>Recent content in Tags on DeanWu</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Tue, 09 Feb 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 10 Feb 2021 00:00:00 +0000</lastBuildDate>
     
         <atom:link href="https://pylixm.top/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Django 最佳实践-读书笔记 - 第七章 查询与数据库层</title>
+      <link>https://pylixm.top/posts/2016-06-19-best.practices.for.django.1.8.3rd-chapter-7.html</link>
+      <pubDate>Sun, 19 Jun 2016 22:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-06-19-best.practices.for.django.1.8.3rd-chapter-7.html</guid>
+      <description>其他章节索引页 第七章 查询与数据库层 查询单个对象时，使用 get_object_or_404() 注意，此函数仅在你的 views 中使用。切勿在 helper functions, forms, model methods or anything that is not a view or directly view related 使用。 在可能报错</description>
+    </item>
     
     <item>
       <title>使用 pyenv &#43; virtualenv 打造多版本python开发环境</title>
@@ -197,15 +206,6 @@
       
       <guid>https://pylixm.top/posts/2016-03-07-Curl.html</guid>
       <description>对于windows用户如果用Cygwin模拟unix环境的话，里面没有带curl命令，要自己装，所以建议用Gow来模拟，它已经自带了curl</description>
-    </item>
-    
-    <item>
-      <title>2015总结，2016计划</title>
-      <link>https://pylixm.top/posts/2016-02-22-summary.html</link>
-      <pubDate>Mon, 22 Feb 2016 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2016-02-22-summary.html</guid>
-      <description>2015年算是自己的互联网元年。 正式进入互联网行业，虽然是偏运维，但是自己学的python能继续用得上，也是找到了除了web的一条新方向。 2015</description>
     </item>
     
   </channel>
