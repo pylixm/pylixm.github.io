@@ -5,10 +5,19 @@
     <link>https://pylixm.top/tags/</link>
     <description>Recent content in Tags on DeanWu</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sun, 07 Feb 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 09 Feb 2021 00:00:00 +0000</lastBuildDate>
     
         <atom:link href="https://pylixm.top/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Kafka 使用总结</title>
+      <link>https://pylixm.top/posts/2020-04-14-kafka.html</link>
+      <pubDate>Tue, 14 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2020-04-14-kafka.html</guid>
+      <description>Kafka 简介 历史 消息代理，狭义的讲它是一种按照某专递协议进行消息传递的架构模式。常用来解决系统之间的耦合、异步任务调用和瞬时流量的应对问题。随着互</description>
+    </item>
     
     <item>
       <title>数据结构与算法 - 算法 - 二分查找</title>
@@ -179,15 +188,6 @@
       
       <guid>https://pylixm.top/posts/2019-11-06-python-class-attribute-2.html</guid>
       <description>上篇文章Python中的类属性和实例属性，我们探讨了类属性和实例属性引发的一个小坑。总结了类属性和实例属性的区别如下： 类属性可以被类和实例调</description>
-    </item>
-    
-    <item>
-      <title>现在是否适合升级到Python3.8</title>
-      <link>https://pylixm.top/posts/2019-11-05-up-python-or-not.html</link>
-      <pubDate>Tue, 05 Nov 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2019-11-05-up-python-or-not.html</guid>
-      <description>大家好，我又回来了，这一个多月来除了工作，闲暇时间做了些sideproject，以后会和大家分享。现在有些时间了，是时候重新打理下自己的公众</description>
     </item>
     
   </channel>

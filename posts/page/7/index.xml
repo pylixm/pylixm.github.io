@@ -5,10 +5,19 @@
     <link>https://pylixm.top/posts/</link>
     <description>Recent content in Posts on DeanWu</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sun, 07 Feb 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 09 Feb 2021 00:00:00 +0000</lastBuildDate>
     
         <atom:link href="https://pylixm.top/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Docker学习笔记（一）--基础知识</title>
+      <link>https://pylixm.top/posts/2017-08-25-docker-basis.html</link>
+      <pubDate>Fri, 25 Aug 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2017-08-25-docker-basis.html</guid>
+      <description>最近几年Docker容器技术已经渗透到各技术领域，在自动化运维领域更胜，因为它对于代码的部署上可以说是革命性的。下面是我学习Docker，记</description>
+    </item>
     
     <item>
       <title>自动化运维系列-前言</title>
@@ -179,15 +188,6 @@
       
       <guid>https://pylixm.top/posts/2016-06-19-best.practices.for.django.1.8.3rd-chapter-7.html</guid>
       <description>其他章节索引页 第七章 查询与数据库层 查询单个对象时，使用 get_object_or_404() 注意，此函数仅在你的 views 中使用。切勿在 helper functions, forms, model methods or anything that is not a view or directly view related 使用。 在可能报错</description>
-    </item>
-    
-    <item>
-      <title>使用 pyenv &#43; virtualenv 打造多版本python开发环境</title>
-      <link>https://pylixm.top/posts/2016-06-19-virtualenv-install.html</link>
-      <pubDate>Sun, 19 Jun 2016 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2016-06-19-virtualenv-install.html</guid>
-      <description>配置环境： CentOS release 6.8 pyenv 20160509 在工作开发中，一直使用 virtualenv 来管理python的包环境。很好的解决了不同项目使用不同python包的需求。对于多python</description>
     </item>
     
   </channel>

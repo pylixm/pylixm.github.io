@@ -11,6 +11,15 @@
     
     
     <item>
+      <title>Ansible 快速入门</title>
+      <link>https://pylixm.top/posts/2021-02-09-ansible-start.html</link>
+      <pubDate>Tue, 09 Feb 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2021-02-09-ansible-start.html</guid>
+      <description>Ansible 是自动化运维领域一款常用的服务器集群管理工具，他有丰富的文档和活跃的社区。 与同类型的竞品开源工具SaltStack/Puppet 相比，各有</description>
+    </item>
+    
+    <item>
       <title>实现简单的httpDNS的一种思路</title>
       <link>https://pylixm.top/posts/2021-02-07-dns-dig.html</link>
       <pubDate>Sun, 07 Feb 2021 00:00:00 +0000</pubDate>
@@ -179,15 +188,6 @@
       
       <guid>https://pylixm.top/posts/2020-09-03-k8s-issu.html</guid>
       <description>本篇为k8s学习笔记问题记录。基础概念和搭建可参考之前文章 Kubernetes 学习笔记-基础篇 和 Kubernetes 学习笔记-集群搭建篇(二进制方式)。 问题汇总 上文记录了我搭建</description>
-    </item>
-    
-    <item>
-      <title>Kubernetes 学习笔记-集群搭建篇(二进制方式)</title>
-      <link>https://pylixm.top/posts/2020-09-01-k8s-build.html</link>
-      <pubDate>Tue, 01 Sep 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2020-09-01-k8s-build.html</guid>
-      <description>本篇记录我集群搭建的过程和问题，目标是可以根据本篇文章搭建自己生产可用的K8S集群。对于K8S的一些概念理解，可参考我之前的笔记Kubern</description>
     </item>
     
   </channel>

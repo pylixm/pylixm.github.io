@@ -10,6 +10,15 @@
     
     
     <item>
+      <title>django 相关命令总结</title>
+      <link>https://pylixm.top/posts/2016-01-29-django-cmd.html</link>
+      <pubDate>Fri, 29 Jan 2016 18:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-01-29-django-cmd.html</guid>
+      <description>django 常用命令 创建一个web站点： django-admin.py startproject mysite 创建apps： python manage.py startapp blog 数据库模板检测： python manage.py validate 生成数据库表创建语句： python manage.py sqlall books（app名字） 创建数据</description>
+    </item>
+    
+    <item>
       <title>rabbitmq 安装配置记录</title>
       <link>https://pylixm.top/posts/2016-01-19-Rabbitmq-install.html</link>
       <pubDate>Tue, 19 Jan 2016 00:00:00 +0000</pubDate>
@@ -178,15 +187,6 @@
       
       <guid>https://pylixm.top/posts/2015-11-13-django-model-two.html</guid>
       <description>二、模型的操作（QuerySets） 1、模型操作基础 常用接口方法 all(): 返回一个包含模式里所有数据记录的结果集queryset filter():返</description>
-    </item>
-    
-    <item>
-      <title>Django restful framework 文档</title>
-      <link>https://pylixm.top/posts/2015-11-01-django-restfull-framework.html</link>
-      <pubDate>Sun, 01 Nov 2015 18:25:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2015-11-01-django-restfull-framework.html</guid>
-      <description>前几天看到有博文记录的 django-rest-framework的翻译文档。最近正需要，反而找不到了。现记录如下，备查： RESTful API 设计指南 中文译文</description>
     </item>
     
   </channel>

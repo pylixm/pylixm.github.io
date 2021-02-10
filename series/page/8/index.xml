@@ -11,6 +11,15 @@
     
     
     <item>
+      <title>使用 pyenv &#43; virtualenv 打造多版本python开发环境</title>
+      <link>https://pylixm.top/posts/2016-06-19-virtualenv-install.html</link>
+      <pubDate>Sun, 19 Jun 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-06-19-virtualenv-install.html</guid>
+      <description>配置环境： CentOS release 6.8 pyenv 20160509 在工作开发中，一直使用 virtualenv 来管理python的包环境。很好的解决了不同项目使用不同python包的需求。对于多python</description>
+    </item>
+    
+    <item>
       <title>mongodb 3.2 用户权限管理配置</title>
       <link>https://pylixm.top/posts/2016-06-03-Mongodb-user-admin.html</link>
       <pubDate>Fri, 03 Jun 2016 00:00:00 +0000</pubDate>
@@ -197,15 +206,6 @@
       
       <guid>https://pylixm.top/posts/2016-02-22-summary.html</guid>
       <description>2015年算是自己的互联网元年。 正式进入互联网行业，虽然是偏运维，但是自己学的python能继续用得上，也是找到了除了web的一条新方向。 2015</description>
-    </item>
-    
-    <item>
-      <title>django 相关命令总结</title>
-      <link>https://pylixm.top/posts/2016-01-29-django-cmd.html</link>
-      <pubDate>Fri, 29 Jan 2016 18:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2016-01-29-django-cmd.html</guid>
-      <description>django 常用命令 创建一个web站点： django-admin.py startproject mysite 创建apps： python manage.py startapp blog 数据库模板检测： python manage.py validate 生成数据库表创建语句： python manage.py sqlall books（app名字） 创建数据</description>
     </item>
     
   </channel>

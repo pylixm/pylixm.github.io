@@ -5,10 +5,19 @@
     <link>https://pylixm.top/posts/</link>
     <description>Recent content in Posts on DeanWu</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sun, 07 Feb 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 09 Feb 2021 00:00:00 +0000</lastBuildDate>
     
         <atom:link href="https://pylixm.top/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Django restful framework 文档</title>
+      <link>https://pylixm.top/posts/2015-11-01-django-restfull-framework.html</link>
+      <pubDate>Sun, 01 Nov 2015 18:25:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2015-11-01-django-restfull-framework.html</guid>
+      <description>前几天看到有博文记录的 django-rest-framework的翻译文档。最近正需要，反而找不到了。现记录如下，备查： RESTful API 设计指南 中文译文</description>
+    </item>
     
     <item>
       <title>django form表单的数据 select 值更新问题</title>

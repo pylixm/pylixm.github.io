@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ansible on DeanWu</title>
+    <link>https://pylixm.top/tags/ansible/</link>
+    <description>Recent content in ansible on DeanWu</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Tue, 09 Feb 2021 00:00:00 +0000</lastBuildDate>
+    
+        <atom:link href="https://pylixm.top/tags/ansible/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Kafka 使用总结</title>
+      <link>https://pylixm.top/posts/2020-04-14-kafka.html</link>
+      <pubDate>Tue, 14 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2020-04-14-kafka.html</guid>
+      <description>Kafka 简介 历史 消息代理，狭义的讲它是一种按照某专递协议进行消息传递的架构模式。常用来解决系统之间的耦合、异步任务调用和瞬时流量的应对问题。随着互</description>
+    </item>
+    
+    <item>
+      <title>数据结构与算法 - 算法 - 二分查找</title>
+      <link>https://pylixm.top/posts/2020-01-02-binary-search.html</link>
+      <pubDate>Thu, 02 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2020-01-02-binary-search.html</guid>
+      <description>《数据结构与算法-王争》学习笔记，记录备查 二分查找 二分查找针对的是一个有序的数据集合，查找思想有点类似分治思想。每次都通过跟区间的中间元素对</description>
+    </item>
+    
+    <item>
+      <title>数据结构与算法 - 算法 - 排序优化</title>
+      <link>https://pylixm.top/posts/2020-01-01-sort-optimization.html</link>
+      <pubDate>Wed, 01 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2020-01-01-sort-optimization.html</guid>
+      <description>《数据结构与算法-王争》学习笔记，记录备查 各排序算法情况： 快速排序的优化 快速排序，时间复杂度在 O(nlogn) 和 O(n^2)之间。在极坏的情况的，时间复杂</description>
+    </item>
+    
+    <item>
+      <title>Zookeeper 入门</title>
+      <link>https://pylixm.top/posts/2019-12-31-zookeeper.html</link>
+      <pubDate>Tue, 31 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2019-12-31-zookeeper.html</guid>
+      <description>Zookeeper 是Apache开源组织的一款分布式服务框架，常在分布式集群中扮演状态同步、集群管理、配置项管理等重要角色。业内比较流行的竞品软件有 etcd</description>
+    </item>
+    
+    <item>
+      <title>数据结构与算法 - 算法 - 线性排序</title>
+      <link>https://pylixm.top/posts/2019-12-29-linear-sort.html</link>
+      <pubDate>Sun, 29 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2019-12-29-linear-sort.html</guid>
+      <description>《数据结构与算法-王争》学习笔记，记录备查 线性排序，桶排序、计数排序、基数排序。 因为他们的时间复杂度都为O(n)，所以叫做线性排序。 桶排序（</description>
+    </item>
+    
+    <item>
+      <title>数据结构与算法 - 算法 - 经典排序</title>
+      <link>https://pylixm.top/posts/2019-12-27-sort.html</link>
+      <pubDate>Fri, 27 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2019-12-27-sort.html</guid>
+      <description>《数据结构与算法-王争》学习笔记，记录备查 排序是我们最常用接触最早的算法，经典常用的排序算法有： O(n^2): 冒泡排序、插入排序、选择排序 O(nlogn): 快速排序、归</description>
+    </item>
+    
+    <item>
+      <title>Python 段错误（Segmentation fault）排查</title>
+      <link>https://pylixm.top/posts/2019-12-26-python-trick.html</link>
+      <pubDate>Thu, 26 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2019-12-26-python-trick.html</guid>
+      <description>现象 今天在升级一个Python虚拟环境的时候，出现了这种错误 OSError - setuptools pip wheel failed with error code -11。我的操作步骤是这样的，先删除虚拟环境rm -rf env，再创</description>
+    </item>
+    
+    <item>
+      <title>数据结构与算法 - 算法 - 递归</title>
+      <link>https://pylixm.top/posts/2019-12-26-recursion.html</link>
+      <pubDate>Thu, 26 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2019-12-26-recursion.html</guid>
+      <description>《数据结构与算法-王争》学习笔记，记录备查 可用递归解决的问题的三个条件 一个问题的解可以分解为几个子问题的解 这个问题和子问题之后的子问题，除了</description>
+    </item>
+    
+    <item>
+      <title>数据结构与算法 - 散列表</title>
+      <link>https://pylixm.top/posts/2019-12-25-hash-table.html</link>
+      <pubDate>Wed, 25 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2019-12-25-hash-table.html</guid>
+      <description>《数据结构与算法-王争》学习笔记，记录备查 基本概念 散列表，利用数组支持安下标随机访问的数据特性来访问数据。是数组的一种扩展，可以说没有数组就</description>
+    </item>
+    
+    <item>
+      <title>数据结构与算法 - 线性表 - 跳表</title>
+      <link>https://pylixm.top/posts/2019-12-24-stack.html</link>
+      <pubDate>Tue, 24 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2019-12-24-stack.html</guid>
+      <description>《数据结构与算法-王争》学习笔记，记录备查 基本概念 跳表，在有序链表基础上加了多级索引的数据结构。是一种动态的数据结构。 跳表是一种用空间来换时</description>
+    </item>
+    
+    <item>
+      <title>数据结构与算法 - 线性表 - 队列</title>
+      <link>https://pylixm.top/posts/2019-12-23-queue.html</link>
+      <pubDate>Mon, 23 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2019-12-23-queue.html</guid>
+      <description>《数据结构与算法-王争》学习笔记，记录备查 基本概念 队列，一种先进先出的线性数据结构。和栈一样，是一种操作受限的线性表数据结构。 用数组实现的队</description>
+    </item>
+    
+    <item>
+      <title>数据结构与算法 - 线性表 - 栈</title>
+      <link>https://pylixm.top/posts/2019-12-20-stack.html</link>
+      <pubDate>Fri, 20 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2019-12-20-stack.html</guid>
+      <description>《数据结构与算法-王争》学习笔记，记录备查 基本概念 某个数据集合值涉及在一端插入和删除数据，并且满足后进先出、先进后出的特性，这种结构就叫做“</description>
+    </item>
+    
+    <item>
+      <title>数据结构与算法 - 线性表 - 链表</title>
+      <link>https://pylixm.top/posts/2019-12-18-link.html</link>
+      <pubDate>Wed, 18 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2019-12-18-link.html</guid>
+      <description>《数据结构与算法-王争》学习笔记，记录备查 基本概念 链表，通过“指针”将一组凌乱的内存块串联起来使用的数据结构。 链表的分类 单链表 构成 -&amp;gt; &amp;lt;data|next&amp;gt; -&amp;gt; &amp;lt;data|next&amp;gt; -&amp;gt;</description>
+    </item>
+    
+    <item>
+      <title>数据结构与算法 - 线性表 - 数组</title>
+      <link>https://pylixm.top/posts/2019-12-17-array.html</link>
+      <pubDate>Tue, 17 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2019-12-17-array.html</guid>
+      <description>《数据结构与算法-王争》学习笔记，记录备查 基本概念 数组（Array）是一种线性表数据结构。他用一组连续的内存空间，来存储一组具有相同类型的数</description>
+    </item>
+    
+    <item>
+      <title>「译」Django restful framework 性能优化</title>
+      <link>https://pylixm.top/posts/2019-12-16-django-restfull-framework-performance.html</link>
+      <pubDate>Mon, 16 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2019-12-16-django-restfull-framework-performance.html</guid>
+      <description>原文：https://ses4j.github.io/2015/11/23/optimizing-slow-django-rest-fram</description>
+    </item>
+    
+    <item>
+      <title>Django 3.0 异步试用分享</title>
+      <link>https://pylixm.top/posts/2019-12-12-django-3.0.html</link>
+      <pubDate>Thu, 12 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2019-12-12-django-3.0.html</guid>
+      <description>上周Django官方正式发布了Django 3.0版本，其中最重要的更新莫过于对ASGI的支持。今天对Django 3.0的异步功能做了简单的试</description>
+    </item>
+    
+    <item>
+      <title>Puppet 简单入门 - 安装篇</title>
+      <link>https://pylixm.top/posts/2019-11-26-Puppet-tutorial-two.html</link>
+      <pubDate>Tue, 26 Nov 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2019-11-26-Puppet-tutorial-two.html</guid>
+      <description>上一篇「译」Puppet 简单入门 - 理论篇文章我们分享了 Puppet的基本工作原理和基本概念，这篇文章我们来看下如何具体的安装。 Puppet有</description>
+    </item>
+    
+    <item>
+      <title>译-Apache Traffic server 管理员手册(未完待续)</title>
+      <link>https://pylixm.top/posts/2019-11-21-ats-admin-docs.html</link>
+      <pubDate>Thu, 21 Nov 2019 20:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2019-11-21-ats-admin-docs.html</guid>
+      <description>Apache Traffic Server（ATS或TS）是一个高性能的、模块化的 HTTP 代理和缓存服务器。Traffic Server 最初是 Inktomi 公司的商业产品，该公司在 2003 年被 Yahoo 收购，之</description>
+    </item>
+    
+    <item>
+      <title>Python中的类属性和实例属性</title>
+      <link>https://pylixm.top/posts/2019-11-06-python-class-attribute.html</link>
+      <pubDate>Wed, 06 Nov 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2019-11-06-python-class-attribute.html</guid>
+      <description>问题 今天在项目中遇到了个奇怪的问题，实例的一个时间属性并没有根据时间变化而变化，分析之后恍然大悟，总结下分享给大家。大家先看一段代码： import datetime import</description>
+    </item>
+    
+    <item>
+      <title>Python中的类属性和实例属性-补充篇</title>
+      <link>https://pylixm.top/posts/2019-11-06-python-class-attribute-2.html</link>
+      <pubDate>Wed, 06 Nov 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2019-11-06-python-class-attribute-2.html</guid>
+      <description>上篇文章Python中的类属性和实例属性，我们探讨了类属性和实例属性引发的一个小坑。总结了类属性和实例属性的区别如下： 类属性可以被类和实例调</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -5,10 +5,19 @@
     <link>https://pylixm.top/tags/</link>
     <description>Recent content in Tags on DeanWu</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sun, 07 Feb 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 09 Feb 2021 00:00:00 +0000</lastBuildDate>
     
         <atom:link href="https://pylixm.top/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>如何整理个人资料</title>
+      <link>https://pylixm.top/posts/2018-05-02-How-to-arrange-note.html</link>
+      <pubDate>Wed, 02 May 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2018-05-02-How-to-arrange-note.html</guid>
+      <description>在现如今信息爆炸的时代，资料整理的方法显得越来越重要。好的资料整理方法可以让收集的资料发挥出它应有的价值，否则便和没有收集无异。 在平时工作学</description>
+    </item>
     
     <item>
       <title>「Go语言学习笔记五」- Golang 语法进阶</title>
@@ -179,15 +188,6 @@
       
       <guid>https://pylixm.top/posts/2017-08-26-docker-use.html</guid>
       <description>安装 docker 安装现在已非常简单，具体可参考官方文档. 安装成功后可以使用以下命令检测： $ docker --version Docker version 17.06.2-ce, build cec0b72 更换镜像源 因 Docker 官方仓库地址在国外，速度比较慢。</description>
-    </item>
-    
-    <item>
-      <title>Docker学习笔记（一）--基础知识</title>
-      <link>https://pylixm.top/posts/2017-08-25-docker-basis.html</link>
-      <pubDate>Fri, 25 Aug 2017 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2017-08-25-docker-basis.html</guid>
-      <description>最近几年Docker容器技术已经渗透到各技术领域，在自动化运维领域更胜，因为它对于代码的部署上可以说是革命性的。下面是我学习Docker，记</description>
     </item>
     
   </channel>

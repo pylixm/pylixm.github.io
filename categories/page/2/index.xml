@@ -5,10 +5,19 @@
     <link>https://pylixm.top/categories/</link>
     <description>Recent content in Categories on DeanWu</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sun, 07 Feb 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 09 Feb 2021 00:00:00 +0000</lastBuildDate>
     
         <atom:link href="https://pylixm.top/categories/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Kubernetes 学习笔记-集群搭建篇(二进制方式)</title>
+      <link>https://pylixm.top/posts/2020-09-01-k8s-build.html</link>
+      <pubDate>Tue, 01 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2020-09-01-k8s-build.html</guid>
+      <description>本篇记录我集群搭建的过程和问题，目标是可以根据本篇文章搭建自己生产可用的K8S集群。对于K8S的一些概念理解，可参考我之前的笔记Kubern</description>
+    </item>
     
     <item>
       <title>Kubernetes 学习笔记-基础篇</title>
@@ -179,15 +188,6 @@
       
       <guid>https://pylixm.top/posts/2020-04-30-zhxs-index.html</guid>
       <description>我把过去一周看到的文章、资源等优秀的信息收集起来备查，希望形成有一定参考价值的资料库。同时分享给大家，希望有帮助，每「周五」发布。因为是个人</description>
-    </item>
-    
-    <item>
-      <title>Kafka 使用总结</title>
-      <link>https://pylixm.top/posts/2020-04-14-kafka.html</link>
-      <pubDate>Tue, 14 Apr 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2020-04-14-kafka.html</guid>
-      <description>Kafka 简介 历史 消息代理，狭义的讲它是一种按照某专递协议进行消息传递的架构模式。常用来解决系统之间的耦合、异步任务调用和瞬时流量的应对问题。随着互</description>
     </item>
     
   </channel>
