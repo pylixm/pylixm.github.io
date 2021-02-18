@@ -39,7 +39,7 @@
 <meta itemprop="description" content="Ansible 是自动化运维领域一款常用的服务器集群管理工具，他有丰富的文档和活跃的社区。 与同类型的竞品开源工具SaltStack/Puppet 相比，各有">
 <meta itemprop="datePublished" content="2021-02-09T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2021-02-09T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="1570">
+<meta itemprop="wordCount" content="1828">
 
 
 
@@ -313,7 +313,7 @@
 	</span>
         <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="/posts/2021-02-09-ansible-start.html#comments"
             class="article-comment-link">评论</a></span>
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 1570字</span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 1828字</span>
 		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 4分 </span>
       </div>
     </div>
@@ -367,6 +367,9 @@
 <p>是<code>ansible</code>的命令工具，核心执行工具；一次性或临时执行的操作都是通过该命令执行。</p>
 <p><strong>Plugins</strong></p>
 <p>插件，模块功能的补充，常有连接类型插件，循环插件，变量插件，过滤插件，插件功能用的较少。</p>
+<ul>
+<li>官方文档：<a href="https://docs.ansible.com/ansible/latest/plugins/plugins.html">插件列表</a></li>
+</ul>
 <p><strong>API</strong></p>
 <p>提供给第三方程序调用的应用程序编程接口。</p>
 <ul>
@@ -450,7 +453,44 @@ PlayBook
         <span style="color:#66d9ef">owner</span>: <span style="color:#e6db74">&#34;{{ nginx_user }}&#34;</span>
         <span style="color:#66d9ef">group</span>: <span style="color:#e6db74">&#34;{{ nginx_group }}&#34;</span>
       <span style="color:#66d9ef">become</span>: yes
-</code></pre></div><h2 id="使用指南">使用指南</h2>
+</code></pre></div><h3 id="角色">角色</h3>
+<p>统一管理playbook文件，可理解为一个标准的目录规范。可使用如下命令初始化一个角色目录：</p>
+<p><code>ansible-galaxy init roles/role_nginx</code></p>
+<pre><code class="language-目录结构" data-lang="目录结构">└── role_nginx
+    ├── defaults
+    │   └── main.yml
+    ├── files
+    ├── handlers
+    │   └── main.yml
+    ├── meta
+    │   └── main.yml
+    ├── README.md
+    ├── tasks
+    │   └── main.yml
+    ├── templates
+    ├── tests
+    │   ├── inventory
+    │   └── test.yml
+    └── vars
+        └── main.yml
+</code></pre><p>roles 同目录，创建调用play文件，即可应用整个角色。</p>
+<pre><code>---
+# this playbook deploy the whole application stack in this site
+- name: configuration and deploy webservers and application code
+  hosts: webservers
+  
+  roles:
+    - role_nginx
+</code></pre><p>角色文件的寻找目录：</p>
+<ul>
+<li>play 文件同级目录的role同名目录</li>
+<li>play 文件统计目录的roles 目标下</li>
+<li><code>~/.ansible/roles</code> 用户目录下</li>
+<li>ansible.cfg 配置的角色目录下</li>
+<li>/etc/ansible/roles 目录下</li>
+<li>也可使用绝对路径配置角色</li>
+</ul>
+<h2 id="使用指南">使用指南</h2>
 <h3 id="命令行方式">命令行方式</h3>
 <pre><code>ansible [pattern] -m [module] -a &quot;[module options]&quot;
 </code></pre><ul>
