@@ -526,6 +526,28 @@
 </script>
 
 <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="https://cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine"></script>
+<script type="text/javascript">
+    var GUEST = ['nick', 'mail', 'link'];
+    var meta = 'nick,mail';
+    meta = meta.split(',').filter(function (item) {
+        return GUEST.indexOf(item) > -1;
+    });
+    new Valine({
+        el: '#vcomments',
+        verify: null ,
+        notify: null ,
+        appId: 'OBJcj4PU8JI0zDfu0HJSrG6W-gzGzoHsz',
+        appKey: 'tBtFzC72xIlgo2UFbA33nqmU',
+        placeholder: '来做第一个发言人吧',
+        avatar: 'mm',
+        meta: meta,
+        pageSize: '10' || 10,
+        visitor: false 
+});
+</script>
+
 <script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {

@@ -274,76 +274,52 @@
         <h1 itemprop="name">
   <a
     class="article-title"
-    href="/posts/2015-12-03-django-celery.html"
-    >「译」在django中使用celery实现异步任务</a
+    href="/posts/2016-04-06-Mongodb-relica.html"
+    >高可用的MongoDB集群</a
   >
 </h1>
 
       </div>
       <div class="article-entry text-muted" itemprop="description">
-        在django中使用celery 在使用celery时，你需要定义一个celery的实例（叫做 app ）。如果你有一个现成的django项目，如下：
+        <blockquote>
+<p>原文链接：http://www.jianshu.com/p/2825a66d6aed</p>
+</blockquote>
+<p>刚接触MongoDB，就要用到它的集群，只能硬着头皮短时间去看文档和尝试自行搭建。迁移历史数据更是让人恼火，近100G的数据文件，导入、清理垃圾数据执行的速度蜗牛一样的慢。趁着这个时间，把这几天关于Mongod集群相关的内容整理一下。大概介绍一下MongoDB集群的几种方式：Master-Slave、Relica Set、Sharding，并做简单的演示。</p>
+<p>使用集群的目的就是提高可用性。高可用性H.A.（High Availability）指的是通过尽量缩短因日常维护操作（计划）和突发的系统崩溃（非计划）所导致的停机时间，以提高系统和应用的可用性。它与被认为是不间断操作的容错技术有所不同。HA系统是目前企业防止核心计算机系统因故障停机的最有效手段。</p>
+<!-- raw HTML omitted -->
+<p>HA的三种工作方式：</p>
+<ul>
+<li>主从方式 （非对称方式）</li>
+</ul>
+<p>工作原理：主机工作，备机处于监控准备状况；当主机宕机时，备机接管主机的一切工作，待主机恢复正常后，按使用者的设定以自动或手动方式将服务切换到主机上运行，数据的一致性通过共享存储系统解决。</p>
+<ul>
+<li>双机双工方式（互备互援）</li>
+</ul>
+<p>工作原理：两台主机同时运行各自的服务工作且相互监测情况，当任一台主机宕机时，另一台主机立即接管它的一切工作，保证工作实时，应用服务系统的关键数据存放在共享存储系统中。</p>
+<ul>
+<li>集群工作方式（多服务器互备方式）</li>
+</ul>
+<p>工作原理：多台主机一起工作，各自运行一个或几个服务，各为服务定义一个或多个备用主机，当某个主机故障时，运行在其上的服务就可以被其它主机接管</p>
       </div>
       <p class="article-meta">
 <span class="article-date">
   <i class="icon icon-calendar-check"></i>&nbsp;
-<a href="https://pylixm.top/posts/2015-12-03-django-celery.html" class="">
-  <time datetime="2015-12-03 16:00:00 &#43;0000 UTC" itemprop="datePublished">2015-12-03</time>
+<a href="https://pylixm.top/posts/2016-04-06-Mongodb-relica.html" class="">
+  <time datetime="2016-04-06 00:00:00 &#43;0000 UTC" itemprop="datePublished">2016-04-06</time>
 </a>
 </span>
 <span class="article-category">
   <i class="icon icon-folder"></i>&nbsp;
-  <a class="article-category-link" href="/categories/Django/"> Django </a>
+  <a class="article-category-link" href="/categories/Mongodb/"> Mongodb </a>
 </span>  
   <span class="article-tag">
     <i class="icon icon-tags"></i>&nbsp;
-    <a class="article-tag-link" href="/tags/Django/"> Django </a>
-    <a class="article-tag-link" href="/tags/Celery/"> Celery </a>
-    <a class="article-tag-link" href="/tags/%E7%BF%BB%E8%AF%91/"> 翻译 </a>
+    <a class="article-tag-link" href="/tags/Mongodb/"> Mongodb </a>
+    <a class="article-tag-link" href="/tags/%E9%9B%86%E7%BE%A4/"> 集群 </a>
   </span>
 
-        <span class="post-comment"><i class="icon icon-comment"></i> &nbsp;<a href="/posts/2015-12-03-django-celery.html#comments" class="article-comment-link">评论</a></span>
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 2071字</span>
-		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 5分 </span>
-      </p>
-    </article>
-    <article
-      class="article article-type-page"
-      itemscope
-      itemtype="http://schema.org/BlogPosting"
-    >
-      <div class="article-header">
-        <h1 itemprop="name">
-  <a
-    class="article-title"
-    href="/posts/2015-12-01-vagrant-install.html"
-    >vagrant的开发环境搭建-windows开发环境为例</a
-  >
-</h1>
-
-      </div>
-      <div class="article-entry text-muted" itemprop="description">
-        前几天看了vagrant的介绍，今天正好有空，打算安装下试试。由于自己用的是windows的开发环境，所以就在window下试着搭建了下。遇
-      </div>
-      <p class="article-meta">
-<span class="article-date">
-  <i class="icon icon-calendar-check"></i>&nbsp;
-<a href="https://pylixm.top/posts/2015-12-01-vagrant-install.html" class="">
-  <time datetime="2015-12-01 11:30:00 &#43;0000 UTC" itemprop="datePublished">2015-12-01</time>
-</a>
-</span>
-<span class="article-category">
-  <i class="icon icon-folder"></i>&nbsp;
-  <a class="article-category-link" href="/categories/Vagrant/"> Vagrant </a>
-</span>  
-  <span class="article-tag">
-    <i class="icon icon-tags"></i>&nbsp;
-    <a class="article-tag-link" href="/tags/%E5%AE%B9%E5%99%A8/"> 容器 </a>
-    <a class="article-tag-link" href="/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA/"> 虚拟机 </a>
-    <a class="article-tag-link" href="/tags/Vagrant/"> Vagrant </a>
-  </span>
-
-        <span class="post-comment"><i class="icon icon-comment"></i> &nbsp;<a href="/posts/2015-12-01-vagrant-install.html#comments" class="article-comment-link">评论</a></span>
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 3766字</span>
+        <span class="post-comment"><i class="icon icon-comment"></i> &nbsp;<a href="/posts/2016-04-06-Mongodb-relica.html#comments" class="article-comment-link">评论</a></span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 3572字</span>
 		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 8分 </span>
       </p>
     </article>
@@ -356,75 +332,34 @@
         <h1 itemprop="name">
   <a
     class="article-title"
-    href="/posts/2015-11-30-Redis.html"
-    >Memcached, Redis, MongoDB区别</a
+    href="/posts/2016-03-24-django-class-views.html"
+    >Django学习笔记- Class View</a
   >
 </h1>
 
       </div>
       <div class="article-entry text-muted" itemprop="description">
-        原文地址：http://www.cnblogs.com/davidgu/p/3665589.html mongodb和memcached不是一
+        提示：文章概念性语句比较多，建议先看 Classview 的官方文档或1.8 中文翻译文档。 之前使用 django 开发都是使用 func-view ，对Classview一直是向往的。 最近有些时
       </div>
       <p class="article-meta">
 <span class="article-date">
   <i class="icon icon-calendar-check"></i>&nbsp;
-<a href="https://pylixm.top/posts/2015-11-30-Redis.html" class="">
-  <time datetime="2015-11-30 22:22:00 &#43;0000 UTC" itemprop="datePublished">2015-11-30</time>
+<a href="https://pylixm.top/posts/2016-03-24-django-class-views.html" class="">
+  <time datetime="2016-03-24 00:00:00 &#43;0000 UTC" itemprop="datePublished">2016-03-24</time>
 </a>
 </span>
 <span class="article-category">
   <i class="icon icon-folder"></i>&nbsp;
-  <a class="article-category-link" href="/categories/NoSQL/"> NoSQL </a>
+  <a class="article-category-link" href="/categories/Django/"> Django </a>
 </span>  
   <span class="article-tag">
     <i class="icon icon-tags"></i>&nbsp;
-    <a class="article-tag-link" href="/tags/NoSQL/"> NoSQL </a>
-    <a class="article-tag-link" href="/tags/redis/"> redis </a>
+    <a class="article-tag-link" href="/tags/Django/"> Django </a>
+    <a class="article-tag-link" href="/tags/Django-Classview/"> Django-Classview </a>
   </span>
 
-        <span class="post-comment"><i class="icon icon-comment"></i> &nbsp;<a href="/posts/2015-11-30-Redis.html#comments" class="article-comment-link">评论</a></span>
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 846字</span>
-		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 2分 </span>
-      </p>
-    </article>
-    <article
-      class="article article-type-page"
-      itemscope
-      itemtype="http://schema.org/BlogPosting"
-    >
-      <div class="article-header">
-        <h1 itemprop="name">
-  <a
-    class="article-title"
-    href="/posts/2015-11-29-vagrant.html"
-    >vagrant、docker、virtualbox之间的区别</a
-  >
-</h1>
-
-      </div>
-      <div class="article-entry text-muted" itemprop="description">
-        同事推荐了一个虚拟机管理的工具 vagrant ，查了下发现果然不错。试着装了下，看安装说明，需要装virtualbox。也是一个虚拟机软件，和VMware
-      </div>
-      <p class="article-meta">
-<span class="article-date">
-  <i class="icon icon-calendar-check"></i>&nbsp;
-<a href="https://pylixm.top/posts/2015-11-29-vagrant.html" class="">
-  <time datetime="2015-11-29 22:22:00 &#43;0000 UTC" itemprop="datePublished">2015-11-29</time>
-</a>
-</span>
-<span class="article-category">
-  <i class="icon icon-folder"></i>&nbsp;
-  <a class="article-category-link" href="/categories/Vagrant/"> Vagrant </a>
-</span>  
-  <span class="article-tag">
-    <i class="icon icon-tags"></i>&nbsp;
-    <a class="article-tag-link" href="/tags/%E5%AE%B9%E5%99%A8/"> 容器 </a>
-    <a class="article-tag-link" href="/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA/"> 虚拟机 </a>
-    <a class="article-tag-link" href="/tags/Vagrant/"> Vagrant </a>
-  </span>
-
-        <span class="post-comment"><i class="icon icon-comment"></i> &nbsp;<a href="/posts/2015-11-29-vagrant.html#comments" class="article-comment-link">评论</a></span>
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 1337字</span>
+        <span class="post-comment"><i class="icon icon-comment"></i> &nbsp;<a href="/posts/2016-03-24-django-class-views.html#comments" class="article-comment-link">评论</a></span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 1299字</span>
 		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 3分 </span>
       </p>
     </article>
@@ -437,33 +372,72 @@
         <h1 itemprop="name">
   <a
     class="article-title"
-    href="/posts/2015-11-27-Javascript.html"
-    >Javascript 使用记录</a
+    href="/posts/2016-03-10-salt-returner.html"
+    >SaltStack学习笔记3 -- salt returner 的使用</a
   >
 </h1>
 
       </div>
       <div class="article-entry text-muted" itemprop="description">
-        积累记录了一些js常用的操作，备查： 1、判断json数据是否还有某个key //方法一： obj[&#34;key&#34;] != undefined //这种有缺陷，如果这个key定义了，并且就是很
+        SaltStack 2014.7之前, Minion端的执行结果想存储在外部系统中, 通过使用Returners，我们可以将返回结果存放到我们指定的存储系统中，但
       </div>
       <p class="article-meta">
 <span class="article-date">
   <i class="icon icon-calendar-check"></i>&nbsp;
-<a href="https://pylixm.top/posts/2015-11-27-Javascript.html" class="">
-  <time datetime="2015-11-27 13:26:00 &#43;0000 UTC" itemprop="datePublished">2015-11-27</time>
+<a href="https://pylixm.top/posts/2016-03-10-salt-returner.html" class="">
+  <time datetime="2016-03-10 00:00:00 &#43;0000 UTC" itemprop="datePublished">2016-03-10</time>
 </a>
 </span>
 <span class="article-category">
   <i class="icon icon-folder"></i>&nbsp;
-  <a class="article-category-link" href="/categories/Javascript/"> Javascript </a>
+  <a class="article-category-link" href="/categories/SaltStack/"> SaltStack </a>
 </span>  
   <span class="article-tag">
     <i class="icon icon-tags"></i>&nbsp;
-    <a class="article-tag-link" href="/tags/Javascript/"> Javascript </a>
+    <a class="article-tag-link" href="/tags/salt/"> salt </a>
   </span>
 
-        <span class="post-comment"><i class="icon icon-comment"></i> &nbsp;<a href="/posts/2015-11-27-Javascript.html#comments" class="article-comment-link">评论</a></span>
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 540字</span>
+        <span class="post-comment"><i class="icon icon-comment"></i> &nbsp;<a href="/posts/2016-03-10-salt-returner.html#comments" class="article-comment-link">评论</a></span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 1052字</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 3分 </span>
+      </p>
+    </article>
+    <article
+      class="article article-type-page"
+      itemscope
+      itemtype="http://schema.org/BlogPosting"
+    >
+      <div class="article-header">
+        <h1 itemprop="name">
+  <a
+    class="article-title"
+    href="/posts/2016-03-08-Mysql-python.html"
+    >python的MySQLdb模块 连接 mysql 错误</a
+  >
+</h1>
+
+      </div>
+      <div class="article-entry text-muted" itemprop="description">
+        Q &amp; A： 今天在使用python直接链接数据库时报错 _mysql_exceptions.OperationalError: (2002, &quot;Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (2)&quot;) 代码： db = MySQLdb.connect(host='localhost', port=3306, user='root', passwd='root', db='mydb') 错误： Traceback (most recent call last): File &quot;./data_db.py&quot;, line 5, in &lt; module&gt; db='mydb') File &quot;/usr/local/env/lib/python2.7/site-packages/MySQLdb/__init__.py&quot;, line 81, in Connect File
+      </div>
+      <p class="article-meta">
+<span class="article-date">
+  <i class="icon icon-calendar-check"></i>&nbsp;
+<a href="https://pylixm.top/posts/2016-03-08-Mysql-python.html" class="">
+  <time datetime="2016-03-08 00:00:00 &#43;0000 UTC" itemprop="datePublished">2016-03-08</time>
+</a>
+</span>
+<span class="article-category">
+  <i class="icon icon-folder"></i>&nbsp;
+  <a class="article-category-link" href="/categories/Mysql/"> Mysql </a>
+</span>  
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>&nbsp;
+    <a class="article-tag-link" href="/tags/Mysql/"> Mysql </a>
+  </span>
+
+        <span class="post-comment"><i class="icon icon-comment"></i> &nbsp;<a href="/posts/2016-03-08-Mysql-python.html#comments" class="article-comment-link">评论</a></span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 606字</span>
 		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 2分 </span>
       </p>
     </article>
@@ -476,20 +450,261 @@
         <h1 itemprop="name">
   <a
     class="article-title"
-    href="/posts/2015-11-23-django-uwsgi.html"
-    >Django uwsgi 启动问题 ImportError No module named os</a
+    href="/posts/2016-03-08-celery-gotchas.html"
+    >「译」使用 celery 时的 3 个坑</a
   >
 </h1>
 
       </div>
       <div class="article-entry text-muted" itemprop="description">
-        Q &amp; A： 今天在搭建测试环境时遇到问题，如下 *** WARNING: you are running uWSGI without its master process manager *** your processes number limit is 65535 your memory page size is 4096 bytes detected max file descriptor number: 65536 lock engine: pthread robust mutexes thunder lock: disabled (you can enable it with --thunder-lock) uwsgi socket 0 bound
+        原文地址：https://wiredcraft.com/blog/3-gotchas-for-celery Celery is our go-to task manager when working with Python. It is feature rich, stable, fast and
       </div>
       <p class="article-meta">
 <span class="article-date">
   <i class="icon icon-calendar-check"></i>&nbsp;
-<a href="https://pylixm.top/posts/2015-11-23-django-uwsgi.html" class="">
-  <time datetime="2015-11-23 16:00:00 &#43;0000 UTC" itemprop="datePublished">2015-11-23</time>
+<a href="https://pylixm.top/posts/2016-03-08-celery-gotchas.html" class="">
+  <time datetime="2016-03-08 00:00:00 &#43;0000 UTC" itemprop="datePublished">2016-03-08</time>
+</a>
+</span>
+<span class="article-category">
+  <i class="icon icon-folder"></i>&nbsp;
+  <a class="article-category-link" href="/categories/Python/"> Python </a>
+</span>  
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>&nbsp;
+    <a class="article-tag-link" href="/tags/Python/"> Python </a>
+    <a class="article-tag-link" href="/tags/Celery/"> Celery </a>
+    <a class="article-tag-link" href="/tags/%E7%BF%BB%E8%AF%91/"> 翻译 </a>
+  </span>
+
+        <span class="post-comment"><i class="icon icon-comment"></i> &nbsp;<a href="/posts/2016-03-08-celery-gotchas.html#comments" class="article-comment-link">评论</a></span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 1432字</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 3分 </span>
+      </p>
+    </article>
+    <article
+      class="article article-type-page"
+      itemscope
+      itemtype="http://schema.org/BlogPosting"
+    >
+      <div class="article-header">
+        <h1 itemprop="name">
+  <a
+    class="article-title"
+    href="/posts/2016-03-07-Curl.html"
+    >Linux基础系列 - curl 命令详解</a
+  >
+</h1>
+
+      </div>
+      <div class="article-entry text-muted" itemprop="description">
+        对于windows用户如果用Cygwin模拟unix环境的话，里面没有带curl命令，要自己装，所以建议用Gow来模拟，它已经自带了curl
+      </div>
+      <p class="article-meta">
+<span class="article-date">
+  <i class="icon icon-calendar-check"></i>&nbsp;
+<a href="https://pylixm.top/posts/2016-03-07-Curl.html" class="">
+  <time datetime="2016-03-07 00:00:00 &#43;0000 UTC" itemprop="datePublished">2016-03-07</time>
+</a>
+</span>
+<span class="article-category">
+  <i class="icon icon-folder"></i>&nbsp;
+  <a class="article-category-link" href="/categories/Linux/"> Linux </a>
+</span>  
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>&nbsp;
+    <a class="article-tag-link" href="/tags/linux/"> linux </a>
+    <a class="article-tag-link" href="/tags/curl/"> curl </a>
+  </span>
+
+        <span class="post-comment"><i class="icon icon-comment"></i> &nbsp;<a href="/posts/2016-03-07-Curl.html#comments" class="article-comment-link">评论</a></span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 2976字</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 6分 </span>
+      </p>
+    </article>
+    <article
+      class="article article-type-page"
+      itemscope
+      itemtype="http://schema.org/BlogPosting"
+    >
+      <div class="article-header">
+        <h1 itemprop="name">
+  <a
+    class="article-title"
+    href="/posts/2016-02-22-summary.html"
+    >2015总结，2016计划</a
+  >
+</h1>
+
+      </div>
+      <div class="article-entry text-muted" itemprop="description">
+        2015年算是自己的互联网元年。 正式进入互联网行业，虽然是偏运维，但是自己学的python能继续用得上，也是找到了除了web的一条新方向。 2015
+      </div>
+      <p class="article-meta">
+<span class="article-date">
+  <i class="icon icon-calendar-check"></i>&nbsp;
+<a href="https://pylixm.top/posts/2016-02-22-summary.html" class="">
+  <time datetime="2016-02-22 00:00:00 &#43;0000 UTC" itemprop="datePublished">2016-02-22</time>
+</a>
+</span>
+<span class="article-category">
+  <i class="icon icon-folder"></i>&nbsp;
+  <a class="article-category-link" href="/categories/%E4%B8%AA%E4%BA%BA%E7%AE%A1%E7%90%86/"> 个人管理 </a>
+</span>  
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>&nbsp;
+    <a class="article-tag-link" href="/tags/summary/"> summary </a>
+    <a class="article-tag-link" href="/tags/%E4%B8%AA%E4%BA%BA%E7%AE%A1%E7%90%86/"> 个人管理 </a>
+  </span>
+
+        <span class="post-comment"><i class="icon icon-comment"></i> &nbsp;<a href="/posts/2016-02-22-summary.html#comments" class="article-comment-link">评论</a></span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 367字</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 1分 </span>
+      </p>
+    </article>
+    <article
+      class="article article-type-page"
+      itemscope
+      itemtype="http://schema.org/BlogPosting"
+    >
+      <div class="article-header">
+        <h1 itemprop="name">
+  <a
+    class="article-title"
+    href="/posts/2016-01-29-django-cmd.html"
+    >django 相关命令总结</a
+  >
+</h1>
+
+      </div>
+      <div class="article-entry text-muted" itemprop="description">
+        django 常用命令 创建一个web站点： django-admin.py startproject mysite 创建apps： python manage.py startapp blog 数据库模板检测： python manage.py validate 生成数据库表创建语句： python manage.py sqlall books（app名字） 创建数据
+      </div>
+      <p class="article-meta">
+<span class="article-date">
+  <i class="icon icon-calendar-check"></i>&nbsp;
+<a href="https://pylixm.top/posts/2016-01-29-django-cmd.html" class="">
+  <time datetime="2016-01-29 18:00:00 &#43;0000 UTC" itemprop="datePublished">2016-01-29</time>
+</a>
+</span>
+<span class="article-category">
+  <i class="icon icon-folder"></i>&nbsp;
+  <a class="article-category-link" href="/categories/Django/"> Django </a>
+</span>  
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>&nbsp;
+    <a class="article-tag-link" href="/tags/Django/"> Django </a>
+  </span>
+
+        <span class="post-comment"><i class="icon icon-comment"></i> &nbsp;<a href="/posts/2016-01-29-django-cmd.html#comments" class="article-comment-link">评论</a></span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 272字</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 1分 </span>
+      </p>
+    </article>
+    <article
+      class="article article-type-page"
+      itemscope
+      itemtype="http://schema.org/BlogPosting"
+    >
+      <div class="article-header">
+        <h1 itemprop="name">
+  <a
+    class="article-title"
+    href="/posts/2016-01-19-Rabbitmq-install.html"
+    >rabbitmq 安装配置记录</a
+  >
+</h1>
+
+      </div>
+      <div class="article-entry text-muted" itemprop="description">
+        最近做系统迁移，搭建环境时遇到了rabbitmq的搭建。在此记录，备查。 环境： centos 6.5 官方centos安装文档：http://www.rabbi
+      </div>
+      <p class="article-meta">
+<span class="article-date">
+  <i class="icon icon-calendar-check"></i>&nbsp;
+<a href="https://pylixm.top/posts/2016-01-19-Rabbitmq-install.html" class="">
+  <time datetime="2016-01-19 00:00:00 &#43;0000 UTC" itemprop="datePublished">2016-01-19</time>
+</a>
+</span>
+<span class="article-category">
+  <i class="icon icon-folder"></i>&nbsp;
+  <a class="article-category-link" href="/categories/Rabbitmq/"> Rabbitmq </a>
+</span>  
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>&nbsp;
+    <a class="article-tag-link" href="/tags/Rabbitmq/"> Rabbitmq </a>
+  </span>
+
+        <span class="post-comment"><i class="icon icon-comment"></i> &nbsp;<a href="/posts/2016-01-19-Rabbitmq-install.html#comments" class="article-comment-link">评论</a></span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 748字</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 2分 </span>
+      </p>
+    </article>
+    <article
+      class="article article-type-page"
+      itemscope
+      itemtype="http://schema.org/BlogPosting"
+    >
+      <div class="article-header">
+        <h1 itemprop="name">
+  <a
+    class="article-title"
+    href="/posts/2016-01-19-django-supervisor-celery.html"
+    >使用 supervisor 来监控 django celery</a
+  >
+</h1>
+
+      </div>
+      <div class="article-entry text-muted" itemprop="description">
+        之前启动celery时，使用nohup 方式启动。这种方式是不安全的，今天使者使用supervisor来管理监控celery，记录如下，备查。
+      </div>
+      <p class="article-meta">
+<span class="article-date">
+  <i class="icon icon-calendar-check"></i>&nbsp;
+<a href="https://pylixm.top/posts/2016-01-19-django-supervisor-celery.html" class="">
+  <time datetime="2016-01-19 00:00:00 &#43;0000 UTC" itemprop="datePublished">2016-01-19</time>
+</a>
+</span>
+<span class="article-category">
+  <i class="icon icon-folder"></i>&nbsp;
+  <a class="article-category-link" href="/categories/Django/"> Django </a>
+  <a class="article-category-link" href="/categories/Supervisor/"> Supervisor </a>
+</span>  
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>&nbsp;
+    <a class="article-tag-link" href="/tags/Supervisor/"> Supervisor </a>
+    <a class="article-tag-link" href="/tags/Django/"> Django </a>
+    <a class="article-tag-link" href="/tags/Celery/"> Celery </a>
+  </span>
+
+        <span class="post-comment"><i class="icon icon-comment"></i> &nbsp;<a href="/posts/2016-01-19-django-supervisor-celery.html#comments" class="article-comment-link">评论</a></span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 6385字</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 13分 </span>
+      </p>
+    </article>
+    <article
+      class="article article-type-page"
+      itemscope
+      itemtype="http://schema.org/BlogPosting"
+    >
+      <div class="article-header">
+        <h1 itemprop="name">
+  <a
+    class="article-title"
+    href="/posts/2016-01-18-django-uwsgi-wt.html"
+    >Django uwsgi 启动问题 unavailable modifier requested 0</a
+  >
+</h1>
+
+      </div>
+      <div class="article-entry text-muted" itemprop="description">
+        Q &amp; A： mapped 1263744 bytes (1234 KB) for 16 cores *** Operational MODE: preforking+threaded *** *** no app loaded. going in full dynamic mode *** *** uWSGI is running in multiple interpreter mode *** spawned uWSGI master process (pid: 2343) spawned uWSGI worker 1 (pid: 2345, cores: 2) spawned uWSGI worker 2 (pid: 2346, cores: 2) spawned uWSGI worker 3 (pid: 2348, cores: 2) spawned uWSGI worker 4
+      </div>
+      <p class="article-meta">
+<span class="article-date">
+  <i class="icon icon-calendar-check"></i>&nbsp;
+<a href="https://pylixm.top/posts/2016-01-18-django-uwsgi-wt.html" class="">
+  <time datetime="2016-01-18 19:55:00 &#43;0000 UTC" itemprop="datePublished">2016-01-18</time>
 </a>
 </span>
 <span class="article-category">
@@ -500,11 +715,12 @@
     <i class="icon icon-tags"></i>&nbsp;
     <a class="article-tag-link" href="/tags/QA/"> QA </a>
     <a class="article-tag-link" href="/tags/Django/"> Django </a>
+    <a class="article-tag-link" href="/tags/uwsgi/"> uwsgi </a>
   </span>
 
-        <span class="post-comment"><i class="icon icon-comment"></i> &nbsp;<a href="/posts/2015-11-23-django-uwsgi.html#comments" class="article-comment-link">评论</a></span>
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 697字</span>
-		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 2分 </span>
+        <span class="post-comment"><i class="icon icon-comment"></i> &nbsp;<a href="/posts/2016-01-18-django-uwsgi-wt.html#comments" class="article-comment-link">评论</a></span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 274字</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 1分 </span>
       </p>
     </article>
     <article
@@ -516,35 +732,35 @@
         <h1 itemprop="name">
   <a
     class="article-title"
-    href="/posts/2015-11-15-django-template.html"
-    >Django学习笔记-模板</a
+    href="/posts/2016-01-18-salt-minion.html"
+    >salt minion 启动问题</a
   >
 </h1>
 
       </div>
       <div class="article-entry text-muted" itemprop="description">
-        语法 变量 双括号 判断 使用大括号+% if xx xx else xx endif ifequal athlete.name coach.name xx else xx endifequal for athlete in athlete_list xx endfor for key, value in data.items endfor 循环中使用的变量 forloop.counter 总是一个表示当前循环的执行次数的整数计数
+        Q &amp; A： 修改minion 的配置文件中master 的值后，启动报错，如下： Traceback (most recent call last): File &quot;/usr/lib/python2.6/site-packages/salt/scripts.py&quot;, line 81, in minion_process minion.start() File &quot;/usr/lib/python2.6/site-packages/salt/cli/daemons.py&quot;, line 277, in start self.minion.tune_in() File &quot;/usr/lib/python2.6/site-packages/salt/minion.py&quot;, line 1648, in tune_in self.sync_connect_master() File &quot;/usr/lib/python2.6/site-packages/salt/minion.py&quot;, line 720, in sync_connect_master self.io_loop.start() File
       </div>
       <p class="article-meta">
 <span class="article-date">
   <i class="icon icon-calendar-check"></i>&nbsp;
-<a href="https://pylixm.top/posts/2015-11-15-django-template.html" class="">
-  <time datetime="2015-11-15 16:30:00 &#43;0000 UTC" itemprop="datePublished">2015-11-15</time>
+<a href="https://pylixm.top/posts/2016-01-18-salt-minion.html" class="">
+  <time datetime="2016-01-18 19:55:00 &#43;0000 UTC" itemprop="datePublished">2016-01-18</time>
 </a>
 </span>
 <span class="article-category">
   <i class="icon icon-folder"></i>&nbsp;
-  <a class="article-category-link" href="/categories/Django/"> Django </a>
+  <a class="article-category-link" href="/categories/SaltStack/"> SaltStack </a>
 </span>  
   <span class="article-tag">
     <i class="icon icon-tags"></i>&nbsp;
-    <a class="article-tag-link" href="/tags/Django/"> Django </a>
-    <a class="article-tag-link" href="/tags/Django-template/"> Django-template </a>
+    <a class="article-tag-link" href="/tags/QA/"> QA </a>
+    <a class="article-tag-link" href="/tags/salt/"> salt </a>
   </span>
 
-        <span class="post-comment"><i class="icon icon-comment"></i> &nbsp;<a href="/posts/2015-11-15-django-template.html#comments" class="article-comment-link">评论</a></span>
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 1678字</span>
-		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 4分 </span>
+        <span class="post-comment"><i class="icon icon-comment"></i> &nbsp;<a href="/posts/2016-01-18-salt-minion.html#comments" class="article-comment-link">评论</a></span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 187字</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 1分 </span>
       </p>
     </article>
     <article
@@ -556,20 +772,20 @@
         <h1 itemprop="name">
   <a
     class="article-title"
-    href="/posts/2015-11-15-django-views.html"
-    >Django学习笔记-url、视图</a
+    href="/posts/2016-01-18-virtualenv-user.html"
+    >使用virtualenv 部署django应用问题记录</a
   >
 </h1>
 
       </div>
       <div class="article-entry text-muted" itemprop="description">
-        路由(URL) Django中有个指定url和视图函数的 urlconf 文件，组成如下： 一个打头的前缀字符串，可以为空。 一个或多个由正则表达式字符串匹配一个
+        使用virtualenv来部署django应用，大大缩减了我们搭建环境的时间。初次使用，以为创建好的env可以直接复制使用。实际使用时，确遇
       </div>
       <p class="article-meta">
 <span class="article-date">
   <i class="icon icon-calendar-check"></i>&nbsp;
-<a href="https://pylixm.top/posts/2015-11-15-django-views.html" class="">
-  <time datetime="2015-11-15 16:00:00 &#43;0000 UTC" itemprop="datePublished">2015-11-15</time>
+<a href="https://pylixm.top/posts/2016-01-18-virtualenv-user.html" class="">
+  <time datetime="2016-01-18 19:50:00 &#43;0000 UTC" itemprop="datePublished">2016-01-18</time>
 </a>
 </span>
 <span class="article-category">
@@ -578,12 +794,13 @@
 </span>  
   <span class="article-tag">
     <i class="icon icon-tags"></i>&nbsp;
+    <a class="article-tag-link" href="/tags/virtualenv/"> virtualenv </a>
     <a class="article-tag-link" href="/tags/django/"> django </a>
   </span>
 
-        <span class="post-comment"><i class="icon icon-comment"></i> &nbsp;<a href="/posts/2015-11-15-django-views.html#comments" class="article-comment-link">评论</a></span>
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 723字</span>
-		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 2分 </span>
+        <span class="post-comment"><i class="icon icon-comment"></i> &nbsp;<a href="/posts/2016-01-18-virtualenv-user.html#comments" class="article-comment-link">评论</a></span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 203字</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 1分 </span>
       </p>
     </article>
     <article
@@ -595,60 +812,20 @@
         <h1 itemprop="name">
   <a
     class="article-title"
-    href="/posts/2015-11-13-django-model-two.html"
-    >Django学习笔记-模型(2)模型的操作</a
+    href="/posts/2016-01-08-django-restfull-framework-review.html"
+    >Django restful framework 学习使用总结-权限相关</a
   >
 </h1>
 
       </div>
       <div class="article-entry text-muted" itemprop="description">
-        二、模型的操作（QuerySets） 1、模型操作基础 常用接口方法 all(): 返回一个包含模式里所有数据记录的结果集queryset filter():返
+        0X00 默认权限 permissions 的配置说明： AllowAny 允许任何人调用 Allow any access. IsAuthenticated 只允许认证用户调用（在django auth表中注册的用户） Allows access only to authenticated users. IsAdminUser 只允许管理员（即可以
       </div>
       <p class="article-meta">
 <span class="article-date">
   <i class="icon icon-calendar-check"></i>&nbsp;
-<a href="https://pylixm.top/posts/2015-11-13-django-model-two.html" class="">
-  <time datetime="2015-11-13 00:00:00 &#43;0000 UTC" itemprop="datePublished">2015-11-13</time>
-</a>
-</span>
-<span class="article-category">
-  <i class="icon icon-folder"></i>&nbsp;
-  <a class="article-category-link" href="/categories/Django/"> Django </a>
-</span>  
-  <span class="article-tag">
-    <i class="icon icon-tags"></i>&nbsp;
-    <a class="article-tag-link" href="/tags/Django/"> Django </a>
-    <a class="article-tag-link" href="/tags/Django-model/"> Django-model </a>
-  </span>
-
-        <span class="post-comment"><i class="icon icon-comment"></i> &nbsp;<a href="/posts/2015-11-13-django-model-two.html#comments" class="article-comment-link">评论</a></span>
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 601字</span>
-		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 2分 </span>
-      </p>
-    </article>
-    <article
-      class="article article-type-page"
-      itemscope
-      itemtype="http://schema.org/BlogPosting"
-    >
-      <div class="article-header">
-        <h1 itemprop="name">
-  <a
-    class="article-title"
-    href="/posts/2015-11-01-django-restfull-framework.html"
-    >Django restful framework 文档</a
-  >
-</h1>
-
-      </div>
-      <div class="article-entry text-muted" itemprop="description">
-        前几天看到有博文记录的 django-rest-framework的翻译文档。最近正需要，反而找不到了。现记录如下，备查： RESTful API 设计指南 中文译文
-      </div>
-      <p class="article-meta">
-<span class="article-date">
-  <i class="icon icon-calendar-check"></i>&nbsp;
-<a href="https://pylixm.top/posts/2015-11-01-django-restfull-framework.html" class="">
-  <time datetime="2015-11-01 18:25:00 &#43;0000 UTC" itemprop="datePublished">2015-11-01</time>
+<a href="https://pylixm.top/posts/2016-01-08-django-restfull-framework-review.html" class="">
+  <time datetime="2016-01-08 21:15:00 &#43;0000 UTC" itemprop="datePublished">2016-01-08</time>
 </a>
 </span>
 <span class="article-category">
@@ -662,9 +839,9 @@
     <a class="article-tag-link" href="/tags/Restful/"> Restful </a>
   </span>
 
-        <span class="post-comment"><i class="icon icon-comment"></i> &nbsp;<a href="/posts/2015-11-01-django-restfull-framework.html#comments" class="article-comment-link">评论</a></span>
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 182字</span>
-		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 1分 </span>
+        <span class="post-comment"><i class="icon icon-comment"></i> &nbsp;<a href="/posts/2016-01-08-django-restfull-framework-review.html#comments" class="article-comment-link">评论</a></span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 740字</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 2分 </span>
       </p>
     </article>
     <article
@@ -676,60 +853,20 @@
         <h1 itemprop="name">
   <a
     class="article-title"
-    href="/posts/2015-11-01-django-form.html"
-    >django form表单的数据 select 值更新问题</a
+    href="/posts/2016-01-05-django-admin.html"
+    >Django admin 定制案例</a
   >
 </h1>
 
       </div>
       <div class="article-entry text-muted" itemprop="description">
-        Q &amp; A： 今天在项目中遇到一个问题，有个django增删改查的模板页面,其中的编辑页面使用自定的form来构建的显示内容。表单的数据是从数据库
+        原文地址：http://www.cnblogs.com/linxiyue/p/4075048.html?utm_source=tuicool
       </div>
       <p class="article-meta">
 <span class="article-date">
   <i class="icon icon-calendar-check"></i>&nbsp;
-<a href="https://pylixm.top/posts/2015-11-01-django-form.html" class="">
-  <time datetime="2015-11-01 00:00:00 &#43;0000 UTC" itemprop="datePublished">2015-11-01</time>
-</a>
-</span>
-<span class="article-category">
-  <i class="icon icon-folder"></i>&nbsp;
-  <a class="article-category-link" href="/categories/Django/"> Django </a>
-</span>  
-  <span class="article-tag">
-    <i class="icon icon-tags"></i>&nbsp;
-    <a class="article-tag-link" href="/tags/QA/"> QA </a>
-    <a class="article-tag-link" href="/tags/Django/"> Django </a>
-  </span>
-
-        <span class="post-comment"><i class="icon icon-comment"></i> &nbsp;<a href="/posts/2015-11-01-django-form.html#comments" class="article-comment-link">评论</a></span>
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 359字</span>
-		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 1分 </span>
-      </p>
-    </article>
-    <article
-      class="article article-type-page"
-      itemscope
-      itemtype="http://schema.org/BlogPosting"
-    >
-      <div class="article-header">
-        <h1 itemprop="name">
-  <a
-    class="article-title"
-    href="/posts/2015-11-01-django-model-one.html"
-    >Django学习笔记-模型(1)模型的定义</a
-  >
-</h1>
-
-      </div>
-      <div class="article-entry text-muted" itemprop="description">
-        Django也遵循了MVC的分层原则，不过在做法上略有不同。首先模型部分保持不变：Django的模型增只负责把数据传入传出数据库。然而Dja
-      </div>
-      <p class="article-meta">
-<span class="article-date">
-  <i class="icon icon-calendar-check"></i>&nbsp;
-<a href="https://pylixm.top/posts/2015-11-01-django-model-one.html" class="">
-  <time datetime="2015-11-01 00:00:00 &#43;0000 UTC" itemprop="datePublished">2015-11-01</time>
+<a href="https://pylixm.top/posts/2016-01-05-django-admin.html" class="">
+  <time datetime="2016-01-05 20:00:00 &#43;0000 UTC" itemprop="datePublished">2016-01-05</time>
 </a>
 </span>
 <span class="article-category">
@@ -739,115 +876,12 @@
   <span class="article-tag">
     <i class="icon icon-tags"></i>&nbsp;
     <a class="article-tag-link" href="/tags/Django/"> Django </a>
-    <a class="article-tag-link" href="/tags/Django-model/"> Django-model </a>
+    <a class="article-tag-link" href="/tags/Django-admin/"> Django-admin </a>
   </span>
 
-        <span class="post-comment"><i class="icon icon-comment"></i> &nbsp;<a href="/posts/2015-11-01-django-model-one.html#comments" class="article-comment-link">评论</a></span>
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 2468字</span>
-		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 5分 </span>
-      </p>
-    </article>
-    <article
-      class="article article-type-page"
-      itemscope
-      itemtype="http://schema.org/BlogPosting"
-    >
-      <div class="article-header">
-        <h1 itemprop="name">
-  <a
-    class="article-title"
-    href="/posts/2015-11-01-git.html"
-    >Git使用学习笔记</a
-  >
-</h1>
-
-      </div>
-      <div class="article-entry text-muted" itemprop="description">
-        一、Git知识点 将发生变化的文件全部保存。为了减少磁盘使用，只保存发生变化的文件。使用sha1算法的20字节（40位）值作为对象的唯一标识。
-      </div>
-      <p class="article-meta">
-<span class="article-date">
-  <i class="icon icon-calendar-check"></i>&nbsp;
-<a href="https://pylixm.top/posts/2015-11-01-git.html" class="">
-  <time datetime="2015-11-01 00:00:00 &#43;0000 UTC" itemprop="datePublished">2015-11-01</time>
-</a>
-</span>
-<span class="article-category">
-  <i class="icon icon-folder"></i>&nbsp;
-  <a class="article-category-link" href="/categories/Git/"> Git </a>
-</span>  
-  <span class="article-tag">
-    <i class="icon icon-tags"></i>&nbsp;
-    <a class="article-tag-link" href="/tags/Git/"> Git </a>
-  </span>
-
-        <span class="post-comment"><i class="icon icon-comment"></i> &nbsp;<a href="/posts/2015-11-01-git.html#comments" class="article-comment-link">评论</a></span>
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 1639字</span>
+        <span class="post-comment"><i class="icon icon-comment"></i> &nbsp;<a href="/posts/2016-01-05-django-admin.html#comments" class="article-comment-link">评论</a></span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 1789字</span>
 		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 4分 </span>
-      </p>
-    </article>
-    <article
-      class="article article-type-page"
-      itemscope
-      itemtype="http://schema.org/BlogPosting"
-    >
-      <div class="article-header">
-        <h1 itemprop="name">
-  <a
-    class="article-title"
-    href="/posts/2015-11-01-Mysql-install.html"
-    >Mysql 免安装版配置 window环境搭建</a
-  >
-</h1>
-
-      </div>
-      <div class="article-entry text-muted" itemprop="description">
-        下载MySQL Community Server 5.6.13 解压MySQL压缩包 将以下载的MySQL压缩包解压到自定义目录下,我的解压目录是: &ldquo;D:\Program Files\MySQL\mysql-5.6.13-win32&rdquo; 将解压目录下默认文件 my-default.ini 拷贝一份，改
-      </div>
-      <p class="article-meta">
-<span class="article-date">
-  <i class="icon icon-calendar-check"></i>&nbsp;
-<a href="https://pylixm.top/posts/2015-11-01-Mysql-install.html" class="">
-  <time datetime="2015-11-01 00:00:00 &#43;0000 UTC" itemprop="datePublished">2015-11-01</time>
-</a>
-</span>
-<span class="article-category">
-  <i class="icon icon-folder"></i>&nbsp;
-  <a class="article-category-link" href="/categories/Mysql/"> Mysql </a>
-</span>  
-  <span class="article-tag">
-    <i class="icon icon-tags"></i>&nbsp;
-    <a class="article-tag-link" href="/tags/Mysql/"> Mysql </a>
-  </span>
-
-        <span class="post-comment"><i class="icon icon-comment"></i> &nbsp;<a href="/posts/2015-11-01-Mysql-install.html#comments" class="article-comment-link">评论</a></span>
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 1246字</span>
-		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 3分 </span>
-      </p>
-    </article>
-    <article
-      class="article article-type-page"
-      itemscope
-      itemtype="http://schema.org/BlogPosting"
-    >
-      <div class="article-header">
-        <h1 itemprop="name">
-  <a
-    class="article-title"
-    href="/1/01/FastApi-start/"
-    ></a
-  >
-</h1>
-
-      </div>
-      <div class="article-entry text-muted" itemprop="description">
-        大家好，今天我分享的主题是Python技术栈中一个新崛起的框架FastApi。我们可以用它来快速的构建具有「异步」特性的RestAPI和we
-      </div>
-      <p class="article-meta">
-
-        <span class="post-comment"><i class="icon icon-comment"></i> &nbsp;<a href="/1/01/FastApi-start/#comments" class="article-comment-link">评论</a></span>
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 4488字</span>
-		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 9分 </span>
       </p>
     </article></div>
   
@@ -858,10 +892,15 @@
           <i class="icon icon-angle-left"></i>
           
         </a>
+      </li><li class="next">
+        <a href="/page/12/">
+          <i class="icon icon-angle-right"></i>
+          
+        </a>
       </li>
     </ul>
     <div class="total-article bar-right">
-      Page:11/11
+      Page:11/13
     </div>
   </div>
 </nav>
