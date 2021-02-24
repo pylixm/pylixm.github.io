@@ -11,6 +11,15 @@
     
     
     <item>
+      <title>流量复制方案对比：Tcpcopy vs Goreplay</title>
+      <link>https://pylixm.top/posts/2021-02-20-tcpcopy-vs-goreplay.html</link>
+      <pubDate>Sat, 20 Feb 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2021-02-20-tcpcopy-vs-goreplay.html</guid>
+      <description>「流量复制」常常应用在准生产环境的测试中，将线上的流量复制到一个准生产环境服务中，测试新功能和服务的承压能力。流量复制可以完全模拟线上的流量</description>
+    </item>
+    
+    <item>
       <title>2020 成长记录</title>
       <link>https://pylixm.top/posts/2021-02-10-summary-2021.html</link>
       <pubDate>Wed, 10 Feb 2021 00:00:00 +0000</pubDate>
@@ -179,15 +188,6 @@
       
       <guid>https://pylixm.top/posts/2020-10-13-cross-origin.html</guid>
       <description>在前后端分离开发过程中常常出现下面这样的错误提示： Access to XMLHttpRequest at &#39;http://127.0.0.1:8000/apis/users/login/&#39; from origin &#39;http://127.0.0.1:8080&#39; has been blocked by CORS policy: Response to preflight request doesn&#39;t pass access control check: No &#39;Access-Control-Allow-Origin&#39; header is present on the requested resource. HelloWorld.vue?18db:50 err Error: Network Error at createError (createError.js?16d0:16) at XMLHttpRequest.handleError (xhr.js?ec6c:91) 看到</description>
-    </item>
-    
-    <item>
-      <title>「编程实例」各语言Hmac-SHA256的base64编码的实现方式</title>
-      <link>https://pylixm.top/posts/2020-09-17-hmac-sha256-base64.html</link>
-      <pubDate>Thu, 17 Sep 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2020-09-17-hmac-sha256-base64.html</guid>
-      <description>实例来源网络，语言版本可能略有差异，请验证后使用。 Javascript HMAC SHA256 &amp;lt;script src=&amp;#34;http://crypto-js.googlecode.com/svn/tags/3.0.2/build/rollups/hmac-sha256.js&amp;#34;&amp;gt;&amp;lt;/script&amp;gt; &amp;lt;script src=&amp;#34;http://crypto-js.googlecode.com/svn/tags/3.0.2/build/components/enc-base64-min.js&amp;#34;&amp;gt;&amp;lt;/script&amp;gt; &amp;lt;script&amp;gt; var hash = CryptoJS.HmacSHA256(&amp;#34;Message&amp;#34;, &amp;#34;secret&amp;#34;); var hashInBase64 = CryptoJS.enc.Base64.stringify(hash); document.write(hashInBase64); &amp;lt;/script&amp;gt; PHP HMAC SHA256 $s = hash_hmac(&amp;#39;sha256&amp;#39;, &amp;#39;Message&amp;#39;, &amp;#39;secret&amp;#39;, true); echo base64_encode($s); Java HMAC SHA256 Dependent on Apache Commons Codec to encode in base64. import javax.crypto.Mac; import</description>
     </item>
     
   </channel>

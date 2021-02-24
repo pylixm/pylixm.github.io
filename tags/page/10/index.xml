@@ -5,10 +5,19 @@
     <link>https://pylixm.top/tags/</link>
     <description>Recent content in Tags on DeanWu</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Wed, 10 Feb 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 20 Feb 2021 00:00:00 +0000</lastBuildDate>
     
         <atom:link href="https://pylixm.top/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Django学习笔记-url、视图</title>
+      <link>https://pylixm.top/posts/2015-11-15-django-views.html</link>
+      <pubDate>Sun, 15 Nov 2015 16:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2015-11-15-django-views.html</guid>
+      <description>路由(URL) Django中有个指定url和视图函数的 urlconf 文件，组成如下： 一个打头的前缀字符串，可以为空。 一个或多个由正则表达式字符串匹配一个</description>
+    </item>
     
     <item>
       <title>Django学习笔记-模型(2)模型的操作</title>

@@ -5,10 +5,19 @@
     <link>https://pylixm.top/categories/</link>
     <description>Recent content in Categories on DeanWu</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Wed, 10 Feb 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 20 Feb 2021 00:00:00 +0000</lastBuildDate>
     
         <atom:link href="https://pylixm.top/categories/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>10 Best Practices for Better RESTful API</title>
+      <link>https://pylixm.top/posts/2017-08-26-Restfull-Api-Best-Practice.html</link>
+      <pubDate>Sat, 26 Aug 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2017-08-26-Restfull-Api-Best-Practice.html</guid>
+      <description>Web APIs has become an very important topic in the last year. We at M-Way Solutions are working every day with different backend systems and therefore we know about the importance of a clean API design. Typically we use a RESTful design for our web APIs. The concept of REST is to separate the API structure into logical resources. There are used the HTTP methods GET, DELETE, POST and PUT</description>
+    </item>
     
     <item>
       <title>Docker学习笔记（二）--简单使用,搭建python开发环境</title>
@@ -179,15 +188,6 @@
       
       <guid>https://pylixm.top/posts/2016-06-26-best.practices.for.django.1.8.3rd-chapter-9.html</guid>
       <description>其他章节索引页 第十一章 Form 所有录入的数据使用form 来进行校验 面对复杂多变的需求，我们自行校验是比较困难的。将校验集中在form层，利用这久经</description>
-    </item>
-    
-    <item>
-      <title>Django 最佳实践-读书笔记 - 第八、九、十章 FBVS &amp; CBVS</title>
-      <link>https://pylixm.top/posts/2016-06-19-best.practices.for.django.1.8.3rd-chapter-8.html</link>
-      <pubDate>Sun, 19 Jun 2016 22:30:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2016-06-19-best.practices.for.django.1.8.3rd-chapter-8.html</guid>
-      <description>其他章节索引页 第八章 FBVS &amp;amp; CBVS 如何选择 function - views 和 class - views 见流程图： urlconf 中不要包含 views 的逻辑 Bad example : from django.conf.urls import url from django.views.generic import DetailView from tastings.models import Tasting urlpatterns = [ url(r&amp;quot;^(?P&amp;lt;pk&amp;gt;\d+)/$&amp;quot;, DetailView.as_view( model=Tasting, template_name=&amp;quot;tastings/detail.html&amp;quot;), name=&amp;quot;detail&amp;quot;), url(r&amp;quot;^(?P&amp;lt;pk&amp;gt;\d+)/results/$&amp;quot;, DetailView.as_view( model=Tasting, template_name=&amp;quot;tastings/results.html&amp;quot;), name=&amp;quot;results&amp;quot;), ] 优点</description>
     </item>
     
   </channel>

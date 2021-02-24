@@ -5,10 +5,19 @@
     <link>https://pylixm.top/</link>
     <description>Recent content on DeanWu</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Wed, 10 Feb 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 20 Feb 2021 00:00:00 +0000</lastBuildDate>
     
         <atom:link href="https://pylixm.top/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>「译」python 3 值得尝试的一些技巧</title>
+      <link>https://pylixm.top/posts/2019-05-16-python-trick.html</link>
+      <pubDate>Thu, 16 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2019-05-16-python-trick.html</guid>
+      <description>原文：https://datawhatnow.com/things-you-are-probably-not-using-in-python</description>
+    </item>
     
     <item>
       <title>资源分享计划第三期 0511</title>
@@ -183,15 +192,6 @@
       
       <guid>https://pylixm.top/posts/2018-06-25-chief-software-architect-rpc.html</guid>
       <description>本文是阅读老钱的《深入理解RPC:基于Python自建分布式高并发RPC服务》的笔记及摘录。 最早了解到的系统之间交互有Web service，</description>
-    </item>
-    
-    <item>
-      <title>Flask 目录结构分析</title>
-      <link>https://pylixm.top/posts/2018-06-04-flask-base.html</link>
-      <pubDate>Mon, 04 Jun 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2018-06-04-flask-base.html</guid>
-      <description>到目前为止，Flask 最新版本为1.0.3，我们来以此版本做分析，以便可以快速回忆各组件关系。 基本使用，可参阅官方文档，已非常详尽。 我们知道</description>
     </item>
     
   </channel>

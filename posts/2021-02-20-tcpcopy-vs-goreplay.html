@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <title>
+        流量复制方案对比：Tcpcopy vs Goreplay - DeanWu
+      </title>
+        <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    
+    <meta name="theme-color" content="#000000" />
+    
+    <meta http-equiv="window-target" content="_top" />
+    
+    
+    <meta name="description" content="「流量复制」常常应用在准生产环境的测试中，将线上的流量复制到一个准生产环境服务中，测试新功能和服务的承压能力。流量复制可以完全模拟线上的流量" />
+    <meta name="generator" content="Hugo 0.73.0 with theme pure" />
+    <title>流量复制方案对比：Tcpcopy vs Goreplay - DeanWu</title>
+    
+    
+    <link rel="stylesheet" href="https://pylixm.top/css/style.min.f70e8e0df9ea6aeb37dac252b17ca98082073ff1663b24118baaaa84ee8ae7e8.css">
+    
+    <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.15.10/styles/github.min.css" async>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css" async>
+    <meta property="og:title" content="流量复制方案对比：Tcpcopy vs Goreplay" />
+<meta property="og:description" content="「流量复制」常常应用在准生产环境的测试中，将线上的流量复制到一个准生产环境服务中，测试新功能和服务的承压能力。流量复制可以完全模拟线上的流量" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://pylixm.top/posts/2021-02-20-tcpcopy-vs-goreplay.html" />
+<meta property="article:published_time" content="2021-02-20T00:00:00+00:00" />
+<meta property="article:modified_time" content="2021-02-20T00:00:00+00:00" />
+<meta itemprop="name" content="流量复制方案对比：Tcpcopy vs Goreplay">
+<meta itemprop="description" content="「流量复制」常常应用在准生产环境的测试中，将线上的流量复制到一个准生产环境服务中，测试新功能和服务的承压能力。流量复制可以完全模拟线上的流量">
+<meta itemprop="datePublished" content="2021-02-20T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2021-02-20T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="3314">
+
+
+
+<meta itemprop="keywords" content="tcpcopy,goreplay," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="流量复制方案对比：Tcpcopy vs Goreplay"/>
+<meta name="twitter:description" content="「流量复制」常常应用在准生产环境的测试中，将线上的流量复制到一个准生产环境服务中，测试新功能和服务的承压能力。流量复制可以完全模拟线上的流量"/>
+
+    <!--[if lte IE 9]>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+      <![endif]-->
+
+    <!--[if lt IE 9]>
+        <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+      <![endif]-->
+  </head>
+
+  
+  
+
+  <body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage"><header class="header" itemscope itemtype="http://schema.org/WPHeader">
+    <div class="slimContent">
+      <div class="navbar-header">
+        <div class="profile-block text-center">
+          <a id="avatar" href="https://pylixm.top" target="_blank">
+            <img class="img-circle img-rotate" src="https://pylixm.top/static/imgs/avatar.png" width="200" height="200">
+          </a>
+          <h2 id="name" class="hidden-xs hidden-sm">DeanWu</h2>
+          <h3 id="title" class="hidden-xs hidden-sm hidden-md">程序员</h3>
+          <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i>Beijing, China</small>
+        </div><div class="search" id="search-form-wrap">
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i
+                        class="icon icon-search"></i></button>
+            </span>
+        </div>
+        <div class="ins-search">
+            <div class="ins-search-mask"></div>
+            <div class="ins-search-container">
+                <div class="ins-input-wrapper">
+                    <input type="text" class="ins-search-input" placeholder="想要查找什么..."
+                        x-webkit-speech />
+                    <button type="button" class="close ins-close ins-selectable" data-dismiss="modal"
+                        aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="ins-section-wrapper">
+                    <div class="ins-section-container"></div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+        <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+        <ul class="nav navbar-nav main-nav">
+            <li class="menu-item menu-item-home">
+                <a href="/">
+                    <i class="icon icon-home-fill"></i>
+                  <span class="menu-title">首页</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-series">
+                <a href="/series/">
+                    <i class="icon icon-folder"></i>
+                  <span class="menu-title">专题</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-repository">
+                <a href="/project/">
+                    <i class="icon icon-project"></i>
+                  <span class="menu-title">项目</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-archives">
+                <a href="/posts/">
+                    <i class="icon icon-archives-fill"></i>
+                  <span class="menu-title">归档</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-about">
+                <a href="/about/">
+                    <i class="icon icon-cup-fill"></i>
+                  <span class="menu-title">关于</span>
+                </a>
+            </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+<aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content"><div>欢迎关注微信公众号「码农吴先生」：专注python/golang/devops等技术的学习经验及资源分享！</br>回复关键字：go或python 获取我收集的资料，也可回复关键字：小二，加我wx，一块聊技术，聊人生~  </br><img src="/static/imgs/wx/wx_gzh.png" width="140" height="140"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+      
+<div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+        <ul class="recent-post-list list-unstyled no-thumbnail">
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2021-02-20-tcpcopy-vs-goreplay.html" class="title">流量复制方案对比：Tcpcopy vs Goreplay</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2021-02-20 00:00:00 &#43;0000 UTC" itemprop="datePublished">2021-02-20</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2021-02-10-summary-2021.html" class="title">2020 成长记录</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2021-02-10 00:00:00 &#43;0000 UTC" itemprop="datePublished">2021-02-10</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2021-02-09-ansible-start.html" class="title">Ansible 快速入门</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2021-02-09 00:00:00 &#43;0000 UTC" itemprop="datePublished">2021-02-09</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2021-02-07-dns-dig.html" class="title">实现简单的httpDNS的一种思路</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2021-02-07 00:00:00 &#43;0000 UTC" itemprop="datePublished">2021-02-07</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://pylixm.top/posts/2021-01-26-ebook-python.html" class="title">谈谈程序员的成长路径</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2021-01-26 00:00:00 &#43;0000 UTC" itemprop="datePublished">2021-01-26</time>
+                    </p>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+      <div class="widget">
+    <h3 class="widget-title"> 分类</h3>
+    <div class="widget-body">
+        <ul class="category-list">
+            <li class="category-list-item"><a href="https://pylixm.top/categories/ATS/" class="category-list-link">ATS</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Ansible/" class="category-list-link">Ansible</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/DevOps/" class="category-list-link">DevOps</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Devlopment-Demo/" class="category-list-link">Devlopment-Demo</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Django/" class="category-list-link">Django</a><span class="category-list-count">39</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Docker/" class="category-list-link">Docker</a><span class="category-list-count">4</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Flask/" class="category-list-link">Flask</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Git/" class="category-list-link">Git</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Golang/" class="category-list-link">Golang</a><span class="category-list-count">15</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/HTTPS/" class="category-list-link">HTTPS</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Javascript/" class="category-list-link">Javascript</a><span class="category-list-count">3</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Kubernetes/" class="category-list-link">Kubernetes</a><span class="category-list-count">5</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/LVS/" class="category-list-link">LVS</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Linux/" class="category-list-link">Linux</a><span class="category-list-count">15</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Mongodb/" class="category-list-link">Mongodb</a><span class="category-list-count">3</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Mysql/" class="category-list-link">Mysql</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/NoSQL/" class="category-list-link">NoSQL</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/PostgreSQL/" class="category-list-link">PostgreSQL</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Puppet/" class="category-list-link">Puppet</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Python/" class="category-list-link">Python</a><span class="category-list-count">19</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/QA/" class="category-list-link">QA</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Rabbitmq/" class="category-list-link">Rabbitmq</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Restful/" class="category-list-link">Restful</a><span class="category-list-count">6</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/SRE/" class="category-list-link">SRE</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/SaltStack/" class="category-list-link">SaltStack</a><span class="category-list-count">7</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Software_Architect/" class="category-list-link">Software_Architect</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Supervisor/" class="category-list-link">Supervisor</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Tornado/" class="category-list-link">Tornado</a><span class="category-list-count">3</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Vagrant/" class="category-list-link">Vagrant</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/Vue/" class="category-list-link">Vue</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/kafka/" class="category-list-link">kafka</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/zookeeper/" class="category-list-link">zookeeper</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E4%B8%AA%E4%BA%BA%E7%AE%A1%E7%90%86/" class="category-list-link">个人管理</a><span class="category-list-count">6</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB/" class="category-list-link">前后端分离</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" class="category-list-link">数据结构与算法</a><span class="category-list-count">13</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E6%9C%9D%E8%8A%B1%E5%A4%95%E6%8B%BE/" class="category-list-link">朝花夕拾</a><span class="category-list-count">10</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" class="category-list-link">机器学习</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E6%B5%81%E9%87%8F%E5%A4%8D%E5%88%B6/" class="category-list-link">流量复制</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" class="category-list-link">环境搭建</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E7%94%B5%E5%AD%90%E4%B9%A6/" class="category-list-link">电子书</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E7%A8%8B%E5%BA%8F%E5%91%98%E6%9D%82%E8%B0%88/" class="category-list-link">程序员杂谈</a><span class="category-list-count">4</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E7%A8%8B%E5%BA%8F%E5%91%98%E8%87%AA%E6%88%91%E4%BF%AE%E5%85%BB/" class="category-list-link">程序员自我修养</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E8%B5%84%E6%BA%90%E5%88%86%E4%BA%AB%E8%AE%A1%E5%88%92/" class="category-list-link">资源分享计划</a><span class="category-list-count">10</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E8%BF%90%E7%BB%B4%E7%9F%A5%E8%AF%86%E5%BA%93/" class="category-list-link">运维知识库</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://pylixm.top/categories/%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86/" class="category-list-link">项目管理</a><span class="category-list-count">1</span></li>
+        </ul>
+    </div>
+</div>
+  </div>
+</aside>
+
+    
+    
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <h4 class="toc-title">文章目录</h4>
+    <nav id="toc" class="js-toc toc">
+
+    </nav>
+  </div>
+</aside>
+<main class="main" role="main"><div class="content">
+  
+  <article id="article-container" class="article article-type-" itemscope
+    itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      <h1 itemprop="name">
+  <a
+    class="article-title"
+    href="/posts/2021-02-20-tcpcopy-vs-goreplay.html"
+    >流量复制方案对比：Tcpcopy vs Goreplay</a
+  >
+</h1>
+
+      <div class="article-meta">
+        
+<span class="article-date">
+  <i class="icon icon-calendar-check"></i>&nbsp;
+<a href="https://pylixm.top/posts/2021-02-20-tcpcopy-vs-goreplay.html" class="article-date">
+  <time datetime="2021-02-20 00:00:00 &#43;0000 UTC" itemprop="datePublished">2021-02-20</time>
+</a>
+</span>
+<span class="article-category">
+  <i class="icon icon-folder"></i>&nbsp;
+  <a class="article-category-link" href="/categories/%E6%B5%81%E9%87%8F%E5%A4%8D%E5%88%B6/"> 流量复制 </a>
+</span>  
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>&nbsp;
+    <a class="article-tag-link" href="/tags/tcpcopy/"> tcpcopy </a>
+    <a class="article-tag-link" href="/tags/goreplay/"> goreplay </a>
+  </span>
+
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+        <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="/posts/2021-02-20-tcpcopy-vs-goreplay.html#comments"
+            class="article-comment-link">评论</a></span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 3314字</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 7分 </span>
+      </div>
+    </div>
+    <div class="article-entry marked-body js-toc-content" itemprop="articleBody">
+      <p>「流量复制」常常应用在准生产环境的测试中，将线上的流量复制到一个准生产环境服务中，测试新功能和服务的承压能力。流量复制可以完全模拟线上的流量，对复杂的业务场景进行真实的服务测试，又不会对生产服务产生任何副作用。</p>
+<p>对于复杂的流量复制应用场景和需求，完全可以立项开发一套完整的复制架构，可参考字节团队自研的 <a href="https://juejin.cn/post/6857688805835866126" title="ByteCopy">ByteCopy</a> 项目。而对于一些简单的需求，开源的工具基本可以搞定。开源的流量复制工具有很多，常用的有 goreplay、tcpreplay、tcpcopy 等。</p>
+<p>本文主要来探讨下 tcpcopy 和 goreplay 的方案实现，废话不多说开整。</p>
+<p><img src="https://gitee.com/pylixm/picture/raw/master/2021-2-25/1614182639404-image.png" alt="目录"></p>
+<h2 id="tcpcopy-方案实现">tcpcopy 方案实现</h2>
+<h3 id="tcpcopy-简介">tcpcopy 简介</h3>
+<p>tcpcopy 由网易技术部<a href="https://github.com/wangbin579" title="王斌">王斌</a>等开发，并于 2011 年 9 月开源的。tcpcopy 最新架构如下（来自作者王斌博客：https://blog.csdn.net/wangbin579/article/details/8949315）：</p>
+<p><img src="https://gitee.com/pylixm/picture/raw/master/2021-2-20/1613813332566-tcpcopy_arch_03.gif" alt="架构"></p>
+<p>tcpcopy 主要有两个组件构成 tcpcopy client 和 intercept 。client 端负责复制流量和转发，intercept 负责对回应流量的拦截和 tcpcopy 的链接处理。</p>
+<h3 id="tcpcopy-搭建">tcpcopy 搭建</h3>
+<p>实例环境如下，下面来阐述下整个架构的搭建过程：</p>
+<ul>
+<li>192.168.33.11 生产服务器，部署 tcpcopy client</li>
+<li>192.168.33.12 辅助服务器，部署 intercept</li>
+<li>192.168.33.13 测试服务器</li>
+</ul>
+<p>各组件可直接从 github 下载源码包，编译安装：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># 起压机部署 tcpcopy client 192.168.33.11</span>
+wget https://github.com/session-replay-tools/tcpcopy/archive/1.0.0.tar.gz
+tar xvf 1.0.0.tar.gz
+cd tcpcopy-1.0.0
+./configure --prefix<span style="color:#f92672">=</span>/opt/tcpcopy
+make
+make install
+
+<span style="color:#75715e"># 辅助机部署 intercept 192.168.33.12 , 截获包需要依赖 libpcap 抓包函数库</span>
+yum -y install libpcap-devel
+<span style="color:#75715e"># ubuntu</span>
+<span style="color:#75715e"># apt install -y libpcap-dev</span>
+https://github.com/session-replay-tools/intercept/archive/1.0.0.tar.gz
+tar xvf 1.0.0.tar.gz
+cd intercept-1.0.0
+./configure --prefix<span style="color:#f92672">=</span>/opt/tcpcopy/
+make
+make install
+</code></pre></div><p>安装完之后，先启动 intercept，运行如下命令：</p>
+<pre><code>/opt/tcpcopy/sbin/intercept -i enp0s8 -F 'tcp and src port 8000' -d
+# -i，指定网卡 enp0s8
+# -F，过滤，语法和pcap抓包工具一直，如tcpdump
+# -d，以domain的形式启动。
+# 其他参数可 -h 查看。
+</code></pre><p>启动 intercept 之后，再启动 tcpcopy client 。tcpcopy 启动依赖 intercept ，启动时确保 intercept 启动成功。</p>
+<pre><code>/opt/tcpcopy/sbin/tcpcopy -x 8000-192.168.33.13:8000 -s 192.168.33.12 -c 192.168.1.x -n 2 -d
+# -x，复制本地8000端口的流量，转发到192.168.33.13机器的8000端口
+# -s，辅助服务器intercept 地址
+# -c，修改转发包的原地址为该地址段的地址，这里也可以是明确的ip。这个ip端用来伪装数据包，方便intercept做路由劫持。
+# -n，流量倍数
+# -d，以domain的形式运行
+</code></pre><p>在测试服务器添加拦截路由，如下：</p>
+<pre><code># 测试机 192.168.33.13
+route add -net 192.168.1.0 netmask 255.255.255.0 gw 192.168.33.12
+</code></pre><p>该路由相当于把到 192.168.1.0 网段的包都走网关 192.168.33.12，对测试服务器的回包做伪地址拦截。</p>
+<p>这便是 tcpcopy 的整个架构部署了。</p>
+<h3 id="包流向分析">包流向分析</h3>
+<p>下面我们抓包看看这个过程中包是如何流动的。</p>
+<p>我在 tcpcopy client 机器 192.168.33.11 和测试机器 192.168.33.13 使用 <code>python -m SimpleHTTPServer</code> 分别起了一个 8000 端口的服务用来测试，从我本机 192.168.33.1 发送请求，在三台机器上抓包。</p>
+<p>tcpcopy client 机器 192.168.33.11 包信息如下：</p>
+<p><img src="https://gitee.com/pylixm/picture/raw/master/2021-2-23/1614072069449-image.png" alt="tcpcopy"></p>
+<p>红色标注块为我本机（192.168.33.1）和 tcpcopy client 机器（192.168.33.11）的正常请求交换，从三次握手，到 http 请求，到最后的断链。</p>
+<p>蓝色标注块则为 tcpcopy 复制的流量，可以看到为了让 intercepter 拦截回包流量，tcpcopy 已将包源 ip 地址替换为我们指定的伪网段（192.168.1.0）的地址，这样在回包时，就会根据测试服务器上的路由将回包指向辅助服务器 intercept，避免对生产流量造成影响。这也是为什么复制流量三次握手和 http 都没有回包的原因。</p>
+<p>看测试服务器 192.168.33.13 的包：</p>
+<p><img src="https://gitee.com/pylixm/picture/raw/master/2021-2-23/1614074534400-image.png" alt="test server"></p>
+<p>测试服务器的包和正常流量包一样，三次握手到 http 请求，最后断连。这里和测试服务器 192.168.33.13 交互的源地址 ip 已经被 tcpcopy 替换为伪 ip 192.168.1.1 。</p>
+<p>看 intercept 192.168.33.12 的包：</p>
+<p><img src="https://gitee.com/pylixm/picture/raw/master/2021-2-23/1614075683724-image.png" alt="image"></p>
+<p>可以看到辅助服务器拦截下来的请求，标注块 1 为复制流量三次握手时的回包，标注块 2 为 http 请求的回包，这便是 intercept 的拦截功能。可以看到在标注块 1、2 之后，辅助服务器（192.168.33.12）和 tcpcopy 服务器（192.168.33.11）进行了数据交换，这部分便是 intercept 的 tcp 处理功能，它把有用的信息返回给 tcpcopy 以便能使 tcpcopy 和测试机的 tcp 链接完成。</p>
+<p>根据上边抓包，我们得到了和架构图一样的包流动过程，总结如下：</p>
+<ul>
+<li>生产流量正常请求，服务正常回应。</li>
+<li>tcpcopy 服务在生产机器上复制流量，并修改流量包的源 ip 地址为我们指定的伪网络段(-c 参数指定)，之后将流量转发到测试服务器。</li>
+<li>测试服务器，接受到流量，但包的源地址为伪网络段的地址，回包时根据提前配置好的伪路由，将回包导流到辅助服务器。</li>
+<li>辅助服务器接收测试服务器的回包，但是并不转发。而是解包，只返回部分必要的信息给 tcpcopy，以便完成 tcpcopy 和测试服务器之间的 tcp 交互。</li>
+</ul>
+<p>根据官方文档，我们还需要注意几个问题：</p>
+<ul>
+<li>辅助服务器不做包的转发，需要关闭内核参数 <code>ip_forward</code></li>
+<li>在做测试时，注意上行流量的过滤和测试数据源的隔离，防止对生产数据造成多次操作的影响。</li>
+<li>上边为在线实时的复制模式，tcpcopy 还支持离线方式，具体可查阅<a href="https://github.com/session-replay-tools/tcpcopy" title="文档">文档</a>。</li>
+<li>辅助机需要和测试机在一个网段，以便辅助机作为伪网段的网关使用。这里可以加一次代理，解除这个限制。如使用 nginx 作为测试中转机，将伪路由添加到 nginx 服务器上，测试机只需要向 nginx 注册即可，无需做其他配置。</li>
+</ul>
+<h2 id="goreplay-方案实现">goreplay 方案实现</h2>
+<h3 id="goreplay-简介">goreplay 简介</h3>
+<p>Goreplay 是另一个比较常用的流量复制开源工具。与 tcpcopy 相比它的架构更简单，只有一个 gor 组件，如下：</p>
+<p><img src="https://gitee.com/pylixm/picture/raw/master/2021-2-23/1614089477354-image.png" alt="image"></p>
+<p>只需要在生产服务器上启动一个 gor 进程，它负责所有的工作包括监听、过滤和转发。
+它的设计遵循 Unix 设计哲学：<em>一切都是由管道组成的，各种输入将数据复用为输出</em>。</p>
+<p>输入输出通常被成为插件，常见的有下面几种。</p>
+<p>可用输入：</p>
+<ul>
+<li>&ndash;input-raw 用于捕获 HTTP 流量，您应该指定 IP 地址或接口和应用程序端口。</li>
+<li>&ndash;input-file 接受流量输出的文件（&ndash;output-file），用来离线流量重放。</li>
+<li>&ndash;input-tcp 如果您决定将来自多个转发器 Gor 实例的流量转发给它，则由 Gor 聚合实例使用。</li>
+</ul>
+<p>可用输出：</p>
+<ul>
+<li>&ndash;output-http 重放 HTTP 流量到给定的端点，接受基础 URL。</li>
+<li>&ndash;output-file 记录传入的流量到文件。更多关于保存和从文件重播</li>
+<li>&ndash;output-tcp 将传入数据转发给另一个 Gor 实例，并与其一起使用&ndash;input-tcp。</li>
+<li>&ndash;output-stdout 用于调试，输出所有数据到 stdout。</li>
+</ul>
+<p>你可以对数据进行限速、过滤、重新，还可以重用中间件实现一些自定义逻辑处理，如私有数据的过滤、认证等个性需求。</p>
+<p>其他常用参数：</p>
+<ul>
+<li>&ndash;output-http &ldquo;<a href="http://staging.com">http://staging.com</a>|10&rdquo; 输出流量的 10%</li>
+<li>&ndash;http-allow-method 根据请求方式过滤。</li>
+<li>&ndash;http-allow-url url 白名单，其他请求将会被丢弃。</li>
+<li>&ndash;http-disallow-url 遇上一个 url 相反，黑名单，其他的请求会被捕获到。</li>
+</ul>
+<p>本文不对中间件做过多描述，仅讨论常用功能，对中间件有需求的可参考<a href="https://github.com/buger/goreplay/tree/master/middleware" title="中间件文档">中间件文档</a>。</p>
+<h3 id="goreplay-搭建">goreplay 搭建</h3>
+<p>Goreplay 是使用 golang 开发的，我们可以直接使用编译好的对应各系统的二进制文件，也可以自己编译，我们这里直接使用二进制文件。</p>
+<pre><code>wget https://github.com/buger/goreplay/releases/download/v1.3.0_RC1/gor_1.3_RC1_x64.tar.gz
+tar zxvf gor_1.3_RC1_x64.tar.gz
+# 解压出二进制文件 gor
+gor
+</code></pre><p>接下来，直接启动 gor 即可复制流量和转发。</p>
+<pre><code>sudo ./gor --input-raw :8000 --output-http=&quot;http://192.168.33.13:8001&quot;
+</code></pre><p>复制本地 8000 端口的流量到 http 远端服务<code>http://192.168.33.13:8001</code>。(复制同端口的流量时，流量会重复。这是 gor 的一个 bug，截止目前 1.3 版本仍可复现，可见<a href="https://github.com/buger/goreplay/issues/292" title="issue292">issue292</a>)</p>
+<p>goreplay 的流量转发，并不是直接 tcp 包的转发，而是重新组织 http 协议级别的请求，发送到测试服务器。所以它是新的 gor 线程和测试服务器的交互，和监听线程无关，所以无需对流量进行拦截。</p>
+<h3 id="包流向分析-1">包流向分析</h3>
+<p>下面我们来看下 gor 复制的流量包的流向过程：</p>
+<p><img src="https://gitee.com/pylixm/picture/raw/master/2021-2-24/1614180572725-image.png" alt="gor"></p>
+<p>红色标注块为正常流量，蓝色标注块为复制的流量。</p>
+<p>看到此处，你可能会有疑问，为什么 gor 不用拦截流量？</p>
+<p>大家仔细看 tcpcopy 和 gor 复制流量的端口，在生产机和测试机建立连接时，tcpcopy 虽然修改了 tcp 包的源 ip，但端口还是用的请求客户端的端口，是 tcp 数据链路层级别的流量复制。而 gor 这里严格来说并不是复制，而是重新构建了 http 请求。使用新端口来和测试机建连，相对的测试机在回包时，即使包是回到了生产机，但由于是和客户端不同的端口，也不会对生产流量造成影响。</p>
+<h2 id="对比总结">对比总结</h2>
+<p>到此，我们对流量复制有了些基本的概念和应用了，也对 tcpcopy 和 goreplay 两款开源工具有了一定的认知。两款开源工具各有优缺点，我们来一块总结下。</p>
+<ul>
+<li>tcpcopy 部署架构相对复杂，goreplay 相对简单只需启动一个进程。</li>
+<li>tcpcopy 支持的协议比较丰富，goreplay 根据架构特点仅支持 http。</li>
+<li>tcpcopy 和 goreplay 都支持离线和在线录制回放。</li>
+<li>goreplay 有个中间件模块，可自定义部分过滤逻辑。</li>
+</ul>
+<p>简单 http 复制 goreplay 完全可以胜任，稍复杂点或应用场景更复杂，那么推荐 tcpcopy。更复杂，要求更高的流量复制，那只能我们自己定制了。</p>
+<p>好了，本篇到这结束了，欢迎留言讨论，你觉着最佳流量复制方案。</p>
+<p>我是DeanWu，一个努力成为真正SRE的人。</p>
+<blockquote>
+<p>关注公众号「码农吴先生」, 可第一时间获取最新文章。回复关键字「go」「python」获取我收集的学习资料，也可回复关键字「小二」，加我wx拉你进技术交流群，聊技术聊人生~</p>
+</blockquote>
+<p><img src="https://gitee.com/pylixm/picture/raw/master/2020-12-14/deanwu_wechat.png" alt=""></p>
+
+    </div>
+    <div class="article-footer">
+<blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://pylixm.top/posts/2021-02-20-tcpcopy-vs-goreplay.html" title="流量复制方案对比：Tcpcopy vs Goreplay" target="_blank" rel="external">https://pylixm.top/posts/2021-02-20-tcpcopy-vs-goreplay.html</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>许可协议：</strong>
+      <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="external">CC BY NC SA 4.0 CN</a>
+    </li>
+  </ul>
+</blockquote>
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://pylixm.top" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="https://pylixm.top/static/imgs/avatar.png" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://pylixm.top" target="_blank"><span class="text-dark">DeanWu</span><small class="ml-1x">程序员</small></a></h3>
+        <div>努力成为真正的SRE</div>
+      </div>
+    </figure>
+  </div>
+</div>
+    </div>
+  </article>
+<section id="comments">
+    <div id="vcomments"></div>
+</section>
+
+</div><nav class="bar bar-footer clearfix" data-stick-bottom>
+    <div class="bar-inner">
+        <ul class="pager pull-left">
+            <li class="prev">
+                <a href="https://pylixm.top/posts/2021-02-10-summary-2021.html" title="2020 成长记录"><i
+                        class="icon icon-angle-left"
+                        aria-hidden="true"></i><span>&nbsp;&nbsp;下一篇</span></a>
+            </li>
+            
+            <li class="toggle-toc">
+                <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false"
+                    title="文章目录" role="button">
+                    <span>[&nbsp;</span><span>文章目录</span>
+                    <i class="text-collapsed icon icon-anchor"></i>
+                    <i class="text-in icon icon-close"></i>
+                    <span>]</span>
+                </a>
+            </li>
+        </ul>
+        <div class="bar-right">
+        </div>
+    </div>
+</nav>
+
+
+<script src="https://my.openwrite.cn/js/readmore.js" type="text/javascript"></script>
+<script>
+    const btw = new BTWPlugin();
+    btw.init({
+        id: 'article-container',
+        blogId: '24944-1607090547459-485',
+        name: '码农吴先生',
+        qrcode: 'https://gitee.com/pylixm/picture/raw/master/2020-12-4/1607089812769-image.png',
+        keyword: 'vip',
+    });
+</script>
+</main><footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+<ul class="social-links">
+    <li><a href="https://github.com/pylixm" target="_blank" title="github" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-github"></i></a></li>
+    <li><a href="https://pylixm.top/index.xml" target="_blank" title="rss" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-rss"></i></a></li>
+    <li><a href="http://weibo.com/2258086637" target="_blank" title="weibo" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-weibo"></i></a></li>
+</ul>
+  <div class="copyright">
+    &copy;2015  -
+    2021
+    <div class="publishby">
+      hugo驱动，Theme by <a href="https://github.com/xiaoheiAh/hugo-theme-pure" target="_blank"> pure</a>.
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_SVG"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+            showMathMenu: false, //disables context menu
+            tex2jax: {
+            inlineMath: [ ['$','$'], ['\\(','\\)'] ]
+           }
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+<script>
+    window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/highlight.min.js"></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/python.min.js" defer></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/javascript.min.js" defer></script><script>
+    hljs.configure({
+        tabReplace: '    ', 
+        classPrefix: ''     
+        
+    })
+    hljs.initHighlightingOnLoad();
+</script>
+<script src="https://pylixm.top/js/application.min.bdeb64b910570b6c41badc6a05b7afb0c8ad9efd8525de3c7257d59e786326a3.js"></script>
+<script src="https://pylixm.top/js/plugin.min.51ff8c7317566f82259170fa36e09c4493adc9b9378b427a01ad3f017ebac7dd.js"></script>
+
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(未命名)',
+            },
+            ROOT_URL: 'https:\/\/pylixm.top',
+            CONTENT_URL: 'https:\/\/pylixm.top\/searchindex.json ',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script type="text/javascript" src="https://pylixm.top/js/insight.min.a343cd9a5a7698336b28ef3a7c16a3a1b1d2d5fb17dc8ed04022bbe08cc5459073a15bdafa3a8a58cdd56080784bdd69fa70b1ae8597565c799c57ed00f0e120.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script>
+<script>
+    tocbot.init({
+        
+        tocSelector: '.js-toc',
+        
+        contentSelector: '.js-toc-content',
+        
+        headingSelector: 'h1, h2, h3',
+        
+        hasInnerContainers: true,
+    });
+</script>
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="https://cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine"></script>
+<script type="text/javascript">
+    var GUEST = ['nick', 'mail', 'link'];
+    var meta = 'nick,mail';
+    meta = meta.split(',').filter(function (item) {
+        return GUEST.indexOf(item) > -1;
+    });
+    new Valine({
+        el: '#vcomments',
+        verify: null ,
+        notify: null ,
+        appId: 'OBJcj4PU8JI0zDfu0HJSrG6W-gzGzoHsz',
+        appKey: 'tBtFzC72xIlgo2UFbA33nqmU',
+        placeholder: '来做第一个发言人吧',
+        avatar: 'mm',
+        meta: meta,
+        pageSize: '10' || 10,
+        visitor: false 
+});
+</script>
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-135903670-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+  </body>
+</html>

@@ -5,10 +5,19 @@
     <link>https://pylixm.top/</link>
     <description>Recent content on DeanWu</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Wed, 10 Feb 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 20 Feb 2021 00:00:00 +0000</lastBuildDate>
     
         <atom:link href="https://pylixm.top/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Django 最佳实践-读书笔记 - 第八、九、十章 FBVS &amp; CBVS</title>
+      <link>https://pylixm.top/posts/2016-06-19-best.practices.for.django.1.8.3rd-chapter-8.html</link>
+      <pubDate>Sun, 19 Jun 2016 22:30:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-06-19-best.practices.for.django.1.8.3rd-chapter-8.html</guid>
+      <description>其他章节索引页 第八章 FBVS &amp;amp; CBVS 如何选择 function - views 和 class - views 见流程图： urlconf 中不要包含 views 的逻辑 Bad example : from django.conf.urls import url from django.views.generic import DetailView from tastings.models import Tasting urlpatterns = [ url(r&amp;quot;^(?P&amp;lt;pk&amp;gt;\d+)/$&amp;quot;, DetailView.as_view( model=Tasting, template_name=&amp;quot;tastings/detail.html&amp;quot;), name=&amp;quot;detail&amp;quot;), url(r&amp;quot;^(?P&amp;lt;pk&amp;gt;\d+)/results/$&amp;quot;, DetailView.as_view( model=Tasting, template_name=&amp;quot;tastings/results.html&amp;quot;), name=&amp;quot;results&amp;quot;), ] 优点</description>
+    </item>
     
     <item>
       <title>Django 最佳实践-读书笔记 - 第七章 查询与数据库层</title>
@@ -197,15 +206,6 @@
       
       <guid>https://pylixm.top/posts/2016-03-08-celery-gotchas.html</guid>
       <description>原文地址：https://wiredcraft.com/blog/3-gotchas-for-celery Celery is our go-to task manager when working with Python. It is feature rich, stable, fast and</description>
-    </item>
-    
-    <item>
-      <title>Linux基础系列 - curl 命令详解</title>
-      <link>https://pylixm.top/posts/2016-03-07-Curl.html</link>
-      <pubDate>Mon, 07 Mar 2016 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2016-03-07-Curl.html</guid>
-      <description>对于windows用户如果用Cygwin模拟unix环境的话，里面没有带curl命令，要自己装，所以建议用Gow来模拟，它已经自带了curl</description>
     </item>
     
   </channel>

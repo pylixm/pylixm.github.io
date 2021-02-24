@@ -5,10 +5,19 @@
     <link>https://pylixm.top/categories/</link>
     <description>Recent content in Categories on DeanWu</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Wed, 10 Feb 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 20 Feb 2021 00:00:00 +0000</lastBuildDate>
     
         <atom:link href="https://pylixm.top/categories/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>「朝花夕拾」- 0501期，总第一期</title>
+      <link>https://pylixm.top/posts/2020-04-30-zhxs-0501.html</link>
+      <pubDate>Thu, 30 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2020-04-30-zhxs-0501.html</guid>
+      <description>「朝花夕拾」总目录 Python 资讯 4月20日，Python2 的最后一个版本2.7.18发布。 4月28日，Python 3.9.0a6发布。 文章 数值类型在</description>
+    </item>
     
     <item>
       <title>「朝花夕拾」- 总目录</title>
@@ -179,15 +188,6 @@
       
       <guid>https://pylixm.top/posts/2019-11-21-ats-admin-docs.html</guid>
       <description>Apache Traffic Server（ATS或TS）是一个高性能的、模块化的 HTTP 代理和缓存服务器。Traffic Server 最初是 Inktomi 公司的商业产品，该公司在 2003 年被 Yahoo 收购，之</description>
-    </item>
-    
-    <item>
-      <title>Python中的类属性和实例属性</title>
-      <link>https://pylixm.top/posts/2019-11-06-python-class-attribute.html</link>
-      <pubDate>Wed, 06 Nov 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2019-11-06-python-class-attribute.html</guid>
-      <description>问题 今天在项目中遇到了个奇怪的问题，实例的一个时间属性并没有根据时间变化而变化，分析之后恍然大悟，总结下分享给大家。大家先看一段代码： import datetime import</description>
     </item>
     
   </channel>

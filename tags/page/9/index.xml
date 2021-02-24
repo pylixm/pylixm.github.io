@@ -5,10 +5,19 @@
     <link>https://pylixm.top/tags/</link>
     <description>Recent content in Tags on DeanWu</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Wed, 10 Feb 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 20 Feb 2021 00:00:00 +0000</lastBuildDate>
     
         <atom:link href="https://pylixm.top/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Linux基础系列 - curl 命令详解</title>
+      <link>https://pylixm.top/posts/2016-03-07-Curl.html</link>
+      <pubDate>Mon, 07 Mar 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-03-07-Curl.html</guid>
+      <description>对于windows用户如果用Cygwin模拟unix环境的话，里面没有带curl命令，要自己装，所以建议用Gow来模拟，它已经自带了curl</description>
+    </item>
     
     <item>
       <title>2015总结，2016计划</title>
@@ -179,15 +188,6 @@
       
       <guid>https://pylixm.top/posts/2015-11-15-django-template.html</guid>
       <description>语法 变量 双括号 判断 使用大括号+% if xx xx else xx endif ifequal athlete.name coach.name xx else xx endifequal for athlete in athlete_list xx endfor for key, value in data.items endfor 循环中使用的变量 forloop.counter 总是一个表示当前循环的执行次数的整数计数</description>
-    </item>
-    
-    <item>
-      <title>Django学习笔记-url、视图</title>
-      <link>https://pylixm.top/posts/2015-11-15-django-views.html</link>
-      <pubDate>Sun, 15 Nov 2015 16:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2015-11-15-django-views.html</guid>
-      <description>路由(URL) Django中有个指定url和视图函数的 urlconf 文件，组成如下： 一个打头的前缀字符串，可以为空。 一个或多个由正则表达式字符串匹配一个</description>
     </item>
     
   </channel>

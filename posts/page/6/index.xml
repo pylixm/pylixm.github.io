@@ -5,10 +5,19 @@
     <link>https://pylixm.top/posts/</link>
     <description>Recent content in Posts on DeanWu</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Wed, 10 Feb 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 20 Feb 2021 00:00:00 +0000</lastBuildDate>
     
         <atom:link href="https://pylixm.top/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Flask 目录结构分析</title>
+      <link>https://pylixm.top/posts/2018-06-04-flask-base.html</link>
+      <pubDate>Mon, 04 Jun 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2018-06-04-flask-base.html</guid>
+      <description>到目前为止，Flask 最新版本为1.0.3，我们来以此版本做分析，以便可以快速回忆各组件关系。 基本使用，可参阅官方文档，已非常详尽。 我们知道</description>
+    </item>
     
     <item>
       <title>Docker 知识大全</title>
@@ -179,15 +188,6 @@
       
       <guid>https://pylixm.top/posts/2017-08-29-tornado-sqlalchemy.html</guid>
       <description>环境 web框架：tornado 4.4.2 ORM： SQLAlchemy 1.2.0b1 DB: MySQL 5.7 问题描述 我们的项目为tornado 开发的API服务，使用SQLALchemy 作为ORM与数</description>
-    </item>
-    
-    <item>
-      <title>10 Best Practices for Better RESTful API</title>
-      <link>https://pylixm.top/posts/2017-08-26-Restfull-Api-Best-Practice.html</link>
-      <pubDate>Sat, 26 Aug 2017 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2017-08-26-Restfull-Api-Best-Practice.html</guid>
-      <description>Web APIs has become an very important topic in the last year. We at M-Way Solutions are working every day with different backend systems and therefore we know about the importance of a clean API design. Typically we use a RESTful design for our web APIs. The concept of REST is to separate the API structure into logical resources. There are used the HTTP methods GET, DELETE, POST and PUT</description>
     </item>
     
   </channel>

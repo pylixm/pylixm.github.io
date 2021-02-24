@@ -5,10 +5,19 @@
     <link>https://pylixm.top/tags/</link>
     <description>Recent content in Tags on DeanWu</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Wed, 10 Feb 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 20 Feb 2021 00:00:00 +0000</lastBuildDate>
     
         <atom:link href="https://pylixm.top/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>「编程实例」各语言Hmac-SHA256的base64编码的实现方式</title>
+      <link>https://pylixm.top/posts/2020-09-17-hmac-sha256-base64.html</link>
+      <pubDate>Thu, 17 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2020-09-17-hmac-sha256-base64.html</guid>
+      <description>实例来源网络，语言版本可能略有差异，请验证后使用。 Javascript HMAC SHA256 &amp;lt;script src=&amp;#34;http://crypto-js.googlecode.com/svn/tags/3.0.2/build/rollups/hmac-sha256.js&amp;#34;&amp;gt;&amp;lt;/script&amp;gt; &amp;lt;script src=&amp;#34;http://crypto-js.googlecode.com/svn/tags/3.0.2/build/components/enc-base64-min.js&amp;#34;&amp;gt;&amp;lt;/script&amp;gt; &amp;lt;script&amp;gt; var hash = CryptoJS.HmacSHA256(&amp;#34;Message&amp;#34;, &amp;#34;secret&amp;#34;); var hashInBase64 = CryptoJS.enc.Base64.stringify(hash); document.write(hashInBase64); &amp;lt;/script&amp;gt; PHP HMAC SHA256 $s = hash_hmac(&amp;#39;sha256&amp;#39;, &amp;#39;Message&amp;#39;, &amp;#39;secret&amp;#39;, true); echo base64_encode($s); Java HMAC SHA256 Dependent on Apache Commons Codec to encode in base64. import javax.crypto.Mac; import</description>
+    </item>
     
     <item>
       <title>Kubernetes 学习笔记 - 问题记录</title>
@@ -179,15 +188,6 @@
       
       <guid>https://pylixm.top/posts/2020-05-08-zhxs-0508.html</guid>
       <description>「朝花夕拾」总目录 资讯 5月4日，Python的issue追踪准备迁移到Github，正在招聘项目经理 5月5日，2019年Python开发者报</description>
-    </item>
-    
-    <item>
-      <title>「朝花夕拾」- 0501期，总第一期</title>
-      <link>https://pylixm.top/posts/2020-04-30-zhxs-0501.html</link>
-      <pubDate>Thu, 30 Apr 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2020-04-30-zhxs-0501.html</guid>
-      <description>「朝花夕拾」总目录 Python 资讯 4月20日，Python2 的最后一个版本2.7.18发布。 4月28日，Python 3.9.0a6发布。 文章 数值类型在</description>
     </item>
     
   </channel>
