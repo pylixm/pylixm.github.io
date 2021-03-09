@@ -5,10 +5,28 @@
     <link>https://pylixm.top/tags/Kubernetes/</link>
     <description>Recent content in Kubernetes on DeanWu</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Fri, 25 Dec 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 09 Mar 2021 00:00:00 +0000</lastBuildDate>
     
         <atom:link href="https://pylixm.top/tags/Kubernetes/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>「Python Tips」- 命名元祖（namedtuple）使用指南</title>
+      <link>https://pylixm.top/posts/2020-10-18-namedtuple.html</link>
+      <pubDate>Sun, 18 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2020-10-18-namedtuple.html</guid>
+      <description>原文地址：https://miguendes.me/everything-you-need-to-know-about-pythons-na</description>
+    </item>
+    
+    <item>
+      <title>谈谈前后端分离中的跨域问题</title>
+      <link>https://pylixm.top/posts/2020-10-13-cross-origin.html</link>
+      <pubDate>Tue, 13 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2020-10-13-cross-origin.html</guid>
+      <description>在前后端分离开发过程中常常出现下面这样的错误提示： Access to XMLHttpRequest at &#39;http://127.0.0.1:8000/apis/users/login/&#39; from origin &#39;http://127.0.0.1:8080&#39; has been blocked by CORS policy: Response to preflight request doesn&#39;t pass access control check: No &#39;Access-Control-Allow-Origin&#39; header is present on the requested resource. HelloWorld.vue?18db:50 err Error: Network Error at createError (createError.js?16d0:16) at XMLHttpRequest.handleError (xhr.js?ec6c:91) 看到</description>
+    </item>
     
     <item>
       <title>「编程实例」各语言Hmac-SHA256的base64编码的实现方式</title>
@@ -170,24 +188,6 @@
       
       <guid>https://pylixm.top/posts/2020-05-18-python-concurrent-feature.html</guid>
       <description>原文地址：https://rednafi.github.io/digressions/python/2020/04/21/python-co</description>
-    </item>
-    
-    <item>
-      <title>「朝花夕拾」- 0515期，总第三期</title>
-      <link>https://pylixm.top/posts/2020-05-15-zhxs-0515.html</link>
-      <pubDate>Fri, 15 May 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2020-05-15-zhxs-0515.html</guid>
-      <description>「朝花夕拾」总目录 资讯 5月13日，Python3.8.3 发布 文章 Victor Stinner （python指导委员会，cpython核心维护之一）和 Julien Danjou（</description>
-    </item>
-    
-    <item>
-      <title>「朝花夕拾」- 0508期，总第二期</title>
-      <link>https://pylixm.top/posts/2020-05-08-zhxs-0508.html</link>
-      <pubDate>Fri, 08 May 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2020-05-08-zhxs-0508.html</guid>
-      <description>「朝花夕拾」总目录 资讯 5月4日，Python的issue追踪准备迁移到Github，正在招聘项目经理 5月5日，2019年Python开发者报</description>
     </item>
     
   </channel>

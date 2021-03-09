@@ -11,6 +11,69 @@
     
     
     <item>
+      <title>python的MySQLdb模块 连接 mysql 错误</title>
+      <link>https://pylixm.top/posts/2016-03-08-Mysql-python.html</link>
+      <pubDate>Tue, 08 Mar 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-03-08-Mysql-python.html</guid>
+      <description>Q &amp;amp; A： 今天在使用python直接链接数据库时报错 _mysql_exceptions.OperationalError: (2002, &amp;quot;Can&#39;t connect to local MySQL server through socket &#39;/var/lib/mysql/mysql.sock&#39; (2)&amp;quot;) 代码： db = MySQLdb.connect(host=&#39;localhost&#39;, port=3306, user=&#39;root&#39;, passwd=&#39;root&#39;, db=&#39;mydb&#39;) 错误： Traceback (most recent call last): File &amp;quot;./data_db.py&amp;quot;, line 5, in &amp;lt; module&amp;gt; db=&#39;mydb&#39;) File &amp;quot;/usr/local/env/lib/python2.7/site-packages/MySQLdb/__init__.py&amp;quot;, line 81, in Connect File</description>
+    </item>
+    
+    <item>
+      <title>「译」使用 celery 时的 3 个坑</title>
+      <link>https://pylixm.top/posts/2016-03-08-celery-gotchas.html</link>
+      <pubDate>Tue, 08 Mar 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-03-08-celery-gotchas.html</guid>
+      <description>原文地址：https://wiredcraft.com/blog/3-gotchas-for-celery Celery is our go-to task manager when working with Python. It is feature rich, stable, fast and</description>
+    </item>
+    
+    <item>
+      <title>Linux基础系列 - curl 命令详解</title>
+      <link>https://pylixm.top/posts/2016-03-07-Curl.html</link>
+      <pubDate>Mon, 07 Mar 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-03-07-Curl.html</guid>
+      <description>对于windows用户如果用Cygwin模拟unix环境的话，里面没有带curl命令，要自己装，所以建议用Gow来模拟，它已经自带了curl</description>
+    </item>
+    
+    <item>
+      <title>2015总结，2016计划</title>
+      <link>https://pylixm.top/posts/2016-02-22-summary.html</link>
+      <pubDate>Mon, 22 Feb 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-02-22-summary.html</guid>
+      <description>2015年算是自己的互联网元年。 正式进入互联网行业，虽然是偏运维，但是自己学的python能继续用得上，也是找到了除了web的一条新方向。 2015</description>
+    </item>
+    
+    <item>
+      <title>django 相关命令总结</title>
+      <link>https://pylixm.top/posts/2016-01-29-django-cmd.html</link>
+      <pubDate>Fri, 29 Jan 2016 18:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-01-29-django-cmd.html</guid>
+      <description>django 常用命令 创建一个web站点： django-admin.py startproject mysite 创建apps： python manage.py startapp blog 数据库模板检测： python manage.py validate 生成数据库表创建语句： python manage.py sqlall books（app名字） 创建数据</description>
+    </item>
+    
+    <item>
+      <title>rabbitmq 安装配置记录</title>
+      <link>https://pylixm.top/posts/2016-01-19-Rabbitmq-install.html</link>
+      <pubDate>Tue, 19 Jan 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-01-19-Rabbitmq-install.html</guid>
+      <description>最近做系统迁移，搭建环境时遇到了rabbitmq的搭建。在此记录，备查。 环境： centos 6.5 官方centos安装文档：http://www.rabbi</description>
+    </item>
+    
+    <item>
+      <title>使用 supervisor 来监控 django celery</title>
+      <link>https://pylixm.top/posts/2016-01-19-django-supervisor-celery.html</link>
+      <pubDate>Tue, 19 Jan 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-01-19-django-supervisor-celery.html</guid>
+      <description>之前启动celery时，使用nohup 方式启动。这种方式是不安全的，今天使者使用supervisor来管理监控celery，记录如下，备查。</description>
+    </item>
+    
+    <item>
       <title>Django uwsgi 启动问题 unavailable modifier requested 0</title>
       <link>https://pylixm.top/posts/2016-01-18-django-uwsgi-wt.html</link>
       <pubDate>Mon, 18 Jan 2016 19:55:00 +0000</pubDate>
@@ -125,69 +188,6 @@
       
       <guid>https://pylixm.top/posts/2015-11-27-Javascript.html</guid>
       <description>积累记录了一些js常用的操作，备查： 1、判断json数据是否还有某个key //方法一： obj[&amp;#34;key&amp;#34;] != undefined //这种有缺陷，如果这个key定义了，并且就是很</description>
-    </item>
-    
-    <item>
-      <title>Django uwsgi 启动问题 ImportError No module named os</title>
-      <link>https://pylixm.top/posts/2015-11-23-django-uwsgi.html</link>
-      <pubDate>Mon, 23 Nov 2015 16:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2015-11-23-django-uwsgi.html</guid>
-      <description>Q &amp;amp; A： 今天在搭建测试环境时遇到问题，如下 *** WARNING: you are running uWSGI without its master process manager *** your processes number limit is 65535 your memory page size is 4096 bytes detected max file descriptor number: 65536 lock engine: pthread robust mutexes thunder lock: disabled (you can enable it with --thunder-lock) uwsgi socket 0 bound</description>
-    </item>
-    
-    <item>
-      <title>Django学习笔记-模板</title>
-      <link>https://pylixm.top/posts/2015-11-15-django-template.html</link>
-      <pubDate>Sun, 15 Nov 2015 16:30:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2015-11-15-django-template.html</guid>
-      <description>语法 变量 双括号 判断 使用大括号+% if xx xx else xx endif ifequal athlete.name coach.name xx else xx endifequal for athlete in athlete_list xx endfor for key, value in data.items endfor 循环中使用的变量 forloop.counter 总是一个表示当前循环的执行次数的整数计数</description>
-    </item>
-    
-    <item>
-      <title>Django学习笔记-url、视图</title>
-      <link>https://pylixm.top/posts/2015-11-15-django-views.html</link>
-      <pubDate>Sun, 15 Nov 2015 16:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2015-11-15-django-views.html</guid>
-      <description>路由(URL) Django中有个指定url和视图函数的 urlconf 文件，组成如下： 一个打头的前缀字符串，可以为空。 一个或多个由正则表达式字符串匹配一个</description>
-    </item>
-    
-    <item>
-      <title>Django学习笔记-模型(2)模型的操作</title>
-      <link>https://pylixm.top/posts/2015-11-13-django-model-two.html</link>
-      <pubDate>Fri, 13 Nov 2015 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2015-11-13-django-model-two.html</guid>
-      <description>二、模型的操作（QuerySets） 1、模型操作基础 常用接口方法 all(): 返回一个包含模式里所有数据记录的结果集queryset filter():返</description>
-    </item>
-    
-    <item>
-      <title>Django restful framework 文档</title>
-      <link>https://pylixm.top/posts/2015-11-01-django-restfull-framework.html</link>
-      <pubDate>Sun, 01 Nov 2015 18:25:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2015-11-01-django-restfull-framework.html</guid>
-      <description>前几天看到有博文记录的 django-rest-framework的翻译文档。最近正需要，反而找不到了。现记录如下，备查： RESTful API 设计指南 中文译文</description>
-    </item>
-    
-    <item>
-      <title>django form表单的数据 select 值更新问题</title>
-      <link>https://pylixm.top/posts/2015-11-01-django-form.html</link>
-      <pubDate>Sun, 01 Nov 2015 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2015-11-01-django-form.html</guid>
-      <description>Q &amp;amp; A： 今天在项目中遇到一个问题，有个django增删改查的模板页面,其中的编辑页面使用自定的form来构建的显示内容。表单的数据是从数据库</description>
-    </item>
-    
-    <item>
-      <title>Django学习笔记-模型(1)模型的定义</title>
-      <link>https://pylixm.top/posts/2015-11-01-django-model-one.html</link>
-      <pubDate>Sun, 01 Nov 2015 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2015-11-01-django-model-one.html</guid>
-      <description>Django也遵循了MVC的分层原则，不过在做法上略有不同。首先模型部分保持不变：Django的模型增只负责把数据传入传出数据库。然而Dja</description>
     </item>
     
   </channel>

@@ -4,34 +4,62 @@
   
   <url>
     <loc>https://pylixm.top/categories/</loc>
-    <lastmod>2021-02-20T00:00:00+00:00</lastmod>
+    <lastmod>2021-03-09T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://pylixm.top/</loc>
-    <lastmod>2021-02-20T00:00:00+00:00</lastmod>
+    <lastmod>2021-03-09T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://pylixm.top/tags/goreplay/</loc>
-    <lastmod>2021-02-20T00:00:00+00:00</lastmod>
+    <loc>https://pylixm.top/tags/Docker/</loc>
+    <lastmod>2021-03-09T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://pylixm.top/tags/Kubernetes/</loc>
+    <lastmod>2021-03-09T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://pylixm.top/categories/Kubernetes/</loc>
+    <lastmod>2021-03-09T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://pylixm.top/posts/2021-03-09-k8s-command.html</loc>
+    <lastmod>2021-03-09T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://pylixm.top/posts/</loc>
-    <lastmod>2021-02-20T00:00:00+00:00</lastmod>
+    <lastmod>2021-03-09T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://pylixm.top/tags/</loc>
+    <lastmod>2021-03-09T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://pylixm.top/tags/goreplay/</loc>
     <lastmod>2021-02-20T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -241,22 +269,29 @@
   </url>
   
   <url>
+    <loc>https://pylixm.top/tags/FastApi/</loc>
+    <lastmod>2021-01-05T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://pylixm.top/categories/FastApi/</loc>
+    <lastmod>2021-01-05T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://pylixm.top/posts/2021-01-05-start.html</loc>
+    <lastmod>2021-01-05T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://pylixm.top/posts/2020-12-29-go-from-python-flow.html</loc>
     <lastmod>2020-12-29T00:00:00+00:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://pylixm.top/tags/Kubernetes/</loc>
-    <lastmod>2020-12-25T00:00:00+00:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://pylixm.top/categories/Kubernetes/</loc>
-    <lastmod>2020-12-25T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -481,13 +516,6 @@
   <url>
     <loc>https://pylixm.top/posts/2020-09-17-hmac-sha256-base64.html</loc>
     <lastmod>2020-09-17T00:00:00+00:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://pylixm.top/tags/Docker/</loc>
-    <lastmod>2020-09-03T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -2553,12 +2581,6 @@
   <url>
     <loc>https://pylixm.top/posts/2015-11-01-Mysql-install.html</loc>
     <lastmod>2015-11-01T00:00:00+00:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://pylixm.top/1/01/FastApi-start/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>

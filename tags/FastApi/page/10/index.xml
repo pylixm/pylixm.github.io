@@ -11,6 +11,69 @@
     
     
     <item>
+      <title>Django uwsgi 启动问题 ImportError No module named os</title>
+      <link>https://pylixm.top/posts/2015-11-23-django-uwsgi.html</link>
+      <pubDate>Mon, 23 Nov 2015 16:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2015-11-23-django-uwsgi.html</guid>
+      <description>Q &amp;amp; A： 今天在搭建测试环境时遇到问题，如下 *** WARNING: you are running uWSGI without its master process manager *** your processes number limit is 65535 your memory page size is 4096 bytes detected max file descriptor number: 65536 lock engine: pthread robust mutexes thunder lock: disabled (you can enable it with --thunder-lock) uwsgi socket 0 bound</description>
+    </item>
+    
+    <item>
+      <title>Django学习笔记-模板</title>
+      <link>https://pylixm.top/posts/2015-11-15-django-template.html</link>
+      <pubDate>Sun, 15 Nov 2015 16:30:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2015-11-15-django-template.html</guid>
+      <description>语法 变量 双括号 判断 使用大括号+% if xx xx else xx endif ifequal athlete.name coach.name xx else xx endifequal for athlete in athlete_list xx endfor for key, value in data.items endfor 循环中使用的变量 forloop.counter 总是一个表示当前循环的执行次数的整数计数</description>
+    </item>
+    
+    <item>
+      <title>Django学习笔记-url、视图</title>
+      <link>https://pylixm.top/posts/2015-11-15-django-views.html</link>
+      <pubDate>Sun, 15 Nov 2015 16:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2015-11-15-django-views.html</guid>
+      <description>路由(URL) Django中有个指定url和视图函数的 urlconf 文件，组成如下： 一个打头的前缀字符串，可以为空。 一个或多个由正则表达式字符串匹配一个</description>
+    </item>
+    
+    <item>
+      <title>Django学习笔记-模型(2)模型的操作</title>
+      <link>https://pylixm.top/posts/2015-11-13-django-model-two.html</link>
+      <pubDate>Fri, 13 Nov 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2015-11-13-django-model-two.html</guid>
+      <description>二、模型的操作（QuerySets） 1、模型操作基础 常用接口方法 all(): 返回一个包含模式里所有数据记录的结果集queryset filter():返</description>
+    </item>
+    
+    <item>
+      <title>Django restful framework 文档</title>
+      <link>https://pylixm.top/posts/2015-11-01-django-restfull-framework.html</link>
+      <pubDate>Sun, 01 Nov 2015 18:25:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2015-11-01-django-restfull-framework.html</guid>
+      <description>前几天看到有博文记录的 django-rest-framework的翻译文档。最近正需要，反而找不到了。现记录如下，备查： RESTful API 设计指南 中文译文</description>
+    </item>
+    
+    <item>
+      <title>django form表单的数据 select 值更新问题</title>
+      <link>https://pylixm.top/posts/2015-11-01-django-form.html</link>
+      <pubDate>Sun, 01 Nov 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2015-11-01-django-form.html</guid>
+      <description>Q &amp;amp; A： 今天在项目中遇到一个问题，有个django增删改查的模板页面,其中的编辑页面使用自定的form来构建的显示内容。表单的数据是从数据库</description>
+    </item>
+    
+    <item>
+      <title>Django学习笔记-模型(1)模型的定义</title>
+      <link>https://pylixm.top/posts/2015-11-01-django-model-one.html</link>
+      <pubDate>Sun, 01 Nov 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2015-11-01-django-model-one.html</guid>
+      <description>Django也遵循了MVC的分层原则，不过在做法上略有不同。首先模型部分保持不变：Django的模型增只负责把数据传入传出数据库。然而Dja</description>
+    </item>
+    
+    <item>
       <title>Git使用学习笔记</title>
       <link>https://pylixm.top/posts/2015-11-01-git.html</link>
       <pubDate>Sun, 01 Nov 2015 00:00:00 +0000</pubDate>
@@ -34,13 +97,10 @@
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://pylixm.top/resume/</guid>
-      <description>个人信息  吴秀民/男/1988 本科/临沂大学/计算机科学与计算 工作年限：7年 技术博客：https://pylixm.cc/ Github：https://github.com/pylixm 期望职位：运维高级开发工程师/高级开发工程师 期望薪资: 年薪50w，特别喜欢的公司可例外 期望城市：北京  联系方式  手机/微信：18612410531 Email：pyli.xm@gmail.com QQ：20894205  技能清单 技术方面
- 熟练掌握Python开发，熟悉Golang/java的开发； 善于使用django 框架开发web系统，可个人负责开发业务复杂的前后端系统功能。熟悉flask 、tornado 、bottle等python web 框架； 熟练掌握SaltStack等运维自动化工具，阅读过SaltStack的部分源码； 熟练掌握Git/Svn等版本管理工具和工作流程； 熟悉vue.js生态，可开发业务复杂的前后端分离项目； 熟悉MySQL/PostgreSQL等数据库，Redis/Memcached/MongoDB等NOSQL； 熟悉Docker、K8S等容器技术； 熟悉ELK、KafKa等大数据组件； 熟悉LVS, Nginx等4、7层负载均衡技术； 熟悉TCP/IP，HTTP，Restful等互联网相关技术标准； 熟悉Linux下的自动化系统运维和开发的生态知识； 熟悉SAE/阿里云/微博开放平台/微信小程序； 了解互联网产品的生命周期和发展过程、开发团队管理和项目管理、应用发布和版本控制，具有良好的文档能力； 良好的自我驱动能力和时间管理，积极参与并贡献开源项目；  管理方面
- 规划项目长期目标和短期目标 技术选型，方案设计，模块和功能设计 定期项目总结，向下管理，向上汇报  工作经历 新浪微博 （ 2018年4月 ~ 今 ） 主要负责自动化运维平台的研发工作和视频通讯等业务线的运维工作。主要参与项目如下：
-微博自动化管理系统项目 「微博自动化管理系统项目」作为微博研发平台的底层自动化运维平台，提供了上线发布、监控预警、任务处理、流量切换、自动扩缩容和服务管理等功能。其间做了如下重点工作：
- 作为主程参与开发了系统的DNS切换模块。针对老版本的域名切换做了用户体验的优化，缩短了操作路径，提高了操作效率。 作为主程为该项目首次引入vue.js框架，搭建了移动端的开发脚手架，并完成了该系统监控预警、上线发布和流量切换等模块的移动端的开发。 推动业务产品线接入运维系统，包括Java技术栈、Golang技术栈、Python技术栈的工程项目的接入，编写接入系统流程需要的各种任务处理脚本。  主要技术或软件关键字：Golang、Python、vue.js、mysql、redis、shell、Docker、Graphit、Grafana、EKL、Search Guard、K8S、kafka
-业务端的保障系统 该系统面向业务人员，将自动化系统做进一步的包装，实现RBAC的权限控制模型，将运维系统的部分功能直接开发给业务线。期间主要做了如下工作：
- 搭建开发脚手架，前端使用Vue生态搭建，后端使用Beego实现。 独立实现了RBAC模型的权限控制，实现菜单基于角色的动态加载。 实现CMDB、代码发布的功能模块的移动化前端实现。  主要技术或软件关键字：Golang、vue.</description>
+      <description>个人信息  吴秀民/男/1988 本科/临沂大学/计算机科学与技术 工作年限：8年 技术博客：https://pylixm.cc/ Github：https://github.com/pylixm 期望职位：运维高级开发工程师/高级开发工程师 期望薪资: 年薪50w，特别喜欢的公司可例外 期望城市：北京  联系方式  手机/微信：18612410531 Email：pyli.xm@gmail.com QQ：20894205  技能清单 技术方面
+ 熟练掌握Python开发，熟悉Golang/java的开发； 善于使用django 框架开发web系统，可个人负责开发业务复杂的前后端系统功能。熟悉flask 、tornado 、bottle等python web 框架； 熟练掌握SaltStack等运维自动化工具，阅读过SaltStack的部分源码； 熟练掌握Git/Svn等版本管理工具和工作流程； 熟悉vue.js生态，可开发业务复杂的前后端分离项目； 熟悉MySQL/PostgreSQL等数据库，Redis/Memcached/MongoDB等NOSQL； 熟悉Docker、K8S等容器技术； 熟悉ELK、KafKa等大数据组件； 熟悉LVS, Nginx等4、7层负载均衡技术； 熟悉TCP/IP，HTTP，Restful等互联网相关技术标准； 熟悉Linux下的自动化系统运维和开发的生态知识； 熟悉阿里云/腾讯云/华为云/微博开放平台/微信小程序； 了解互联网产品的生命周期和发展过程、开发团队管理和项目管理、应用发布和版本控制，具有良好的文档能力； 良好的自我驱动能力和时间管理，积极参与并贡献开源项目；  管理方面
+ 规划项目长期目标和短期目标 技术选型，方案设计，模块和功能设计 定期项目总结，向下管理，向上汇报  工作经历 新浪微博 （ 2018年4月 ~ 今 ） 就职新浪微博SRE团队，主要负责自动化运维平台的研发工作和视频通讯等业务线的运维工作。主要参与项目如下：
+   项目名称 角色 描述     微博自动化运维平台 运维底层管理通道 运维侧的管理系统，包括资产管理、CIDI、监控报警等，为上层服务提供底层通道   配置管理系统 配置文件和脚本的管理系统 主要为手动和自动管理脚本和7层LB配置，提供系统功能服务   业务保障系统 业务侧的自动化平台 包括资产管理、利用率管理、CICD的上层封装调用   日志存储系统 日志级别排障管理 收集保存了业务从7层到上传服务的链路日志，方便排查问题   业务日常保障 日常保障 业务报警处理和新业务接入自动化运维体系    重点项目 微博自动化运维平台项目 「微博自动化运维平台项目」作为微博研发平台的底层自动化运维平台，提供了上线发布、监控预警、任务处理、流量切换、自动扩缩容和服务管理等功能。其间做了如下重点工作：</description>
     </item>
     
     <item>

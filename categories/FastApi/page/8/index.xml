@@ -11,6 +11,69 @@
     
     
     <item>
+      <title>Django 最佳实践-读书笔记 - 第十三章 模板最佳实践</title>
+      <link>https://pylixm.top/posts/2016-07-02-best.practices.for.django.1.8.3rd-chapter-10.html</link>
+      <pubDate>Sat, 02 Jul 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-07-02-best.practices.for.django.1.8.3rd-chapter-10.html</guid>
+      <description>其他章节索引页 笔记以要点形式展开，如有疑问欢迎留言！ 第十三章 模板最佳实践 django 的模板的局限性，限制了我们将复杂的逻辑放在了 python 端，这何尝不是一件好</description>
+    </item>
+    
+    <item>
+      <title>Django 最佳实践-读书笔记 - 第十一章、第十二章 Form</title>
+      <link>https://pylixm.top/posts/2016-06-26-best.practices.for.django.1.8.3rd-chapter-9.html</link>
+      <pubDate>Sun, 26 Jun 2016 20:16:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-06-26-best.practices.for.django.1.8.3rd-chapter-9.html</guid>
+      <description>其他章节索引页 第十一章 Form 所有录入的数据使用form 来进行校验 面对复杂多变的需求，我们自行校验是比较困难的。将校验集中在form层，利用这久经</description>
+    </item>
+    
+    <item>
+      <title>Django 最佳实践-读书笔记 - 第八、九、十章 FBVS &amp; CBVS</title>
+      <link>https://pylixm.top/posts/2016-06-19-best.practices.for.django.1.8.3rd-chapter-8.html</link>
+      <pubDate>Sun, 19 Jun 2016 22:30:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-06-19-best.practices.for.django.1.8.3rd-chapter-8.html</guid>
+      <description>其他章节索引页 第八章 FBVS &amp;amp; CBVS 如何选择 function - views 和 class - views 见流程图： urlconf 中不要包含 views 的逻辑 Bad example : from django.conf.urls import url from django.views.generic import DetailView from tastings.models import Tasting urlpatterns = [ url(r&amp;quot;^(?P&amp;lt;pk&amp;gt;\d+)/$&amp;quot;, DetailView.as_view( model=Tasting, template_name=&amp;quot;tastings/detail.html&amp;quot;), name=&amp;quot;detail&amp;quot;), url(r&amp;quot;^(?P&amp;lt;pk&amp;gt;\d+)/results/$&amp;quot;, DetailView.as_view( model=Tasting, template_name=&amp;quot;tastings/results.html&amp;quot;), name=&amp;quot;results&amp;quot;), ] 优点</description>
+    </item>
+    
+    <item>
+      <title>Django 最佳实践-读书笔记 - 第七章 查询与数据库层</title>
+      <link>https://pylixm.top/posts/2016-06-19-best.practices.for.django.1.8.3rd-chapter-7.html</link>
+      <pubDate>Sun, 19 Jun 2016 22:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-06-19-best.practices.for.django.1.8.3rd-chapter-7.html</guid>
+      <description>其他章节索引页 第七章 查询与数据库层 查询单个对象时，使用 get_object_or_404() 注意，此函数仅在你的 views 中使用。切勿在 helper functions, forms, model methods or anything that is not a view or directly view related 使用。 在可能报错</description>
+    </item>
+    
+    <item>
+      <title>使用 pyenv &#43; virtualenv 打造多版本python开发环境</title>
+      <link>https://pylixm.top/posts/2016-06-19-virtualenv-install.html</link>
+      <pubDate>Sun, 19 Jun 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-06-19-virtualenv-install.html</guid>
+      <description>配置环境： CentOS release 6.8 pyenv 20160509 在工作开发中，一直使用 virtualenv 来管理python的包环境。很好的解决了不同项目使用不同python包的需求。对于多python</description>
+    </item>
+    
+    <item>
+      <title>mongodb 3.2 用户权限管理配置</title>
+      <link>https://pylixm.top/posts/2016-06-03-Mongodb-user-admin.html</link>
+      <pubDate>Fri, 03 Jun 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-06-03-Mongodb-user-admin.html</guid>
+      <description>使用mongodb 有段时间了，由于是在内网使用，便没有设置权限，一直是裸奔。 最近有时间，研究了下mongodb 3.2 的用户权限配置，网上有许多用</description>
+    </item>
+    
+    <item>
+      <title>Django 最佳实践-读书笔记 - 第一章 代码规范</title>
+      <link>https://pylixm.top/posts/2016-05-22-best.practices.for.django.1.8.3rd-chapter-1.html</link>
+      <pubDate>Sun, 22 May 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-05-22-best.practices.for.django.1.8.3rd-chapter-1.html</guid>
+      <description>其他章节索引页 核心理念 Keep It Simple, Stupid Fat Models, Utility Modules, Thin Views, Stupid Templates Start With Django by Default Be Familiar with Django&amp;rsquo;s Design Philosophies The Twelve-Factor App 第一章 代码规范 常规： 变量名，避免缩写 写出你的函数参数名 编写类和方法</description>
+    </item>
+    
+    <item>
       <title>Django 最佳实践-读书笔记 - 第三章 如何布局 django 项目</title>
       <link>https://pylixm.top/posts/2016-05-22-best.practices.for.django.1.8.3rd-chapter-3.html</link>
       <pubDate>Sun, 22 May 2016 00:00:00 +0000</pubDate>
@@ -143,69 +206,6 @@
       
       <guid>https://pylixm.top/posts/2016-03-10-salt-returner.html</guid>
       <description>SaltStack 2014.7之前, Minion端的执行结果想存储在外部系统中, 通过使用Returners，我们可以将返回结果存放到我们指定的存储系统中，但</description>
-    </item>
-    
-    <item>
-      <title>python的MySQLdb模块 连接 mysql 错误</title>
-      <link>https://pylixm.top/posts/2016-03-08-Mysql-python.html</link>
-      <pubDate>Tue, 08 Mar 2016 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2016-03-08-Mysql-python.html</guid>
-      <description>Q &amp;amp; A： 今天在使用python直接链接数据库时报错 _mysql_exceptions.OperationalError: (2002, &amp;quot;Can&#39;t connect to local MySQL server through socket &#39;/var/lib/mysql/mysql.sock&#39; (2)&amp;quot;) 代码： db = MySQLdb.connect(host=&#39;localhost&#39;, port=3306, user=&#39;root&#39;, passwd=&#39;root&#39;, db=&#39;mydb&#39;) 错误： Traceback (most recent call last): File &amp;quot;./data_db.py&amp;quot;, line 5, in &amp;lt; module&amp;gt; db=&#39;mydb&#39;) File &amp;quot;/usr/local/env/lib/python2.7/site-packages/MySQLdb/__init__.py&amp;quot;, line 81, in Connect File</description>
-    </item>
-    
-    <item>
-      <title>「译」使用 celery 时的 3 个坑</title>
-      <link>https://pylixm.top/posts/2016-03-08-celery-gotchas.html</link>
-      <pubDate>Tue, 08 Mar 2016 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2016-03-08-celery-gotchas.html</guid>
-      <description>原文地址：https://wiredcraft.com/blog/3-gotchas-for-celery Celery is our go-to task manager when working with Python. It is feature rich, stable, fast and</description>
-    </item>
-    
-    <item>
-      <title>Linux基础系列 - curl 命令详解</title>
-      <link>https://pylixm.top/posts/2016-03-07-Curl.html</link>
-      <pubDate>Mon, 07 Mar 2016 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2016-03-07-Curl.html</guid>
-      <description>对于windows用户如果用Cygwin模拟unix环境的话，里面没有带curl命令，要自己装，所以建议用Gow来模拟，它已经自带了curl</description>
-    </item>
-    
-    <item>
-      <title>2015总结，2016计划</title>
-      <link>https://pylixm.top/posts/2016-02-22-summary.html</link>
-      <pubDate>Mon, 22 Feb 2016 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2016-02-22-summary.html</guid>
-      <description>2015年算是自己的互联网元年。 正式进入互联网行业，虽然是偏运维，但是自己学的python能继续用得上，也是找到了除了web的一条新方向。 2015</description>
-    </item>
-    
-    <item>
-      <title>django 相关命令总结</title>
-      <link>https://pylixm.top/posts/2016-01-29-django-cmd.html</link>
-      <pubDate>Fri, 29 Jan 2016 18:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2016-01-29-django-cmd.html</guid>
-      <description>django 常用命令 创建一个web站点： django-admin.py startproject mysite 创建apps： python manage.py startapp blog 数据库模板检测： python manage.py validate 生成数据库表创建语句： python manage.py sqlall books（app名字） 创建数据</description>
-    </item>
-    
-    <item>
-      <title>rabbitmq 安装配置记录</title>
-      <link>https://pylixm.top/posts/2016-01-19-Rabbitmq-install.html</link>
-      <pubDate>Tue, 19 Jan 2016 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2016-01-19-Rabbitmq-install.html</guid>
-      <description>最近做系统迁移，搭建环境时遇到了rabbitmq的搭建。在此记录，备查。 环境： centos 6.5 官方centos安装文档：http://www.rabbi</description>
-    </item>
-    
-    <item>
-      <title>使用 supervisor 来监控 django celery</title>
-      <link>https://pylixm.top/posts/2016-01-19-django-supervisor-celery.html</link>
-      <pubDate>Tue, 19 Jan 2016 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2016-01-19-django-supervisor-celery.html</guid>
-      <description>之前启动celery时，使用nohup 方式启动。这种方式是不安全的，今天使者使用supervisor来管理监控celery，记录如下，备查。</description>
     </item>
     
   </channel>

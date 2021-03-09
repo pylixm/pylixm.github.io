@@ -5,10 +5,28 @@
     <link>https://pylixm.top/tags/Docker/</link>
     <description>Recent content in Docker on DeanWu</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Thu, 03 Sep 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 09 Mar 2021 00:00:00 +0000</lastBuildDate>
     
         <atom:link href="https://pylixm.top/tags/Docker/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Django 最佳实践-读书笔记 - 第十三章 模板最佳实践</title>
+      <link>https://pylixm.top/posts/2016-07-02-best.practices.for.django.1.8.3rd-chapter-10.html</link>
+      <pubDate>Sat, 02 Jul 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-07-02-best.practices.for.django.1.8.3rd-chapter-10.html</guid>
+      <description>其他章节索引页 笔记以要点形式展开，如有疑问欢迎留言！ 第十三章 模板最佳实践 django 的模板的局限性，限制了我们将复杂的逻辑放在了 python 端，这何尝不是一件好</description>
+    </item>
+    
+    <item>
+      <title>Django 最佳实践-读书笔记 - 第十一章、第十二章 Form</title>
+      <link>https://pylixm.top/posts/2016-06-26-best.practices.for.django.1.8.3rd-chapter-9.html</link>
+      <pubDate>Sun, 26 Jun 2016 20:16:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-06-26-best.practices.for.django.1.8.3rd-chapter-9.html</guid>
+      <description>其他章节索引页 第十一章 Form 所有录入的数据使用form 来进行校验 面对复杂多变的需求，我们自行校验是比较困难的。将校验集中在form层，利用这久经</description>
+    </item>
     
     <item>
       <title>Django 最佳实践-读书笔记 - 第八、九、十章 FBVS &amp; CBVS</title>
@@ -188,24 +206,6 @@
       
       <guid>https://pylixm.top/posts/2016-03-10-salt-returner.html</guid>
       <description>SaltStack 2014.7之前, Minion端的执行结果想存储在外部系统中, 通过使用Returners，我们可以将返回结果存放到我们指定的存储系统中，但</description>
-    </item>
-    
-    <item>
-      <title>python的MySQLdb模块 连接 mysql 错误</title>
-      <link>https://pylixm.top/posts/2016-03-08-Mysql-python.html</link>
-      <pubDate>Tue, 08 Mar 2016 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2016-03-08-Mysql-python.html</guid>
-      <description>Q &amp;amp; A： 今天在使用python直接链接数据库时报错 _mysql_exceptions.OperationalError: (2002, &amp;quot;Can&#39;t connect to local MySQL server through socket &#39;/var/lib/mysql/mysql.sock&#39; (2)&amp;quot;) 代码： db = MySQLdb.connect(host=&#39;localhost&#39;, port=3306, user=&#39;root&#39;, passwd=&#39;root&#39;, db=&#39;mydb&#39;) 错误： Traceback (most recent call last): File &amp;quot;./data_db.py&amp;quot;, line 5, in &amp;lt; module&amp;gt; db=&#39;mydb&#39;) File &amp;quot;/usr/local/env/lib/python2.7/site-packages/MySQLdb/__init__.py&amp;quot;, line 81, in Connect File</description>
-    </item>
-    
-    <item>
-      <title>「译」使用 celery 时的 3 个坑</title>
-      <link>https://pylixm.top/posts/2016-03-08-celery-gotchas.html</link>
-      <pubDate>Tue, 08 Mar 2016 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2016-03-08-celery-gotchas.html</guid>
-      <description>原文地址：https://wiredcraft.com/blog/3-gotchas-for-celery Celery is our go-to task manager when working with Python. It is feature rich, stable, fast and</description>
     </item>
     
   </channel>

@@ -11,6 +11,24 @@
     
     
     <item>
+      <title>python的MySQLdb模块 连接 mysql 错误</title>
+      <link>https://pylixm.top/posts/2016-03-08-Mysql-python.html</link>
+      <pubDate>Tue, 08 Mar 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-03-08-Mysql-python.html</guid>
+      <description>Q &amp;amp; A： 今天在使用python直接链接数据库时报错 _mysql_exceptions.OperationalError: (2002, &amp;quot;Can&#39;t connect to local MySQL server through socket &#39;/var/lib/mysql/mysql.sock&#39; (2)&amp;quot;) 代码： db = MySQLdb.connect(host=&#39;localhost&#39;, port=3306, user=&#39;root&#39;, passwd=&#39;root&#39;, db=&#39;mydb&#39;) 错误： Traceback (most recent call last): File &amp;quot;./data_db.py&amp;quot;, line 5, in &amp;lt; module&amp;gt; db=&#39;mydb&#39;) File &amp;quot;/usr/local/env/lib/python2.7/site-packages/MySQLdb/__init__.py&amp;quot;, line 81, in Connect File</description>
+    </item>
+    
+    <item>
+      <title>「译」使用 celery 时的 3 个坑</title>
+      <link>https://pylixm.top/posts/2016-03-08-celery-gotchas.html</link>
+      <pubDate>Tue, 08 Mar 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-03-08-celery-gotchas.html</guid>
+      <description>原文地址：https://wiredcraft.com/blog/3-gotchas-for-celery Celery is our go-to task manager when working with Python. It is feature rich, stable, fast and</description>
+    </item>
+    
+    <item>
       <title>Linux基础系列 - curl 命令详解</title>
       <link>https://pylixm.top/posts/2016-03-07-Curl.html</link>
       <pubDate>Mon, 07 Mar 2016 00:00:00 +0000</pubDate>
@@ -170,24 +188,6 @@
       
       <guid>https://pylixm.top/posts/2015-11-27-Javascript.html</guid>
       <description>积累记录了一些js常用的操作，备查： 1、判断json数据是否还有某个key //方法一： obj[&amp;#34;key&amp;#34;] != undefined //这种有缺陷，如果这个key定义了，并且就是很</description>
-    </item>
-    
-    <item>
-      <title>Django uwsgi 启动问题 ImportError No module named os</title>
-      <link>https://pylixm.top/posts/2015-11-23-django-uwsgi.html</link>
-      <pubDate>Mon, 23 Nov 2015 16:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2015-11-23-django-uwsgi.html</guid>
-      <description>Q &amp;amp; A： 今天在搭建测试环境时遇到问题，如下 *** WARNING: you are running uWSGI without its master process manager *** your processes number limit is 65535 your memory page size is 4096 bytes detected max file descriptor number: 65536 lock engine: pthread robust mutexes thunder lock: disabled (you can enable it with --thunder-lock) uwsgi socket 0 bound</description>
-    </item>
-    
-    <item>
-      <title>Django学习笔记-模板</title>
-      <link>https://pylixm.top/posts/2015-11-15-django-template.html</link>
-      <pubDate>Sun, 15 Nov 2015 16:30:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2015-11-15-django-template.html</guid>
-      <description>语法 变量 双括号 判断 使用大括号+% if xx xx else xx endif ifequal athlete.name coach.name xx else xx endifequal for athlete in athlete_list xx endfor for key, value in data.items endfor 循环中使用的变量 forloop.counter 总是一个表示当前循环的执行次数的整数计数</description>
     </item>
     
   </channel>

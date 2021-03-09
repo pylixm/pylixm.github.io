@@ -11,6 +11,69 @@
     
     
     <item>
+      <title>Linux基础系列 - jq</title>
+      <link>https://pylixm.top/posts/2018-06-26-Linux-jq.html</link>
+      <pubDate>Tue, 26 Jun 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2018-06-26-Linux-jq.html</guid>
+      <description>介绍 jq 是linux下的一个解析JSON格式字符串的一个命令行工具。可直接使用 yum install jq 来安装。 jq - commandline JSON processor [version 1.5] Usage: jq [options] &amp;lt;jq filter&amp;gt; [file...] jq is a tool for processing JSON inputs, applying the given filter</description>
+    </item>
+    
+    <item>
+      <title>架构师之路 - RPC 理解</title>
+      <link>https://pylixm.top/posts/2018-06-25-chief-software-architect-rpc.html</link>
+      <pubDate>Mon, 25 Jun 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2018-06-25-chief-software-architect-rpc.html</guid>
+      <description>本文是阅读老钱的《深入理解RPC:基于Python自建分布式高并发RPC服务》的笔记及摘录。 最早了解到的系统之间交互有Web service，</description>
+    </item>
+    
+    <item>
+      <title>Flask 目录结构分析</title>
+      <link>https://pylixm.top/posts/2018-06-04-flask-base.html</link>
+      <pubDate>Mon, 04 Jun 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2018-06-04-flask-base.html</guid>
+      <description>到目前为止，Flask 最新版本为1.0.3，我们来以此版本做分析，以便可以快速回忆各组件关系。 基本使用，可参阅官方文档，已非常详尽。 我们知道</description>
+    </item>
+    
+    <item>
+      <title>Docker 知识大全</title>
+      <link>https://pylixm.top/posts/2018-05-31-docker-all.html</link>
+      <pubDate>Thu, 31 May 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2018-05-31-docker-all.html</guid>
+      <description>原文地址：https://blog.opskumu.com/docker.html 本文对原文进行了更新和补充，转载备查。 一、Docker 简介</description>
+    </item>
+    
+    <item>
+      <title>如何整理个人资料</title>
+      <link>https://pylixm.top/posts/2018-05-02-How-to-arrange-note.html</link>
+      <pubDate>Wed, 02 May 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2018-05-02-How-to-arrange-note.html</guid>
+      <description>在现如今信息爆炸的时代，资料整理的方法显得越来越重要。好的资料整理方法可以让收集的资料发挥出它应有的价值，否则便和没有收集无异。 在平时工作学</description>
+    </item>
+    
+    <item>
+      <title>「Go语言学习笔记五」- Golang 语法进阶</title>
+      <link>https://pylixm.top/posts/2018-04-26-go-advance.html</link>
+      <pubDate>Thu, 26 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2018-04-26-go-advance.html</guid>
+      <description>编码 Go 原生支持UTF-8, 可直接打印非ASCII码字符。 package main import &amp;#34;fmt&amp;#34; func main() { fmt.Printf(&amp;#34;Hello, world or 你好，世界 or καλημ ́ρα κóσμ or こんにちはせかい\n&amp;#3</description>
+    </item>
+    
+    <item>
+      <title>Linux基础系列 - 命令ssh-keygen</title>
+      <link>https://pylixm.top/posts/2018-04-24-Linux-ssh-keygen.html</link>
+      <pubDate>Tue, 24 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2018-04-24-Linux-ssh-keygen.html</guid>
+      <description>内容来自网络，由pylixm整理。 命令介绍 ssh-keygen 生成、管理和转换认证密钥，包括 RSA 和 DSA 两种密钥。 参数如下： -a trials 在使用 -T 对 DH-GEX 候选素数进行安全筛选时需</description>
+    </item>
+    
+    <item>
       <title>Linux基础系列 - 命令ps</title>
       <link>https://pylixm.top/posts/2018-04-23-Linux-ps.html</link>
       <pubDate>Mon, 23 Apr 2018 00:00:00 +0000</pubDate>
@@ -125,69 +188,6 @@
       
       <guid>https://pylixm.top/posts/2017-10-29-docker-use_in_pycharm.html</guid>
       <description>update：2018-05-31 本文针对 Pycharm2017.3。 最近在学习docker，作为一个pycharm重度使用者，很想知道怎么</description>
-    </item>
-    
-    <item>
-      <title>转-【SaltStack源码分析任】务处理机制</title>
-      <link>https://pylixm.top/posts/2017-09-01-salt-pub-sub.html</link>
-      <pubDate>Fri, 01 Sep 2017 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2017-09-01-salt-pub-sub.html</guid>
-      <description>原文地址：http://jackywu.github.io/articles/saltstack%E6%BA%90%E7%A0%81%E5%</description>
-    </item>
-    
-    <item>
-      <title>SQLAlchemy 数据库链接池问题排查记录</title>
-      <link>https://pylixm.top/posts/2017-08-29-tornado-sqlalchemy.html</link>
-      <pubDate>Tue, 29 Aug 2017 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2017-08-29-tornado-sqlalchemy.html</guid>
-      <description>环境 web框架：tornado 4.4.2 ORM： SQLAlchemy 1.2.0b1 DB: MySQL 5.7 问题描述 我们的项目为tornado 开发的API服务，使用SQLALchemy 作为ORM与数</description>
-    </item>
-    
-    <item>
-      <title>10 Best Practices for Better RESTful API</title>
-      <link>https://pylixm.top/posts/2017-08-26-Restfull-Api-Best-Practice.html</link>
-      <pubDate>Sat, 26 Aug 2017 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2017-08-26-Restfull-Api-Best-Practice.html</guid>
-      <description>Web APIs has become an very important topic in the last year. We at M-Way Solutions are working every day with different backend systems and therefore we know about the importance of a clean API design. Typically we use a RESTful design for our web APIs. The concept of REST is to separate the API structure into logical resources. There are used the HTTP methods GET, DELETE, POST and PUT</description>
-    </item>
-    
-    <item>
-      <title>Docker学习笔记（二）--简单使用,搭建python开发环境</title>
-      <link>https://pylixm.top/posts/2017-08-26-docker-use.html</link>
-      <pubDate>Sat, 26 Aug 2017 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2017-08-26-docker-use.html</guid>
-      <description>安装 docker 安装现在已非常简单，具体可参考官方文档. 安装成功后可以使用以下命令检测： $ docker --version Docker version 17.06.2-ce, build cec0b72 更换镜像源 因 Docker 官方仓库地址在国外，速度比较慢。</description>
-    </item>
-    
-    <item>
-      <title>Docker学习笔记（一）--基础知识</title>
-      <link>https://pylixm.top/posts/2017-08-25-docker-basis.html</link>
-      <pubDate>Fri, 25 Aug 2017 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2017-08-25-docker-basis.html</guid>
-      <description>最近几年Docker容器技术已经渗透到各技术领域，在自动化运维领域更胜，因为它对于代码的部署上可以说是革命性的。下面是我学习Docker，记</description>
-    </item>
-    
-    <item>
-      <title>自动化运维系列-前言</title>
-      <link>https://pylixm.top/posts/2017-07-08-devops-index.html</link>
-      <pubDate>Sat, 08 Jul 2017 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2017-07-08-devops-index.html</guid>
-      <description>自动化运维系列之前言 此系列的由来 笔者在自动化运维这个领域工作已2年有余，多参与这个领域的某些环节系统的开发，并没有完整的参与过自动化运维每个</description>
-    </item>
-    
-    <item>
-      <title>自动化运维系列-资产管理系统CMDB</title>
-      <link>https://pylixm.top/posts/2017-07-08-devops-cmdb.html</link>
-      <pubDate>Sat, 08 Jul 2017 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2017-07-08-devops-cmdb.html</guid>
-      <description>自动化运维系列之CMDB CMDB 系统介绍 cmdb 翻译过来是 Configuration Management Database, 即配置管理数据库。从字面意思理解，大家很容易理解即为系统或软件的配置文件或参数的管理。其</description>
     </item>
     
   </channel>

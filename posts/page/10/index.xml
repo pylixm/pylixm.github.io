@@ -5,10 +5,28 @@
     <link>https://pylixm.top/posts/</link>
     <description>Recent content in Posts on DeanWu</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sat, 20 Feb 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 09 Mar 2021 00:00:00 +0000</lastBuildDate>
     
         <atom:link href="https://pylixm.top/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Django uwsgi 启动问题 ImportError No module named os</title>
+      <link>https://pylixm.top/posts/2015-11-23-django-uwsgi.html</link>
+      <pubDate>Mon, 23 Nov 2015 16:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2015-11-23-django-uwsgi.html</guid>
+      <description>Q &amp;amp; A： 今天在搭建测试环境时遇到问题，如下 *** WARNING: you are running uWSGI without its master process manager *** your processes number limit is 65535 your memory page size is 4096 bytes detected max file descriptor number: 65536 lock engine: pthread robust mutexes thunder lock: disabled (you can enable it with --thunder-lock) uwsgi socket 0 bound</description>
+    </item>
+    
+    <item>
+      <title>Django学习笔记-模板</title>
+      <link>https://pylixm.top/posts/2015-11-15-django-template.html</link>
+      <pubDate>Sun, 15 Nov 2015 16:30:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2015-11-15-django-template.html</guid>
+      <description>语法 变量 双括号 判断 使用大括号+% if xx xx else xx endif ifequal athlete.name coach.name xx else xx endifequal for athlete in athlete_list xx endfor for key, value in data.items endfor 循环中使用的变量 forloop.counter 总是一个表示当前循环的执行次数的整数计数</description>
+    </item>
     
     <item>
       <title>Django学习笔记-url、视图</title>
@@ -71,15 +89,6 @@
       
       <guid>https://pylixm.top/posts/2015-11-01-Mysql-install.html</guid>
       <description>下载MySQL Community Server 5.6.13 解压MySQL压缩包 将以下载的MySQL压缩包解压到自定义目录下,我的解压目录是: &amp;ldquo;D:\Program Files\MySQL\mysql-5.6.13-win32&amp;rdquo; 将解压目录下默认文件 my-default.ini 拷贝一份，改</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>https://pylixm.top/1/01/FastApi-start/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/1/01/FastApi-start/</guid>
-      <description>大家好，今天我分享的主题是Python技术栈中一个新崛起的框架FastApi。我们可以用它来快速的构建具有「异步」特性的RestAPI和we</description>
     </item>
     
     <item>

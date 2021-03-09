@@ -11,6 +11,69 @@
     
     
     <item>
+      <title>「Python Tips」- 命名元祖（namedtuple）使用指南</title>
+      <link>https://pylixm.top/posts/2020-10-18-namedtuple.html</link>
+      <pubDate>Sun, 18 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2020-10-18-namedtuple.html</guid>
+      <description>原文地址：https://miguendes.me/everything-you-need-to-know-about-pythons-na</description>
+    </item>
+    
+    <item>
+      <title>谈谈前后端分离中的跨域问题</title>
+      <link>https://pylixm.top/posts/2020-10-13-cross-origin.html</link>
+      <pubDate>Tue, 13 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2020-10-13-cross-origin.html</guid>
+      <description>在前后端分离开发过程中常常出现下面这样的错误提示： Access to XMLHttpRequest at &#39;http://127.0.0.1:8000/apis/users/login/&#39; from origin &#39;http://127.0.0.1:8080&#39; has been blocked by CORS policy: Response to preflight request doesn&#39;t pass access control check: No &#39;Access-Control-Allow-Origin&#39; header is present on the requested resource. HelloWorld.vue?18db:50 err Error: Network Error at createError (createError.js?16d0:16) at XMLHttpRequest.handleError (xhr.js?ec6c:91) 看到</description>
+    </item>
+    
+    <item>
+      <title>「编程实例」各语言Hmac-SHA256的base64编码的实现方式</title>
+      <link>https://pylixm.top/posts/2020-09-17-hmac-sha256-base64.html</link>
+      <pubDate>Thu, 17 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2020-09-17-hmac-sha256-base64.html</guid>
+      <description>实例来源网络，语言版本可能略有差异，请验证后使用。 Javascript HMAC SHA256 &amp;lt;script src=&amp;#34;http://crypto-js.googlecode.com/svn/tags/3.0.2/build/rollups/hmac-sha256.js&amp;#34;&amp;gt;&amp;lt;/script&amp;gt; &amp;lt;script src=&amp;#34;http://crypto-js.googlecode.com/svn/tags/3.0.2/build/components/enc-base64-min.js&amp;#34;&amp;gt;&amp;lt;/script&amp;gt; &amp;lt;script&amp;gt; var hash = CryptoJS.HmacSHA256(&amp;#34;Message&amp;#34;, &amp;#34;secret&amp;#34;); var hashInBase64 = CryptoJS.enc.Base64.stringify(hash); document.write(hashInBase64); &amp;lt;/script&amp;gt; PHP HMAC SHA256 $s = hash_hmac(&amp;#39;sha256&amp;#39;, &amp;#39;Message&amp;#39;, &amp;#39;secret&amp;#39;, true); echo base64_encode($s); Java HMAC SHA256 Dependent on Apache Commons Codec to encode in base64. import javax.crypto.Mac; import</description>
+    </item>
+    
+    <item>
+      <title>Kubernetes 学习笔记 - 问题记录</title>
+      <link>https://pylixm.top/posts/2020-09-03-k8s-issu.html</link>
+      <pubDate>Thu, 03 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2020-09-03-k8s-issu.html</guid>
+      <description>本篇为k8s学习笔记问题记录。基础概念和搭建可参考之前文章 Kubernetes 学习笔记-基础篇 和 Kubernetes 学习笔记-集群搭建篇(二进制方式)。 问题汇总 上文记录了我搭建</description>
+    </item>
+    
+    <item>
+      <title>Kubernetes 学习笔记-集群搭建篇(二进制方式)</title>
+      <link>https://pylixm.top/posts/2020-09-01-k8s-build.html</link>
+      <pubDate>Tue, 01 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2020-09-01-k8s-build.html</guid>
+      <description>本篇记录我集群搭建的过程和问题，目标是可以根据本篇文章搭建自己生产可用的K8S集群。对于K8S的一些概念理解，可参考我之前的笔记Kubern</description>
+    </item>
+    
+    <item>
+      <title>Kubernetes 学习笔记-基础篇</title>
+      <link>https://pylixm.top/posts/2020-08-20-k8s-base.html</link>
+      <pubDate>Thu, 20 Aug 2020 22:26:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2020-08-20-k8s-base.html</guid>
+      <description>Kubernetes 学习笔记，是个人学习记录文章，主要内容为摘录、总结和自己实践的记录，希望能帮助到和我一样正在学习的朋友。作为学习笔记，难免有理解不到位的地</description>
+    </item>
+    
+    <item>
+      <title>「Go模块」- time</title>
+      <link>https://pylixm.top/posts/2020-08-17-go-basic-time.html</link>
+      <pubDate>Mon, 17 Aug 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2020-08-17-go-basic-time.html</guid>
+      <description>time 当前时间 time.Now() 把时间格式化成字符串(time-&amp;gt;string) : time.Now().Format(&amp;ldquo;2006-01-02 15:04:05&amp;rdquo;) 把日期字符串转化为时间(string -&amp;gt; time) : time.Parse(&amp;ldquo;01-02-2006&amp;rdquo;, &amp;ldquo;06-17-2013&amp;rdquo;) 把纳秒转化为时间字符串</description>
+    </item>
+    
+    <item>
       <title>「译」Kubernetes新手入门指南</title>
       <link>https://pylixm.top/posts/2020-08-11-k8s-start.html</link>
       <pubDate>Tue, 11 Aug 2020 22:26:00 +0000</pubDate>
@@ -125,69 +188,6 @@
       
       <guid>https://pylixm.top/posts/2020-05-18-python-concurrent-feature.html</guid>
       <description>原文地址：https://rednafi.github.io/digressions/python/2020/04/21/python-co</description>
-    </item>
-    
-    <item>
-      <title>「朝花夕拾」- 0515期，总第三期</title>
-      <link>https://pylixm.top/posts/2020-05-15-zhxs-0515.html</link>
-      <pubDate>Fri, 15 May 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2020-05-15-zhxs-0515.html</guid>
-      <description>「朝花夕拾」总目录 资讯 5月13日，Python3.8.3 发布 文章 Victor Stinner （python指导委员会，cpython核心维护之一）和 Julien Danjou（</description>
-    </item>
-    
-    <item>
-      <title>「朝花夕拾」- 0508期，总第二期</title>
-      <link>https://pylixm.top/posts/2020-05-08-zhxs-0508.html</link>
-      <pubDate>Fri, 08 May 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2020-05-08-zhxs-0508.html</guid>
-      <description>「朝花夕拾」总目录 资讯 5月4日，Python的issue追踪准备迁移到Github，正在招聘项目经理 5月5日，2019年Python开发者报</description>
-    </item>
-    
-    <item>
-      <title>「朝花夕拾」- 0501期，总第一期</title>
-      <link>https://pylixm.top/posts/2020-04-30-zhxs-0501.html</link>
-      <pubDate>Thu, 30 Apr 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2020-04-30-zhxs-0501.html</guid>
-      <description>「朝花夕拾」总目录 Python 资讯 4月20日，Python2 的最后一个版本2.7.18发布。 4月28日，Python 3.9.0a6发布。 文章 数值类型在</description>
-    </item>
-    
-    <item>
-      <title>「朝花夕拾」- 总目录</title>
-      <link>https://pylixm.top/posts/2020-04-30-zhxs-index.html</link>
-      <pubDate>Thu, 30 Apr 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2020-04-30-zhxs-index.html</guid>
-      <description>我把过去一周看到的文章、资源等优秀的信息收集起来备查，希望形成有一定参考价值的资料库。同时分享给大家，希望有帮助，每「周五」发布。因为是个人</description>
-    </item>
-    
-    <item>
-      <title>Kafka 使用总结</title>
-      <link>https://pylixm.top/posts/2020-04-14-kafka.html</link>
-      <pubDate>Tue, 14 Apr 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2020-04-14-kafka.html</guid>
-      <description>Kafka 简介 历史 消息代理，狭义的讲它是一种按照某专递协议进行消息传递的架构模式。常用来解决系统之间的耦合、异步任务调用和瞬时流量的应对问题。随着互</description>
-    </item>
-    
-    <item>
-      <title>数据结构与算法 - 算法 - 二分查找</title>
-      <link>https://pylixm.top/posts/2020-01-02-binary-search.html</link>
-      <pubDate>Thu, 02 Jan 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2020-01-02-binary-search.html</guid>
-      <description>《数据结构与算法-王争》学习笔记，记录备查 二分查找 二分查找针对的是一个有序的数据集合，查找思想有点类似分治思想。每次都通过跟区间的中间元素对</description>
-    </item>
-    
-    <item>
-      <title>数据结构与算法 - 算法 - 排序优化</title>
-      <link>https://pylixm.top/posts/2020-01-01-sort-optimization.html</link>
-      <pubDate>Wed, 01 Jan 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2020-01-01-sort-optimization.html</guid>
-      <description>《数据结构与算法-王争》学习笔记，记录备查 各排序算法情况： 快速排序的优化 快速排序，时间复杂度在 O(nlogn) 和 O(n^2)之间。在极坏的情况的，时间复杂</description>
     </item>
     
   </channel>

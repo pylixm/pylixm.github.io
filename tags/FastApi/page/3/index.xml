@@ -11,6 +11,69 @@
     
     
     <item>
+      <title>「朝花夕拾」- 0515期，总第三期</title>
+      <link>https://pylixm.top/posts/2020-05-15-zhxs-0515.html</link>
+      <pubDate>Fri, 15 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2020-05-15-zhxs-0515.html</guid>
+      <description>「朝花夕拾」总目录 资讯 5月13日，Python3.8.3 发布 文章 Victor Stinner （python指导委员会，cpython核心维护之一）和 Julien Danjou（</description>
+    </item>
+    
+    <item>
+      <title>「朝花夕拾」- 0508期，总第二期</title>
+      <link>https://pylixm.top/posts/2020-05-08-zhxs-0508.html</link>
+      <pubDate>Fri, 08 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2020-05-08-zhxs-0508.html</guid>
+      <description>「朝花夕拾」总目录 资讯 5月4日，Python的issue追踪准备迁移到Github，正在招聘项目经理 5月5日，2019年Python开发者报</description>
+    </item>
+    
+    <item>
+      <title>「朝花夕拾」- 0501期，总第一期</title>
+      <link>https://pylixm.top/posts/2020-04-30-zhxs-0501.html</link>
+      <pubDate>Thu, 30 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2020-04-30-zhxs-0501.html</guid>
+      <description>「朝花夕拾」总目录 Python 资讯 4月20日，Python2 的最后一个版本2.7.18发布。 4月28日，Python 3.9.0a6发布。 文章 数值类型在</description>
+    </item>
+    
+    <item>
+      <title>「朝花夕拾」- 总目录</title>
+      <link>https://pylixm.top/posts/2020-04-30-zhxs-index.html</link>
+      <pubDate>Thu, 30 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2020-04-30-zhxs-index.html</guid>
+      <description>我把过去一周看到的文章、资源等优秀的信息收集起来备查，希望形成有一定参考价值的资料库。同时分享给大家，希望有帮助，每「周五」发布。因为是个人</description>
+    </item>
+    
+    <item>
+      <title>Kafka 使用总结</title>
+      <link>https://pylixm.top/posts/2020-04-14-kafka.html</link>
+      <pubDate>Tue, 14 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2020-04-14-kafka.html</guid>
+      <description>Kafka 简介 历史 消息代理，狭义的讲它是一种按照某专递协议进行消息传递的架构模式。常用来解决系统之间的耦合、异步任务调用和瞬时流量的应对问题。随着互</description>
+    </item>
+    
+    <item>
+      <title>数据结构与算法 - 算法 - 二分查找</title>
+      <link>https://pylixm.top/posts/2020-01-02-binary-search.html</link>
+      <pubDate>Thu, 02 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2020-01-02-binary-search.html</guid>
+      <description>《数据结构与算法-王争》学习笔记，记录备查 二分查找 二分查找针对的是一个有序的数据集合，查找思想有点类似分治思想。每次都通过跟区间的中间元素对</description>
+    </item>
+    
+    <item>
+      <title>数据结构与算法 - 算法 - 排序优化</title>
+      <link>https://pylixm.top/posts/2020-01-01-sort-optimization.html</link>
+      <pubDate>Wed, 01 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2020-01-01-sort-optimization.html</guid>
+      <description>《数据结构与算法-王争》学习笔记，记录备查 各排序算法情况： 快速排序的优化 快速排序，时间复杂度在 O(nlogn) 和 O(n^2)之间。在极坏的情况的，时间复杂</description>
+    </item>
+    
+    <item>
       <title>Zookeeper 入门</title>
       <link>https://pylixm.top/posts/2019-12-31-zookeeper.html</link>
       <pubDate>Tue, 31 Dec 2019 00:00:00 +0000</pubDate>
@@ -125,69 +188,6 @@
       
       <guid>https://pylixm.top/posts/2019-12-12-django-3.0.html</guid>
       <description>上周Django官方正式发布了Django 3.0版本，其中最重要的更新莫过于对ASGI的支持。今天对Django 3.0的异步功能做了简单的试</description>
-    </item>
-    
-    <item>
-      <title>Puppet 简单入门 - 安装篇</title>
-      <link>https://pylixm.top/posts/2019-11-26-Puppet-tutorial-two.html</link>
-      <pubDate>Tue, 26 Nov 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2019-11-26-Puppet-tutorial-two.html</guid>
-      <description>上一篇「译」Puppet 简单入门 - 理论篇文章我们分享了 Puppet的基本工作原理和基本概念，这篇文章我们来看下如何具体的安装。 Puppet有</description>
-    </item>
-    
-    <item>
-      <title>译-Apache Traffic server 管理员手册(未完待续)</title>
-      <link>https://pylixm.top/posts/2019-11-21-ats-admin-docs.html</link>
-      <pubDate>Thu, 21 Nov 2019 20:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2019-11-21-ats-admin-docs.html</guid>
-      <description>Apache Traffic Server（ATS或TS）是一个高性能的、模块化的 HTTP 代理和缓存服务器。Traffic Server 最初是 Inktomi 公司的商业产品，该公司在 2003 年被 Yahoo 收购，之</description>
-    </item>
-    
-    <item>
-      <title>Python中的类属性和实例属性</title>
-      <link>https://pylixm.top/posts/2019-11-06-python-class-attribute.html</link>
-      <pubDate>Wed, 06 Nov 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2019-11-06-python-class-attribute.html</guid>
-      <description>问题 今天在项目中遇到了个奇怪的问题，实例的一个时间属性并没有根据时间变化而变化，分析之后恍然大悟，总结下分享给大家。大家先看一段代码： import datetime import</description>
-    </item>
-    
-    <item>
-      <title>Python中的类属性和实例属性-补充篇</title>
-      <link>https://pylixm.top/posts/2019-11-06-python-class-attribute-2.html</link>
-      <pubDate>Wed, 06 Nov 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2019-11-06-python-class-attribute-2.html</guid>
-      <description>上篇文章Python中的类属性和实例属性，我们探讨了类属性和实例属性引发的一个小坑。总结了类属性和实例属性的区别如下： 类属性可以被类和实例调</description>
-    </item>
-    
-    <item>
-      <title>现在是否适合升级到Python3.8</title>
-      <link>https://pylixm.top/posts/2019-11-05-up-python-or-not.html</link>
-      <pubDate>Tue, 05 Nov 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2019-11-05-up-python-or-not.html</guid>
-      <description>大家好，我又回来了，这一个多月来除了工作，闲暇时间做了些sideproject，以后会和大家分享。现在有些时间了，是时候重新打理下自己的公众</description>
-    </item>
-    
-    <item>
-      <title>资料库</title>
-      <link>https://pylixm.top/resource/</link>
-      <pubDate>Mon, 04 Nov 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/resource/</guid>
-      <description>英语 程序员工作中常见的英语词汇 人人都能用英语-李笑来 大前端类 Javascript 资源：Airbnb javascript编码规范 Fluter 资源：Fluter样式模板 电子</description>
-    </item>
-    
-    <item>
-      <title>数据结构与算法 - 复杂度分析</title>
-      <link>https://pylixm.top/posts/2019-09-20-complexity.html</link>
-      <pubDate>Fri, 20 Sep 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2019-09-20-complexity.html</guid>
-      <description>《数据结构与算法-王争》学习笔记，记录备查 数据结构与算法，说到底是「快」和「省」的问题。那么如何衡量快和省，这就是「复杂度分析」做的事情。 复</description>
     </item>
     
   </channel>

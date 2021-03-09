@@ -11,6 +11,69 @@
     
     
     <item>
+      <title>Kubernetes 学习笔记 - 常用命令大全</title>
+      <link>https://pylixm.top/posts/2021-03-09-k8s-command.html</link>
+      <pubDate>Tue, 09 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2021-03-09-k8s-command.html</guid>
+      <description>下边是整理收集的 kubectl 的命令大全，记录备查。 # 查看具体pods，记得后边跟namespace名字哦 kubectl get pods kubernetes-dashboard-76479d66bb-nj8wr --namespace=kube-system # 查看pods具体信息 kubectl get pods -o wide kubernetes-dashboard-76479d66bb-nj8wr --namespace=kube-system</description>
+    </item>
+    
+    <item>
+      <title>流量复制方案对比：Tcpcopy vs Goreplay</title>
+      <link>https://pylixm.top/posts/2021-02-20-tcpcopy-vs-goreplay.html</link>
+      <pubDate>Sat, 20 Feb 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2021-02-20-tcpcopy-vs-goreplay.html</guid>
+      <description>「流量复制」常常应用在准生产环境的测试中，将线上的流量复制到一个准生产环境服务中，测试新功能和服务的承压能力。流量复制可以完全模拟线上的流量</description>
+    </item>
+    
+    <item>
+      <title>2020 成长记录</title>
+      <link>https://pylixm.top/posts/2021-02-10-summary-2021.html</link>
+      <pubDate>Wed, 10 Feb 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2021-02-10-summary-2021.html</guid>
+      <description>去年并没有写年终总结，感觉流水账似的记录并没有什么实际的意义，不如直接「干」。今年不同，连续互联网行业的不景气，加之突入起来的新冠疫情，又给</description>
+    </item>
+    
+    <item>
+      <title>Ansible 快速入门</title>
+      <link>https://pylixm.top/posts/2021-02-09-ansible-start.html</link>
+      <pubDate>Tue, 09 Feb 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2021-02-09-ansible-start.html</guid>
+      <description>Ansible 是自动化运维领域一款常用的服务器集群管理工具，他有丰富的文档和活跃的社区。 与同类型的竞品开源工具SaltStack/Puppet 相比，各有</description>
+    </item>
+    
+    <item>
+      <title>实现简单的httpDNS的一种思路</title>
+      <link>https://pylixm.top/posts/2021-02-07-dns-dig.html</link>
+      <pubDate>Sun, 07 Feb 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2021-02-07-dns-dig.html</guid>
+      <description>互联网公司，基本都有针对DNS域名解析的优化处理。有些公司甚至会构建自己的智能 DNS 解析系统，来解决 LocalDNS 存在的一系列问题，如域名劫持、调用精度和实</description>
+    </item>
+    
+    <item>
+      <title>谈谈程序员的成长路径</title>
+      <link>https://pylixm.top/posts/2021-01-26-ebook-python.html</link>
+      <pubDate>Tue, 26 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2021-01-26-ebook-python.html</guid>
+      <description>程序员的成长路径，这个话题在我刚参加工作时，模糊有那么几条路可走，叫做职业发展路线可能更合适一些。过完年，自己也已工作8年之久，回想起来有少</description>
+    </item>
+    
+    <item>
+      <title>「对比Python学习Go」- 方法、函数和类</title>
+      <link>https://pylixm.top/posts/2020-12-29-go-from-python-flow.html</link>
+      <pubDate>Sun, 24 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2020-12-29-go-from-python-flow.html</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>「SRE知识总结」lo 网卡到底干什么用的</title>
       <link>https://pylixm.top/posts/2021-01-16-SRE-lo.html</link>
       <pubDate>Sat, 16 Jan 2021 00:00:00 +0000</pubDate>
@@ -125,69 +188,6 @@
       
       <guid>https://pylixm.top/posts/2020-10-21-python-string.html</guid>
       <description>文章首发公众号：CoderMrWu ，每周分享优质技术文章和经验，欢迎大家关注，共同交流。 今天看了篇文章总结了 40 种Python String 类型的常用语法</description>
-    </item>
-    
-    <item>
-      <title>「Python Tips」- 命名元祖（namedtuple）使用指南</title>
-      <link>https://pylixm.top/posts/2020-10-18-namedtuple.html</link>
-      <pubDate>Sun, 18 Oct 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2020-10-18-namedtuple.html</guid>
-      <description>原文地址：https://miguendes.me/everything-you-need-to-know-about-pythons-na</description>
-    </item>
-    
-    <item>
-      <title>谈谈前后端分离中的跨域问题</title>
-      <link>https://pylixm.top/posts/2020-10-13-cross-origin.html</link>
-      <pubDate>Tue, 13 Oct 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2020-10-13-cross-origin.html</guid>
-      <description>在前后端分离开发过程中常常出现下面这样的错误提示： Access to XMLHttpRequest at &#39;http://127.0.0.1:8000/apis/users/login/&#39; from origin &#39;http://127.0.0.1:8080&#39; has been blocked by CORS policy: Response to preflight request doesn&#39;t pass access control check: No &#39;Access-Control-Allow-Origin&#39; header is present on the requested resource. HelloWorld.vue?18db:50 err Error: Network Error at createError (createError.js?16d0:16) at XMLHttpRequest.handleError (xhr.js?ec6c:91) 看到</description>
-    </item>
-    
-    <item>
-      <title>「编程实例」各语言Hmac-SHA256的base64编码的实现方式</title>
-      <link>https://pylixm.top/posts/2020-09-17-hmac-sha256-base64.html</link>
-      <pubDate>Thu, 17 Sep 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2020-09-17-hmac-sha256-base64.html</guid>
-      <description>实例来源网络，语言版本可能略有差异，请验证后使用。 Javascript HMAC SHA256 &amp;lt;script src=&amp;#34;http://crypto-js.googlecode.com/svn/tags/3.0.2/build/rollups/hmac-sha256.js&amp;#34;&amp;gt;&amp;lt;/script&amp;gt; &amp;lt;script src=&amp;#34;http://crypto-js.googlecode.com/svn/tags/3.0.2/build/components/enc-base64-min.js&amp;#34;&amp;gt;&amp;lt;/script&amp;gt; &amp;lt;script&amp;gt; var hash = CryptoJS.HmacSHA256(&amp;#34;Message&amp;#34;, &amp;#34;secret&amp;#34;); var hashInBase64 = CryptoJS.enc.Base64.stringify(hash); document.write(hashInBase64); &amp;lt;/script&amp;gt; PHP HMAC SHA256 $s = hash_hmac(&amp;#39;sha256&amp;#39;, &amp;#39;Message&amp;#39;, &amp;#39;secret&amp;#39;, true); echo base64_encode($s); Java HMAC SHA256 Dependent on Apache Commons Codec to encode in base64. import javax.crypto.Mac; import</description>
-    </item>
-    
-    <item>
-      <title>Kubernetes 学习笔记 - 问题记录</title>
-      <link>https://pylixm.top/posts/2020-09-03-k8s-issu.html</link>
-      <pubDate>Thu, 03 Sep 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2020-09-03-k8s-issu.html</guid>
-      <description>本篇为k8s学习笔记问题记录。基础概念和搭建可参考之前文章 Kubernetes 学习笔记-基础篇 和 Kubernetes 学习笔记-集群搭建篇(二进制方式)。 问题汇总 上文记录了我搭建</description>
-    </item>
-    
-    <item>
-      <title>Kubernetes 学习笔记-集群搭建篇(二进制方式)</title>
-      <link>https://pylixm.top/posts/2020-09-01-k8s-build.html</link>
-      <pubDate>Tue, 01 Sep 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2020-09-01-k8s-build.html</guid>
-      <description>本篇记录我集群搭建的过程和问题，目标是可以根据本篇文章搭建自己生产可用的K8S集群。对于K8S的一些概念理解，可参考我之前的笔记Kubern</description>
-    </item>
-    
-    <item>
-      <title>Kubernetes 学习笔记-基础篇</title>
-      <link>https://pylixm.top/posts/2020-08-20-k8s-base.html</link>
-      <pubDate>Thu, 20 Aug 2020 22:26:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2020-08-20-k8s-base.html</guid>
-      <description>Kubernetes 学习笔记，是个人学习记录文章，主要内容为摘录、总结和自己实践的记录，希望能帮助到和我一样正在学习的朋友。作为学习笔记，难免有理解不到位的地</description>
-    </item>
-    
-    <item>
-      <title>「Go模块」- time</title>
-      <link>https://pylixm.top/posts/2020-08-17-go-basic-time.html</link>
-      <pubDate>Mon, 17 Aug 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2020-08-17-go-basic-time.html</guid>
-      <description>time 当前时间 time.Now() 把时间格式化成字符串(time-&amp;gt;string) : time.Now().Format(&amp;ldquo;2006-01-02 15:04:05&amp;rdquo;) 把日期字符串转化为时间(string -&amp;gt; time) : time.Parse(&amp;ldquo;01-02-2006&amp;rdquo;, &amp;ldquo;06-17-2013&amp;rdquo;) 把纳秒转化为时间字符串</description>
     </item>
     
   </channel>

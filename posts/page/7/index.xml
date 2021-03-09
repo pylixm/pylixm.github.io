@@ -5,10 +5,28 @@
     <link>https://pylixm.top/posts/</link>
     <description>Recent content in Posts on DeanWu</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sat, 20 Feb 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 09 Mar 2021 00:00:00 +0000</lastBuildDate>
     
         <atom:link href="https://pylixm.top/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>转-【SaltStack源码分析任】务处理机制</title>
+      <link>https://pylixm.top/posts/2017-09-01-salt-pub-sub.html</link>
+      <pubDate>Fri, 01 Sep 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2017-09-01-salt-pub-sub.html</guid>
+      <description>原文地址：http://jackywu.github.io/articles/saltstack%E6%BA%90%E7%A0%81%E5%</description>
+    </item>
+    
+    <item>
+      <title>SQLAlchemy 数据库链接池问题排查记录</title>
+      <link>https://pylixm.top/posts/2017-08-29-tornado-sqlalchemy.html</link>
+      <pubDate>Tue, 29 Aug 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2017-08-29-tornado-sqlalchemy.html</guid>
+      <description>环境 web框架：tornado 4.4.2 ORM： SQLAlchemy 1.2.0b1 DB: MySQL 5.7 问题描述 我们的项目为tornado 开发的API服务，使用SQLALchemy 作为ORM与数</description>
+    </item>
     
     <item>
       <title>10 Best Practices for Better RESTful API</title>
@@ -170,24 +188,6 @@
       
       <guid>https://pylixm.top/posts/2016-08-21-salt-plugin.html</guid>
       <description>saltstack 架构 saltstack 是基于python开发的一套 c/s架构配置管理工具。底层使用ZeraMQ消息队列的发布与订阅（pub/sub）方式通信，使用SSL证</description>
-    </item>
-    
-    <item>
-      <title>Django 最佳实践-读书笔记 - 第十三章 模板最佳实践</title>
-      <link>https://pylixm.top/posts/2016-07-02-best.practices.for.django.1.8.3rd-chapter-10.html</link>
-      <pubDate>Sat, 02 Jul 2016 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2016-07-02-best.practices.for.django.1.8.3rd-chapter-10.html</guid>
-      <description>其他章节索引页 笔记以要点形式展开，如有疑问欢迎留言！ 第十三章 模板最佳实践 django 的模板的局限性，限制了我们将复杂的逻辑放在了 python 端，这何尝不是一件好</description>
-    </item>
-    
-    <item>
-      <title>Django 最佳实践-读书笔记 - 第十一章、第十二章 Form</title>
-      <link>https://pylixm.top/posts/2016-06-26-best.practices.for.django.1.8.3rd-chapter-9.html</link>
-      <pubDate>Sun, 26 Jun 2016 20:16:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2016-06-26-best.practices.for.django.1.8.3rd-chapter-9.html</guid>
-      <description>其他章节索引页 第十一章 Form 所有录入的数据使用form 来进行校验 面对复杂多变的需求，我们自行校验是比较困难的。将校验集中在form层，利用这久经</description>
     </item>
     
   </channel>

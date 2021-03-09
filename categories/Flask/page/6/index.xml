@@ -11,6 +11,24 @@
     
     
     <item>
+      <title>Linux基础系列 - jq</title>
+      <link>https://pylixm.top/posts/2018-06-26-Linux-jq.html</link>
+      <pubDate>Tue, 26 Jun 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2018-06-26-Linux-jq.html</guid>
+      <description>介绍 jq 是linux下的一个解析JSON格式字符串的一个命令行工具。可直接使用 yum install jq 来安装。 jq - commandline JSON processor [version 1.5] Usage: jq [options] &amp;lt;jq filter&amp;gt; [file...] jq is a tool for processing JSON inputs, applying the given filter</description>
+    </item>
+    
+    <item>
+      <title>架构师之路 - RPC 理解</title>
+      <link>https://pylixm.top/posts/2018-06-25-chief-software-architect-rpc.html</link>
+      <pubDate>Mon, 25 Jun 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2018-06-25-chief-software-architect-rpc.html</guid>
+      <description>本文是阅读老钱的《深入理解RPC:基于Python自建分布式高并发RPC服务》的笔记及摘录。 最早了解到的系统之间交互有Web service，</description>
+    </item>
+    
+    <item>
       <title>Flask 目录结构分析</title>
       <link>https://pylixm.top/posts/2018-06-04-flask-base.html</link>
       <pubDate>Mon, 04 Jun 2018 00:00:00 +0000</pubDate>
@@ -170,24 +188,6 @@
       
       <guid>https://pylixm.top/posts/2017-10-29-docker-use_in_pycharm.html</guid>
       <description>update：2018-05-31 本文针对 Pycharm2017.3。 最近在学习docker，作为一个pycharm重度使用者，很想知道怎么</description>
-    </item>
-    
-    <item>
-      <title>转-【SaltStack源码分析任】务处理机制</title>
-      <link>https://pylixm.top/posts/2017-09-01-salt-pub-sub.html</link>
-      <pubDate>Fri, 01 Sep 2017 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2017-09-01-salt-pub-sub.html</guid>
-      <description>原文地址：http://jackywu.github.io/articles/saltstack%E6%BA%90%E7%A0%81%E5%</description>
-    </item>
-    
-    <item>
-      <title>SQLAlchemy 数据库链接池问题排查记录</title>
-      <link>https://pylixm.top/posts/2017-08-29-tornado-sqlalchemy.html</link>
-      <pubDate>Tue, 29 Aug 2017 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2017-08-29-tornado-sqlalchemy.html</guid>
-      <description>环境 web框架：tornado 4.4.2 ORM： SQLAlchemy 1.2.0b1 DB: MySQL 5.7 问题描述 我们的项目为tornado 开发的API服务，使用SQLALchemy 作为ORM与数</description>
     </item>
     
   </channel>
