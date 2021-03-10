@@ -11,6 +11,15 @@
     
     
     <item>
+      <title>「Go模块」译-深入理解Golang channel</title>
+      <link>https://pylixm.top/posts/2019-05-26-Go-diving-into-channel.html</link>
+      <pubDate>Sun, 26 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2019-05-26-Go-diving-into-channel.html</guid>
+      <description>原文地址：https://itnext.io/diving-into-golang-channels-e9e610d586e8 作者：Robe</description>
+    </item>
+    
+    <item>
       <title>资源分享计划第五期 0525</title>
       <link>https://pylixm.top/posts/2019-05-25-share-resource.html</link>
       <pubDate>Sat, 25 May 2019 00:00:00 +0000</pubDate>
@@ -183,15 +192,6 @@
       
       <guid>https://pylixm.top/posts/2018-09-11-nginx-uwsgi-django-deploy.html</guid>
       <description>nginx + uwsgi +django 是一种比较常见的django部署方式了，除了此种方式还有使用gunicorn来代替uwsgi的，gunicorn可以开启协程模式，有</description>
-    </item>
-    
-    <item>
-      <title>Python GIL锁的来龙去脉</title>
-      <link>https://pylixm.top/posts/2018-08-10-python-GIL.html</link>
-      <pubDate>Fri, 10 Aug 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2018-08-10-python-GIL.html</guid>
-      <description>Python中GIL锁，一直是一个不大不小的问题。下面这篇文章呢，可以说把它的来龙去脉说的简单易懂，特转载记录备忘。 作者：卢钧轶(cenal</description>
     </item>
     
   </channel>

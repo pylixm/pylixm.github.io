@@ -5,10 +5,19 @@
     <link>https://pylixm.top/tags/Django/</link>
     <description>Recent content in Django on DeanWu</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Tue, 08 Dec 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 09 Mar 2021 00:00:00 +0000</lastBuildDate>
     
         <atom:link href="https://pylixm.top/tags/Django/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>译 - 在pycharm中使用docker</title>
+      <link>https://pylixm.top/posts/2017-10-29-docker-use_in_pycharm.html</link>
+      <pubDate>Sun, 29 Oct 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2017-10-29-docker-use_in_pycharm.html</guid>
+      <description>update：2018-05-31 本文针对 Pycharm2017.3。 最近在学习docker，作为一个pycharm重度使用者，很想知道怎么</description>
+    </item>
     
     <item>
       <title>转-【SaltStack源码分析任】务处理机制</title>
@@ -179,15 +188,6 @@
       
       <guid>https://pylixm.top/posts/2016-09-04-salt-grains-pillar.html</guid>
       <description>原文地址：http://www.aikaiyuan.com/9728.html grains类似于puppet的facter！facter是用</description>
-    </item>
-    
-    <item>
-      <title>Saltstack学习笔记-组件篇</title>
-      <link>https://pylixm.top/posts/2016-08-21-salt-plugin.html</link>
-      <pubDate>Sun, 21 Aug 2016 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2016-08-21-salt-plugin.html</guid>
-      <description>saltstack 架构 saltstack 是基于python开发的一套 c/s架构配置管理工具。底层使用ZeraMQ消息队列的发布与订阅（pub/sub）方式通信，使用SSL证</description>
     </item>
     
   </channel>

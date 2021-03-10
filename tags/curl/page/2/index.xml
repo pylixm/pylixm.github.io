@@ -11,6 +11,15 @@
     
     
     <item>
+      <title>「Python Tips」- 40中常用Python string用法</title>
+      <link>https://pylixm.top/posts/2020-10-21-python-string.html</link>
+      <pubDate>Wed, 21 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2020-10-21-python-string.html</guid>
+      <description>文章首发公众号：CoderMrWu ，每周分享优质技术文章和经验，欢迎大家关注，共同交流。 今天看了篇文章总结了 40 种Python String 类型的常用语法</description>
+    </item>
+    
+    <item>
       <title>「Python Tips」- 命名元祖（namedtuple）使用指南</title>
       <link>https://pylixm.top/posts/2020-10-18-namedtuple.html</link>
       <pubDate>Sun, 18 Oct 2020 00:00:00 +0000</pubDate>
@@ -179,15 +188,6 @@
       
       <guid>https://pylixm.top/posts/2020-05-22-zhxs-0522.html</guid>
       <description>「朝花夕拾」总目录 资讯 5月19日，Python 3.9.0b1 开放下载测试。 文章 通过构建互动游戏来教孩子们学习Python。文中介绍了一款Python的游</description>
-    </item>
-    
-    <item>
-      <title>Python中一种轻松实现并发编程的方法</title>
-      <link>https://pylixm.top/posts/2020-05-18-python-concurrent-feature.html</link>
-      <pubDate>Mon, 18 May 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2020-05-18-python-concurrent-feature.html</guid>
-      <description>原文地址：https://rednafi.github.io/digressions/python/2020/04/21/python-co</description>
     </item>
     
   </channel>

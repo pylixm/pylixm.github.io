@@ -5,10 +5,19 @@
     <link>https://pylixm.top/categories/Django/</link>
     <description>Recent content in Django on DeanWu</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Tue, 08 Dec 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 09 Mar 2021 00:00:00 +0000</lastBuildDate>
     
         <atom:link href="https://pylixm.top/categories/Django/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Python GIL锁的来龙去脉</title>
+      <link>https://pylixm.top/posts/2018-08-10-python-GIL.html</link>
+      <pubDate>Fri, 10 Aug 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2018-08-10-python-GIL.html</guid>
+      <description>Python中GIL锁，一直是一个不大不小的问题。下面这篇文章呢，可以说把它的来龙去脉说的简单易懂，特转载记录备忘。 作者：卢钧轶(cenal</description>
+    </item>
     
     <item>
       <title>Linux基础系列 - jq</title>
@@ -179,15 +188,6 @@
       
       <guid>https://pylixm.top/posts/2017-11-05-postgresql-cmd.html</guid>
       <description>原文：http://www.cnblogs.com/qiyebao/p/4749146.html 服务启动 PostgreSQL 1)#service postgresql start 2)#/etc/init.d/postgresql start 3)#su – postgresql $pg_ctl start MySQL 1)#service mysqld start 2)#/etc/init.d/mysqld start 3)#safe_mysqld&amp;amp;</description>
-    </item>
-    
-    <item>
-      <title>译 - 在pycharm中使用docker</title>
-      <link>https://pylixm.top/posts/2017-10-29-docker-use_in_pycharm.html</link>
-      <pubDate>Sun, 29 Oct 2017 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2017-10-29-docker-use_in_pycharm.html</guid>
-      <description>update：2018-05-31 本文针对 Pycharm2017.3。 最近在学习docker，作为一个pycharm重度使用者，很想知道怎么</description>
     </item>
     
   </channel>

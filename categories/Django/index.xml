@@ -5,10 +5,19 @@
     <link>https://pylixm.top/categories/Django/</link>
     <description>Recent content in Django on DeanWu</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Tue, 08 Dec 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 09 Mar 2021 00:00:00 +0000</lastBuildDate>
     
         <atom:link href="https://pylixm.top/categories/Django/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Django 3.2 新功能尝鲜</title>
+      <link>https://pylixm.top/posts/2021-03-09-django-3.2.html</link>
+      <pubDate>Tue, 09 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2021-03-09-django-3.2.html</guid>
+      <description>Django 3 版本系列的 LTS（长期支持版本）马上就要在 4 月份发布，这个版本将会陪伴我们两年之久。在新版本发布前夕来提前了解下有哪些有趣的新功能，这些</description>
+    </item>
     
     <item>
       <title>Kubernetes 学习笔记 - 常用命令大全</title>
@@ -179,15 +188,6 @@
       
       <guid>https://pylixm.top/posts/2020-11-03-software-enginer-list.html</guid>
       <description>最近特别喜欢看传记经验类的文章，因为可以从中找到一些自己正在经历或即将经历的问题的答案。以史为鉴，就是这个意思。下边是一个程序员自我提醒的清</description>
-    </item>
-    
-    <item>
-      <title>「Python Tips」- 40中常用Python string用法</title>
-      <link>https://pylixm.top/posts/2020-10-21-python-string.html</link>
-      <pubDate>Wed, 21 Oct 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2020-10-21-python-string.html</guid>
-      <description>文章首发公众号：CoderMrWu ，每周分享优质技术文章和经验，欢迎大家关注，共同交流。 今天看了篇文章总结了 40 种Python String 类型的常用语法</description>
     </item>
     
   </channel>

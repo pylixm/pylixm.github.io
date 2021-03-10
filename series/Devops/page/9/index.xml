@@ -11,6 +11,15 @@
     
     
     <item>
+      <title>SaltStack学习笔记3 -- salt returner 的使用</title>
+      <link>https://pylixm.top/posts/2016-03-10-salt-returner.html</link>
+      <pubDate>Thu, 10 Mar 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-03-10-salt-returner.html</guid>
+      <description>SaltStack 2014.7之前, Minion端的执行结果想存储在外部系统中, 通过使用Returners，我们可以将返回结果存放到我们指定的存储系统中，但</description>
+    </item>
+    
+    <item>
       <title>python的MySQLdb模块 连接 mysql 错误</title>
       <link>https://pylixm.top/posts/2016-03-08-Mysql-python.html</link>
       <pubDate>Tue, 08 Mar 2016 00:00:00 +0000</pubDate>
@@ -179,15 +188,6 @@
       
       <guid>https://pylixm.top/posts/2015-11-29-vagrant.html</guid>
       <description>同事推荐了一个虚拟机管理的工具 vagrant ，查了下发现果然不错。试着装了下，看安装说明，需要装virtualbox。也是一个虚拟机软件，和VMware</description>
-    </item>
-    
-    <item>
-      <title>Javascript 使用记录</title>
-      <link>https://pylixm.top/posts/2015-11-27-Javascript.html</link>
-      <pubDate>Fri, 27 Nov 2015 13:26:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2015-11-27-Javascript.html</guid>
-      <description>积累记录了一些js常用的操作，备查： 1、判断json数据是否还有某个key //方法一： obj[&amp;#34;key&amp;#34;] != undefined //这种有缺陷，如果这个key定义了，并且就是很</description>
     </item>
     
   </channel>

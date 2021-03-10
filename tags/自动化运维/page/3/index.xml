@@ -11,6 +11,15 @@
     
     
     <item>
+      <title>Python中一种轻松实现并发编程的方法</title>
+      <link>https://pylixm.top/posts/2020-05-18-python-concurrent-feature.html</link>
+      <pubDate>Mon, 18 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2020-05-18-python-concurrent-feature.html</guid>
+      <description>原文地址：https://rednafi.github.io/digressions/python/2020/04/21/python-co</description>
+    </item>
+    
+    <item>
       <title>「朝花夕拾」- 0515期，总第三期</title>
       <link>https://pylixm.top/posts/2020-05-15-zhxs-0515.html</link>
       <pubDate>Fri, 15 May 2020 00:00:00 +0000</pubDate>
@@ -179,15 +188,6 @@
       
       <guid>https://pylixm.top/posts/2019-12-16-django-restfull-framework-performance.html</guid>
       <description>原文：https://ses4j.github.io/2015/11/23/optimizing-slow-django-rest-fram</description>
-    </item>
-    
-    <item>
-      <title>Django 3.0 异步试用分享</title>
-      <link>https://pylixm.top/posts/2019-12-12-django-3.0.html</link>
-      <pubDate>Thu, 12 Dec 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2019-12-12-django-3.0.html</guid>
-      <description>上周Django官方正式发布了Django 3.0版本，其中最重要的更新莫过于对ASGI的支持。今天对Django 3.0的异步功能做了简单的试</description>
     </item>
     
   </channel>

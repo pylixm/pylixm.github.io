@@ -5,10 +5,19 @@
     <link>https://pylixm.top/categories/Django/</link>
     <description>Recent content in Django on DeanWu</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Tue, 08 Dec 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 09 Mar 2021 00:00:00 +0000</lastBuildDate>
     
         <atom:link href="https://pylixm.top/categories/Django/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Saltstack学习笔记-组件篇</title>
+      <link>https://pylixm.top/posts/2016-08-21-salt-plugin.html</link>
+      <pubDate>Sun, 21 Aug 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-08-21-salt-plugin.html</guid>
+      <description>saltstack 架构 saltstack 是基于python开发的一套 c/s架构配置管理工具。底层使用ZeraMQ消息队列的发布与订阅（pub/sub）方式通信，使用SSL证</description>
+    </item>
     
     <item>
       <title>Django 最佳实践-读书笔记 - 第十三章 模板最佳实践</title>
@@ -197,15 +206,6 @@
       
       <guid>https://pylixm.top/posts/2016-03-24-django-class-views.html</guid>
       <description>提示：文章概念性语句比较多，建议先看 Classview 的官方文档或1.8 中文翻译文档。 之前使用 django 开发都是使用 func-view ，对Classview一直是向往的。 最近有些时</description>
-    </item>
-    
-    <item>
-      <title>SaltStack学习笔记3 -- salt returner 的使用</title>
-      <link>https://pylixm.top/posts/2016-03-10-salt-returner.html</link>
-      <pubDate>Thu, 10 Mar 2016 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2016-03-10-salt-returner.html</guid>
-      <description>SaltStack 2014.7之前, Minion端的执行结果想存储在外部系统中, 通过使用Returners，我们可以将返回结果存放到我们指定的存储系统中，但</description>
     </item>
     
   </channel>
