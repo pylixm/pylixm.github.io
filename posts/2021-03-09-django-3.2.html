@@ -39,7 +39,7 @@
 <meta itemprop="description" content="Django 3 版本系列的 LTS（长期支持版本）马上就要在 4 月份发布，这个版本将会陪伴我们两年之久。在新版本发布前夕来提前了解下有哪些有趣的新功能，这些">
 <meta itemprop="datePublished" content="2021-03-09T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2021-03-09T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="1801">
+<meta itemprop="wordCount" content="2010">
 
 
 
@@ -315,8 +315,8 @@
 	</span>
         <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="/posts/2021-03-09-django-3.2.html#comments"
             class="article-comment-link">评论</a></span>
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 1801字</span>
-		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 4分 </span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 2010字</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 5分 </span>
       </div>
     </div>
     <div class="article-entry marked-body js-toc-content" itemprop="articleBody">
@@ -456,20 +456,25 @@ Blog<span style="color:#f92672">.</span>objects<span style="color:#f92672">.</sp
 <ul>
 <li>覆盖索引，文档描述「<a href="https://docs.djangoproject.com/en/dev/ref/models/indexes/#django.db.models.Index.include" title="include is ignored for databases besides PostgreSQL.">include is ignored for databases besides PostgreSQL.</a> 」，在 mysql 数据库上使用，只会创建单字段索引，mysql 中只能使用联合索引以达到覆盖查询字段的效果。</li>
 <li>函数索引，文档描述<a href="https://docs.djangoproject.com/en/dev/ref/models/indexes/#expressions" title="Functional indexes are ignored with MySQL &lt; 8.0.13 and MariaDB as neither supports them.">Functional indexes are ignored with MySQL &lt; 8.0.13 and MariaDB as neither supports them.</a>，但我使用 8.0.17 测试仍有语法问题，期待正式版发布吧。</li>
-<li>文件上传增加新的<a href="https://docs.djangoproject.com/en/dev/ref/files/uploads/#django.core.files.uploadhandler.FileUploadHandler.upload_interrupted" title="FileUploadHandler.upload_interrupted()">FileUploadHandler.upload_interrupted()</a>信号用来通知上传中断，可以做些后续的工作。</li>
+<li>文件上传增加新的[FileUploadHandler.upload_interrupted()](<a href="https://docs.djangoproject.com/en/dev/ref/files/uploads/#django.core.files.uploadhandler.FileUploadHandler.upload_interrupted">https://docs.djangoproject.com/en/dev/ref/files/uploads/#django.core.files.uploadhandler.FileUploadHandler.upload_interrupted</a> &ldquo;FileUploadHandler.upload_interrupted( &ldquo;FileUploadHandler.upload_interrupted()&quot;)&quot;)信号用来通知上传中断，可以做些后续的工作。</li>
 <li><code>QuerySet.select_for_update()</code> 查询锁的实现，目前支持不是很好，需要的数据库版本都比较高。「Currently, the postgresql, oracle, and mysql database backends support select_for_update(). However, MariaDB 10.3+ supports only the nowait argument and MySQL 8.0.1+ supports the nowait, skip_locked, and of arguments. The no_key argument is supported only on PostgreSQL.」期待后续更新吧。</li>
 <li>PostgreSQL 9.5 的上游支持将于 2021 年 2 月结束。Django3.2 支持 PostgreSQL 9.6 及更高版本。</li>
 <li>对 MySQL 5.6 的上游支持将于 2021 年 4 月结束。Django 3.2 支持 MySQL 5.7 和更高版本。</li>
 </ul>
 <h2 id="总结">总结</h2>
 <p>总的来说 Django3.2 并没有大的更新，延续了 3.1 的很多功能，对 Model 性能和实用性方面做了不少优化，针对 postgreSQL 偏多，有些功能要求 mysql 版本都在 8.0 以上。期待的异步功能并没有更新，看来“异步 Django”的愿望实现还需要时间。</p>
-<p>上边完整代码可从github获取，地址为 <a href="https://github.com/pylixm/django_32_demo">https://github.com/pylixm/django_32_demo</a></p>
+<p>上边完整代码可从github获取，地址为 <a href="https://github.com/pylixm/django_32_demo" title="https://github.com/pylixm/django_32_demo">https://github.com/pylixm/django_32_demo</a></p>
 <p>好了，今天的分享就到这里吧，欢迎留言讨论你觉着超赞的Django新功能~</p>
 <p>我是DeanWu，一个努力成为真正SRE的人。</p>
 <blockquote>
 <p>关注公众号「码农吴先生」, 可第一时间获取最新文章。回复关键字「go」「python」获取我收集的学习资料，也可回复关键字「小二」，加我wx拉你进技术交流群，聊技术聊人生~</p>
 </blockquote>
 <p><img src="https://gitee.com/pylixm/picture/raw/master/2020-12-14/deanwu_wechat.png" alt=""></p>
+<h2 id="扩展阅读">扩展阅读</h2>
+<ul>
+<li><a href="https://www.haoyizebo.com/posts/e9b9d3be/" title="Mysql优化覆盖索引">Mysql优化覆盖索引</a></li>
+<li><a href="https://hakibenita.com/django-32-exciting-features" title="Exciting New Features in Django 3.2">Exciting New Features in Django 3.2</a></li>
+</ul>
 
     </div>
     <div class="article-footer">
