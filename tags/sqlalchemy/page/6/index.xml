@@ -1,14 +1,23 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>sqlalchemy on DeanWu</title>
-    <link>https://pylixm.top/tags/sqlalchemy/</link>
-    <description>Recent content in sqlalchemy on DeanWu</description>
+    <title>SQLAlchemy on DeanWu</title>
+    <link>https://pylixm.top/tags/SQLAlchemy/</link>
+    <description>Recent content in SQLAlchemy on DeanWu</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Tue, 29 Aug 2017 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 24 Mar 2021 00:00:00 +0000</lastBuildDate>
     
-        <atom:link href="https://pylixm.top/tags/sqlalchemy/index.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="https://pylixm.top/tags/SQLAlchemy/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>nginx&#43;uwsgi 发布django项目常遇到的问题</title>
+      <link>https://pylixm.top/posts/2018-09-11-nginx-uwsgi-django-deploy.html</link>
+      <pubDate>Tue, 11 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2018-09-11-nginx-uwsgi-django-deploy.html</guid>
+      <description>nginx + uwsgi +django 是一种比较常见的django部署方式了，除了此种方式还有使用gunicorn来代替uwsgi的，gunicorn可以开启协程模式，有</description>
+    </item>
     
     <item>
       <title>Python GIL锁的来龙去脉</title>
@@ -179,15 +188,6 @@
       
       <guid>https://pylixm.top/posts/2017-11-05-postgresql-install.html</guid>
       <description>最近工作中与数据库打交道越来越多，操作数据频繁，感觉到了许多mysql操作的不便利性。想起了几年前使用的 postgreSQL, 重新整理安装下，记录备查。 关于my</description>
-    </item>
-    
-    <item>
-      <title>postgreSQL vs MySQL 命令行对比</title>
-      <link>https://pylixm.top/posts/2017-11-05-postgresql-cmd.html</link>
-      <pubDate>Sun, 05 Nov 2017 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2017-11-05-postgresql-cmd.html</guid>
-      <description>原文：http://www.cnblogs.com/qiyebao/p/4749146.html 服务启动 PostgreSQL 1)#service postgresql start 2)#/etc/init.d/postgresql start 3)#su – postgresql $pg_ctl start MySQL 1)#service mysqld start 2)#/etc/init.d/mysqld start 3)#safe_mysqld&amp;amp;</description>
     </item>
     
   </channel>

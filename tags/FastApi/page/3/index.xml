@@ -5,10 +5,19 @@
     <link>https://pylixm.top/tags/FastApi/</link>
     <description>Recent content in FastApi on DeanWu</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Tue, 05 Jan 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 24 Mar 2021 00:00:00 +0000</lastBuildDate>
     
         <atom:link href="https://pylixm.top/tags/FastApi/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>「朝花夕拾」- 0522期，总第四期</title>
+      <link>https://pylixm.top/posts/2020-05-22-zhxs-0522.html</link>
+      <pubDate>Fri, 22 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2020-05-22-zhxs-0522.html</guid>
+      <description>「朝花夕拾」总目录 资讯 5月19日，Python 3.9.0b1 开放下载测试。 文章 通过构建互动游戏来教孩子们学习Python。文中介绍了一款Python的游</description>
+    </item>
     
     <item>
       <title>Python中一种轻松实现并发编程的方法</title>
@@ -179,15 +188,6 @@
       
       <guid>https://pylixm.top/posts/2019-12-17-array.html</guid>
       <description>《数据结构与算法-王争》学习笔记，记录备查 基本概念 数组（Array）是一种线性表数据结构。他用一组连续的内存空间，来存储一组具有相同类型的数</description>
-    </item>
-    
-    <item>
-      <title>「译」Django restful framework 性能优化</title>
-      <link>https://pylixm.top/posts/2019-12-16-django-restfull-framework-performance.html</link>
-      <pubDate>Mon, 16 Dec 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2019-12-16-django-restfull-framework-performance.html</guid>
-      <description>原文：https://ses4j.github.io/2015/11/23/optimizing-slow-django-rest-fram</description>
     </item>
     
   </channel>

@@ -11,6 +11,15 @@
     
     
     <item>
+      <title>「译」Django restful framework 性能优化</title>
+      <link>https://pylixm.top/posts/2019-12-16-django-restfull-framework-performance.html</link>
+      <pubDate>Mon, 16 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2019-12-16-django-restfull-framework-performance.html</guid>
+      <description>原文：https://ses4j.github.io/2015/11/23/optimizing-slow-django-rest-fram</description>
+    </item>
+    
+    <item>
       <title>Django 3.0 异步试用分享</title>
       <link>https://pylixm.top/posts/2019-12-12-django-3.0.html</link>
       <pubDate>Thu, 12 Dec 2019 00:00:00 +0000</pubDate>
@@ -179,15 +188,6 @@
       
       <guid>https://pylixm.top/posts/2019-06-03-Linux-rsync.html</guid>
       <description>介绍 rsync 是一个快速的、多功能的本地和远端的文件同步工具。官方网站：https://rsync.samba.org/ ，可以在上边找到使用方法和提</description>
-    </item>
-    
-    <item>
-      <title>资源分享计划第六期 0601</title>
-      <link>https://pylixm.top/posts/2019-06-01-share-resource.html</link>
-      <pubDate>Sat, 01 Jun 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2019-06-01-share-resource.html</guid>
-      <description>「资源分享计划」系列记录本周内我看到的一些好的编程学习资源及优秀的技术文章，在自己学习记录的同时，分享给大家希望对大家有帮助。 资源类 一套开源</description>
     </item>
     
   </channel>

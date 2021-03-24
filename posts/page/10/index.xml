@@ -5,10 +5,19 @@
     <link>https://pylixm.top/posts/</link>
     <description>Recent content in Posts on DeanWu</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Tue, 09 Mar 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 24 Mar 2021 00:00:00 +0000</lastBuildDate>
     
         <atom:link href="https://pylixm.top/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>vagrant、docker、virtualbox之间的区别</title>
+      <link>https://pylixm.top/posts/2015-11-29-vagrant.html</link>
+      <pubDate>Sun, 29 Nov 2015 22:22:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2015-11-29-vagrant.html</guid>
+      <description>同事推荐了一个虚拟机管理的工具 vagrant ，查了下发现果然不错。试着装了下，看安装说明，需要装virtualbox。也是一个虚拟机软件，和VMware</description>
+    </item>
     
     <item>
       <title>Javascript 使用记录</title>

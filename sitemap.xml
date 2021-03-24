@@ -4,14 +4,56 @@
   
   <url>
     <loc>https://pylixm.top/categories/</loc>
-    <lastmod>2021-03-09T00:00:00+00:00</lastmod>
+    <lastmod>2021-03-24T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://pylixm.top/</loc>
-    <lastmod>2021-03-09T00:00:00+00:00</lastmod>
+    <lastmod>2021-03-24T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://pylixm.top/tags/FastApi/</loc>
+    <lastmod>2021-03-24T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://pylixm.top/categories/FastApi/</loc>
+    <lastmod>2021-03-24T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://pylixm.top/posts/2021-03-24-fastapi-sqlalchemy.html</loc>
+    <lastmod>2021-03-24T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://pylixm.top/posts/</loc>
+    <lastmod>2021-03-24T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://pylixm.top/tags/SQLAlchemy/</loc>
+    <lastmod>2021-03-24T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://pylixm.top/tags/</loc>
+    <lastmod>2021-03-24T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -60,20 +102,6 @@
   
   <url>
     <loc>https://pylixm.top/posts/2021-03-09-k8s-command.html</loc>
-    <lastmod>2021-03-09T00:00:00+00:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://pylixm.top/posts/</loc>
-    <lastmod>2021-03-09T00:00:00+00:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://pylixm.top/tags/</loc>
     <lastmod>2021-03-09T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -285,20 +313,6 @@
   <url>
     <loc>https://pylixm.top/posts/2021-01-16-SRE-lo.html</loc>
     <lastmod>2021-01-16T00:00:00+00:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://pylixm.top/tags/FastApi/</loc>
-    <lastmod>2021-01-05T00:00:00+00:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://pylixm.top/categories/FastApi/</loc>
-    <lastmod>2021-01-05T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -1797,13 +1811,6 @@
   <url>
     <loc>https://pylixm.top/posts/2017-09-01-salt-pub-sub.html</loc>
     <lastmod>2017-09-01T00:00:00+00:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://pylixm.top/tags/sqlalchemy/</loc>
-    <lastmod>2017-08-29T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>

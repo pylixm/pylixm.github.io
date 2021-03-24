@@ -5,10 +5,19 @@
     <link>https://pylixm.top/</link>
     <description>Recent content on DeanWu</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Tue, 09 Mar 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 24 Mar 2021 00:00:00 +0000</lastBuildDate>
     
         <atom:link href="https://pylixm.top/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>软件工程师自我提醒的清单</title>
+      <link>https://pylixm.top/posts/2020-11-03-software-enginer-list.html</link>
+      <pubDate>Tue, 03 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2020-11-03-software-enginer-list.html</guid>
+      <description>最近特别喜欢看传记经验类的文章，因为可以从中找到一些自己正在经历或即将经历的问题的答案。以史为鉴，就是这个意思。下边是一个程序员自我提醒的清</description>
+    </item>
     
     <item>
       <title>「Python Tips」- 40中常用Python string用法</title>
@@ -179,15 +188,6 @@
       
       <guid>https://pylixm.top/posts/2020-05-30-zhxs-0530.html</guid>
       <description>「朝花夕拾」总目录 资讯 第一届 FlaskCon将在6月7日举行，喜欢Flask的朋友可以关注 文章 缓存使用的五种应用模式，文章列举了现在流行的缓</description>
-    </item>
-    
-    <item>
-      <title>「朝花夕拾」- 0522期，总第四期</title>
-      <link>https://pylixm.top/posts/2020-05-22-zhxs-0522.html</link>
-      <pubDate>Fri, 22 May 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2020-05-22-zhxs-0522.html</guid>
-      <description>「朝花夕拾」总目录 资讯 5月19日，Python 3.9.0b1 开放下载测试。 文章 通过构建互动游戏来教孩子们学习Python。文中介绍了一款Python的游</description>
     </item>
     
   </channel>

@@ -5,10 +5,19 @@
     <link>https://pylixm.top/tags/FastApi/</link>
     <description>Recent content in FastApi on DeanWu</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Tue, 05 Jan 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 24 Mar 2021 00:00:00 +0000</lastBuildDate>
     
         <atom:link href="https://pylixm.top/tags/FastApi/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>postgreSQL vs MySQL 命令行对比</title>
+      <link>https://pylixm.top/posts/2017-11-05-postgresql-cmd.html</link>
+      <pubDate>Sun, 05 Nov 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2017-11-05-postgresql-cmd.html</guid>
+      <description>原文：http://www.cnblogs.com/qiyebao/p/4749146.html 服务启动 PostgreSQL 1)#service postgresql start 2)#/etc/init.d/postgresql start 3)#su – postgresql $pg_ctl start MySQL 1)#service mysqld start 2)#/etc/init.d/mysqld start 3)#safe_mysqld&amp;amp;</description>
+    </item>
     
     <item>
       <title>译 - 在pycharm中使用docker</title>
@@ -179,15 +188,6 @@
       
       <guid>https://pylixm.top/posts/2016-11-16-vue-first.html</guid>
       <description>最近看了阮一峰的全站培训教材这里，感叹现如今前端发展之迅猛。 今天特尝试了下 Vue（2.0） 框架，记录如下备查。 一、基本概念 1.1 Vue Vue.js 。它提供了 MVVM</description>
-    </item>
-    
-    <item>
-      <title>转-saltstack 中Grains 与pillar的区别</title>
-      <link>https://pylixm.top/posts/2016-09-04-salt-grains-pillar.html</link>
-      <pubDate>Sun, 04 Sep 2016 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2016-09-04-salt-grains-pillar.html</guid>
-      <description>原文地址：http://www.aikaiyuan.com/9728.html grains类似于puppet的facter！facter是用</description>
     </item>
     
   </channel>

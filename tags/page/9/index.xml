@@ -5,10 +5,19 @@
     <link>https://pylixm.top/tags/</link>
     <description>Recent content in Tags on DeanWu</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Tue, 09 Mar 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 24 Mar 2021 00:00:00 +0000</lastBuildDate>
     
         <atom:link href="https://pylixm.top/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Django学习笔记- Class View</title>
+      <link>https://pylixm.top/posts/2016-03-24-django-class-views.html</link>
+      <pubDate>Thu, 24 Mar 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-03-24-django-class-views.html</guid>
+      <description>提示：文章概念性语句比较多，建议先看 Classview 的官方文档或1.8 中文翻译文档。 之前使用 django 开发都是使用 func-view ，对Classview一直是向往的。 最近有些时</description>
+    </item>
     
     <item>
       <title>SaltStack学习笔记3 -- salt returner 的使用</title>
@@ -179,15 +188,6 @@
       
       <guid>https://pylixm.top/posts/2015-11-30-Redis.html</guid>
       <description>原文地址：http://www.cnblogs.com/davidgu/p/3665589.html mongodb和memcached不是一</description>
-    </item>
-    
-    <item>
-      <title>vagrant、docker、virtualbox之间的区别</title>
-      <link>https://pylixm.top/posts/2015-11-29-vagrant.html</link>
-      <pubDate>Sun, 29 Nov 2015 22:22:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2015-11-29-vagrant.html</guid>
-      <description>同事推荐了一个虚拟机管理的工具 vagrant ，查了下发现果然不错。试着装了下，看安装说明，需要装virtualbox。也是一个虚拟机软件，和VMware</description>
     </item>
     
   </channel>

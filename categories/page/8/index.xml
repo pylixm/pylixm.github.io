@@ -5,10 +5,19 @@
     <link>https://pylixm.top/categories/</link>
     <description>Recent content in Categories on DeanWu</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Tue, 09 Mar 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 24 Mar 2021 00:00:00 +0000</lastBuildDate>
     
         <atom:link href="https://pylixm.top/categories/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>转-saltstack 中Grains 与pillar的区别</title>
+      <link>https://pylixm.top/posts/2016-09-04-salt-grains-pillar.html</link>
+      <pubDate>Sun, 04 Sep 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2016-09-04-salt-grains-pillar.html</guid>
+      <description>原文地址：http://www.aikaiyuan.com/9728.html grains类似于puppet的facter！facter是用</description>
+    </item>
     
     <item>
       <title>Saltstack学习笔记-组件篇</title>
@@ -197,15 +206,6 @@
 &lt;li&gt;集群工作方式（多服务器互备方式）&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;工作原理：多台主机一起工作，各自运行一个或几个服务，各为服务定义一个或多个备用主机，当某个主机故障时，运行在其上的服务就可以被其它主机接管&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>Django学习笔记- Class View</title>
-      <link>https://pylixm.top/posts/2016-03-24-django-class-views.html</link>
-      <pubDate>Thu, 24 Mar 2016 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2016-03-24-django-class-views.html</guid>
-      <description>提示：文章概念性语句比较多，建议先看 Classview 的官方文档或1.8 中文翻译文档。 之前使用 django 开发都是使用 func-view ，对Classview一直是向往的。 最近有些时</description>
     </item>
     
   </channel>

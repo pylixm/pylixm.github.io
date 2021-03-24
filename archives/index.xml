@@ -10,6 +10,15 @@
     
     
     <item>
+      <title>FastApi 纯 SQLAlchemy 异步试用</title>
+      <link>https://pylixm.top/posts/2021-03-24-fastapi-sqlalchemy.html</link>
+      <pubDate>Wed, 24 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2021-03-24-fastapi-sqlalchemy.html</guid>
+      <description>今天整理邮件看到 SQLAlchemy 发布了 1.4 版本，其中针对异步的相关功能完全开发了出来，包括 core 和 ORM 的异步能力。虽然文档中说异步功能还处于 alpha 阶段，API随时可能</description>
+    </item>
+    
+    <item>
       <title>Django 3.2 新功能尝鲜</title>
       <link>https://pylixm.top/posts/2021-03-09-django-3.2.html</link>
       <pubDate>Tue, 09 Mar 2021 00:00:00 +0000</pubDate>
@@ -178,15 +187,6 @@
       
       <guid>https://pylixm.top/posts/2020-11-13-django-single-file.html</guid>
       <description>今天在使用vue框架开发系统的时候，需要用到后端接口，但是接口还没有开发。便想使用最简单的方式构建一个极简的API服务，由于本人偏爱Djan</description>
-    </item>
-    
-    <item>
-      <title>软件工程师自我提醒的清单</title>
-      <link>https://pylixm.top/posts/2020-11-03-software-enginer-list.html</link>
-      <pubDate>Tue, 03 Nov 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://pylixm.top/posts/2020-11-03-software-enginer-list.html</guid>
-      <description>最近特别喜欢看传记经验类的文章，因为可以从中找到一些自己正在经历或即将经历的问题的答案。以史为鉴，就是这个意思。下边是一个程序员自我提醒的清</description>
     </item>
     
   </channel>

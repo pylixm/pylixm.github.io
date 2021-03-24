@@ -1,14 +1,23 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>sqlalchemy on DeanWu</title>
-    <link>https://pylixm.top/tags/sqlalchemy/</link>
-    <description>Recent content in sqlalchemy on DeanWu</description>
+    <title>SQLAlchemy on DeanWu</title>
+    <link>https://pylixm.top/tags/SQLAlchemy/</link>
+    <description>Recent content in SQLAlchemy on DeanWu</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Tue, 29 Aug 2017 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 24 Mar 2021 00:00:00 +0000</lastBuildDate>
     
-        <atom:link href="https://pylixm.top/tags/sqlalchemy/index.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="https://pylixm.top/tags/SQLAlchemy/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>vagrant、docker、virtualbox之间的区别</title>
+      <link>https://pylixm.top/posts/2015-11-29-vagrant.html</link>
+      <pubDate>Sun, 29 Nov 2015 22:22:00 +0000</pubDate>
+      
+      <guid>https://pylixm.top/posts/2015-11-29-vagrant.html</guid>
+      <description>同事推荐了一个虚拟机管理的工具 vagrant ，查了下发现果然不错。试着装了下，看安装说明，需要装virtualbox。也是一个虚拟机软件，和VMware</description>
+    </item>
     
     <item>
       <title>Javascript 使用记录</title>
