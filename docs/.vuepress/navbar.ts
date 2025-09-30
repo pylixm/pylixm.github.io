@@ -14,8 +14,9 @@ export const zhNavbar = defineNavbarConfig([
   {
     text: '系列笔记',
     items: [
+      // link 为文件路径
       { text: '开源资源汇总', link: '/notes/00.opensource/' },
-      { text: '自己管理', link: '/notes/01.self-manage/' },
+      { text: '自我管理', link: '/notes/01.self-manage/' },
       { text: '对比python学习go', link: '/notes/02.对比python学习go/' },
       { text: 'Git学习笔记', link: '/notes/03.Git学习笔记/' },
       { text: '数据结构与算法笔记', link: '/notes/04.数据结构与算法笔记/' },
