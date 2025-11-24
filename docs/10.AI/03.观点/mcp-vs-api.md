@@ -73,3 +73,10 @@ MCP 核心特点：
 MCP 的价值在于给 AI Agent 赋予了 “自主协作” 能力，而 API 的不可替代性在于其高效、可控的执行特性。二者不是替代关系，而是互补的 “黄金搭档”。
 开发 AI Agent 时，别盲目跟风滥用 MCP，也别固守 API 忽视灵活协作的需求 —— 根据场景选对工具，才能真正提升开发效率、优化产品体验。
 如果你也有相同的困惑，欢迎在留言区讨论~
+
+
+## 参考
+
+- https://www.ibm.com/think/topics/model-context-protocol
+- https://www.tinybird.co/blog/mcp-vs-apis-when-to-use-which-for-ai-agent-development
+- https://github.com/punkpeye/awesome-mcp-servers/blob/main/README-zh.md
