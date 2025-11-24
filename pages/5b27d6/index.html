@@ -1,0 +1,194 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="generator" content="VuePress 2.0.0-rc.24" /><meta name="theme" content="VuePress Theme Plume 1.0.0-rc.160" /><script id="check-mac-os">document.documentElement.classList.toggle('mac', /Mac|iPhone|iPod|iPad/i.test(navigator.platform))</script><script id="check-dark-mode">;(function () {const um= localStorage.getItem('vuepress-theme-appearance') || 'auto';const sm = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;const isDark = um === 'dark' || (um !== 'light' && sm);document.documentElement.dataset.theme = isDark ? 'dark' : 'light';})();</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"SaltStack学习笔记2-- salt-api安装配置(转载)","image":[""],"dateModified":"2025-09-30T08:57:49.000Z","author":[]}</script><meta property="og:url" content="https://pylixm.top/pages/5b27d6/"><meta property="og:site_name" content="底层逻辑"><meta property="og:title" content="SaltStack学习笔记2-- salt-api安装配置(转载)"><meta property="og:description" content="原文地址：http://www.xiaomastack.com/2014/11/18/salt-api/ salt-api也用了一段时间了，现在从安装、配置、使用三个方面梳理下知识。 安装 采用pip安装方便快捷，当然编译安装也很nice。 安装pip采用的编译安装的方式，版本当前最新1.5.6，下载、解压、编译、安装是不变的法则。 配置 如果遇到这样..."><meta property="og:type" content="article"><meta property="og:locale" content="zh-CN"><meta property="og:updated_time" content="2025-09-30T08:57:49.000Z"><meta property="article:tag" content="salt"><meta property="article:modified_time" content="2025-09-30T08:57:49.000Z"><link rel="icon" type="image/png" href="/imgs/favicon-w.ico"><title>SaltStack学习笔记2-- salt-api安装配置(转载) | 底层逻辑</title><meta name="description" content="原文地址：http://www.xiaomastack.com/2014/11/18/salt-api/ salt-api也用了一段时间了，现在从安装、配置、使用三个方面梳理下知识。 安装 采用pip安装方便快捷，当然编译安装也很nice。 安装pip采用的编译安装的方式，版本当前最新1.5.6，下载、解压、编译、安装是不变的法则。 配置 如果遇到这样..."><link rel="preload" href="/assets/style-dCCzCT1A.css" as="style"><link rel="stylesheet" href="/assets/style-dCCzCT1A.css"><link rel="modulepreload" href="/assets/app-Cpl7-wzY.js"><link rel="modulepreload" href="/assets/index.html-DunagLeN.js"></head><body><div id="app"><!--[--><!--[--><div class="theme-plume vp-layout" vp-container data-v-2c10dd76><!--[--><!--[--><!--]--><!--[--><span tabindex="-1" data-v-6416024b></span><a href="#VPContent" class="vp-skip-link visually-hidden" data-v-6416024b> Skip to content </a><!--]--><!----><header class="vp-nav" data-v-2c10dd76 data-v-96d6d60a><div class="vp-navbar" vp-navbar data-v-96d6d60a data-v-dcaadf7d><div class="wrapper" data-v-dcaadf7d><div class="container" data-v-dcaadf7d><div class="title" data-v-dcaadf7d><div class="vp-navbar-title" data-v-dcaadf7d data-v-662df57c><a class="vp-link link no-icon title" href="/" data-v-662df57c><!--[--><!--[--><!--]--><!--[--><!--[--><!--[--><img class="vp-image dark logo" style="" src="/imgs/avatar.png" alt data-v-1702acc9><!--]--><!--[--><img class="vp-image light logo" style="" src="/imgs/avatar.png" alt data-v-1702acc9><!--]--><!--]--><!--]--><span data-v-662df57c>底层逻辑</span><!--[--><!--]--><!--]--><!----></a></div></div><div class="content" data-v-dcaadf7d><div class="content-body" data-v-dcaadf7d><!--[--><!--]--><div class="vp-navbar-search search" data-v-dcaadf7d><div class="search-wrapper" data-v-81c21d94><!----><div id="local-search" data-v-81c21d94><button type="button" class="mini-search mini-search-button" aria-label="搜索文档" data-v-81c21d94><span class="mini-search-button-container"><span class="mini-search-search-icon vpi-mini-search" aria-label="search icon"></span><span class="mini-search-button-placeholder">搜索文档</span></span><span class="mini-search-button-keys"><kbd class="mini-search-button-key"></kbd><kbd class="mini-search-button-key">K</kbd></span></button></div></div></div><!--[--><!--]--><nav aria-labelledby="main-nav-aria-label" class="vp-navbar-menu menu" data-v-dcaadf7d data-v-2c99efd5><span id="main-nav-aria-label" class="visually-hidden" data-v-2c99efd5>Main Navigation</span><!--[--><!--[--><a class="vp-link link navbar-menu-link" href="/" tabindex="0" data-v-2c99efd5 data-v-0c574ab8><!--[--><!----><span data-v-0c574ab8>首页</span><!----><!--]--><!----></a><!--]--><!--[--><a class="vp-link link navbar-menu-link" href="/blog/" tabindex="0" data-v-2c99efd5 data-v-0c574ab8><!--[--><!----><span data-v-0c574ab8>博客</span><!----><!--]--><!----></a><!--]--><!--[--><a class="vp-link link navbar-menu-link" href="/blog/tags/" tabindex="0" data-v-2c99efd5 data-v-0c574ab8><!--[--><!----><span data-v-0c574ab8>标签</span><!----><!--]--><!----></a><!--]--><!--[--><a class="vp-link link navbar-menu-link" href="/blog/archives/" tabindex="0" data-v-2c99efd5 data-v-0c574ab8><!--[--><!----><span data-v-0c574ab8>归档</span><!----><!--]--><!----></a><!--]--><!--[--><div class="vp-flyout vp-navbar-menu-group" data-v-2c99efd5 data-v-969d0a76><button type="button" class="button" aria-haspopup="true" aria-expanded="false" data-v-969d0a76><span class="text" data-v-969d0a76><!----><!----><span data-v-969d0a76>系列笔记</span><!----><span class="vpi-chevron-down text-icon" data-v-969d0a76></span></span></button><div class="menu" data-v-969d0a76><div class="vp-menu" data-v-969d0a76 data-v-3b5d60b8><div class="items" data-v-3b5d60b8><!--[--><!--[--><div class="vp-menu-link" data-v-3b5d60b8 data-v-c4ee3074><a class="vp-link link" href="/opensource/" data-v-c4ee3074><!--[--><!----> 开源资源汇总 <!----><!--]--><!----></a></div><!--]--><!--[--><div class="vp-menu-link" data-v-3b5d60b8 data-v-c4ee3074><a class="vp-link link" href="/self-manage/" data-v-c4ee3074><!--[--><!----> 自我管理 <!----><!--]--><!----></a></div><!--]--><!--[--><div class="vp-menu-link" data-v-3b5d60b8 data-v-c4ee3074><a class="vp-link link" href="/compare-python-go/" data-v-c4ee3074><!--[--><!----> 对比python学习go <!----><!--]--><!----></a></div><!--]--><!--[--><div class="vp-menu-link" data-v-3b5d60b8 data-v-c4ee3074><a class="vp-link link" href="/git/" data-v-c4ee3074><!--[--><!----> Git学习笔记 <!----><!--]--><!----></a></div><!--]--><!--[--><div class="vp-menu-link" data-v-3b5d60b8 data-v-c4ee3074><a class="vp-link link" href="/data-structure-algorithm/" data-v-c4ee3074><!--[--><!----> 数据结构与算法笔记 <!----><!--]--><!----></a></div><!--]--><!--]--></div><!--[--><!--]--></div></div></div><!--]--><!--]--></nav><!--[--><!--]--><!----><div class="vp-navbar-appearance appearance" data-v-dcaadf7d data-v-dea034ba><button class="vp-switch vp-switch-appearance" type="button" role="switch" title aria-checked="false" data-v-dea034ba data-v-f62ec9d4 data-v-25fc4f56><span class="check" data-v-25fc4f56><span class="icon" data-v-25fc4f56><!--[--><span class="vpi-sun sun" data-v-f62ec9d4></span><span class="vpi-moon moon" data-v-f62ec9d4></span><!--]--></span></span></button></div><div class="vp-social-links vp-navbar-social-links social-links" data-v-dcaadf7d data-v-358cb052 data-v-57d9a233><!--[--><a class="vp-social-link no-icon" href="/" aria-label="github" target="_blank" rel="noopener" data-v-57d9a233 data-v-f269a9a9><span class="vpi-social-github" /></a><!--]--></div><div class="vp-flyout vp-navbar-extra extra" data-v-dcaadf7d data-v-b3c4c37a data-v-969d0a76><button type="button" class="button" aria-haspopup="true" aria-expanded="false" aria-label="extra navigation" data-v-969d0a76><span class="vpi-more-horizontal icon" data-v-969d0a76></span></button><div class="menu" data-v-969d0a76><div class="vp-menu" data-v-969d0a76 data-v-3b5d60b8><!----><!--[--><!--[--><!----><div class="group" data-v-b3c4c37a><div class="item appearance" data-v-b3c4c37a><p class="label" data-v-b3c4c37a>外观</p><div class="appearance-action" data-v-b3c4c37a><button class="vp-switch vp-switch-appearance" type="button" role="switch" title aria-checked="false" data-v-b3c4c37a data-v-f62ec9d4 data-v-25fc4f56><span class="check" data-v-25fc4f56><span class="icon" data-v-25fc4f56><!--[--><span class="vpi-sun sun" data-v-f62ec9d4></span><span class="vpi-moon moon" data-v-f62ec9d4></span><!--]--></span></span></button></div></div></div><div class="group" data-v-b3c4c37a><div class="item social-links" data-v-b3c4c37a><div class="vp-social-links social-links-list" data-v-b3c4c37a data-v-57d9a233><!--[--><a class="vp-social-link no-icon" href="/" aria-label="github" target="_blank" rel="noopener" data-v-57d9a233 data-v-f269a9a9><span class="vpi-social-github" /></a><!--]--></div></div></div><!--]--><!--]--></div></div></div><!--[--><!--]--><button type="button" class="vp-navbar-hamburger hamburger" aria-label="mobile navigation" aria-expanded="false" aria-controls="nav-screen" data-v-dcaadf7d data-v-ac671723><span class="container" data-v-ac671723><span class="top" data-v-ac671723></span><span class="middle" data-v-ac671723></span><span class="bottom" data-v-ac671723></span></span></button></div></div></div></div><div class="divider" data-v-dcaadf7d><div class="divider-line" data-v-dcaadf7d></div></div></div><!----></header><div class="vp-local-nav fixed reached-top is-blog" data-v-2c10dd76 data-v-9540fb79><button class="hidden menu" disabled aria-expanded="false" aria-controls="SidebarNav" data-v-9540fb79><span class="vpi-align-left menu-icon" data-v-9540fb79></span><span class="menu-text" data-v-9540fb79>Menu</span></button><div class="vp-local-nav-outline-dropdown" style="--vp-vh:0px;" data-v-9540fb79 data-v-ba082a78><button data-v-ba082a78>返回顶部</button><!----></div></div><!----><!--[--><div id="VPContent" vp-content class="vp-content" data-v-2c10dd76 data-v-1eb51fa2><div class="vp-doc-container is-blog" data-v-1eb51fa2 data-v-2f4a3604><!--[--><!--]--><div class="container" data-v-2f4a3604><!----><div class="content" data-v-2f4a3604><div class="content-container" data-v-2f4a3604><!--[--><!--]--><main class="main" data-v-2f4a3604><nav class="vp-breadcrumb" data-v-2f4a3604 data-v-fd56bd0f><ol vocab="https://schema.org/" typeof="BreadcrumbList" data-v-fd56bd0f><!--[--><li property="itemListElement" typeof="ListItem" data-v-fd56bd0f><a class="vp-link link breadcrumb" href="/" property="item" typeof="WebPage" data-v-fd56bd0f><!--[-->首页<!--]--><!----></a><span class="vpi-chevron-right" data-v-fd56bd0f></span><meta property="name" content="首页" data-v-fd56bd0f><meta property="position" content="1" data-v-fd56bd0f></li><li property="itemListElement" typeof="ListItem" data-v-fd56bd0f><a class="vp-link link breadcrumb" href="/blog/" property="item" typeof="WebPage" data-v-fd56bd0f><!--[-->博客<!--]--><!----></a><span class="vpi-chevron-right" data-v-fd56bd0f></span><meta property="name" content="博客" data-v-fd56bd0f><meta property="position" content="2" data-v-fd56bd0f></li><li property="itemListElement" typeof="ListItem" data-v-fd56bd0f><a class="vp-link link breadcrumb" href="/blog/categories/?id=8091bd" property="item" typeof="WebPage" data-v-fd56bd0f><!--[-->运维<!--]--><!----></a><span class="vpi-chevron-right" data-v-fd56bd0f></span><meta property="name" content="运维" data-v-fd56bd0f><meta property="position" content="3" data-v-fd56bd0f></li><li property="itemListElement" typeof="ListItem" data-v-fd56bd0f><a class="vp-link link breadcrumb" href="/blog/categories/?id=46d221" property="item" typeof="WebPage" data-v-fd56bd0f><!--[-->salt<!--]--><!----></a><span class="vpi-chevron-right" data-v-fd56bd0f></span><meta property="name" content="salt" data-v-fd56bd0f><meta property="position" content="4" data-v-fd56bd0f></li><li property="itemListElement" typeof="ListItem" data-v-fd56bd0f><a class="vp-link link breadcrumb current" href="/pages/5b27d6/" property="item" typeof="WebPage" data-v-fd56bd0f><!--[-->SaltStack学习笔记2-- salt-api安装配置(转载)<!--]--><!----></a><!----><meta property="name" content="SaltStack学习笔记2-- salt-api安装配置(转载)" data-v-fd56bd0f><meta property="position" content="5" data-v-fd56bd0f></li><!--]--></ol></nav><!--[--><!--]--><!--[--><h1 class="vp-doc-title page-title" data-v-b246427d><!----> SaltStack学习笔记2-- salt-api安装配置(转载) <!----></h1><div class="vp-doc-meta" data-v-b246427d><!--[--><!--]--><p class="reading-time" data-v-b246427d><span class="vpi-books icon" data-v-b246427d></span><span data-v-b246427d>约 1537 字</span><span data-v-b246427d>大约 5 分钟</span></p><p data-v-b246427d><span class="vpi-tag icon" data-v-b246427d></span><!--[--><a class="vp-link link tag vp-tag-00ad" href="/blog/tags/?tag=salt" data-v-b246427d><!--[-->salt<!--]--><!----></a><!--]--></p><!--[--><!--]--><p class="create-time" data-v-b246427d><span class="vpi-clock icon" data-v-b246427d></span><span data-v-b246427d>2023-09-08</span></p></div><!--]--><!--[--><!--]--><div class="_pages_5b27d6_ external-link-icon-enabled vp-doc plume-content" vp-content data-v-2f4a3604><!--[--><!--]--><div data-v-2f4a3604><blockquote><p>原文地址：http://www.xiaomastack.com/2014/11/18/salt-api/</p></blockquote><p>salt-api也用了一段时间了，现在从安装、配置、使用三个方面梳理下知识。</p><h2 id="安装" tabindex="-1"><a class="header-anchor" href="#安装"><span>安装</span></a></h2><p>采用pip安装方便快捷，当然编译安装也很nice。</p><p>安装pip采用的编译安装的方式，版本当前最新1.5.6，下载、解压、编译、安装是不变的法则。</p><pre><code>[root@saltstack ~]#wget https://pypi.python.org/packages/source/p/pip/pip-1.5.6.tar.gz#md5=01026f87978932060cc86c1dc527903e --no-check-certificate
+[root@saltstack ~]#tar xvfz pip-1.5.6.tar.gz
+[root@saltstack ~]#cd pip-1.5.6
+[root@saltstack pip-1.5.6]#python setup.py build
+[root@saltstack pip-1.5.6]#python setup.py install
+#安装完成后可以用pip freeze查看已安装的packages
+[root@saltstack pip-1.5.6]#pip freeze
+安装CherryPy，版本3.2.3
+
+[root@saltstack ~]#pip install cherrypy==3.2.3
+安装salt-api，版本0.8.3
+
+[root@saltstack ~]#pip install salt-api==0.8.3
+</code></pre><h2 id="配置" tabindex="-1"><a class="header-anchor" href="#配置"><span>配置</span></a></h2><pre><code>[root@saltstack ~]# cd /etc/pki/tls/certs
+[root@saltstack certs]# make testcert
+umask 77 ; \
+    /usr/bin/openssl genrsa -aes128 2048 &gt; /etc/pki/tls/private/localhost.key
+Generating RSA private key, 2048 bit long modulus
+...+++
+..................................................................+++
+e is 65537 (0x10001)
+Enter pass phrase:    #键入加密短语，4到8191个字符
+Verifying - Enter pass phrase:    #确认加密短语
+umask 77 ; \
+    /usr/bin/openssl req -utf8 -new -key /etc/pki/tls/private/localhost.key -x509 -days 365 -out /etc/pki/tls/certs/localhost.crt -set_serial 0
+Enter pass phrase for /etc/pki/tls/private/localhost.key:    #再次输入相同的加密短语
+You are about to be asked to enter information that will be incorporated
+into your certificate request.
+What you are about to enter is what is called a Distinguished Name or a DN.
+There are quite a few fields but you can leave some blank
+For some fields there will be a default value,
+If you enter &#39;.&#39;, the field will be left blank.
+-----
+Country Name (2 letter code) [XX]:CN    #都可以选填
+State or Province Name (full name) []:Shanghai
+Locality Name (eg, city) [Default City]:Shanghai
+Organization Name (eg, company) [Default Company Ltd]:
+Organizational Unit Name (eg, section) []:
+Common Name (eg, your name or your server&#39;s hostname) []:
+Email Address []:1989051805@qq.com
+[root@saltstack certs]# cd ../private/
+[root@saltstack private]# openssl rsa -in localhost.key -out localhost_nopass.key
+Enter pass phrase for localhost.key:    #输入之前的加密短语
+writing RSA key
+</code></pre><p>如果遇到这样的错误</p><pre><code>[root@saltstack certs]# make testcert
+umask 77 ; \
+    /usr/bin/openssl req -utf8 -new -key /etc/pki/tls/private/localhost.key -x509 -days 365 -out /etc/pki/tls/certs/localhost.crt -set_serial 0
+unable to load Private Key
+139696733648712:error:0906D06C:PEM routines:PEM_read_bio:no start line:pem_lib.c:703:Expecting: ANY PRIVATE KEY
+make: *** [/etc/pki/tls/certs/localhost.crt]
+</code></pre><p>删掉文件/etc/pki/tls/private/localhost.key文件，然后再make testcert。</p><p>为salt-api创建用户并设定密码，用户名没有特别要求，我就用saltapi好了。</p><pre><code>[root@saltstack ~]#useradd -M -s /sbin/nologin saltapi
+#由于是测试，故采用了弱密码&quot;password&quot;，正式环境必须采用强密码，多用特殊字符
+[root@saltstack ~]# passwd saltapi
+</code></pre><p>新增加配置文件/etc/salt/master.d/api.conf和/etc/salt/master.d/eauth.conf</p><pre><code>#该配置文件给予saltapi用户所有模块使用权限，出于安全考虑一般只给予特定模块使用权限
+[root@saltstack master.d]# cat eauth.conf
+external_auth:
+  pam:
+    saltapi:
+      - .*
+[root@saltstack master.d]#
+[root@saltstack master.d]# cat api.conf
+rest_cherrypy:
+  port: 8888
+  ssl_crt: /etc/pki/tls/certs/localhost.crt
+  ssl_key: /etc/pki/tls/private/localhost_nopass.key
+[root@saltstack master.d]#
+</code></pre><p>寻找salt-api的启动脚本，我比较懒就不自己写了,在页面https://github.com/saltstack/salt-api/releases下载salt-api的tar.gz包,启动脚本在解压包的这个位置./pkg/rpm/salt-api。</p><p>不过提供的脚本貌似有个小的bug，就是使用restart参数时，salt-api能够stop但是不能start，如下：</p><pre><code>[root@saltstack ~]# /etc/init.d/salt-api restart
+Stopping salt-api daemon:                                  [确定]
+Starting salt-api daemon:                                  [失败]
+</code></pre><p>我估计可能是有些相关资源在下次启动前没有来得及释放造成的，解决方法很简单在脚本的restart函数的stop和start之间加上sleep语句。</p><pre><code>restart() {
+   stop
+   sleep 1
+   start
+}
+</code></pre><p>然后重启就没有问题了</p><pre><code>[root@saltstack ~]# /etc/init.d/salt-api restart
+Stopping salt-api daemon:                                  [确定]
+Starting salt-api daemon:                                  [确定]
+[root@saltstack ~]#
+</code></pre><p>最后重启salt-master在启动salt-api并将salt-api加入开机启动，安装就完成了。</p><pre><code>[root@saltstack ~]# chkconfig salt-api on
+[root@saltstack ~]# /etc/init.d/salt-master restart
+Stopping salt-master daemon:                               [确定]
+Starting salt-master daemon:                               [确定]
+[root@saltstack ~]# /etc/init.d/salt-api restart
+Stopping salt-api daemon:                                  [确定]
+Starting salt-api daemon:                                  [确定]
+[root@saltstack ~]#
+</code></pre><h2 id="使用-基本的使用方法" tabindex="-1"><a class="header-anchor" href="#使用-基本的使用方法"><span>使用（基本的使用方法）</span></a></h2><p>登录获取token</p><pre><code>[root@syndic02 ~]# curl -k https://192.168.186.134:8888/login -H &quot;Accept: application/x-yaml&quot; -d username=&#39;saltapi&#39; -d password=&#39;password&#39; -d eauth=&#39;pam&#39;
+return:
+- eauth: pam
+  expire: 1416324685.2597771
+  perms:
+  - .*
+  start: 1416281485.2597761
+  token: 6171a922a9718ccb40e94ee7c8eb8768f4eea4e5
+  user: saltapi
+</code></pre><p>获取token后就可以使用token通信</p><pre><code>#相当于在salt-master本地执行salt \* test.ping
+[root@syndic02 ~]# curl -k https://192.168.186.134:8888/ -H &quot;Accept: application/x-yaml&quot; -H &quot;X-Auth-Token: 6171a922a9718ccb40e94ee7c8eb8768f4eea4e5&quot; -d client=&#39;local&#39; -d tgt=&#39;*&#39; -d fun=&#39;test.ping&#39;
+return:
+- syndic01: true
+  syndic01-minion02: true
+  syndic02: true
+  syndic02-minion02: true
+ 
+#相当于在salt-master本地执行salt \* test.echo &#39;hello world&#39;
+[root@syndic02 ~]# curl -k https://192.168.186.134:8888/ -H &quot;Accept: application/x-yaml&quot; -H &quot;X-Auth-Token: 6171a922a9718ccb40e94ee7c8eb8768f4eea4e5&quot; -d client=&#39;local&#39; -d tgt=&#39;*&#39; -d fun=&#39;test.echo&#39; -d arg=&#39;hello world&#39;
+return:
+- syndic01: hello world
+  syndic01-minion02: hello world
+  syndic02: hello world
+  syndic02-minion02: hello world
+[root@syndic02 ~]#
+</code></pre><p>运维开发这样使用还是不方便的，下面写的是一个salt-api的类(其它的文章也提到过)可以参考。</p><pre><code>#!/usr/bin/env python
+#coding=utf-8
+ 
+import urllib2, urllib, json, re
+ 
+class saltAPI:
+    def __init__(self):
+        self.__url = &#39;https://192.168.186.134:8888&#39;       #salt-api监控的地址和端口如:&#39;https://192.168.186.134:8888&#39;
+        self.__user =  &#39;saltapi&#39;             #salt-api用户名
+        self.__password = &#39;password&#39;          #salt-api用户密码
+        self.__token_id = self.salt_login()
+ 
+    def salt_login(self):
+        params = {&#39;eauth&#39;: &#39;pam&#39;, &#39;username&#39;: self.__user, &#39;password&#39;: self.__password}
+        encode = urllib.urlencode(params)
+        obj = urllib.unquote(encode)
+        headers = {&#39;X-Auth-Token&#39;:&#39;&#39;}
+        url = self.__url + &#39;/login&#39;
+        req = urllib2.Request(url, obj, headers)
+        opener = urllib2.urlopen(req)
+        content = json.loads(opener.read())
+        try:
+            token = content[&#39;return&#39;][0][&#39;token&#39;]
+            return token
+        except KeyError:
+            raise KeyError
+ 
+    def postRequest(self, obj, prefix=&#39;/&#39;):
+        url = self.__url + prefix
+        headers = {&#39;X-Auth-Token&#39;   : self.__token_id}
+        req = urllib2.Request(url, obj, headers)
+        opener = urllib2.urlopen(req)
+        content = json.loads(opener.read())
+        return content[&#39;return&#39;]
+ 
+    def saltCmd(self, params):
+        obj = urllib.urlencode(params)
+        obj, number = re.subn(&quot;arg\d&quot;, &#39;arg&#39;, obj)
+        res = self.postRequest(obj)
+        return res
+ 
+def main():
+    #以下是用来测试saltAPI类的部分
+    sapi = saltAPI()
+    params = {&#39;client&#39;:&#39;local&#39;, &#39;fun&#39;:&#39;test.ping&#39;, &#39;tgt&#39;:&#39;*&#39;}
+    #params = {&#39;client&#39;:&#39;local&#39;, &#39;fun&#39;:&#39;test.ping&#39;, &#39;tgt&#39;:&#39;某台服务器的key&#39;}
+    #params = {&#39;client&#39;:&#39;local&#39;, &#39;fun&#39;:&#39;test.echo&#39;, &#39;tgt&#39;:&#39;某台服务器的key&#39;, &#39;arg1&#39;:&#39;hello&#39;}
+    #params = {&#39;client&#39;:&#39;local&#39;, &#39;fun&#39;:&#39;test.ping&#39;, &#39;tgt&#39;:&#39;某组服务器的组名&#39;, &#39;expr_form&#39;:&#39;nodegroup&#39;}
+    test = sapi.saltCmd(params)
+    print test
+ 
+if __name__ == &#39;__main__&#39;:
+    main()
+</code></pre><p>测试效果</p><pre><code>[root@syndic02 ~]# python salt-api.py
+[{u&#39;syndic02&#39;: True, u&#39;syndic02-minion02&#39;: True, u&#39;syndic01&#39;: True, u&#39;syndic01-minion02&#39;: True}]
+[root@syndic02 ~]#
+</code></pre><p>以上只是一些基本的实例，salt-api还可以实现更多功能。</p><h2 id="_2016-5-30-update" tabindex="-1"><a class="header-anchor" href="#_2016-5-30-update"><span>2016-5-30 update：</span></a></h2><p>当前salt版本：<code>2016.3</code>，官网对salt各模块安装配置文档做了整理重拍，更加清晰明了。</p><p>前段时间试着按官方的文档搭建了下salt环境，感觉安装更简单了，下面更新下 salt-api的安装：</p><pre><code># https://docs.saltstack.com/en/latest/ref/netapi/all/salt.netapi.rest_cherrypy.html
+# 1、安装 salt-api 
+yum install salt-api 
+
+# 2、生成 https ssl 证书
+salt-call --local tls.create_self_signed_cert
+
+# 3、向master 配置文件中增加：
+rest_cherrypy:
+port: 8000
+ssl_crt: /etc/pki/tls/certs/localhost.crt
+ssl_key: /etc/pki/tls/certs/localhost.key
+
+# 4、创建salt 用户
+[root@saltstack ~]# useradd -M -s /sbin/nologin salt
+[root@saltstack ~]# passwd salt
+# 修改 master 配置信息
+external_auth:
+  pam:
+    saltapi:
+      - .*  
+# 5、增加 api 访问信息
+ rest_cherrypy:
+   port: 8888
+   ssl_crt: /etc/pki/tls/certs/localhost.crt
+   ssl_key: /etc/pki/tls/private/localhost_nopass.key
+</code></pre><p>到此，salt-api 安装配置完成。需要注意的是，有时候 yum 和 pip 使用的python 并不是一个，所以有些依赖包安装的时候，尽量统一使用一种包管理管理工具。</p></div><!----><!----><div class="vp-doc-copyright" data-v-2f4a3604><h2 id="doc-copyright" tabindex="-1" class="vp-doc-header" data-v-cee02859><a href="#doc-copyright" class="header-anchor" data-v-cee02859><span data-v-cee02859><!--[-->版权所有<!--]--></span></a></h2><div class="hint-container tip copyright-container" data-v-7c40702a><p data-v-7c40702a><span data-v-7c40702a>版权归属：</span><a class="vp-link link no-icon" href="https://github.com/pylixm" target="_blank" rel="noreferrer" data-v-7c40702a><!--[-->pylixm<!--]--><!----></a></p><!----><p data-v-7c40702a><span data-v-7c40702a>许可证：</span><a class="vp-link link no-icon" href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noreferrer" data-v-7c40702a><!--[-->署名 4.0 国际 (CC-BY-4.0)<!--]--><!----></a><!--[--><span class="vpi-license-cc" data-v-7c40702a></span><span class="vpi-license-by" data-v-7c40702a></span><!--]--></p></div></div></div></main><footer class="vp-doc-footer" data-v-2f4a3604 data-v-063fc3e9><!--[--><!--]--><!----><div class="contributors" aria-label="Contributors" data-v-063fc3e9><span class="contributors-label" data-v-063fc3e9>贡献者: </span><span class="contributors-info" data-v-063fc3e9><!--[--><!--[--><span class="contributor" data-v-063fc3e9>pylixm</span><!----><!--]--><!--]--></span></div><nav class="prev-next" data-v-063fc3e9><div class="pager" data-v-063fc3e9><a class="vp-link link pager-link prev" href="/pages/fffa52/" data-v-063fc3e9><!--[--><span class="desc" data-v-063fc3e9>上一页</span><span class="title" data-v-063fc3e9>SaltStack学习笔记3 -- salt returner 的使用</span><!--]--><!----></a></div><div class="pager" data-v-063fc3e9><a class="vp-link link pager-link next" href="/pages/262ffa/" data-v-063fc3e9><!--[--><span class="desc" data-v-063fc3e9>下一页</span><span class="title" data-v-063fc3e9>SaltStack学习笔记1-salt安装配置</span><!--]--><!----></a></div></nav></footer><div id="comment" class="giscus-wrapper input-top vp-comment" vp-comment style="display:block;" data-v-2f4a3604><div style="display: flex;align-items: center;justify-content: center;height: 96px"><span style="--loading-icon: url(&quot;data:image/svg+xml;utf8,%3Csvg xmlns=&#39;http://www.w3.org/2000/svg&#39; preserveAspectRatio=&#39;xMidYMid&#39; viewBox=&#39;25 25 50 50&#39;%3E%3CanimateTransform attributeName=&#39;transform&#39; type=&#39;rotate&#39; dur=&#39;2s&#39; keyTimes=&#39;0;1&#39; repeatCount=&#39;indefinite&#39; values=&#39;0;360&#39;%3E%3C/animateTransform%3E%3Ccircle cx=&#39;50&#39; cy=&#39;50&#39; r=&#39;20&#39; fill=&#39;none&#39; stroke=&#39;currentColor&#39; stroke-width=&#39;4&#39; stroke-linecap=&#39;round&#39;%3E%3Canimate attributeName=&#39;stroke-dasharray&#39; dur=&#39;1.5s&#39; keyTimes=&#39;0;0.5;1&#39; repeatCount=&#39;indefinite&#39; values=&#39;1,200;90,200;1,200&#39;%3E%3C/animate%3E%3Canimate attributeName=&#39;stroke-dashoffset&#39; dur=&#39;1.5s&#39; keyTimes=&#39;0;0.5;1&#39; repeatCount=&#39;indefinite&#39; values=&#39;0;-35px;-125px&#39;%3E%3C/animate%3E%3C/circle%3E%3C/svg%3E&quot;);--icon-size: 48px;display: inline-block;width: var(--icon-size);height: var(--icon-size);background-color: currentcolor;-webkit-mask-image: var(--loading-icon);mask-image: var(--loading-icon)"></span></div></div><!--[--><!--]--></div></div></div><!--[--><!--]--></div></div><!--]--><button type="button" class="vp-back-to-top" aria-label="back to top" data-v-2c10dd76 style="display:none;" data-v-d8e263c2><span class="percent" data-allow-mismatch data-v-d8e263c2>0%</span><span class="show icon vpi-back-to-top" data-v-d8e263c2></span><svg aria-hidden="true" data-v-d8e263c2><circle cx="50%" cy="50%" data-allow-mismatch style="stroke-dasharray:calc(0% - 12.566370614359172px) calc(314.1592653589793% - 12.566370614359172px);" data-v-d8e263c2></circle></svg></button><footer class="vp-footer" vp-footer data-v-2c10dd76 data-v-a0a89260><!--[--><div class="container" data-v-a0a89260><p class="message" data-v-a0a89260>Power by <a target="_blank" href="https://v2.vuepress.vuejs.org/">VuePress</a> & <a target="_blank" href="https://theme-plume.vuejs.press">vuepress-theme-plume</a></p><p class="copyright" data-v-a0a89260>CC BY-NC-SA 4.0</p></div><!--]--></footer><!--[--><!--]--><!--]--></div><!----><!--]--><!--[--><!--]--><!--]--></div><script type="module" src="/assets/app-Cpl7-wzY.js" defer></script></body></html>
