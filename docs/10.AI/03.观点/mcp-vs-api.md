@@ -2,6 +2,8 @@
 title: AI Agent 开发避坑：MCP 不是万能钥匙，API 也没被淘汰
 tags:
   - MCP
+createTime: 2025/11/10 09:25:07
+permalink: /article/7s2ff16e/
 ---
 
 在 AI Agent 开发热潮中，MCP（Model Context Protocol）凭借 “LLM 自主工具调用” 的特性迅速走红，不少开发者将其奉为 “集成神器”。但事实是，MCP 与 API 并非替代关系，盲目滥用反而会拖慢项目进度、增加成本。今天就来理清二者的核心逻辑，帮你选对合适的工具。
